@@ -17,7 +17,8 @@ import styles from './styles';
 )
 export default class Item extends Component {
   static propTypes = {
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    detail: PropTypes.bool
   };
 
   constructor(props) {
@@ -25,7 +26,7 @@ export default class Item extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, detail } = this.props;
 
     return (
       <TouchableOpacity
@@ -33,16 +34,25 @@ export default class Item extends Component {
         onPress={() => this.props.forwardTo('soDoGiuong')}
       >
         <Card style={styles.card}>
-          <Text style={styles.textNormal}>{data.time}</Text>
+          {detail && (
+            <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+              {data.address1} -> {data.address2} {data.time}
+            </Text>
+          )}
+          {!detail && <Text style={styles.textNormal}>{data.time}</Text>}
+
           <Text style={styles.textNormal}>
             Biển kiểm soát:{' '}
             <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
               {data.bks}
             </Text>
           </Text>
-          <Text style={styles.textNormal}>
-            {data.address1} -> {data.address2}
-          </Text>
+          {!detail && (
+            <Text style={styles.textNormal}>
+              {data.address1} -> {data.address2}
+            </Text>
+          )}
+
           <Text style={styles.textNormal}>
             Lái xe 1:{' '}
             <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
@@ -61,6 +71,68 @@ export default class Item extends Component {
               {data.tiepvien}
             </Text>
           </Text>
+          {detail && (
+            <View>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.textNormal}>
+                  Đã đặt:{' '}
+                  <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                    {data.dadat}
+                  </Text>
+                </Text>
+                <Text
+                  style={{
+                    ...styles.textNormal,
+                    marginLeft: material.paddingNormal
+                  }}
+                >
+                  Còn trống:{' '}
+                  <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                    {data.trong}/{data.max}
+                  </Text>
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  paddingVertical: material.paddingSmall
+                }}
+              >
+                <View style={styles.rowNote}>
+                  <View style={styles.note} />
+                  <Text
+                    style={{
+                      ...styles.textNormal,
+                      marginLeft: material.paddingSmall
+                    }}
+                  >
+                    Đã lên xe{' '}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    ...styles.rowNote,
+                    marginLeft: material.paddingNormal
+                  }}
+                >
+                  <View
+                    style={{
+                      ...styles.note,
+                      backgroundColor: material.colorRefund
+                    }}
+                  />
+                  <Text
+                    style={{
+                      ...styles.textNormal,
+                      marginLeft: material.paddingSmall
+                    }}
+                  >
+                    Đã book
+                  </Text>
+                </View>
+              </View>
+            </View>
+          )}
         </Card>
       </TouchableOpacity>
     );

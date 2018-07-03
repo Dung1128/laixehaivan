@@ -108,7 +108,7 @@ export default {
   soDoGiuong: {
     title: 'Sơ đồ giường',
     Page: SoDoGiuong,
-    headerType: 'home',
+    headerType: 'back',
     footerType: 'home',
     cache: true
   },

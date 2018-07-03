@@ -8,6 +8,7 @@ import ChieuVe from './ChieuVe';
 
 const data = [
   {
+    id: 1,
     time: '05:00 -> 05:30',
     bks: '24B00912',
     address1: 'Lương Yên',
@@ -18,6 +19,7 @@ const data = [
     type: 1
   },
   {
+    id: 2,
     time: '06:00 -> 06:30',
     bks: '24B00912',
     address1: 'Lương Yên',
@@ -28,6 +30,7 @@ const data = [
     type: 2
   },
   {
+    id: 3,
     time: '07:00 -> 07:30',
     bks: '24B00912',
     address1: 'Lương Yên',
@@ -38,6 +41,7 @@ const data = [
     type: 1
   },
   {
+    id: 4,
     time: '08:00 -> 09:30',
     bks: '24B00912',
     address1: 'Lương Yên',
@@ -48,6 +52,7 @@ const data = [
     type: 1
   },
   {
+    id: 5,
     time: '010:00 -> 11:30',
     bks: '24B00912',
     address1: 'Lương Yên',
@@ -58,6 +63,7 @@ const data = [
     type: 1
   },
   {
+    id: 6,
     time: '12:00 -> 14:30',
     bks: '24B00912',
     address1: 'Lương Yên',
