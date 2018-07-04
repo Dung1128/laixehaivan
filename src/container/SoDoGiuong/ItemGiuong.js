@@ -17,7 +17,8 @@ import styles from './styles';
 )
 export default class ItemGiuong extends Component {
   static propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    handleSoDo: PropTypes.func
   };
 
   constructor(props) {
@@ -31,12 +32,18 @@ export default class ItemGiuong extends Component {
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         {item.map(item => (
-          <View
+          <TouchableOpacity
+            onPress={() =>
+              !item.book
+                ? this.props.forwardTo('themVe')
+                : this.props.handleSoDo(item)
+            }
+            activeOpacity={0.6}
             style={{
               ...styles.itemRow,
               width: w,
-              marginVertical: 2,
-              height: 120
+              backgroundColor:
+                item.book === true ? material.colorRequest : material.badgeColor
             }}
           >
             <Text>
@@ -44,7 +51,7 @@ export default class ItemGiuong extends Component {
               {item.id}
             </Text>
             <Text>{item.price}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
     );

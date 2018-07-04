@@ -20,7 +20,7 @@ export default {
   textSuperTiny: PixelRatio.getFontScale() * 10,
   textTiny: PixelRatio.getFontScale() * 11,
   textSmall: PixelRatio.getFontScale() * 14,
-  textNormal: PixelRatio.getFontScale() * 17,
+  textNormal: PixelRatio.getFontScale() * 15,
   textTitle: PixelRatio.getFontScale() * 20,
   textBigger: PixelRatio.getFontScale() * 24,
   textLarge: PixelRatio.getFontScale() * 28,

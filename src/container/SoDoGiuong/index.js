@@ -5,6 +5,7 @@ import data from './data';
 import ItemGiuong from './ItemGiuong';
 import material from '../../theme/variables/material';
 import ItemChuyenDi from '../ChuyenDiCuaBan/item';
+import HandleSoDoGiuong from './handleSoDoGiuong';
 
 const infoXe = {
   address1: 'Lương Yên',
@@ -13,8 +14,8 @@ const infoXe = {
   laixe1: 'Nguyễn Văn A',
   laixe2: 'Nguyễn Văn B',
   tiepvien: 'Nguyễn Văn C',
-  dadat: 0,
-  trong: 44,
+  dadat: 2,
+  trong: 42,
   max: 44,
   time: '12:00 -> 14:30',
   type: 2
@@ -24,7 +25,13 @@ export default class SoDoGiuong extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      active: false
+      active: false,
+      visible: false,
+      inforGiuong: {
+        user: {
+          name: '1'
+        }
+      }
     };
   }
 
@@ -34,9 +41,32 @@ export default class SoDoGiuong extends React.PureComponent {
       <Container style={{ padding: material.paddingSmall }}>
         <Content showsVerticalScrollIndicator={false}>
           <ItemChuyenDi detail data={infoXe} />
-          <ItemGiuong data={data} />
+          <ItemGiuong
+            data={data}
+            handleSoDo={val =>
+              this.setState({
+                inforGiuong: val,
+                visible: true
+              })
+            }
+          />
         </Content>
         <FabButton />
+
+        <HandleSoDoGiuong
+          inforGiuong={this.state.inforGiuong}
+          setSoDoGiuong={ob =>
+            this.setState({
+              soDoGiuong: ob
+            })
+          }
+          handleVisible={val =>
+            this.setState({
+              visible: val
+            })
+          }
+          visible={this.state.visible}
+        />
       </Container>
     );
   }

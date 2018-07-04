@@ -118,7 +118,7 @@ export default class Item extends Component {
                   <View
                     style={{
                       ...styles.note,
-                      backgroundColor: material.colorRefund
+                      backgroundColor: material.colorRequest
                     }}
                   />
                   <Text

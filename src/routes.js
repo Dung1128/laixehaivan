@@ -24,6 +24,7 @@ import DoanhThu from './container/DoanhThu';
 import DanhSachGoi from './container/DanhSachGoi';
 import HuyVe from './container/HuyVe';
 import XuongXe from './container/XuongXe';
+import ThemVe from './container/ThemVe';
 
 export default {
   //new
@@ -113,14 +114,14 @@ export default {
     cache: true
   },
   traKhach: {
-    title: 'Trả Khach',
+    title: 'Trả khách',
     Page: TraKhach,
     headerType: 'home',
     footerType: 'home',
     cache: true
   },
   dangCho: {
-    title: 'Đang chờ',
+    title: 'Danh sách đang chờ',
     Page: DangCho,
     headerType: 'home',
     footerType: 'home',
@@ -151,6 +152,13 @@ export default {
     title: 'Danh sách xuống xe',
     Page: XuongXe,
     headerType: 'home',
+    footerType: 'home',
+    cache: true
+  },
+  themVe: {
+    title: 'Thêm Vé',
+    Page: ThemVe,
+    headerType: 'back',
     footerType: 'home',
     cache: true
   },

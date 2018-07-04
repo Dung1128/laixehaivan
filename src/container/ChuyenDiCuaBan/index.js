@@ -89,7 +89,6 @@ export default class ChuyenDiCuaBan extends React.PureComponent {
           isShowDate={false}
           defaultDate={this.state.currentDate}
           onChange={val => {
-            console.log(val.date);
             this.setState({ currentDate: val.date });
           }}
         />

@@ -32,6 +32,7 @@ export const InputField = ({
   disabled,
   keyboardType,
   unit,
+  IconIcomColor,
   ...custom
 }) => {
   const iconName = typeof icon === 'function' ? icon(input, active) : icon;
@@ -49,7 +50,13 @@ export const InputField = ({
           error={touched && !!error}
           onPress={onPress}
         >
-          {IconIcom && <IconIcon name={IconIcom} size={24} />}
+          {IconIcom && (
+            <IconIcon
+              name={IconIcom}
+              size={24}
+              style={{ color: IconIcomColor }}
+            />
+          )}
           <View
             style={{
               flexDirection: 'row',

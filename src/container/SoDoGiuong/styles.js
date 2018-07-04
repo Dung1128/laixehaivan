@@ -4,7 +4,10 @@ export default {
   itemRow: {
     borderWidth: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderColor: material.colorBorder,
+    marginVertical: 2,
+    height: 120
   },
   textNormal: {
     paddingBottom: material.paddingSmall,
