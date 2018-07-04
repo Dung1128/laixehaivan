@@ -3,8 +3,8 @@ import { FlatList, RefreshControl, View } from 'react-native';
 import { Container, Content, Text, Tabs, Tab } from 'native-base';
 import FabButton from '../../components/FabButton';
 import material from '../../theme/variables/material';
-import styles from './styles';
-import Item from '../TraKhach/Item';
+// import styles from './styles';
+import Item from './Item';
 
 const data = [
   {
@@ -12,45 +12,45 @@ const data = [
     name: 'Nguyen van A',
     sdt: '0928312112',
     giuong: 'A1',
-    address: 'Ha Noi'
+    price: '1234823'
   },
   {
     id: 2,
     name: 'Nguyen van A',
     sdt: '0928312112',
     giuong: 'A1',
-    address: 'Ha Noi'
+    price: '1234823'
   },
   {
     id: 3,
     name: 'Nguyen van A',
     sdt: '0928312112',
     giuong: 'A1',
-    address: 'Ha Noi'
+    price: '1234823'
   },
   {
     id: 4,
     name: 'Nguyen van A',
     sdt: '0928312112',
     giuong: 'A1',
-    address: 'Ha Noi'
+    price: '1234823'
   },
   {
     id: 5,
     name: 'Nguyen van A',
     sdt: '0928312112',
     giuong: 'A1',
-    address: 'Ha Noi'
+    price: '1234823'
   },
   {
     id: 6,
     name: 'Nguyen van A',
     sdt: '0928312112',
     giuong: 'A1',
-    address: 'Ha Noi'
+    address: '1234823'
   }
 ];
-export default class DangCho extends React.PureComponent {
+export default class TongDoanhThu extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,10 +79,12 @@ export default class DangCho extends React.PureComponent {
 
   render() {
     return (
-      <Container style={styles.container}>
+      <Container>
         <FlatList
-          style={{ width: '100%', padding: material.paddingNormal }}
-          contentContainerStyle={styles.contentContainerList}
+          style={{
+            width: '100%',
+            padding: material.paddingNormal
+          }}
           keyExtractor={(item, index) => index}
           data={data}
           renderItem={this.renderItem.bind(this)}

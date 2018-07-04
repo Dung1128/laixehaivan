@@ -33,7 +33,7 @@ export default {
     alignItems: 'center',
     borderBottomWidth: 1,
     // borderBottomWidth: StyleSheet.hairlineWidth,
-    paddingVertical: material.paddingSmall + 4,
+    paddingTop: material.paddingSmall + 4,
     borderBottomColor: material.colorBorder
   },
   content: {

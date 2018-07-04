@@ -278,6 +278,7 @@ export default class ThemVe extends React.PureComponent {
                 }}
               >
                 <TextInput
+                  underlineColorAndroid="transparent"
                   style={styles.fieldInput}
                   placeholder="Mã giảm giá"
                 />

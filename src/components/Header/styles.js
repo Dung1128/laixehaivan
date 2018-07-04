@@ -21,7 +21,7 @@ export default StyleSheet.create({
     paddingRight: 0
   },
   menuIcon: {
-    marginLeft: 0
+    marginLeft: 10
   },
   uploadIcon: {
     fontSize: 17,

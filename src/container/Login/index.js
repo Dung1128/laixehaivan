@@ -43,6 +43,7 @@ export default class Login extends React.PureComponent {
                 onSubmitEditing={() => {
                   this.password.focus();
                 }}
+                underlineColorAndroid="transparent"
                 keyboardType={'numeric'}
                 returnKeyType="next"
                 onChangeText={val => {
@@ -57,6 +58,7 @@ export default class Login extends React.PureComponent {
             <View style={styles.rowItem}>
               <IconFontAwesome name={'lock'} size={20} />
               <TextInput
+                underlineColorAndroid="transparent"
                 ref={ref => (this.password = ref)}
                 onSubmitEditing={() => this.onLogin()}
                 returnKeyType="done"

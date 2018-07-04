@@ -46,7 +46,7 @@ class TabBarComponent extends React.PureComponent {
   }
   render() {
     const { navigationState } = this.props;
-    const tabbar = [{ name: 'Chiều đi' }, { name: 'Chiều về' }];
+    const tabbar = [{ name: 'Tổng doanh thu' }, { name: 'Chưa có Seri' }];
     return (
       <View style={styles.footerContainer}>
         {navigationState.routes.map((item, index) =>

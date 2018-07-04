@@ -75,7 +75,7 @@ export default class extends Component {
   renderHeaderBack(title) {
     const left = (
       <Button transparent onPress={this._leftClick}>
-        <Icon name="ios-arrow-back" />
+        <Icon style={styles.menuIcon} name="ios-arrow-back" />
       </Button>
     );
     const center = (

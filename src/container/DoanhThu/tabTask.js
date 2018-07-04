@@ -1,16 +1,20 @@
 import { TabNavigator } from 'react-navigation';
 import material from '../../theme/variables/material';
-import TabBarComponent from '../../components/TabBarComponent';
-import ChieuDi from './ChieuDi';
-import ChieuVe from './ChieuVe';
+import TabBarComponent from '../../components/TabBarDoanhThu';
+import TongDoanhThu from './TongDoanhThu';
+import Seri from './Seri';
+
+const Tabs = TabNavigator({
+  Info: { screen: props => <Info {...props} color="#fff" /> }
+});
 
 export const TabTask = TabNavigator(
   {
     all: {
-      screen: ChieuDi
+      screen: TongDoanhThu
     },
     near: {
-      screen: ChieuVe
+      screen: Seri
     }
   },
   {
