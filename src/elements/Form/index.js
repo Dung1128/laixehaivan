@@ -10,8 +10,45 @@ import { change, Field } from 'redux-form';
 import IconIcon from '../../elements/Icon';
 import material from '../../theme/variables/material';
 import DateTimePicker from '../../components/DateTime';
+import TimePicker from '../../components/TimePicker';
 
 import styles from './styles';
+
+export const TimePickerField = ({
+  input,
+  meta: { touched, error, warning },
+  defaultValue,
+  style,
+  titleIOS,
+  minimumDate,
+  maximumDate,
+  styleContainer,
+  defaultDateChose,
+  onChange,
+  textStyle,
+  ...custom
+}) => (
+  <View style={{ ...styles.inputContainer, ...styleContainer }}>
+    <TimePicker
+      style={style}
+      textStyle={textStyle}
+      defaultValue={defaultValue}
+      defaultDateChose={defaultDateChose}
+      onChange={value => {
+        input.onChange(value);
+        onChange && onChange(value);
+      }}
+      titleIOS={titleIOS}
+      selectedOption={{
+        name: input.value.name
+      }}
+      maximumDate={maximumDate}
+      minimumDate={minimumDate}
+      error={touched && !!error}
+      {...custom}
+    />
+  </View>
+);
 
 export const InputField = ({
   input,

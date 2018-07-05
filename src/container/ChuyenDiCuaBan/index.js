@@ -84,7 +84,7 @@ export default class ChuyenDiCuaBan extends React.PureComponent {
   }
   render() {
     return (
-      <Container style={{ paddingHorizontal: material.paddingNormal }}>
+      <Container>
         <DateTimePicker
           isShowDate={false}
           defaultDate={this.state.currentDate}

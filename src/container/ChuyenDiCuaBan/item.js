@@ -31,7 +31,10 @@ export default class Item extends Component {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => this.props.forwardTo('soDoGiuong')}
+        onPress={() => {
+          !this.props.lichdieuhanh && this.props.forwardTo('soDoGiuong');
+          this.props.bangdieudo && this.props.forwardTo('addBangDieuDo');
+        }}
       >
         <Card style={styles.card}>
           {detail && (

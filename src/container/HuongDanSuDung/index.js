@@ -1,13 +1,16 @@
 import React from 'react';
-import { Container, Content, Text } from 'native-base';
+import { Container, Content, Text, Spinner } from 'native-base';
+import { WebView } from 'react-native';
 
 export default class HuongDanSuDung extends React.PureComponent {
   render() {
     return (
       <Container>
-        <Content>
-          <Text>HuongDanSuDung</Text>
-        </Content>
+        <WebView
+          source={{ uri: 'https://hasonhaivan.com/' }}
+          renderLoading={() => <Spinner color="grey" />}
+          startInLoadingState
+        />
       </Container>
     );
   }

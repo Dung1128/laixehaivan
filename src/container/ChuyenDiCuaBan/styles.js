@@ -1,7 +1,9 @@
 import material from '../../theme/variables/material';
 
 export default {
-  contentContainerList: {},
+  contentContainerList: {
+    paddingHorizontal: material.paddingNormal
+  },
   textNormal: {
     fontSize: material.textSmall
   },

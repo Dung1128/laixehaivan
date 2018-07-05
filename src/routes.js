@@ -25,6 +25,7 @@ import DanhSachGoi from './container/DanhSachGoi';
 import HuyVe from './container/HuyVe';
 import XuongXe from './container/XuongXe';
 import ThemVe from './container/ThemVe';
+import AddBangDieuDo from './container/AddBangDieuDo';
 
 export default {
   //new
@@ -160,6 +161,13 @@ export default {
     Page: ThemVe,
     headerType: 'back',
     footerType: 'home',
+    cache: true
+  },
+  addBangDieuDo: {
+    title: 'Chỉnh sửa',
+    Page: AddBangDieuDo,
+    headerType: 'back',
+    footerType: 'none',
     cache: true
   },
 

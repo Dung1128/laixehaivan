@@ -2,7 +2,9 @@ import { Platform, PixelRatio } from 'react-native';
 import material from '../../theme/variables/material';
 
 export default {
-  dropdownContainer: {},
+  dropdownContainer: {
+    marginHorizontal: material.paddingNormal
+  },
   dropdownHeader: {
     width: '100%',
     // paddingHorizontal: material.paddingNormal,

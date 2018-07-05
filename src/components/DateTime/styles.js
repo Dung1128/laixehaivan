@@ -33,7 +33,7 @@ export default {
   },
   icon: {
     color: material.primaryColor,
-    fontSize: 8
+    fontSize: 20
     //width: material.deviceHeight * 0.03,
   },
   dropdownSelectedValue: {
