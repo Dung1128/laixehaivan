@@ -1,34 +1,42 @@
 [
   {
     "id": 1,
-    "name": "Nguyen Tran Dung"
+    "name": "Nguyen Tran Dung",
+    "type": 3
   },
   {
     "id": 2,
-    "name": "Nguyen Manh An"
+    "name": "Nguyen Manh An",
+    "type": 3
   },
   {
     "id": 3,
-    "name": "Nguyen Dinh Minh"
+    "name": "Nguyen Dinh Minh",
+    "type": 3
   },
   {
     "id": 4,
-    "name": "Bui Van Chien"
+    "name": "Bui Van Chien",
+    "type": 3
   },
   {
     "id": 5,
-    "name": "Nguyen Anh Tuan"
+    "name": "Nguyen Anh Tuan",
+    "type": 3
   },
   {
     "id": 6,
-    "name": "Hoang Hong Hanh"
+    "name": "Hoang Hong Hanh",
+    "type": 3
   },
   {
     "id": 7,
-    "name": "Tran Xuan Huy"
+    "name": "Tran Xuan Huy",
+    "type": 3
   },
   {
     "id": 8,
-    "name": "Dinh Hung Anh"
+    "name": "Dinh Hung Anh",
+    "type": 1
   }
 ]

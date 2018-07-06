@@ -3,7 +3,7 @@ import { Image, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import { Content, Text, ListItem, Left, View } from 'native-base';
-
+import * as authSelectors from '../../store/selectors/auth';
 import * as authActions from '../../store/actions/auth';
 import * as commonActions from '../../store/actions/common';
 import { getRouter } from '../../store/selectors/common';
@@ -23,7 +23,9 @@ const imagePickerOptions = {
 };
 @connect(
   state => ({
-    router: getRouter(state).current
+    router: getRouter(state).current,
+    token: authSelectors.getToken(state),
+    profile: authSelectors.getUser(state)
   }),
   { ...authActions, ...commonActions }
 )
@@ -55,6 +57,7 @@ export default class extends PureComponent {
     if (route === 'logout') {
       closeDrawer();
       forwardTo('login');
+      this.props.logout();
     } else {
       forwardTo(route);
     }
@@ -94,6 +97,7 @@ export default class extends PureComponent {
 
   render() {
     const { router } = this.props;
+    console.log(this.props.profile);
     return (
       <Content bounces={false} style={styles.container}>
         <ListItem
@@ -101,7 +105,7 @@ export default class extends PureComponent {
           style={styles.drawerCover}
         >
           <Text small style={styles.text}>
-            SDT: 0868867596
+            {this.props.profile.adm_name}
           </Text>
         </ListItem>
         <View style={styles.listItemContainer}>

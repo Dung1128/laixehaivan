@@ -65,10 +65,27 @@ export default class ThanhTra extends React.PureComponent {
         return tuyenxe;
       case 2:
         return xe;
-      case 3:
-      case 4:
-      case 5:
+      case 3: {
+        laixe.map(item => {
+          item.type = 3;
+        });
+
         return laixe;
+      }
+      case 4: {
+        laixe.map(item => {
+          item.type = 4;
+        });
+
+        return laixe;
+      }
+      case 5: {
+        laixe.map(item => {
+          item.type = 5;
+        });
+
+        return laixe;
+      }
       case 6:
         return vipham;
       default:
@@ -104,20 +121,41 @@ export default class ThanhTra extends React.PureComponent {
     );
   }
 
+  checkSelectedValue(val) {
+    console.log(val);
+    switch (val.type) {
+      case 1:
+        return this.setState({ tuyenXe: val });
+      case 2:
+        return this.setState({ xe: val });
+      case 3:
+        return this.setState({ laixe1: val });
+      case 4:
+        return this.setState({ laixe2: val });
+      case 5:
+        return this.setState({ tiepVien: val });
+      case 6:
+        return this.setState({ viPham: val });
+      default:
+        return null;
+    }
+  }
+
   submitForm(val) {
     console.log(val);
   }
 
   render() {
     const { handleSubmit } = this.props;
+    console.log('state', this.state.tuyenXe);
     return (
       <Container style={styles.container}>
         <Content
           enableResetScrollToCoords={false}
           showsVerticalScrollIndicator={false}
         >
-          {this.renderItem(this.state.tuyenXe, 'road-variant', 1)}
-          {this.renderItem(this.state.xe, 'bus', 2)}
+          {this.renderItem(this.state.tuyenXe, 'road-variant', 1, 'tuyenxe')}
+          {this.renderItem(this.state.xe, 'bus', 2, 'xe')}
 
           <View
             style={{
@@ -176,9 +214,9 @@ export default class ThanhTra extends React.PureComponent {
             />
           </View>
 
-          {this.renderItem(this.state.laixe1, 'account', 3)}
-          {this.renderItem(this.state.laixe2, 'account', 4)}
-          {this.renderItem(this.state.tiepVien, 'account', 5)}
+          {this.renderItem(this.state.laixe1, 'account', 3, 'laixe1')}
+          {this.renderItem(this.state.laixe2, 'account', 4, 'laixe2')}
+          {this.renderItem(this.state.tiepVien, 'account', 5, 'tiepvien')}
 
           <View
             style={{
@@ -321,7 +359,7 @@ export default class ThanhTra extends React.PureComponent {
             />
           </View>
 
-          {this.renderItem(this.state.viPham, 'account', 6)}
+          {this.renderItem(this.state.viPham, 'account-alert', 6, 'vipham')}
 
           <View
             style={{
@@ -393,6 +431,7 @@ export default class ThanhTra extends React.PureComponent {
 
           <ModalFilter
             data={this.chooseData(this.state.type)}
+            selectedValue={val => this.checkSelectedValue(val)}
             handleVisible={val =>
               this.setState({
                 visible: val

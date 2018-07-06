@@ -1,14 +1,17 @@
 [
   {
     "id": 1,
-    "name": "Vi phạm thời gian làm việc ngủ gật"
+    "name": "Vi phạm thời gian làm việc ngủ gật",
+    "type": 6
   },
   {
     "id": 2,
-    "name": "Không mặc đồng phục"
+    "name": "Không mặc đồng phục",
+    "type": 6
   },
   {
     "id": 3,
-    "name": "Không đeo thẻ"
+    "name": "Không đeo thẻ",
+    "type": 6
   }
 ]

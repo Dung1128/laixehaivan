@@ -20,7 +20,7 @@ export default class LichSuThanhTra extends React.PureComponent {
             this.setState({ currentDate: val.date });
           }}
         />
-        <Content>
+        <Content contentContainerStyle={styles.content}>
           <Text>Lịch sử thanh tra</Text>
         </Content>
       </Container>

@@ -31,14 +31,18 @@ export default class ConnectionStatusBar extends React.Component {
   }
 
   componentDidMount() {
-    this.netInfoListener = NetInfo.addEventListener('connectionChange', this.onConnectionChange);
+    this.netInfoListener = NetInfo.addEventListener(
+      'connectionChange',
+      this.onConnectionChange
+    );
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.state !== nextState;
   }
 
-  componentWillUnmount = () => NetInfo.removeEventListener(this.netInfoListener);
+  componentWillUnmount = () =>
+    NetInfo.removeEventListener(this.netInfoListener);
 
   onConnectionChange(state) {
     const isConnected = this.isStateConnected(state);
@@ -57,7 +61,10 @@ export default class ConnectionStatusBar extends React.Component {
         }, 3000);
       }
 
-      if (!isConnected && typeof ConnectionStatusBar.onConnectionLost === 'function') {
+      if (
+        !isConnected &&
+        typeof ConnectionStatusBar.onConnectionLost === 'function'
+      ) {
         ConnectionStatusBar.onConnectionLost();
       }
     }
@@ -67,7 +74,8 @@ export default class ConnectionStatusBar extends React.Component {
     const state = await NetInfo.getConnectionInfo();
     const isConnected = this.isStateConnected(state);
     this.state.isConnected !== isConnected && this.setState({ isConnected });
-    this.props.onConnectionChange && this.props.onConnectionChange(isConnected, true);
+    this.props.onConnectionChange &&
+      this.props.onConnectionChange(isConnected, true);
   }
 
   isStateConnected = state => state.type !== 'none';

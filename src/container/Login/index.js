@@ -2,7 +2,13 @@ import React from 'react';
 import { Container, Content, Text } from 'native-base';
 import { connect } from 'react-redux';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import { TouchableOpacity, StatusBar, View, TextInput } from 'react-native';
+import {
+  TouchableOpacity,
+  StatusBar,
+  View,
+  TextInput,
+  Alert
+} from 'react-native';
 import styles from './styles';
 import * as authActions from '../../store/actions/auth';
 import * as commonActions from '../../store/actions/common';
@@ -24,8 +30,18 @@ export default class Login extends React.PureComponent {
   onLogin() {
     // 01663643919
     //12345678
+    if (this.state.phone === '') {
+      return Alert.alert('Thông báo', 'Tài khoản không được để trống!');
+    }
+    // if (this.state.phone.length < 10 || this.state.phone.length > 13) {
+    //   return Alert.alert('Thông báo', 'Số điện thoại không hợp lệ!');
+    // }
 
-    this.props.login(this.state.phone, this.state.password);
+    if (this.state.password === '') {
+      return Alert.alert('Thông báo', 'Mật khẩu không được để trống!');
+    }
+
+    this.props.login(this.state.phone, this.state.password, 'login');
   }
 
   render() {
@@ -38,21 +54,22 @@ export default class Login extends React.PureComponent {
         >
           <View style={styles.viewInput}>
             <View style={styles.rowItem}>
-              <IconFontAwesome name={'phone'} size={20} />
+              <IconFontAwesome name={'user'} size={20} />
               <TextInput
                 onSubmitEditing={() => {
                   this.password.focus();
                 }}
                 underlineColorAndroid="transparent"
-                keyboardType={'numeric'}
+                keyboardType={'default'}
                 returnKeyType="next"
+                autoCapitalize={'none'}
                 onChangeText={val => {
                   this.setState({
                     phone: val
                   });
                 }}
                 style={styles.inputLogin}
-                placeholder={'Phone'}
+                placeholder={'Tài khoản'}
               />
             </View>
             <View style={styles.rowItem}>
@@ -62,6 +79,7 @@ export default class Login extends React.PureComponent {
                 ref={ref => (this.password = ref)}
                 onSubmitEditing={() => this.onLogin()}
                 returnKeyType="done"
+                autoCapitalize={'none'}
                 onChangeText={val => {
                   this.setState({
                     password: val
@@ -69,7 +87,7 @@ export default class Login extends React.PureComponent {
                 }}
                 secureTextEntry
                 style={styles.inputLogin}
-                placeholder={'Password'}
+                placeholder={'Mật khẩu'}
               />
             </View>
           </View>

@@ -14,7 +14,7 @@ const requestLogin = createRequestSaga({
   key: 'login',
   cancel: APP_LOGOUT,
   success: [
-    data => saveLoggedToken(data.token),
+    data => saveLoggedToken(data),
     () => setAuthState(true),
     () => forwardTo('chuyenDiCuaBan')
   ],

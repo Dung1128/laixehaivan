@@ -1,4 +1,5 @@
 import { StyleSheet, PixelRatio } from 'react-native';
+import material from '../../theme/variables/material';
 
 export default StyleSheet.create({
   container: {
@@ -14,17 +15,17 @@ export default StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     color: '#fff',
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: material.paddingSmall,
+    marginBottom: material.paddingSmall,
     alignSelf: 'center'
   },
   xContainer: {
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: material.paddingSmall,
+    paddingRight: material.paddingSmall,
     alignSelf: 'center'
   },
   x: {
-    fontSize: PixelRatio.getFontScale() * 15,
+    fontSize: material.textNormal,
     color: '#fff'
   }
 });

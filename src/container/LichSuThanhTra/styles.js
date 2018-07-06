@@ -1,7 +1,7 @@
 import material from '../../theme/variables/material';
 
 export default {
-  container: {
+  content: {
     paddingHorizontal: material.paddingNormal
   }
 };

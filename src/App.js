@@ -11,7 +11,7 @@ import Toasts from './components/Toasts';
 import SideBar from './components/SideBar';
 import Browser from './components/Browser';
 import Gallery from './components/Gallery';
-
+import ConnectionStatusBar from './components/ConnectionStatusBar';
 import Preload from './container/Preload';
 
 import getTheme from './theme/components';
@@ -223,6 +223,7 @@ export default class App extends Component {
           </Drawer>
           <Gallery />
           <Browser />
+          <ConnectionStatusBar />
         </Container>
       </StyleProvider>
     );

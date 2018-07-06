@@ -53,10 +53,27 @@ export default class AddBangDieuDo extends React.PureComponent {
         return tuyenxe;
       case 2:
         return xe;
-      case 3:
-      case 4:
-      case 5:
+      case 3: {
+        laixe.map(item => {
+          item.type = 3;
+        });
+
         return laixe;
+      }
+      case 4: {
+        laixe.map(item => {
+          item.type = 4;
+        });
+
+        return laixe;
+      }
+      case 5: {
+        laixe.map(item => {
+          item.type = 5;
+        });
+
+        return laixe;
+      }
       case 6:
         return vipham;
       default:
@@ -90,6 +107,26 @@ export default class AddBangDieuDo extends React.PureComponent {
         </Text>
       </TouchableOpacity>
     );
+  }
+
+  checkSelectedValue(val) {
+    console.log(val);
+    switch (val.type) {
+      case 1:
+        return this.setState({ tuyenXe: val });
+      case 2:
+        return this.setState({ xe: val });
+      case 3:
+        return this.setState({ laixe1: val });
+      case 4:
+        return this.setState({ laixe2: val });
+      case 5:
+        return this.setState({ tiepVien: val });
+      case 6:
+        return this.setState({ viPham: val });
+      default:
+        return null;
+    }
   }
 
   submitForm(val) {
@@ -128,6 +165,7 @@ export default class AddBangDieuDo extends React.PureComponent {
         </Content>
 
         <ModalFilter
+          selectedValue={val => this.checkSelectedValue(val)}
           data={this.chooseData(this.state.type)}
           handleVisible={val =>
             this.setState({

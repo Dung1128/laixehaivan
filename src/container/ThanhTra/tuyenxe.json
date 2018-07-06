@@ -1,34 +1,42 @@
 [
   {
     "id": 1,
-    "name": "My Dinh - Lao Cai"
+    "name": "My Dinh - Lao Cai",
+    "type": 1
   },
   {
     "id": 2,
-    "name": "Ha noi - Lai Chau"
+    "name": "Ha noi - Lai Chau",
+    "type": 1
   },
   {
     "id": 3,
-    "name": "My Dinh - Dien Bien"
+    "name": "My Dinh - Dien Bien",
+    "type": 1
   },
   {
     "id": 4,
-    "name": "My Dinh - Ha Giang"
+    "name": "My Dinh - Ha Giang",
+    "type": 1
   },
   {
     "id": 5,
-    "name": "Tuyen 75"
+    "name": "Tuyen 75",
+    "type": 1
   },
   {
     "id": 6,
-    "name": "Tuyen 74"
+    "name": "Tuyen 74",
+    "type": 1
   },
   {
     "id": 7,
-    "name": "Tuyen 78"
+    "name": "Tuyen 78",
+    "type": 1
   },
   {
     "id": 8,
-    "name": "Tuyen 64"
+    "name": "Tuyen 64",
+    "type": 1
   }
 ]

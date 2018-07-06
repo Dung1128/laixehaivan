@@ -34,7 +34,8 @@ export default {
     borderBottomWidth: 1,
     // borderBottomWidth: StyleSheet.hairlineWidth,
     paddingTop: material.paddingSmall + 4,
-    borderBottomColor: material.colorBorder
+    borderBottomColor: material.colorBorder,
+    paddingBottom: material.paddingSmall
   },
   content: {
     paddingTop: material.deviceHeight / 5

@@ -1,10 +1,15 @@
 import React from 'react';
 import { Container, Content, Text, Tabs, Tab } from 'native-base';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import DateTimePicker from '../../components/DateTimePick';
 import material from '../../theme/variables/material';
 import { TabTask } from './tabTask';
 import ChieuDi from './ChieuDi';
 import ChieuVe from './ChieuVe';
+import * as commonActions from '../../store/actions/common';
+import * as authSelectors from '../../store/selectors/auth';
+import * as haivanActions from '../../store/actions/haivan';
 
 const data = [
   {
@@ -75,13 +80,32 @@ const data = [
   }
 ];
 
+@connect(
+  state => ({
+    token: authSelectors.getToken(state),
+    profile: authSelectors.getUser(state)
+  }),
+  { ...commonActions, ...haivanActions }
+)
 export default class ChuyenDiCuaBan extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       currentDate: new Date()
     };
+    console.log(this.props.token);
   }
+
+  componentDidMount() {
+    const params = {
+      token: this.props.token,
+      day: moment(new Date()).format('DD-MM-YYYY'),
+      adm_id: this.props.profile.adm_id
+    };
+
+    this.props.listChuyenDi(params);
+  }
+
   render() {
     return (
       <Container>

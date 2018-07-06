@@ -13,7 +13,7 @@ import {
 export const rejectErrors = res => {
   console.log('res', res);
   const { status, data } = res;
-  if (status >= 200 && status < 300 && data.error !== 1) {
+  if (status >= 200 && status < 300 && data.status === 200) {
     return res;
   }
   // if (status >= 200 && status < 300) {
@@ -22,7 +22,7 @@ export const rejectErrors = res => {
 
   // we can get message from Promise but no need, just use statusText instead of
   // server return errors
-  return Promise.reject({ message: 'Data Error', status });
+  return Promise.reject({ message: data, status });
 };
 
 export const respondJson = res => res.data;
@@ -115,7 +115,7 @@ export const createRequestSaga = ({
 
         const response = await chainRequest;
         console.log('fuck', response);
-        if (response.data && response.data.error === 0) {
+        if (response.data && response.data.status === 200) {
           // console.log('ok', response);
           return response.data;
         }

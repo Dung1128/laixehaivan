@@ -29,7 +29,8 @@ import styles from './styles';
 export default class Filter extends React.PureComponent {
   static propTypes = {
     handleVisible: PropTypes.func,
-    data: PropTypes.array
+    data: PropTypes.array,
+    selectedValue: PropTypes.func
   };
 
   setVisible(val) {
@@ -38,9 +39,16 @@ export default class Filter extends React.PureComponent {
 
   renderItem({ item }) {
     return (
-      <View style={styles.rowFilter}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => {
+          this.props.selectedValue(item);
+          this.setVisible(false);
+        }}
+        style={styles.rowFilter}
+      >
         <Text>{item.name}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 
