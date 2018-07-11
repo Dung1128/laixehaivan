@@ -21,10 +21,6 @@ export default class Item extends Component {
     pending: PropTypes.bool
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { data, pending } = this.props;
 

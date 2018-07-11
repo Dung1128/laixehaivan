@@ -11,7 +11,7 @@ export default {
     paddingVertical: material.paddingNormal
   },
   button: {
-    width: material.deviceWidth / 2.5,
+    width: '100%',
     alignItems: 'center',
     backgroundColor: material.inputSuccessBorderColor,
     padding: material.paddingNormal - 4
@@ -35,7 +35,8 @@ export default {
     // borderBottomWidth: StyleSheet.hairlineWidth,
     paddingTop: material.paddingSmall + 4,
     borderBottomColor: material.colorBorder,
-    paddingBottom: material.paddingSmall
+    paddingBottom: material.paddingSmall,
+    marginVertical: material.paddingSmall
   },
   content: {
     paddingTop: material.deviceHeight / 5

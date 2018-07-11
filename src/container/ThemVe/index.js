@@ -262,6 +262,7 @@ export default class ThemVe extends React.PureComponent {
             {this.state.khuyenMai.id === 2 && (
               <View style={styles.inputKhuyenMai}>
                 <TextInput
+                  underlineColorAndroid="transparent"
                   style={styles.fieldInput}
                   placeholder="Số tiền giảm"
                 />

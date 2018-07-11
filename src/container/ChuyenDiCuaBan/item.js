@@ -21,9 +21,6 @@ export default class Item extends Component {
     detail: PropTypes.bool
   };
 
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { data, detail } = this.props;

@@ -13,7 +13,7 @@ import {
 export const rejectErrors = res => {
   console.log('res', res);
   const { status, data } = res;
-  if (status >= 200 && status < 300 && data.status === 200) {
+  if (status >= 200 && status < 300) {
     return res;
   }
   // if (status >= 200 && status < 300) {
@@ -115,7 +115,7 @@ export const createRequestSaga = ({
 
         const response = await chainRequest;
         console.log('fuck', response);
-        if (response.data && response.data.status === 200) {
+        if (response.data) {
           // console.log('ok', response);
           return response.data;
         }
