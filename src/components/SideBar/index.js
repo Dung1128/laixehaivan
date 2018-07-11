@@ -97,7 +97,7 @@ export default class extends PureComponent {
 
   render() {
     const { router } = this.props;
-    console.log(this.props.profile);
+
     return (
       <Content bounces={false} style={styles.container}>
         <ListItem

@@ -114,8 +114,8 @@ export const createRequestSaga = ({
         // }
 
         const response = await chainRequest;
-        console.log('fuck', response);
-        if (response.data) {
+
+        if (response.status >= 200 && response.status < 300) {
           // console.log('ok', response);
           return response.data;
         }

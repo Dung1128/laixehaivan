@@ -1,11 +1,17 @@
 import React from 'react';
 import { Container, Content, Text, Button, Icon, Fab, Card } from 'native-base';
+import { connect } from 'react-redux';
 import FabButton from '../../components/FabButton';
 import data from './data';
 import ItemGiuong from './ItemGiuong';
 import material from '../../theme/variables/material';
 import ItemChuyenDi from '../ChuyenDiCuaBan/item';
 import HandleSoDoGiuong from './handleSoDoGiuong';
+
+import * as commonActions from '../../store/actions/common';
+import * as authSelectors from '../../store/selectors/auth';
+import * as haivanActions from '../../store/actions/haivan';
+import * as haivanSelectors from '../../store/selectors/haivan';
 
 const infoXe = {
   address1: 'Lương Yên',
@@ -21,6 +27,14 @@ const infoXe = {
   type: 2
 };
 
+@connect(
+  state => ({
+    token: authSelectors.getToken(state),
+    profile: authSelectors.getUser(state),
+    did_id: haivanSelectors.getChuyenDi(state)
+  }),
+  { ...commonActions, ...haivanActions }
+)
 export default class SoDoGiuong extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -31,25 +45,65 @@ export default class SoDoGiuong extends React.PureComponent {
         user: {
           name: '1'
         }
-      }
+      },
+      soDoGiuong: {
+        arrChoTang: [],
+        arrInfo: {}
+      },
+      newData: []
     };
+    console.log('dd', this.props.did_id);
+  }
+
+  componentDidMount() {
+    this.getList();
+  }
+
+  getList() {
+    const newData = [];
+    const params = {
+      token: this.props.token,
+      did_id: this.props.did_id,
+      adm_id: this.props.profile.adm_id
+    };
+
+    this.props.getSoDoGiuong(params, (e, d) => {
+      if (d) {
+        const newArray = [];
+        newArray.push(d.arrChoTang[0]);
+        newArray.push(d.arrChoTang[2]);
+        newArray.push(d.arrChoTang[1]);
+        newArray.push(d.arrChoTang[3]);
+        newArray.push(d.arrChoTang[4]);
+        this.setState({ soDoGiuong: d, newData: newArray });
+      }
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // if (this.props.did_id !== nextProps.did_id) {
+    // }
   }
 
   render() {
-    console.log(data);
+    const { soDoGiuong } = this.setState;
+    console.log('fm', this.state.soDoGiuong.arrInfo);
+
     return (
       <Container style={{ padding: material.paddingSmall }}>
         <Content showsVerticalScrollIndicator={false}>
-          <ItemChuyenDi detail data={infoXe} />
-          <ItemGiuong
-            data={data}
-            handleSoDo={val =>
-              this.setState({
-                inforGiuong: val,
-                visible: true
-              })
-            }
-          />
+          <ItemChuyenDi detail data={this.state.soDoGiuong.arrInfo} />
+          {this.state.newData && (
+            <ItemGiuong
+              data={this.state.newData}
+              handleSoDo={val =>
+                this.setState({
+                  inforGiuong: val,
+                  visible: true
+                })
+              }
+            />
+          )}
         </Content>
         <FabButton />
 

@@ -112,7 +112,7 @@ export default {
     Page: SoDoGiuong,
     headerType: 'back',
     footerType: 'home',
-    cache: true
+    cache: false
   },
   traKhach: {
     title: 'Trả khách',

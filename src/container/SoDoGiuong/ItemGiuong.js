@@ -31,7 +31,7 @@ export default class ItemGiuong extends Component {
         : material.deviceWidth / width - 20;
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        {item.map(item => (
+        {item.data.map(item => (
           <TouchableOpacity
             onPress={() =>
               !item.book
@@ -47,10 +47,10 @@ export default class ItemGiuong extends Component {
             }}
           >
             <Text>
-              {item.name}
-              {item.id}
+              {item.sdgct_label_full}
+              {/* {item.id} */}
             </Text>
-            <Text>{item.price}</Text>
+            {/* <Text>{item.price}</Text> */}
           </TouchableOpacity>
         ))}
       </View>
@@ -59,17 +59,19 @@ export default class ItemGiuong extends Component {
 
   renderItem(data, index) {
     return (
-      data.length !== 0 && (
+      data.data.length !== 0 && (
         <Card style={styles.card}>
           {index !== 1 &&
-            (index !== 3 && (
+            (index !== 4 && (
               <Text style={styles.textNormal}>
-                {index === 4
+                {index === 3
                   ? 'Ghế sàn'
                   : `Tầng: ${index === 0 ? index + 1 : index}`}
               </Text>
             ))}
-          {data.map((item, index) => this.renderRowItem(item.length, item))}
+          {data.data.map((item, index) =>
+            this.renderRowItem(item.data.length, item)
+          )}
         </Card>
       )
     );
