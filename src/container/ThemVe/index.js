@@ -1,16 +1,21 @@
 import React from 'react';
-import { TouchableOpacity, TextInput } from 'react-native';
+import { TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Container, Content, Text, View, Button } from 'native-base';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
+import numeral from 'numeral';
+import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as commonActions from '../../store/actions/common';
+
+// import { setToast } from '../../store/actions/common';
 import { InputField } from '../../elements/Form';
 import styless from '../Register/styles';
 import styles from './styles';
 import material from '../../theme/variables/material';
 import KhuyenMai from './KhuyenMai';
+import ModalFilter from '../ThanhTra/ModalFilter';
 
 @reduxForm({
   form: 'themVe',
@@ -29,16 +34,123 @@ export default class ThemVe extends React.PureComponent {
       noidon: false,
       noitra: false,
       visible: false,
+      visibleDiemDi: false,
+      visibleDiemDen: false,
+      price: {},
       khuyenMai: {
         id: 3,
         value: 'Mã khuyễn mãi'
-      }
+      },
+      diemdi: { bex_ten: '' },
+      diemden: { bex_ten: '' },
+      giamgia: 0
     };
+
+    // console.log('gia ve', this.props.route.params.dataGiaVe);
   }
 
   DatVe(val) {
     console.log(val);
-    this.props.resetTo('soDoGiuong');
+    // this.props.resetTo('soDoGiuong');
+  }
+
+  showGiaVe() {
+    if (this.state.diemdi.bex_ten == '') {
+      this.props.setToast('Xin mời nhập điểm đi');
+    }
+
+    if (this.state.diemden.bex_ten == '') {
+      this.props.setToast('Xin mời nhập điểm đến');
+    }
+
+    this.setState({
+      price: _.find(
+        _.find(this.props.route.params.dataGiaVe, {
+          diem_a: this.state.diemdi.bex_id
+        }).data,
+        {
+          diem_b: this.state.diemden.bex_id
+        }
+      )
+    });
+
+    // const soDoA = _.find(this.props.route.params.dataGiaVe, {
+    //   diem_a: this.state.diemdi.bex_id
+    // });
+
+    // const soDoB = _.find(
+    //   _.find(this.props.route.params.dataGiaVe, {
+    //     diem_a: this.state.diemdi.bex_id
+    //   }).data,
+    //   {
+    //     diem_b: this.state.diemden.bex_id
+    //   }
+    // );
+
+    // console.log(
+    //   _.find(
+    //     _.find(this.props.route.params.dataGiaVe, {
+    //       diem_a: this.state.diemdi.bex_id
+    //     }).data,
+    //     {
+    //       diem_b: this.state.diemden.bex_id
+    //     }
+    //   )
+    // );
+  }
+
+  checkSelectedDiemDi(val) {
+    // console.log('gia ve', this.props.route.params.dataGiaVe);
+    // console.log('diemdi', val);
+    this.setState({ diemdi: val }, () => this.showGiaVe());
+
+    const soDoA = _.find(this.props.route.params.dataGiaVe, {
+      diem_a: val.bex_id
+    });
+
+    // console.log(
+    //   'diem A',
+    //   _.find(this.props.route.params.dataGiaVe, {
+    //     diem_a: val.bex_id
+    //   })
+    // );
+  }
+
+  checkSelectedDiemDen(val) {
+    // console.log('diemden', val);
+    this.setState({ diemden: val }, () => this.showGiaVe());
+  }
+
+  renderItem(item, nameIcon, title, type) {
+    return (
+      <TouchableOpacity
+        style={styles.itemFilter}
+        onPress={() =>
+          type === 0
+            ? this.setState({
+                visibleDiemDi: true
+              })
+            : this.setState({
+                visibleDiemDen: true
+              })
+        }
+      >
+        <IconMaterialCommunityIcons
+          name={nameIcon}
+          size={24}
+          color={material.colorDark2}
+        />
+        <Text
+          style={{
+            ...styles.textNormal,
+            paddingLeft: material.paddingSmall,
+            color: material.colorDark2
+          }}
+        >
+          {title}: {item.bex_ten}{' '}
+        </Text>
+      </TouchableOpacity>
+    );
   }
 
   renderGiave(title, val) {
@@ -46,7 +158,7 @@ export default class ThemVe extends React.PureComponent {
       <View style={styles.viewGiaVe}>
         <Text style={styles.textNormal}>{title}</Text>
         <Text style={{ ...styles.textNormal, color: material.colorDeclined }}>
-          {val}
+          {numeral(val).format('0,0')} VNĐ
         </Text>
       </View>
     );
@@ -57,6 +169,8 @@ export default class ThemVe extends React.PureComponent {
     return (
       <Container style={styles.container}>
         <Content showsVerticalScrollIndicator={false}>
+          {this.renderItem(this.state.diemdi, 'bus', 'Điểm đi', 0)}
+          {this.renderItem(this.state.diemden, 'bus', 'Điểm đến', 1)}
           <View style={styless.textInputContainer}>
             <Field
               onSubmitEditing={() => {
@@ -295,9 +409,15 @@ export default class ThemVe extends React.PureComponent {
               paddingVertical: material.paddingSmall
             }}
           >
-            {this.renderGiave('Giá gốc:', '260.000 VND')}
-            {this.renderGiave('Giảm:', '1.000 VND')}
-            {this.renderGiave('Giá vé:', '259.000 VND')}
+            {this.renderGiave(
+              'Giá gốc:',
+              this.state.price && this.state.price.price
+            )}
+            {this.renderGiave('Giảm:', this.state.giamgia)}
+            {this.renderGiave(
+              'Giá vé:',
+              this.state.price && this.state.price.price - this.state.giamgia
+            )}
           </View>
           <Button
             onPress={handleSubmit(this.DatVe.bind(this))}
@@ -319,6 +439,28 @@ export default class ThemVe extends React.PureComponent {
             })
           }
           visible={this.state.visible}
+        />
+
+        <ModalFilter
+          data={this.props.route.params.data}
+          selectedValue={val => this.checkSelectedDiemDi(val)}
+          handleVisible={val =>
+            this.setState({
+              visibleDiemDi: val
+            })
+          }
+          visible={this.state.visibleDiemDi}
+        />
+
+        <ModalFilter
+          data={this.props.route.params.data}
+          selectedValue={val => this.checkSelectedDiemDen(val)}
+          handleVisible={val =>
+            this.setState({
+              visibleDiemDen: val
+            })
+          }
+          visible={this.state.visibleDiemDen}
         />
       </Container>
     );

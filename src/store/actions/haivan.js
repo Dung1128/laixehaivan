@@ -14,5 +14,8 @@ export const saveChuyenDi = data => ({
 });
 
 export const listHuyVe = (...args) => ({ type: 'app/listHuyVe', args });
-
 export const listXuongXe = (...args) => ({ type: 'app/listXuongXe', args });
+export const getMenu = (...args) => ({ type: 'app/getMenu', args });
+export const saveMenu = data => ({ type: 'app/saveMenu', payload: data });
+export const checkSuDungVe = (...args) => ({ type: 'app/checkSuDungVe', args });
+export const checkVersion = (...args) => ({ type: 'app/checkVersion', args });

@@ -14,12 +14,13 @@ import { InputField } from '../../elements/Form';
 import styles from './styles';
 import styless from '../Register/styles';
 import * as authActions from '../../store/actions/auth';
+import * as haivanActions from '../../store/actions/haivan';
 import * as commonActions from '../../store/actions/common';
 import material from '../../theme/variables/material';
 
 @connect(
   state => ({}),
-  { ...commonActions, ...authActions }
+  { ...commonActions, ...authActions, ...haivanActions }
 )
 @reduxForm({
   form: 'login',
@@ -52,7 +53,21 @@ export default class Login extends React.PureComponent {
       return Alert.alert('Thông báo', 'Mật khẩu không được để trống!');
     }
 
-    this.props.login(val.user, val.password, 'login');
+    this.props.login(val.user, val.password, 'login', (e, d) => {
+      if (d) {
+        console.log(d);
+        const params = {
+          adm_id: d.adm_id,
+          token: d.token
+        };
+        this.props.getMenu(params, (e, d) => {
+          if (d && d.arrMenu) {
+            this.props.saveMenu(d.arrMenu);
+          }
+        });
+        this.props.forwardTo('chuyenDiCuaBan');
+      }
+    });
   }
 
   render() {

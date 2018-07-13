@@ -31,6 +31,7 @@ export default class ChieuDi extends React.PureComponent {
   }
 
   componentDidMount() {
+    console.log(this.props.timeChuyenDi);
     this.getList(moment(this.props.timeChuyenDi).format('DD-MM-YYYY'));
   }
 
@@ -102,6 +103,7 @@ export default class ChieuDi extends React.PureComponent {
   refreshList() {
     this.getList();
   }
+  _keyExtractor = (item, index) => item.did_id + '.';
 
   render() {
     const { listChieuDi } = this.state;
@@ -115,7 +117,7 @@ export default class ChieuDi extends React.PureComponent {
         <FlatList
           style={{ width: '100%' }}
           contentContainerStyle={styles.contentContainerList}
-          keyExtractor={(item, index) => index}
+          keyExtractor={this._keyExtractor}
           data={listChieuDi}
           renderItem={this.renderItem.bind(this)}
           onEndReachedThreshold={material.platform === 'ios' ? 0 : 1}

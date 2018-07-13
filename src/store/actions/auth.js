@@ -20,6 +20,7 @@ export const registerAccount = (...args) => ({
   args
 });
 export const logout = (...args) => ({ type: APP_LOGOUT, args });
+export const onLogout = (...args) => ({ type: 'app/onLogout', args });
 
 export const disconnectFCM = (...args) => ({ type: 'app/disconnectFCM', args });
 

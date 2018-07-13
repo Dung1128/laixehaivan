@@ -18,13 +18,35 @@ import styles from './styles';
 export default class ItemGiuong extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
-    handleSoDo: PropTypes.func
+    handleSoDo: PropTypes.func,
+    dataVe: PropTypes.array,
+    onPress: PropTypes.func
   };
 
-  constructor(props) {
-    super(props);
+  checkVe(value) {
+    if (!!_.find(this.props.dataVe, { bvv_number: value })) {
+      const ve = _.find(this.props.dataVe, { bvv_number: value });
+      if (ve.arrVe.lock === 1) {
+        return { backgroundColor: material.colorSubtitle };
+      } else {
+        if (ve.arrVe.bvv_status !== 0) {
+          return { backgroundColor: material.colorRequest };
+        }
+
+        if (ve.arrVe.bvv_status === 11) {
+          return { backgroundColor: material.colorPending };
+        }
+
+        return { backgroundColor: material.badgeColor };
+      }
+    }
   }
+
   renderRowItem(width, item) {
+    // const showVe = !!_.find(this.props.dataVe, {
+    //   bvv_number: item.sdgct_number
+    // });
+
     const w =
       width % 2 === 0
         ? material.deviceWidth / (width + 1) - 20
@@ -33,23 +55,38 @@ export default class ItemGiuong extends Component {
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         {item.data.map(item => (
           <TouchableOpacity
-            onPress={() =>
-              !item.book
-                ? this.props.forwardTo('themVe')
-                : this.props.handleSoDo(item)
-            }
+            onPress={this.props.onPress}
             activeOpacity={0.6}
             style={{
               ...styles.itemRow,
               width: w,
-              backgroundColor:
-                item.book === true ? material.colorRequest : material.badgeColor
+              ...this.checkVe(item.sdgct_number)
+              // backgroundColor:
+              //   item.book === true ? material.colorRequest : material.badgeColor
             }}
           >
             <Text>
               {item.sdgct_label_full}
               {/* {item.id} */}
             </Text>
+            {!!_.find(this.props.dataVe, {
+              bvv_number: item.sdgct_number
+            }) && (
+              <View>
+                <Text>
+                  {_.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }).arrVe.bvv_price / 1000}K
+                </Text>
+                <Text numberOfLines={1}>
+                  {
+                    _.find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    }).arrVe.bvv_ten_khach_hang
+                  }
+                </Text>
+              </View>
+            )}
             {/* <Text>{item.price}</Text> */}
           </TouchableOpacity>
         ))}
@@ -78,7 +115,7 @@ export default class ItemGiuong extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, dataVe } = this.props;
 
     return (
       <View>{data.map((item, index) => this.renderItem(item, index))}</View>

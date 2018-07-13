@@ -48,11 +48,13 @@ export default class SoDoGiuong extends React.PureComponent {
       },
       soDoGiuong: {
         arrChoTang: [],
-        arrInfo: {}
+        arrInfo: {},
+        arrVeNumber: [],
+        arrBen: [],
+        arrGiaVe: []
       },
       newData: []
     };
-    console.log('dd', this.props.did_id);
   }
 
   componentDidMount() {
@@ -87,7 +89,6 @@ export default class SoDoGiuong extends React.PureComponent {
 
   render() {
     const { soDoGiuong } = this.setState;
-    console.log('fm', this.state.soDoGiuong.arrInfo);
 
     return (
       <Container style={{ padding: material.paddingSmall }}>
@@ -95,7 +96,14 @@ export default class SoDoGiuong extends React.PureComponent {
           <ItemChuyenDi detail data={this.state.soDoGiuong.arrInfo} />
           {this.state.newData && (
             <ItemGiuong
+              onPress={() =>
+                this.props.forwardTo('themVe', {
+                  data: this.state.soDoGiuong.arrBen,
+                  dataGiaVe: this.state.soDoGiuong.arrGiaVe
+                })
+              }
               data={this.state.newData}
+              dataVe={this.state.soDoGiuong.arrVeNumber}
               handleSoDo={val =>
                 this.setState({
                   inforGiuong: val,

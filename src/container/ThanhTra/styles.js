@@ -31,9 +31,9 @@ export default {
     // backgroundColor: 'rgba(0,0,0,.3)',
     backgroundColor: '#fff',
     flex: 1,
-    paddingBottom: 10,
-    marginTop: Platform.OS === 'ios' ? 22 : 0,
-    paddingHorizontal: material.paddingNormal
+    paddingBottom: material.paddingNormal,
+    marginTop: Platform.OS === 'ios' ? 22 : 0
+    // paddingHorizontal: material.paddingNormal
   },
   btn: {
     width: '100%',
@@ -43,10 +43,11 @@ export default {
     marginBottom: material.paddingNormal
   },
   header: {
-    width: '100%',
+    // width: '100%',
     height: 50,
     // backgroundColor: 'red',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginHorizontal: material.paddingNormal
   },
   textNormal: {
     fontSize: material.textNormal
@@ -57,7 +58,8 @@ export default {
     padding: material.paddingSmall,
     borderColor: material.colorBorder,
     height: 45,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginHorizontal: material.paddingNormal
   },
   TextInput: {
     width: '100%',

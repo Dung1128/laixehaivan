@@ -35,5 +35,23 @@ export default {
     justifyContent: 'space-between',
     flexDirection: 'row',
     paddingVertical: material.paddingSmall
+  },
+  itemFilter: {
+    marginBottom: 5,
+    height: material.deviceHeight * 0.07,
+    borderRadius: 0,
+    marginTop: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
+    width: '100%',
+    backgroundColor: 'white',
+    paddingLeft: 0,
+    paddingRight: 0,
+    overflow: 'hidden',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: -2
   }
 };

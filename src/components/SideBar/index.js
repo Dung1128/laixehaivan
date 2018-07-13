@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import { Content, Text, ListItem, Left, View } from 'native-base';
 import * as authSelectors from '../../store/selectors/auth';
+import * as haivanSelectors from '../../store/selectors/haivan';
 import * as authActions from '../../store/actions/auth';
+import * as haivanActions from '../../store/actions/haivan';
 import * as commonActions from '../../store/actions/common';
 import { getRouter } from '../../store/selectors/common';
 import images from '../../assets/images';
@@ -25,11 +27,98 @@ const imagePickerOptions = {
   state => ({
     router: getRouter(state).current,
     token: authSelectors.getToken(state),
-    profile: authSelectors.getUser(state)
+    profile: authSelectors.getUser(state),
+    menu: haivanSelectors.getMenu(state)
   }),
-  { ...authActions, ...commonActions }
+  { ...authActions, ...commonActions, ...haivanActions }
 )
 export default class extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listMenu: []
+    };
+  }
+
+  componentDidMount() {
+    this.showMenu(this.props.menu);
+  }
+
+  showMenu(menu) {
+    const newMenu = [];
+    menu.map(item => {
+      switch (item.id) {
+        case 1:
+          return newMenu.push({
+            name: item.title,
+            route: '',
+            icon: 'bus'
+          });
+        case 2:
+          return newMenu.push({
+            name: item.title,
+            route: 'chuyenDiCuaBan',
+            icon: 'heart'
+          });
+        case 3:
+          return newMenu.push({
+            name: item.title,
+            route: 'bangDieuDo',
+            icon: 'folder-open'
+          });
+        case 4:
+          return newMenu.push({
+            name: item.title,
+            route: 'lichDieuHanh',
+            icon: 'md-information-circle'
+          });
+        case 5:
+          return newMenu.push({
+            name: item.title,
+            route: 'thanhTra',
+            icon: 'contacts'
+          });
+        case 6:
+          return newMenu.push({
+            name: item.title,
+            route: 'lichSuThanhTra',
+            icon: 'contacts'
+          });
+        case 7:
+          return newMenu.push({
+            name: item.title,
+            route: 'huongDanSuDung',
+            icon: 'bookmark'
+          });
+        case 8:
+          return newMenu.push({
+            name: item.title,
+            route: 'nhapMaXe',
+            icon: 'keypad'
+          });
+        case 9:
+          return newMenu.push({
+            name: item.title,
+            route: 'doiMatKhau',
+            icon: 'unlock'
+          });
+        case 10:
+          return newMenu.push({
+            name: item.title,
+            route: 'logout',
+            icon: 'contact'
+          });
+
+        default:
+          return newMenu;
+      }
+    });
+
+    this.setState({
+      listMenu: newMenu
+    });
+  }
+
   onFanProfilePress() {
     const { forwardTo, closeDrawer } = this.props;
     closeDrawer();
@@ -55,11 +144,15 @@ export default class extends PureComponent {
   navigateTo(route) {
     const { forwardTo, closeDrawer, resetTo } = this.props;
     if (route === 'logout') {
-      closeDrawer();
-      forwardTo('login');
-      this.props.logout();
+      this.props.onLogout(this.props.profile.adm_id, () => {
+        closeDrawer();
+        forwardTo('login');
+        this.props.logout();
+      });
     } else {
-      forwardTo(route);
+      if (route !== '') {
+        forwardTo(route);
+      }
     }
   }
 
@@ -109,29 +202,33 @@ export default class extends PureComponent {
           </Text>
         </ListItem>
         <View style={styles.listItemContainer}>
-          {options.listItems.map((item, index) => {
-            const isCurrent = router.routeName === item.route;
-            return (
-              <ListItem
-                noBorder
-                key={index}
-                button
-                onPress={() => this.navigateTo(item.route)}
-              >
-                <Left>
-                  <Icon
-                    name={item.icon}
-                    style={[styles.icon, isCurrent && { color: '#E3B02B' }]}
-                  />
-                  <Text
-                    style={[styles.iconText, isCurrent && { color: '#E3B02B' }]}
-                  >
-                    {item.name}
-                  </Text>
-                </Left>
-              </ListItem>
-            );
-          })}
+          {this.state.listMenu &&
+            this.state.listMenu.map((item, index) => {
+              const isCurrent = router.routeName === item.route;
+              return (
+                <ListItem
+                  noBorder
+                  key={index}
+                  button
+                  onPress={() => this.navigateTo(item.route)}
+                >
+                  <Left>
+                    <Icon
+                      name={item.icon}
+                      style={[styles.icon, isCurrent && { color: '#E3B02B' }]}
+                    />
+                    <Text
+                      style={[
+                        styles.iconText,
+                        isCurrent && { color: '#E3B02B' }
+                      ]}
+                    >
+                      {item.name}
+                    </Text>
+                  </Left>
+                </ListItem>
+              );
+            })}
         </View>
       </Content>
     );

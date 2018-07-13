@@ -32,6 +32,27 @@ const requestListXuongXe = createRequestSaga({
   failure: [() => setToast('error', 'error')]
 });
 
+const requestMenu = createRequestSaga({
+  request: haivan.getMenu,
+  key: 'getMenu',
+  success: [],
+  failure: [() => setToast('error', 'error')]
+});
+
+const requestCheckSuDungVe = createRequestSaga({
+  request: haivan.checkSuDungVe,
+  key: 'checkSuDungVe',
+  success: [],
+  failure: [() => setToast('error', 'error')]
+});
+
+const requestCheckVersion = createRequestSaga({
+  request: haivan.checkVersion,
+  key: 'checkVersion',
+  success: [],
+  failure: [() => setToast('error', 'error')]
+});
+
 // root saga reducer
 export default [
   function* fetchWatcher() {
@@ -39,7 +60,10 @@ export default [
       takeLatest('app/listChuyenDi', requestListChuyenDi),
       takeLatest('app/getSoDoGiuong', requestGetSoDoGiuong),
       takeLatest('app/listHuyVe', requestListHuyVe),
-      takeLatest('app/listXuongXe', requestListXuongXe)
+      takeLatest('app/listXuongXe', requestListXuongXe),
+      takeLatest('app/getMenu', requestMenu),
+      takeLatest('app/checkSuDungVe', requestCheckSuDungVe),
+      takeLatest('app/checkVersion', requestCheckVersion)
     ]);
   }
 ];

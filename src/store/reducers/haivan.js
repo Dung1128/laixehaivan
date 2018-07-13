@@ -1,6 +1,7 @@
 const init = {
   timeChuyenDi: new Date(),
-  chuyenDi: null
+  chuyenDi: null,
+  menu: []
 };
 
 export default (state = init, { type, payload }) => {
@@ -9,6 +10,8 @@ export default (state = init, { type, payload }) => {
       return { ...state, timeChuyenDi: payload };
     case 'app/saveChuyenDi':
       return { ...state, chuyenDi: payload };
+    case 'app/saveMenu':
+      return { ...state, menu: payload };
     default:
       return state;
   }

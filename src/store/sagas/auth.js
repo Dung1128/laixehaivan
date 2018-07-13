@@ -13,47 +13,44 @@ const requestLogin = createRequestSaga({
   request: auth.login,
   key: 'login',
   cancel: APP_LOGOUT,
-  success: [
-    data => saveLoggedToken(data),
-    () => setAuthState(true),
-    () => forwardTo('chuyenDiCuaBan')
-  ],
+  success: [data => saveLoggedToken(data), () => setAuthState(true)],
   failure: [() => setToast('Please check your account and password.', 'danger')]
 });
 
-const requestLoginFacebook = createRequestSaga({
-  request: auth.facebookLogin,
-  key: 'facebookLogin',
-  cancel: APP_LOGOUT,
-  success: [],
-  failure: [() => setToast("Couldn't login", 'danger')]
-});
+// const requestLoginFacebook = createRequestSaga({
+//   request: auth.facebookLogin,
+//   key: 'facebookLogin',
+//   cancel: APP_LOGOUT,
+//   success: [],
+//   failure: [() => setToast("Couldn't login", 'danger')]
+// });
 
-const requestLoginGoogle = createRequestSaga({
-  request: auth.googleLogin,
-  key: 'googleLogin',
-  cancel: APP_LOGOUT,
-  success: [],
-  failure: [() => setToast("Couldn't login", 'danger')]
-});
+// const requestLoginGoogle = createRequestSaga({
+//   request: auth.googleLogin,
+//   key: 'googleLogin',
+//   cancel: APP_LOGOUT,
+//   success: [],
+//   failure: [() => setToast("Couldn't login", 'danger')]
+// });
 
-const requestRegisterAccount = createRequestSaga({
-  request: auth.registerAccount,
-  key: 'registerAccount',
-  cancel: APP_LOGOUT,
-  success: [],
-  failure: [() => setToast("Couldn't register", 'danger')]
-});
+// const requestRegisterAccount = createRequestSaga({
+//   request: auth.registerAccount,
+//   key: 'registerAccount',
+//   cancel: APP_LOGOUT,
+//   success: [],
+//   failure: [() => setToast("Couldn't register", 'danger')]
+// });
 
-const requestDisconnectFCM = createRequestSaga({
-  request: auth.disconnectFCM,
-  key: 'disconnectFCM',
+const requestOnLogout = createRequestSaga({
+  request: auth.onLogout,
+  key: 'onLogout',
   success: [],
   failure: []
 });
 
 const requestLogout = function*() {
   yield all([
+    yield put(removeLoggedUser()),
     yield put(removeLoggedUser()),
     yield put(setAuthState(false)),
     yield put(closeDrawer()),
@@ -71,12 +68,13 @@ export default [
     // use takeLatest instead of take every,
     //so double click in short time will not trigger more fork
     yield all([
+      takeLatest('app/onLogout', requestOnLogout),
       takeLatest(APP_LOGIN, requestLogin),
-      takeLatest(APP_LOGOUT, requestLogout),
-      takeLatest('app/facebookLogin', requestLoginFacebook),
-      takeLatest('app/googleLogin', requestLoginGoogle),
-      takeLatest('app/registerAccount', requestRegisterAccount),
-      takeLatest('app/disconnectFCM', requestDisconnectFCM)
+      takeLatest(APP_LOGOUT, requestLogout)
+      // takeLatest('app/facebookLogin', requestLoginFacebook),
+      // takeLatest('app/googleLogin', requestLoginGoogle),
+      // takeLatest('app/registerAccount', requestRegisterAccount),
+      // takeLatest('app/disconnectFCM', requestDisconnectFCM)
     ]);
   }
 ];

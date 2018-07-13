@@ -47,7 +47,7 @@ export default class Filter extends React.PureComponent {
         }}
         style={styles.rowFilter}
       >
-        <Text>{item.name}</Text>
+        <Text>{item.bex_ten}</Text>
       </TouchableOpacity>
     );
   }
@@ -78,8 +78,7 @@ export default class Filter extends React.PureComponent {
           </View>
 
           <FlatList
-            contentContainerStyle={{ marginVertical: material.paddingNormal }}
-            style={{ width: '100%' }}
+            contentContainerStyle={{ margin: material.paddingNormal }}
             keyExtractor={(item, index) => index}
             data={this.props.data}
             renderItem={this.renderItem.bind(this)}
