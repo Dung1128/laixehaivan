@@ -19,3 +19,12 @@ export const getMenu = (...args) => ({ type: 'app/getMenu', args });
 export const saveMenu = data => ({ type: 'app/saveMenu', payload: data });
 export const checkSuDungVe = (...args) => ({ type: 'app/checkSuDungVe', args });
 export const checkVersion = (...args) => ({ type: 'app/checkVersion', args });
+export const insertVe = (...args) => ({ type: 'app/insertVe', args });
+export const getDanhMucVe = (...args) => ({ type: 'app/getDanhMucVe', args });
+
+export const saveDanhMucVe = payload => ({
+  type: 'app/saveDanhMucVe',
+  payload
+});
+
+export const getSeriMin = (...args) => ({ type: 'app/getSeriMin', args });

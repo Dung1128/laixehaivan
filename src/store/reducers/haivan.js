@@ -1,7 +1,10 @@
 const init = {
   timeChuyenDi: new Date(),
   chuyenDi: null,
-  menu: []
+  menu: [],
+  danhMucVe: {
+    dataDM: []
+  }
 };
 
 export default (state = init, { type, payload }) => {
@@ -12,6 +15,8 @@ export default (state = init, { type, payload }) => {
       return { ...state, chuyenDi: payload };
     case 'app/saveMenu':
       return { ...state, menu: payload };
+    case 'app/saveDanhMucVe':
+      return { ...state, danhMucVe: payload };
     default:
       return state;
   }

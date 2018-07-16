@@ -48,6 +48,37 @@ export default {
       `/api/appdriver/check-version?type=${params.type}&currentVersion=${
         params.currentVersion
       }`
+    ),
+
+  insertVe: params =>
+    API.post(
+      `/api/appdriver/insert-ve`,
+      {
+        adm_id: params.adm_id,
+        token: params.token,
+        did_id: params.did_id,
+        bvv_id: params.bvv_id,
+        diem_a: params.diem_a,
+        diem_b: params.diem_b,
+        seri: params.seri,
+        key_danh_muc: params.key_danh_muc,
+        price: params.price,
+        phone: params.phone
+      },
+      {}
+    ),
+  getDanhMucVe: params =>
+    API.get(
+      `/api/appdriver/get-danh-muc-ve?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}`
+    ),
+
+  getSeriMin: params =>
+    API.get(
+      `/api/appdriver/get-seri-min?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}&dm_id=${params.dm_id}&price=${params.price}`
     )
   // facebookLogin: facebookToken =>
   //   API.post('/api/fb_authenticate', { fb_access_token: facebookToken }),

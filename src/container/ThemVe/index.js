@@ -8,7 +8,9 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as commonActions from '../../store/actions/common';
-
+import * as haivanActions from '../../store/actions/haivan';
+import * as haivanSelectors from '../../store/selectors/haivan';
+import * as authSelectors from '../../store/selectors/auth';
 // import { setToast } from '../../store/actions/common';
 import { InputField } from '../../elements/Form';
 import styless from '../Register/styles';
@@ -16,6 +18,7 @@ import styles from './styles';
 import material from '../../theme/variables/material';
 import KhuyenMai from './KhuyenMai';
 import ModalFilter from '../ThanhTra/ModalFilter';
+import DanhMucVe from './DanhMucVe';
 
 @reduxForm({
   form: 'themVe',
@@ -24,8 +27,13 @@ import ModalFilter from '../ThanhTra/ModalFilter';
   enableReinitialize: true
 })
 @connect(
-  null,
-  { ...commonActions }
+  state => ({
+    token: authSelectors.getToken(state),
+    profile: authSelectors.getUser(state),
+    did_id: haivanSelectors.getChuyenDi(state),
+    dmVe: haivanSelectors.getDanhMucVe(state)
+  }),
+  { ...commonActions, ...haivanActions }
 )
 export default class ThemVe extends React.PureComponent {
   constructor(props) {
@@ -36,22 +44,70 @@ export default class ThemVe extends React.PureComponent {
       visible: false,
       visibleDiemDi: false,
       visibleDiemDen: false,
-      price: {},
+      price: { price: 0 },
+      bvd_id: {},
       khuyenMai: {
         id: 3,
         value: 'Mã khuyễn mãi'
       },
-      diemdi: { bex_ten: '' },
-      diemden: { bex_ten: '' },
-      giamgia: 0
+      diemdi: this.props.route.params.data[0],
+      diemden: this.props.route.params.data[
+        this.props.route.params.data.length - 1
+      ],
+      giamgia: 0,
+      detailVe: this.props.route.params.detailVe,
+      seri: 0,
+      key_danh_muc: ''
     };
 
-    // console.log('gia ve', this.props.route.params.dataGiaVe);
+    this.danhMuc = [];
+    this.props.dmVe.dataDM.map(item =>
+      this.danhMuc.push({ ...item, label: item.bvd_ma_ve, value: item.bvd_id })
+    );
+
+    console.log('danh muc ve', this.props.dmVe.dataDM);
+    console.log('detail ve', this.props.route.params.detailVe);
+  }
+
+  componentDidMount() {
+    this.showGiaVe();
   }
 
   DatVe(val) {
-    console.log(val);
-    // this.props.resetTo('soDoGiuong');
+    console.log(val, this.state.diemden, this.state.diemdi);
+
+    const params = {
+      adm_id: this.props.profile.adm_id,
+      token: this.props.token,
+      did_id: this.props.did_id,
+      bvv_id: this.props.route.params.detailVe.bvv_number,
+      diem_a: this.state.diemdi.bex_id,
+      diem_b: this.state.diemden.bex_id,
+      seri: this.state.seri,
+      key_danh_muc: this.state.key_danh_muc,
+      price: this.state.price.price,
+      phone: this.state.phone
+    };
+
+    this.props.insertVe(params, () => this.props.forwardTo('soDoGiuong'));
+  }
+
+  getSeri(val) {
+    const params = {
+      adm_id: this.props.profile.adm_id,
+      token: this.props.token,
+      did_id: this.props.did_id,
+      dm_id: this.state.key_danh_muc,
+      price: this.state.price.price
+    };
+
+    this.props.getSeriMin(params, (e, d) => {
+      if (d) {
+        this.setState({
+          seri: d.seri
+        });
+      }
+    });
   }
 
   showGiaVe() {
@@ -73,51 +129,17 @@ export default class ThemVe extends React.PureComponent {
         }
       )
     });
-
-    // const soDoA = _.find(this.props.route.params.dataGiaVe, {
-    //   diem_a: this.state.diemdi.bex_id
-    // });
-
-    // const soDoB = _.find(
-    //   _.find(this.props.route.params.dataGiaVe, {
-    //     diem_a: this.state.diemdi.bex_id
-    //   }).data,
-    //   {
-    //     diem_b: this.state.diemden.bex_id
-    //   }
-    // );
-
-    // console.log(
-    //   _.find(
-    //     _.find(this.props.route.params.dataGiaVe, {
-    //       diem_a: this.state.diemdi.bex_id
-    //     }).data,
-    //     {
-    //       diem_b: this.state.diemden.bex_id
-    //     }
-    //   )
-    // );
   }
 
   checkSelectedDiemDi(val) {
-    // console.log('gia ve', this.props.route.params.dataGiaVe);
-    // console.log('diemdi', val);
     this.setState({ diemdi: val }, () => this.showGiaVe());
 
     const soDoA = _.find(this.props.route.params.dataGiaVe, {
       diem_a: val.bex_id
     });
-
-    // console.log(
-    //   'diem A',
-    //   _.find(this.props.route.params.dataGiaVe, {
-    //     diem_a: val.bex_id
-    //   })
-    // );
   }
 
   checkSelectedDiemDen(val) {
-    // console.log('diemden', val);
     this.setState({ diemden: val }, () => this.showGiaVe());
   }
 
@@ -403,6 +425,39 @@ export default class ThemVe extends React.PureComponent {
               </View>
             )}
           </View>
+          {this.state.detailVe.bvv_seri !== 0 ? (
+            <DanhMucVe
+              // initialValue={}
+              data={this.danhMuc}
+              onChangeText={value => {
+                this.setState(
+                  {
+                    key_danh_muc: value
+                  },
+                  () => this.getSeri()
+                );
+              }}
+            />
+          ) : (
+            <View
+              style={{
+                ...styless.textInputContainer,
+                paddingVertical: material.paddingSmall
+              }}
+            >
+              <Text style={styles.textNormal}>{1}</Text>
+            </View>
+          )}
+          <View
+            style={{
+              ...styless.textInputContainer,
+              paddingTop: material.paddingSmall,
+              marginBottom: 0
+            }}
+          >
+            <Text style={styles.textNormal}>Seri: {this.state.seri}</Text>
+          </View>
+
           <View
             style={{
               ...styless.textInputContainer,

@@ -89,7 +89,7 @@ export default class ChieuVe extends React.PureComponent {
   }
 
   refreshList() {
-    this.getList();
+    this.getList(moment(this.props.timeChuyenDi).format('DD-MM-YYYY'));
   }
 
   _keyExtractor = (item, index) => item.did_id + '.';

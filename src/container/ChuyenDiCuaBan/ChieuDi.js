@@ -73,7 +73,7 @@ export default class ChieuDi extends React.PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.timeChuyenDi !== this.props.timeChuyenDi) {
-      console.log(nextProps.timeChuyenDi);
+      console.log('nextProps', nextProps.timeChuyenDi);
       this.getList(moment(nextProps.timeChuyenDi).format('DD-MM-YYYY'));
     }
     // const newData = [];
@@ -101,7 +101,7 @@ export default class ChieuDi extends React.PureComponent {
   }
 
   refreshList() {
-    this.getList();
+    this.getList(moment(this.props.timeChuyenDi).format('DD-MM-YYYY'));
   }
   _keyExtractor = (item, index) => item.did_id + '.';
 

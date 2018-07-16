@@ -2,7 +2,7 @@ import { takeLatest, all } from 'redux-saga/effects';
 import haivan from '../api/haivan';
 import { createRequestSaga } from '../sagas/common';
 import { setToast } from '../actions/common';
-import { replaceProfile } from '../actions/account';
+import { saveDanhMucVe } from '../actions/haivan';
 
 const requestListChuyenDi = createRequestSaga({
   request: haivan.listChuyenDi,
@@ -53,6 +53,27 @@ const requestCheckVersion = createRequestSaga({
   failure: [() => setToast('error', 'error')]
 });
 
+const requestInsertVe = createRequestSaga({
+  request: haivan.insertVe,
+  key: 'insertVe',
+  success: [],
+  failure: [() => setToast('error', 'error')]
+});
+
+const requestGetDanhMucVe = createRequestSaga({
+  request: haivan.getDanhMucVe,
+  key: 'getDanhMucVe',
+  success: [data => saveDanhMucVe(data)],
+  failure: [() => setToast('error', 'error')]
+});
+
+const requestGetSeriMin = createRequestSaga({
+  request: haivan.getSeriMin,
+  key: 'getSeriMin',
+  success: [],
+  failure: [() => setToast('error', 'error')]
+});
+
 // root saga reducer
 export default [
   function* fetchWatcher() {
@@ -63,7 +84,10 @@ export default [
       takeLatest('app/listXuongXe', requestListXuongXe),
       takeLatest('app/getMenu', requestMenu),
       takeLatest('app/checkSuDungVe', requestCheckSuDungVe),
-      takeLatest('app/checkVersion', requestCheckVersion)
+      takeLatest('app/checkVersion', requestCheckVersion),
+      takeLatest('app/insertVe', requestInsertVe),
+      takeLatest('app/getDanhMucVe', requestGetDanhMucVe),
+      takeLatest('app/getSeriMin', requestGetSeriMin)
     ]);
   }
 ];

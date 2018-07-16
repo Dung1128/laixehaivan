@@ -161,7 +161,7 @@ export default {
     Page: ThemVe,
     headerType: 'back',
     footerType: 'home',
-    cache: true
+    cache: false
   },
   addBangDieuDo: {
     title: 'Chỉnh sửa',

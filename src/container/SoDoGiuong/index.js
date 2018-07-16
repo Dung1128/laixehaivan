@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Content, Text, Button, Icon, Fab, Card } from 'native-base';
 import { connect } from 'react-redux';
 import FabButton from '../../components/FabButton';
-import data from './data';
+
 import ItemGiuong from './ItemGiuong';
 import material from '../../theme/variables/material';
 import ItemChuyenDi from '../ChuyenDiCuaBan/item';
@@ -59,6 +59,17 @@ export default class SoDoGiuong extends React.PureComponent {
 
   componentDidMount() {
     this.getList();
+    this.danhMucVe();
+  }
+
+  danhMucVe() {
+    const params = {
+      token: this.props.token,
+      did_id: this.props.did_id,
+      adm_id: this.props.profile.adm_id
+    };
+
+    this.props.getDanhMucVe(params);
   }
 
   getList() {
@@ -96,20 +107,28 @@ export default class SoDoGiuong extends React.PureComponent {
           <ItemChuyenDi detail data={this.state.soDoGiuong.arrInfo} />
           {this.state.newData && (
             <ItemGiuong
-              onPress={() =>
-                this.props.forwardTo('themVe', {
-                  data: this.state.soDoGiuong.arrBen,
-                  dataGiaVe: this.state.soDoGiuong.arrGiaVe
-                })
-              }
+              onPress={val => {
+                console.log('dkm', val);
+                val.bvv_status === 0
+                  ? this.props.forwardTo('themVe', {
+                      data: this.state.soDoGiuong.arrBen,
+                      dataGiaVe: this.state.soDoGiuong.arrGiaVe,
+                      arrVeNumber: this.state.soDoGiuong.arrVeNumber,
+                      detailVe: val
+                    })
+                  : this.setState({
+                      visible: true,
+                      inforGiuong: val
+                    });
+              }}
               data={this.state.newData}
               dataVe={this.state.soDoGiuong.arrVeNumber}
-              handleSoDo={val =>
-                this.setState({
-                  inforGiuong: val,
-                  visible: true
-                })
-              }
+              // handleSoDo={val =>
+              //   this.setState({
+              //     inforGiuong: val,
+              //     visible: true
+              //   })
+              // }
             />
           )}
         </Content>

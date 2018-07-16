@@ -8,7 +8,7 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import * as commonActions from '../../store/actions/common';
 import material from '../../theme/variables/material';
-import data from './data';
+
 import styles from './styles';
 
 @connect(
@@ -26,11 +26,15 @@ export default class ItemGiuong extends Component {
   checkVe(value) {
     if (!!_.find(this.props.dataVe, { bvv_number: value })) {
       const ve = _.find(this.props.dataVe, { bvv_number: value });
-      if (ve.arrVe.lock === 1) {
-        return { backgroundColor: material.colorSubtitle };
+      console.log(
+        'status',
+        _.find(this.props.dataVe, { bvv_number: value }).arrVe.bvv_status
+      );
+      if (ve.arrVe.bvv_status !== 0) {
+        return { backgroundColor: material.colorRequest };
       } else {
-        if (ve.arrVe.bvv_status !== 0) {
-          return { backgroundColor: material.colorRequest };
+        if (ve.arrVe.lock === 1) {
+          return { backgroundColor: material.colorSubtitle };
         }
 
         if (ve.arrVe.bvv_status === 11) {
@@ -55,14 +59,16 @@ export default class ItemGiuong extends Component {
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         {item.data.map(item => (
           <TouchableOpacity
-            onPress={this.props.onPress}
+            onPress={() =>
+              this.props.onPress(
+                _.find(this.props.dataVe, { bvv_number: item.sdgct_number })
+              )
+            }
             activeOpacity={0.6}
             style={{
               ...styles.itemRow,
               width: w,
               ...this.checkVe(item.sdgct_number)
-              // backgroundColor:
-              //   item.book === true ? material.colorRequest : material.badgeColor
             }}
           >
             <Text>
@@ -116,6 +122,8 @@ export default class ItemGiuong extends Component {
 
   render() {
     const { data, dataVe } = this.props;
+    // console.log('data', data);
+    // console.log('dataVe', dataVe);
 
     return (
       <View>{data.map((item, index) => this.renderItem(item, index))}</View>

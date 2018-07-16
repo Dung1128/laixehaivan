@@ -52,14 +52,24 @@ export default class Filter extends React.PureComponent {
           </View>
           <View>
             <Text style={styles.textNormal}>
-              Họ và tên: {inforGiuong.user.name}
+              Họ và tên: {inforGiuong.bvv_ten_khach_hang}
             </Text>
-            <Text style={styles.textNormal}>Số điện thoại: {'123456'}</Text>
-            <Text style={styles.textNormal}>Điểm đón: </Text>
-            <Text style={styles.textNormal}>Điểm trả: </Text>
+            <Text style={styles.textNormal}>
+              Số điện thoại: {inforGiuong.bvv_phone}
+            </Text>
+            <Text style={styles.textNormal}>
+              Điểm đón: {inforGiuong.bvv_diem_don_khach}
+            </Text>
+            <Text style={styles.textNormal}>
+              Điểm trả: {inforGiuong.bvv_diem_tra_khach}
+            </Text>
             <Text style={styles.textNormal}>Nơi đi & đến: </Text>
-            <Text style={styles.textNormal}>Giá vé: </Text>
-            <Text style={styles.textNormal}>Ghi chú: </Text>
+            <Text style={styles.textNormal}>
+              Giá vé: {inforGiuong.bvv_price}
+            </Text>
+            <Text style={styles.textNormal}>
+              Ghi chú: {inforGiuong.bvv_ghi_chu}
+            </Text>
           </View>
           <Button
             success
