@@ -13,20 +13,6 @@ import * as authSelectors from '../../store/selectors/auth';
 import * as haivanActions from '../../store/actions/haivan';
 import * as haivanSelectors from '../../store/selectors/haivan';
 
-const infoXe = {
-  address1: 'Lương Yên',
-  address2: 'Bến xe Lào Cai',
-  bks: '24B1324',
-  laixe1: 'Nguyễn Văn A',
-  laixe2: 'Nguyễn Văn B',
-  tiepvien: 'Nguyễn Văn C',
-  dadat: 2,
-  trong: 42,
-  max: 44,
-  time: '12:00 -> 14:30',
-  type: 2
-};
-
 @connect(
   state => ({
     token: authSelectors.getToken(state),
@@ -48,7 +34,9 @@ export default class SoDoGiuong extends React.PureComponent {
       },
       soDoGiuong: {
         arrChoTang: [],
-        arrInfo: {},
+        arrInfo: {
+          data: []
+        },
         arrVeNumber: [],
         arrBen: [],
         arrGiaVe: []
@@ -100,6 +88,21 @@ export default class SoDoGiuong extends React.PureComponent {
 
   render() {
     const { soDoGiuong } = this.setState;
+    // const price = _.find(
+    //   _.find(this.state.soDoGiuong.arrGiaVe, {
+    //     diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
+    //   }).data,
+    //   {
+    //     diem_b: tthis.state.soDoGiuong.arrInfo.tuy_ben_b
+    //   }
+    // );
+
+    // console.log(
+    //   'haiz',
+    //   _.find(this.state.soDoGiuong.arrGiaVe, {
+    //     diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
+    //   })
+    // );
 
     return (
       <Container style={{ padding: material.paddingSmall }}>

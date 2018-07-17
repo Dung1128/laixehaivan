@@ -80,7 +80,7 @@ export default class ThemVe extends React.PureComponent {
       adm_id: this.props.profile.adm_id,
       token: this.props.token,
       did_id: this.props.did_id,
-      bvv_id: this.props.route.params.detailVe.bvv_number,
+      bvv_id: this.props.route.params.detailVe.arrVe.bvv_id,
       diem_a: this.state.diemdi.bex_id,
       diem_b: this.state.diemden.bex_id,
       seri: this.state.seri,

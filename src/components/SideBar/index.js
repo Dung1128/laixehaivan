@@ -114,9 +114,12 @@ export default class extends PureComponent {
       }
     });
 
-    this.setState({
-      listMenu: newMenu
-    });
+    this.setState(
+      {
+        listMenu: newMenu
+      },
+      () => console.log('success')
+    );
   }
 
   onFanProfilePress() {
