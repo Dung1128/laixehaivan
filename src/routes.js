@@ -110,7 +110,7 @@ export default {
   soDoGiuong: {
     title: 'Sơ đồ giường',
     Page: SoDoGiuong,
-    headerType: 'back',
+    headerType: 'home',
     footerType: 'home',
     cache: false
   },

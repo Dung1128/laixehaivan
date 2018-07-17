@@ -109,16 +109,16 @@ export default class SoDoGiuong extends React.PureComponent {
             <ItemGiuong
               onPress={val => {
                 console.log('dkm', val);
-                val.bvv_status === 0
-                  ? this.props.forwardTo('themVe', {
+                val.arrVe.bvv_status !== 0
+                  ? this.setState({
+                      visible: true,
+                      inforGiuong: val
+                    })
+                  : this.props.forwardTo('themVe', {
                       data: this.state.soDoGiuong.arrBen,
                       dataGiaVe: this.state.soDoGiuong.arrGiaVe,
                       arrVeNumber: this.state.soDoGiuong.arrVeNumber,
                       detailVe: val
-                    })
-                  : this.setState({
-                      visible: true,
-                      inforGiuong: val
                     });
               }}
               data={this.state.newData}

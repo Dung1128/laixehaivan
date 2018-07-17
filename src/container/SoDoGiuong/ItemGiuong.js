@@ -26,10 +26,10 @@ export default class ItemGiuong extends Component {
   checkVe(value) {
     if (!!_.find(this.props.dataVe, { bvv_number: value })) {
       const ve = _.find(this.props.dataVe, { bvv_number: value });
-      console.log(
-        'status',
-        _.find(this.props.dataVe, { bvv_number: value }).arrVe.bvv_status
-      );
+      // console.log(
+      //   'status',
+      //   _.find(this.props.dataVe, { bvv_number: value }).arrVe.bvv_status
+      // );
       if (ve.arrVe.bvv_status !== 0) {
         return { backgroundColor: material.colorRequest };
       } else {
