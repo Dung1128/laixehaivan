@@ -4,6 +4,10 @@ const init = {
   menu: [],
   danhMucVe: {
     dataDM: []
+  },
+  detailVe: {
+    arrVe: {},
+    bvv_number: 0
   }
 };
 
@@ -17,6 +21,8 @@ export default (state = init, { type, payload }) => {
       return { ...state, menu: payload };
     case 'app/saveDanhMucVe':
       return { ...state, danhMucVe: payload };
+    case 'app/saveVe':
+      return { ...state, detailVe: payload };
     default:
       return state;
   }

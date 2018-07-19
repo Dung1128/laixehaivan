@@ -72,7 +72,10 @@ export default class ChieuDi extends React.PureComponent {
   // }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.timeChuyenDi !== this.props.timeChuyenDi) {
+    if (
+      nextProps.timeChuyenDi !== this.props.timeChuyenDi ||
+      nextProps.token !== this.props.token
+    ) {
       console.log('nextProps', nextProps.timeChuyenDi);
       this.getList(moment(nextProps.timeChuyenDi).format('DD-MM-YYYY'));
     }

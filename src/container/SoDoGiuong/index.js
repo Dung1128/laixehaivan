@@ -32,6 +32,7 @@ export default class SoDoGiuong extends React.PureComponent {
           name: '1'
         }
       },
+      detailVe: {},
       soDoGiuong: {
         arrChoTang: [],
         arrInfo: {
@@ -41,7 +42,8 @@ export default class SoDoGiuong extends React.PureComponent {
         arrBen: [],
         arrGiaVe: []
       },
-      newData: []
+      newData: [],
+      price: {}
     };
   }
 
@@ -76,33 +78,56 @@ export default class SoDoGiuong extends React.PureComponent {
         newArray.push(d.arrChoTang[1]);
         newArray.push(d.arrChoTang[3]);
         newArray.push(d.arrChoTang[4]);
-        this.setState({ soDoGiuong: d, newData: newArray });
+        this.setState({ soDoGiuong: d, newData: newArray }, () => {
+          // console.log(
+          //   'haiz',
+          //   _.find(this.state.soDoGiuong.arrGiaVe, {
+          //     diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
+          //   });
+
+          console.log('arrInfo', this.state.soDoGiuong.arrInfo);
+
+          console.log(
+            'priceeeee',
+            _.find(
+              _.find(this.state.soDoGiuong.arrGiaVe, {
+                diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
+              }).data,
+              {
+                diem_b: this.state.soDoGiuong.arrInfo.tuy_ben_b
+              }
+            )
+          );
+
+          this.setState({
+            price: _.find(
+              _.find(this.state.soDoGiuong.arrGiaVe, {
+                diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
+              }).data,
+              {
+                diem_b: this.state.soDoGiuong.arrInfo.tuy_ben_b
+              }
+            )
+          });
+        });
       }
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    // if (this.props.did_id !== nextProps.did_id) {
-    // }
+  xuongXe() {
+    console.log('detail ve', this.state.detailVe);
+    const params = {
+      token: this.props.token,
+      bvv_id: this.state.detailVe.arrVe.bvv_id,
+      adm_id: this.props.profile.adm_id
+    };
+    this.props.xuongXe(params, () => this.getList());
   }
+
+  componentWillReceiveProps(nextProps) {}
 
   render() {
     const { soDoGiuong } = this.setState;
-    // const price = _.find(
-    //   _.find(this.state.soDoGiuong.arrGiaVe, {
-    //     diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
-    //   }).data,
-    //   {
-    //     diem_b: tthis.state.soDoGiuong.arrInfo.tuy_ben_b
-    //   }
-    // );
-
-    // console.log(
-    //   'haiz',
-    //   _.find(this.state.soDoGiuong.arrGiaVe, {
-    //     diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
-    //   })
-    // );
 
     return (
       <Container style={{ padding: material.paddingSmall }}>
@@ -111,7 +136,10 @@ export default class SoDoGiuong extends React.PureComponent {
           {this.state.newData && (
             <ItemGiuong
               onPress={val => {
-                console.log('dkm', val);
+                this.setState({ detailVe: val });
+
+                this.props.saveVe(val);
+
                 val.arrVe.bvv_status !== 0
                   ? this.setState({
                       visible: true,
@@ -126,6 +154,7 @@ export default class SoDoGiuong extends React.PureComponent {
               }}
               data={this.state.newData}
               dataVe={this.state.soDoGiuong.arrVeNumber}
+              price={this.state.price}
               // handleSoDo={val =>
               //   this.setState({
               //     inforGiuong: val,
@@ -138,6 +167,18 @@ export default class SoDoGiuong extends React.PureComponent {
         <FabButton />
 
         <HandleSoDoGiuong
+          onChange={() => {
+            this.props.saveVe(this.state.detailVe);
+            this.props.forwardTo('themVe', {
+              data: this.state.soDoGiuong.arrBen,
+              dataGiaVe: this.state.soDoGiuong.arrGiaVe,
+              arrVeNumber: this.state.soDoGiuong.arrVeNumber,
+              detailVe: this.state.detailVe
+            });
+          }}
+          onXuongXe={() => {
+            this.xuongXe();
+          }}
           inforGiuong={this.state.inforGiuong}
           setSoDoGiuong={ob =>
             this.setState({

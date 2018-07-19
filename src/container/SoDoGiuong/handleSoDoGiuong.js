@@ -24,7 +24,9 @@ export default class Filter extends React.PureComponent {
   static propTypes = {
     handleVisible: PropTypes.func,
     setSoDoGiuong: PropTypes.func,
-    data: PropTypes.object
+    data: PropTypes.object,
+    onChange: PropTypes.func,
+    onXuongXe: PropTypes.func
   };
 
   setVisible(val) {
@@ -77,7 +79,24 @@ export default class Filter extends React.PureComponent {
           >
             <Text style={styles.textNormal}>Xác nhận lên xe</Text>
           </Button>
-          <Button primary style={styles.btn}>
+          <Button
+            onPress={() => {
+              this.props.onXuongXe();
+              this.setVisible(false);
+            }}
+            warning
+            style={styles.btn}
+          >
+            <Text style={styles.textNormal}>Xuống xe</Text>
+          </Button>
+          <Button
+            onPress={() => {
+              this.props.onChange();
+              this.setVisible(false);
+            }}
+            primary
+            style={styles.btn}
+          >
             <Text style={styles.textNormal}>Chỉnh sửa</Text>
           </Button>
           <Button info style={styles.btn}>
@@ -86,11 +105,11 @@ export default class Filter extends React.PureComponent {
           <Button success style={styles.btn}>
             <Text style={styles.textNormal}>Thêm vé</Text>
           </Button>
-          <Button danger style={styles.btn}>
-            <Text style={styles.textNormal}>Huỷ vé</Text>
-          </Button>
           <Button warning style={styles.btn}>
             <Text style={styles.textNormal}>Chuyển chờ</Text>
+          </Button>
+          <Button danger style={styles.btn}>
+            <Text style={styles.textNormal}>Huỷ vé</Text>
           </Button>
         </TouchableOpacity>
       </Modal>

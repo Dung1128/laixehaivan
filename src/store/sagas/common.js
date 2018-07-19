@@ -7,8 +7,11 @@ import {
   markRequestSuccess,
   markRequestCancelled,
   markRequestFailed,
-  invokeCallback
+  invokeCallback,
+  resetTo
 } from '../actions/common';
+
+import { setAuthState, removeLoggedUser } from '../actions/auth';
 
 export const rejectErrors = res => {
   console.log('res', res);
@@ -161,6 +164,13 @@ export const createRequestSaga = ({
       }
     } catch (reason) {
       console.log('reason', reason);
+
+      if (reason.status && reason.status === 403) {
+        yield put(removeLoggedUser());
+        yield put(setAuthState(false));
+        yield put(resetTo('login'));
+      }
+
       // unauthorized
       // if (reason.status === 401) {
       //   // try refresh token

@@ -92,13 +92,13 @@ export default class Filter extends React.PureComponent {
                 {'Chọn loại khuyến mãi'}
               </Text>
             </View>
-            {this.itemFilter('1', 'Trẻ em', { id: 1, value: 'Trẻ em' })}
-            {this.itemFilter('2', 'Trực tiếp', {
-              id: 2,
+            {this.itemFilter('4', 'Trẻ em', { id: 4, value: 'Trẻ em' })}
+            {this.itemFilter('3', 'Trực tiếp', {
+              id: 3,
               value: 'Trực tiếp'
             })}
-            {this.itemFilter('3', 'Mã Khuyến Mãi', {
-              id: 3,
+            {this.itemFilter('6', 'Mã Khuyến Mãi', {
+              id: 6,
               value: 'Mã khuyến mãi'
             })}
           </View>

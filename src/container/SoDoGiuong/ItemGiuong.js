@@ -20,15 +20,16 @@ export default class ItemGiuong extends Component {
     data: PropTypes.array.isRequired,
     handleSoDo: PropTypes.func,
     dataVe: PropTypes.array,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    price: PropTypes.object
   };
 
-  checkVe(value) {
+  checkVe(value, sdgct_label) {
     if (!!_.find(this.props.dataVe, { bvv_number: value })) {
       const ve = _.find(this.props.dataVe, { bvv_number: value });
       // console.log(
-      //   'status',
-      //   _.find(this.props.dataVe, { bvv_number: value }).arrVe.bvv_status
+      //   sdgct_label,
+      //   _.find(this.props.dataVe, { bvv_number: value })
       // );
       if (ve.arrVe.bvv_status !== 0) {
         return { backgroundColor: material.colorRequest };
@@ -59,6 +60,10 @@ export default class ItemGiuong extends Component {
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         {item.data.map(item => (
           <TouchableOpacity
+            disabled={
+              _.find(this.props.dataVe, { bvv_number: item.sdgct_number }).arrVe
+                .lock
+            }
             onPress={() =>
               this.props.onPress(
                 _.find(this.props.dataVe, { bvv_number: item.sdgct_number })
@@ -68,16 +73,24 @@ export default class ItemGiuong extends Component {
             style={{
               ...styles.itemRow,
               width: w,
-              ...this.checkVe(item.sdgct_number)
+              ...this.checkVe(item.sdgct_number, item.sdgct_label)
             }}
           >
             <Text>
               {item.sdgct_label_full}
               {/* {item.id} */}
             </Text>
-            {!!_.find(this.props.dataVe, {
-              bvv_number: item.sdgct_number
-            }) && (
+            {this.props.price ? (
+              _.find(this.props.dataVe, {
+                bvv_number: item.sdgct_number
+              }).arrVe.bvv_price === 0 && (
+                <Text>
+                  {this.props.price.price > 1000
+                    ? this.props.price.price / 1000
+                    : this.props.price.price}K
+                </Text>
+              )
+            ) : (
               <View>
                 <Text>
                   {_.find(this.props.dataVe, {
@@ -93,6 +106,27 @@ export default class ItemGiuong extends Component {
                 </Text>
               </View>
             )}
+            {!!_.find(this.props.dataVe, {
+              bvv_number: item.sdgct_number
+            }) &&
+              _.find(this.props.dataVe, {
+                bvv_number: item.sdgct_number
+              }).arrVe.bvv_price !== 0 && (
+                <View>
+                  <Text>
+                    {_.find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    }).arrVe.bvv_price / 1000}K
+                  </Text>
+                  <Text numberOfLines={1}>
+                    {
+                      _.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ten_khach_hang
+                    }
+                  </Text>
+                </View>
+              )}
             {/* <Text>{item.price}</Text> */}
           </TouchableOpacity>
         ))}

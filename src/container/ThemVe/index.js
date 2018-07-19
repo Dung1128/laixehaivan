@@ -20,14 +20,15 @@ import KhuyenMai from './KhuyenMai';
 import ModalFilter from '../ThanhTra/ModalFilter';
 import DanhMucVe from './DanhMucVe';
 
-@reduxForm({
-  form: 'themVe',
-  validate: values => {},
-  destroyOnUnmount: !__DEV__,
-  enableReinitialize: true
-})
 @connect(
   state => ({
+    initialValues: {
+      user: haivanSelectors.getVe(state).arrVe.bvv_ten_khach_hang,
+      phone: haivanSelectors.getVe(state).arrVe.bvv_phone,
+      noidon: haivanSelectors.getVe(state).arrVe.bvv_diem_don_khach,
+      noitra: haivanSelectors.getVe(state).arrVe.bvv_diem_tra_khach,
+      ghichu: haivanSelectors.getVe(state).arrVe.bvv_ghi_chu
+    },
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
     did_id: haivanSelectors.getChuyenDi(state),
@@ -35,6 +36,12 @@ import DanhMucVe from './DanhMucVe';
   }),
   { ...commonActions, ...haivanActions }
 )
+@reduxForm({
+  form: 'themVe',
+  validate: values => {},
+  destroyOnUnmount: !__DEV__,
+  enableReinitialize: true
+})
 export default class ThemVe extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -47,8 +54,8 @@ export default class ThemVe extends React.PureComponent {
       price: { price: 0 },
       bvd_id: {},
       khuyenMai: {
-        id: 3,
-        value: 'Mã khuyễn mãi'
+        id: 0,
+        value: 'Chọn hình thức khyến mãi'
       },
       diemdi: this.props.route.params.data[0],
       diemden: this.props.route.params.data[
@@ -56,8 +63,12 @@ export default class ThemVe extends React.PureComponent {
       ],
       giamgia: 0,
       detailVe: this.props.route.params.detailVe,
-      seri: 0,
-      key_danh_muc: ''
+      seri: this.props.route.params.detailVe.arrVe.bvv_seri,
+      key_danh_muc: '',
+      giam_gia_text: '',
+      hinh_thuc_giam_gia: '',
+      phone: this.props.route.params.detailVe.arrVe.bvv_phone,
+      checkGiamGiaText: false
     };
 
     this.danhMuc = [];
@@ -74,8 +85,37 @@ export default class ThemVe extends React.PureComponent {
   }
 
   DatVe(val) {
-    console.log(val, this.state.diemden, this.state.diemdi);
+    const params = {
+      adm_id: this.props.profile.adm_id,
+      token: this.props.token,
+      did_id: this.props.did_id,
+      bvv_id: this.props.route.params.detailVe.arrVe.bvv_id,
+      diem_a: this.state.diemdi.bex_id,
+      diem_b: this.state.diemden.bex_id,
+      seri: this.state.seri,
+      key_danh_muc: this.state.key_danh_muc,
+      price: this.state.price.price - this.state.giamgia,
+      phone: this.state.phone,
+      trung_chuyen_tra: this.state.noitra,
+      trung_chuyen_don: this.state.noidon,
+      ghi_chu: val.ghichu,
+      diem_tra: val.noitra,
+      diem_don: val.noidon,
+      fullname: val.user,
+      hinh_thuc_giam_gia:
+        this.state.checkGiamGiaText === true ? this.state.khuyenMai.id : '',
+      giam_gia_text:
+        this.state.checkGiamGiaText === true ? this.state.giam_gia_text : ''
+    };
 
+    this.props.insertVe(params, (e, d) => {
+      if (d) {
+        this.props.forwardTo('soDoGiuong');
+      }
+    });
+  }
+
+  UpdateVe(val) {
     const params = {
       adm_id: this.props.profile.adm_id,
       token: this.props.token,
@@ -86,10 +126,69 @@ export default class ThemVe extends React.PureComponent {
       seri: this.state.seri,
       key_danh_muc: this.state.key_danh_muc,
       price: this.state.price.price,
-      phone: this.state.phone
+      phone: val.phone,
+      trung_chuyen_tra: this.state.noitra,
+      trung_chuyen_don: this.state.noidon,
+      ghi_chu: val.ghichu,
+      diem_tra: val.noitra,
+      diem_don: val.noidon,
+      fullname: val.user
     };
 
-    this.props.insertVe(params, () => this.props.forwardTo('soDoGiuong'));
+    this.props.updateVe(params, () => this.props.forwardTo('soDoGiuong'));
+  }
+
+  checkKhuyenMai() {
+    switch (this.state.khuyenMai.id) {
+      case 4: {
+        const params = {
+          adm_id: this.props.profile.adm_id,
+          token: this.props.token,
+          did_id: this.props.did_id,
+          bvv_id: this.props.route.params.detailVe.arrVe.bvv_id,
+          diem_a: this.state.diemdi.bex_id,
+          diem_b: this.state.diemden.bex_id
+        };
+        return this.props.giamGiaTreEm(params, (e, d) => {
+          if (d && d.price_discount) {
+            this.setState({
+              giamgia: d.price_discount,
+              checkGiamGiaText: true
+            });
+          }
+        });
+      }
+      case 3:
+        return console.log(3);
+
+      default:
+        return console.log('false');
+    }
+  }
+
+  onSuDungMa() {
+    this.setState({
+      checkGiamGiaText: false
+    });
+    const params = {
+      adm_id: this.props.profile.adm_id,
+      token: this.props.token,
+      did_id: this.props.did_id,
+      bvv_id: this.props.route.params.detailVe.arrVe.bvv_id,
+      diem_a: this.state.diemdi.bex_id,
+      diem_b: this.state.diemden.bex_id,
+      phone: this.state.phone,
+      giam_gia_text: this.state.giam_gia_text
+    };
+    this.props.giamGiaText(params, (e, d) => {
+      if (d && d.price_discount) {
+        console.log('fuck');
+        this.setState({
+          giamgia: d.price_discount,
+          checkGiamGiaText: true
+        });
+      }
+    });
   }
 
   getSeri(val) {
@@ -147,6 +246,7 @@ export default class ThemVe extends React.PureComponent {
     return (
       <TouchableOpacity
         style={styles.itemFilter}
+        disabled={this.state.seri !== 0}
         onPress={() =>
           type === 0
             ? this.setState({
@@ -188,9 +288,13 @@ export default class ThemVe extends React.PureComponent {
 
   render() {
     const { handleSubmit } = this.props;
+
     return (
       <Container style={styles.container}>
-        <Content showsVerticalScrollIndicator={false}>
+        <Content
+          contentContainerStyle={{ paddingBottom: 10 }}
+          showsVerticalScrollIndicator={false}
+        >
           {this.renderItem(this.state.diemdi, 'bus', 'Điểm đi', 0)}
           {this.renderItem(this.state.diemden, 'bus', 'Điểm đến', 1)}
           <View style={styless.textInputContainer}>
@@ -220,6 +324,7 @@ export default class ThemVe extends React.PureComponent {
               onSubmitEditing={() => {
                 this.email.focus();
               }}
+              customOnChange={val => this.setState({ phone: val })}
               inputRef={e => (this.phone = e)}
               keyboardType="numeric"
               returnKeyType="next"
@@ -395,7 +500,7 @@ export default class ThemVe extends React.PureComponent {
           </TouchableOpacity>
 
           <View style={{ ...styless.textInputContainer, marginBottom: 0 }}>
-            {this.state.khuyenMai.id === 2 && (
+            {this.state.khuyenMai.id === 3 && (
               <View style={styles.inputKhuyenMai}>
                 <TextInput
                   underlineColorAndroid="transparent"
@@ -404,7 +509,7 @@ export default class ThemVe extends React.PureComponent {
                 />
               </View>
             )}
-            {this.state.khuyenMai.id === 3 && (
+            {this.state.khuyenMai.id === 6 && (
               <View
                 style={{
                   ...styles.inputKhuyenMai,
@@ -418,14 +523,19 @@ export default class ThemVe extends React.PureComponent {
                   underlineColorAndroid="transparent"
                   style={styles.fieldInput}
                   placeholder="Mã giảm giá"
+                  onChangeText={val => this.setState({ giam_gia_text: val })}
                 />
-                <Button success style={styles.button}>
+                <Button
+                  onPress={() => this.onSuDungMa()}
+                  success
+                  style={styles.button}
+                >
                   <Text>Sử dụng</Text>
                 </Button>
               </View>
             )}
           </View>
-          {this.state.detailVe.bvv_seri !== 0 ? (
+          {this.state.detailVe.arrVe.bvv_seri === 0 && (
             <DanhMucVe
               // initialValue={}
               data={this.danhMuc}
@@ -438,15 +548,6 @@ export default class ThemVe extends React.PureComponent {
                 );
               }}
             />
-          ) : (
-            <View
-              style={{
-                ...styless.textInputContainer,
-                paddingVertical: material.paddingSmall
-              }}
-            >
-              <Text style={styles.textNormal}>{1}</Text>
-            </View>
           )}
           <View
             style={{
@@ -474,20 +575,33 @@ export default class ThemVe extends React.PureComponent {
               this.state.price && this.state.price.price - this.state.giamgia
             )}
           </View>
-          <Button
-            onPress={handleSubmit(this.DatVe.bind(this))}
-            success
-            style={styles.buttonDatVe}
-          >
-            <Text>Đặt vé</Text>
-          </Button>
+          {this.state.detailVe.arrVe.bvv_status !== 0 ? (
+            <Button
+              onPress={handleSubmit(this.UpdateVe.bind(this))}
+              success
+              style={styles.buttonDatVe}
+            >
+              <Text>Cập nhật</Text>
+            </Button>
+          ) : (
+            <Button
+              onPress={handleSubmit(this.DatVe.bind(this))}
+              success
+              style={styles.buttonDatVe}
+            >
+              <Text>Đặt vé</Text>
+            </Button>
+          )}
         </Content>
         <KhuyenMai
-          setKhuyenMai={ob =>
-            this.setState({
-              khuyenMai: ob
-            })
-          }
+          setKhuyenMai={ob => {
+            this.setState(
+              {
+                khuyenMai: ob
+              },
+              () => this.checkKhuyenMai()
+            );
+          }}
           handleVisible={val =>
             this.setState({
               visible: val

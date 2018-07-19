@@ -41,7 +41,17 @@ export default class extends PureComponent {
   }
 
   componentDidMount() {
-    this.showMenu(this.props.menu);
+    this.setState({
+      listMenu: this.showMenu(this.props.menu)
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.menu !== nextProps.menu) {
+      this.setState({
+        listMenu: this.showMenu(nextProps.menu)
+      });
+    }
   }
 
   showMenu(menu) {
@@ -114,12 +124,14 @@ export default class extends PureComponent {
       }
     });
 
-    this.setState(
-      {
-        listMenu: newMenu
-      },
-      () => console.log('success')
-    );
+    return newMenu;
+
+    // this.setState(
+    //   {
+    //     listMenu: newMenu
+    //   },
+    //   () => console.log('success')
+    // );
   }
 
   onFanProfilePress() {

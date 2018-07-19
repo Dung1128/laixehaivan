@@ -69,6 +69,7 @@ export const InputField = ({
   disabled,
   keyboardType,
   unit,
+  customOnChange,
   IconIcomColor,
   ...custom
 }) => {
@@ -102,6 +103,7 @@ export const InputField = ({
           >
             {addon}
             <TextInput
+              onChangeText={customOnChange}
               keyboardType={keyboardType}
               disabled={disabled}
               ref={inputRef}

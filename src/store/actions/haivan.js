@@ -28,3 +28,8 @@ export const saveDanhMucVe = payload => ({
 });
 
 export const getSeriMin = (...args) => ({ type: 'app/getSeriMin', args });
+export const updateVe = (...args) => ({ type: 'app/updateVe', args });
+export const saveVe = payload => ({ type: 'app/saveVe', payload });
+export const xuongXe = (...args) => ({ type: 'app/xuongXe', args });
+export const giamGiaTreEm = (...args) => ({ type: 'app/giamGiaTreEm', args });
+export const giamGiaText = (...args) => ({ type: 'app/giamGiaText', args });

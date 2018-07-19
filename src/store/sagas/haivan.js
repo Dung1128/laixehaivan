@@ -8,70 +8,98 @@ const requestListChuyenDi = createRequestSaga({
   request: haivan.listChuyenDi,
   key: 'listChuyenDi',
   success: [],
-  failure: [() => setToast("Couldn't get list", 'error')]
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
 });
 
 const requestGetSoDoGiuong = createRequestSaga({
   request: haivan.getSoDoGiuong,
   key: 'getSoDoGiuong',
   success: [],
-  failure: [() => setToast('error', 'error')]
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
 });
 
 const requestListHuyVe = createRequestSaga({
   request: haivan.listHuyVe,
   key: 'listHuyVe',
   success: [],
-  failure: [() => setToast('error', 'error')]
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
 });
 
 const requestListXuongXe = createRequestSaga({
   request: haivan.listXuongXe,
   key: 'listXuongXe',
   success: [],
-  failure: [() => setToast('error', 'error')]
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
 });
 
 const requestMenu = createRequestSaga({
   request: haivan.getMenu,
   key: 'getMenu',
   success: [],
-  failure: [() => setToast('error', 'error')]
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
 });
 
 const requestCheckSuDungVe = createRequestSaga({
   request: haivan.checkSuDungVe,
   key: 'checkSuDungVe',
   success: [],
-  failure: [() => setToast('error', 'error')]
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
 });
 
 const requestCheckVersion = createRequestSaga({
   request: haivan.checkVersion,
   key: 'checkVersion',
   success: [],
-  failure: [() => setToast('error', 'error')]
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
 });
 
 const requestInsertVe = createRequestSaga({
   request: haivan.insertVe,
   key: 'insertVe',
   success: [],
-  failure: [() => setToast('error', 'error')]
+  failure: [() => setToast('lỗi, xin vui lòng gửi lại', 'error')]
+});
+
+const requestUpdateVe = createRequestSaga({
+  request: haivan.updateVe,
+  key: 'updateVe',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
 });
 
 const requestGetDanhMucVe = createRequestSaga({
   request: haivan.getDanhMucVe,
   key: 'getDanhMucVe',
   success: [data => saveDanhMucVe(data)],
-  failure: [() => setToast('error', 'error')]
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
 });
 
 const requestGetSeriMin = createRequestSaga({
   request: haivan.getSeriMin,
   key: 'getSeriMin',
   success: [],
-  failure: [() => setToast('error', 'error')]
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
+});
+
+const requestXuongXe = createRequestSaga({
+  request: haivan.xuongXe,
+  key: 'xuongXe',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
+});
+
+const requestGiamGiaTreEm = createRequestSaga({
+  request: haivan.giamGiaTreEm,
+  key: 'giamGiaTreEm',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại vé', 'error')]
+});
+
+const requestGiamGiaText = createRequestSaga({
+  request: haivan.giamGiaText,
+  key: 'giamGiaText',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng gửi lại mã', 'error')]
 });
 
 // root saga reducer
@@ -87,7 +115,11 @@ export default [
       takeLatest('app/checkVersion', requestCheckVersion),
       takeLatest('app/insertVe', requestInsertVe),
       takeLatest('app/getDanhMucVe', requestGetDanhMucVe),
-      takeLatest('app/getSeriMin', requestGetSeriMin)
+      takeLatest('app/getSeriMin', requestGetSeriMin),
+      takeLatest('app/updateVe', requestUpdateVe),
+      takeLatest('app/xuongXe', requestXuongXe),
+      takeLatest('app/giamGiaTreEm', requestGiamGiaTreEm),
+      takeLatest('app/giamGiaText', requestGiamGiaText)
     ]);
   }
 ];
