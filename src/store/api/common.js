@@ -11,4 +11,23 @@ const API = create({
   }
 });
 
-export { API };
+const serialize = (obj, prefix) => {
+  const str = [];
+  let p = '';
+  for (p in obj) {
+    if (obj.hasOwnProperty(p)) {
+      if (obj[p] === null) continue;
+
+      let k = prefix ? `${prefix}[${p}]` : p,
+        v = obj[p];
+      str.push(
+        v !== null && typeof v === 'object'
+          ? serialize(v, k)
+          : `${encodeURIComponent(k)}=${encodeURIComponent(v)}`
+      );
+    }
+  }
+  return str.join('&');
+};
+
+export { API, serialize };

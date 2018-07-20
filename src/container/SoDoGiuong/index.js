@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import { Container, Content, Text, Button, Icon, Fab, Card } from 'native-base';
 import { connect } from 'react-redux';
 import FabButton from '../../components/FabButton';
@@ -17,7 +18,11 @@ import * as haivanSelectors from '../../store/selectors/haivan';
   state => ({
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
-    did_id: haivanSelectors.getChuyenDi(state)
+    did_id: haivanSelectors.getChuyenDi(state),
+    ve: haivanSelectors.getVe(state).arrVe,
+    getActionXepCho: haivanSelectors.actionXepCho(state),
+    getActionRemoveGhe: haivanSelectors.actionRemoveGhe(state),
+    getActionThemVe: haivanSelectors.actionThemVe(state)
   }),
   { ...commonActions, ...haivanActions }
 )
@@ -43,7 +48,12 @@ export default class SoDoGiuong extends React.PureComponent {
         arrGiaVe: []
       },
       newData: [],
-      price: {}
+      price: {},
+      oldDetailVe: {
+        arrVe: {
+          bvv_id: 0
+        }
+      }
     };
   }
 
@@ -85,19 +95,19 @@ export default class SoDoGiuong extends React.PureComponent {
           //     diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
           //   });
 
-          console.log('arrInfo', this.state.soDoGiuong.arrInfo);
+          // console.log('arrInfo', this.state.soDoGiuong.arrInfo);
 
-          console.log(
-            'priceeeee',
-            _.find(
-              _.find(this.state.soDoGiuong.arrGiaVe, {
-                diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
-              }).data,
-              {
-                diem_b: this.state.soDoGiuong.arrInfo.tuy_ben_b
-              }
-            )
-          );
+          // console.log(
+          //   'priceeeee',
+          //   _.find(
+          //     _.find(this.state.soDoGiuong.arrGiaVe, {
+          //       diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
+          //     }).data,
+          //     {
+          //       diem_b: this.state.soDoGiuong.arrInfo.tuy_ben_b
+          //     }
+          //   )
+          // );
 
           this.setState({
             price: _.find(
@@ -115,13 +125,115 @@ export default class SoDoGiuong extends React.PureComponent {
   }
 
   xuongXe() {
-    console.log('detail ve', this.state.detailVe);
     const params = {
       token: this.props.token,
       bvv_id: this.state.detailVe.arrVe.bvv_id,
       adm_id: this.props.profile.adm_id
     };
     this.props.xuongXe(params, () => this.getList());
+  }
+
+  chuyenCho() {
+    const params = {
+      token: this.props.token,
+      bvv_id_can_chuyen: this.state.detailVe.arrVe.bvv_id,
+      adm_id: this.props.profile.adm_id,
+      did_id: this.props.did_id
+    };
+    this.props.chuyenCho(params, () => this.getList());
+  }
+
+  huyve() {
+    const params = {
+      token: this.props.token,
+      bvv_id: this.state.detailVe.arrVe.bvv_id,
+      adm_id: this.props.profile.adm_id
+    };
+    this.props.huyVe(params, () => this.getList());
+  }
+
+  checkSuDungVe(val) {
+    const params = {
+      token: this.props.token,
+      bvv_id: val.arrVe.bvv_id,
+      adm_id: this.props.profile.adm_id,
+      bvv_number: val.bvv_number
+    };
+
+    this.props.checkSuDungVe(params, (e, d) => {
+      if (d && d.message === 'OK') {
+        this.props.forwardTo('themVe', {
+          data: this.state.soDoGiuong.arrBen,
+          dataGiaVe: this.state.soDoGiuong.arrGiaVe,
+          arrVeNumber: this.state.soDoGiuong.arrVeNumber,
+          detailVe: val
+        });
+      }
+      if (d && d.message !== 'OK') {
+        this.props.setToast(d.message);
+      }
+    });
+  }
+
+  xepCho() {
+    const params = {
+      token: this.props.token,
+      bvh_id_can_chuyen: this.props.route.params.dataCho.info.bvh_id,
+      adm_id: this.props.profile.adm_id,
+      did_id: this.props.did_id,
+      bvv_number_muon_chuyen: this.state.detailVe.bvv_number
+    };
+    this.props.xepChoGheCho(params, (e, d) => {
+      if (d) {
+        this.props.actionXepCho(false);
+        this.getList();
+      }
+    });
+  }
+
+  doiGhe() {
+    console.log('this.state.oldDetailVe', this.state.oldDetailVe);
+    const params = {
+      token: this.props.token,
+      bvv_id_can_chuyen: this.state.oldDetailVe.arrVe.bvv_id,
+      adm_id: this.props.profile.adm_id,
+      did_id: this.props.did_id,
+      bvv_number_muon_chuyen: this.state.detailVe.bvv_number,
+      diem_a: this.state.oldDetailVe.arrVe.bvv_bex_id_a,
+      diem_b: this.state.oldDetailVe.arrVe.bvv_bex_id_b
+    };
+    this.props.removeGhe(params, (e, d) => {
+      if (d) {
+        this.props.actionRemoveGhe(false);
+        this.getList();
+      }
+    });
+  }
+
+  themVe() {
+    console.log('them ve');
+    const params = {
+      adm_id: this.props.profile.adm_id,
+      token: this.props.token,
+      did_id: this.props.did_id,
+      bvv_id1: this.state.oldDetailVe.arrVe.bvv_id,
+      bvv_id2: this.state.detailVe.arrVe.bvv_id
+    };
+
+    this.props.themVe(
+      {
+        adm_id: this.props.profile.adm_id,
+        token: this.props.token,
+        did_id: this.props.did_id,
+        bvv_id1: this.state.oldDetailVe.arrVe.bvv_id,
+        bvv_id2: this.state.detailVe.arrVe.bvv_id
+      },
+      (e, d) => {
+        if (d) {
+          this.getList();
+        }
+      }
+    );
   }
 
   componentWillReceiveProps(nextProps) {}
@@ -137,24 +249,66 @@ export default class SoDoGiuong extends React.PureComponent {
             <ItemGiuong
               onPress={val => {
                 this.setState({ detailVe: val });
-
                 this.props.saveVe(val);
 
-                val.arrVe.bvv_status !== 0
-                  ? this.setState({
-                      visible: true,
-                      inforGiuong: val
-                    })
-                  : this.props.forwardTo('themVe', {
-                      data: this.state.soDoGiuong.arrBen,
-                      dataGiaVe: this.state.soDoGiuong.arrGiaVe,
-                      arrVeNumber: this.state.soDoGiuong.arrVeNumber,
-                      detailVe: val
-                    });
+                if (this.props.getActionXepCho) {
+                  Alert.alert(
+                    'Thông báo',
+                    'Bạn có muốn xếp vé vào chỗ không?',
+                    [
+                      { text: 'Không', onPress: () => {}, style: 'cancel' },
+                      {
+                        text: 'Đồng ý',
+                        onPress: () => {
+                          this.xepCho();
+                        }
+                      }
+                    ],
+                    { cancelable: false }
+                  );
+                } else if (this.props.getActionRemoveGhe) {
+                  Alert.alert(
+                    'Thông báo',
+                    'Bạn có muốn đổi chỗ không?',
+                    [
+                      { text: 'Không', onPress: () => {}, style: 'cancel' },
+                      {
+                        text: 'Đồng ý',
+                        onPress: () => {
+                          this.doiGhe();
+                        }
+                      }
+                    ],
+                    { cancelable: false }
+                  );
+                } else if (this.props.getActionThemVe) {
+                  Alert.alert(
+                    'Thông báo',
+                    'Bạn có muốn thêm vé không?',
+                    [
+                      { text: 'Không', onPress: () => {}, style: 'cancel' },
+                      {
+                        text: 'Đồng ý',
+                        onPress: () => {
+                          this.themVe();
+                        }
+                      }
+                    ],
+                    { cancelable: false }
+                  );
+                } else {
+                  val.arrVe.bvv_status !== 0
+                    ? this.setState({
+                        visible: true,
+                        inforGiuong: val
+                      })
+                    : this.checkSuDungVe(val);
+                }
               }}
               data={this.state.newData}
               dataVe={this.state.soDoGiuong.arrVeNumber}
               price={this.state.price}
+              dataActive={this.props.ve}
               // handleSoDo={val =>
               //   this.setState({
               //     inforGiuong: val,
@@ -178,6 +332,18 @@ export default class SoDoGiuong extends React.PureComponent {
           }}
           onXuongXe={() => {
             this.xuongXe();
+          }}
+          onHuyVe={() => {
+            this.huyve();
+          }}
+          onThemVe={() => {
+            this.props.actionThemVe(true);
+            this.setState({ oldDetailVe: this.state.detailVe });
+          }}
+          onChuyenCho={() => this.chuyenCho()}
+          onRemoveGhe={() => {
+            this.props.actionRemoveGhe(true);
+            this.setState({ oldDetailVe: this.state.detailVe });
           }}
           inforGiuong={this.state.inforGiuong}
           setSoDoGiuong={ob =>

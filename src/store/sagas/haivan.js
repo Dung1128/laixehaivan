@@ -39,13 +39,6 @@ const requestMenu = createRequestSaga({
   failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
 });
 
-const requestCheckSuDungVe = createRequestSaga({
-  request: haivan.checkSuDungVe,
-  key: 'checkSuDungVe',
-  success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
-});
-
 const requestCheckVersion = createRequestSaga({
   request: haivan.checkVersion,
   key: 'checkVersion',
@@ -102,6 +95,55 @@ const requestGiamGiaText = createRequestSaga({
   failure: [() => setToast('Lỗi, xin vui lòng gửi lại mã', 'error')]
 });
 
+const requestHuyVe = createRequestSaga({
+  request: haivan.huyVe,
+  key: 'huyVe',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
+});
+
+const requestDanhSachCho = createRequestSaga({
+  request: haivan.danhSachCho,
+  key: 'danhSachCho',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
+});
+
+const requestChuyenCho = createRequestSaga({
+  request: haivan.chuyenCho,
+  key: 'chuyenCho',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
+});
+
+const requestXepChoGheCho = createRequestSaga({
+  request: haivan.xepChoGheCho,
+  key: 'xepChoGheCho',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
+});
+
+const requestCheckSuDungVe = createRequestSaga({
+  request: haivan.checkSuDungVe,
+  key: 'checkSuDungVe',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
+});
+
+const requestRemoveGhe = createRequestSaga({
+  request: haivan.removeGhe,
+  key: 'removeGhe',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
+});
+
+const requestThemVe = createRequestSaga({
+  request: haivan.themVe,
+  key: 'themVe',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
+});
+
 // root saga reducer
 export default [
   function* fetchWatcher() {
@@ -111,7 +153,6 @@ export default [
       takeLatest('app/listHuyVe', requestListHuyVe),
       takeLatest('app/listXuongXe', requestListXuongXe),
       takeLatest('app/getMenu', requestMenu),
-      takeLatest('app/checkSuDungVe', requestCheckSuDungVe),
       takeLatest('app/checkVersion', requestCheckVersion),
       takeLatest('app/insertVe', requestInsertVe),
       takeLatest('app/getDanhMucVe', requestGetDanhMucVe),
@@ -119,7 +160,14 @@ export default [
       takeLatest('app/updateVe', requestUpdateVe),
       takeLatest('app/xuongXe', requestXuongXe),
       takeLatest('app/giamGiaTreEm', requestGiamGiaTreEm),
-      takeLatest('app/giamGiaText', requestGiamGiaText)
+      takeLatest('app/giamGiaText', requestGiamGiaText),
+      takeLatest('app/huyVe', requestHuyVe),
+      takeLatest('app/danhSachCho', requestDanhSachCho),
+      takeLatest('app/chuyenCho', requestChuyenCho),
+      takeLatest('app/xepChoGheCho', requestXepChoGheCho),
+      takeLatest('app/checkSuDungVe', requestCheckSuDungVe),
+      takeLatest('app/removeGhe', requestRemoveGhe),
+      takeLatest('app/themVe', requestThemVe)
     ]);
   }
 ];

@@ -99,16 +99,44 @@ export default class Filter extends React.PureComponent {
           >
             <Text style={styles.textNormal}>Chỉnh sửa</Text>
           </Button>
-          <Button info style={styles.btn}>
+          <Button
+            onPress={() => {
+              this.props.onRemoveGhe();
+              this.setVisible(false);
+            }}
+            info
+            style={styles.btn}
+          >
             <Text style={styles.textNormal}>Chuyển chỗ</Text>
           </Button>
-          <Button success style={styles.btn}>
+          <Button
+            onPress={() => {
+              this.props.onThemVe();
+              this.setVisible(false);
+            }}
+            success
+            style={styles.btn}
+          >
             <Text style={styles.textNormal}>Thêm vé</Text>
           </Button>
-          <Button warning style={styles.btn}>
+          <Button
+            onPress={() => {
+              this.props.onChuyenCho();
+              this.setVisible(false);
+            }}
+            warning
+            style={styles.btn}
+          >
             <Text style={styles.textNormal}>Chuyển chờ</Text>
           </Button>
-          <Button danger style={styles.btn}>
+          <Button
+            onPress={() => {
+              this.props.onHuyVe();
+              this.setVisible(false);
+            }}
+            danger
+            style={styles.btn}
+          >
             <Text style={styles.textNormal}>Huỷ vé</Text>
           </Button>
         </TouchableOpacity>

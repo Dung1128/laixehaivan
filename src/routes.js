@@ -110,7 +110,7 @@ export default {
   soDoGiuong: {
     title: 'Sơ đồ giường',
     Page: SoDoGiuong,
-    headerType: 'home',
+    headerType: 'soDoGiuong',
     footerType: 'home',
     cache: false
   },
@@ -126,7 +126,7 @@ export default {
     Page: DangCho,
     headerType: 'home',
     footerType: 'home',
-    cache: true
+    cache: false
   },
   doanhThu: {
     title: 'Doanh thu',

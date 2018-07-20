@@ -14,6 +14,8 @@ import {
 import { View, Keyboard } from 'react-native';
 import * as commonSelectors from '../../store/selectors/common';
 import * as commonActions from '../../store/actions/common';
+import * as haivanSelectors from '../../store/selectors/haivan';
+import * as haivanActions from '../../store/actions/haivan';
 import * as notificationActions from '../../store/actions/notification';
 import Icon from '../../elements/Icon';
 import styles from './styles';
@@ -22,9 +24,12 @@ import material from '../../theme/variables/material';
 @connect(
   state => ({
     searchString: commonSelectors.getSearchString(state),
-    unReadNotification: state.notification.unRead
+    unReadNotification: state.notification.unRead,
+    getActionXepCho: haivanSelectors.actionXepCho(state),
+    getActionRemoveGhe: haivanSelectors.actionRemoveGhe(state),
+    getActionThemVe: haivanSelectors.actionThemVe(state)
   }),
-  { ...commonActions, ...notificationActions }
+  { ...commonActions, ...notificationActions, ...haivanActions }
 )
 export default class extends Component {
   constructor(props) {
@@ -152,6 +157,61 @@ export default class extends Component {
     return this.renderHeader(left, center, right);
   }
 
+  renderHeaderSDG(title) {
+    const left = (
+      <Button transparent onPress={this._leftClick}>
+        <Icon style={styles.menuIcon} name="menu" />
+      </Button>
+    );
+    const center = (
+      <Title white style={{ alignSelf: 'center' }}>
+        {title}
+      </Title>
+    );
+    const right = (
+      <View style={styles.rowIconContainer}>
+        {this.props.getActionXepCho === true && (
+          <Button
+            onPress={() => {
+              this.props.actionRemoveGhe(false);
+              this.props.actionXepCho(false);
+              this.props.actionThemVe(false);
+            }}
+            transparent
+          >
+            <Text>Huỷ</Text>
+          </Button>
+        )}
+        {this.props.getActionRemoveGhe === true && (
+          <Button
+            onPress={() => {
+              this.props.actionRemoveGhe(false);
+              this.props.actionXepCho(false);
+              this.props.actionThemVe(false);
+            }}
+            transparent
+          >
+            <Text>Huỷ</Text>
+          </Button>
+        )}
+
+        {this.props.getActionThemVe === true && (
+          <Button
+            onPress={() => {
+              this.props.actionRemoveGhe(false);
+              this.props.actionXepCho(false);
+              this.props.actionThemVe(false);
+            }}
+            transparent
+          >
+            <Text>Huỷ</Text>
+          </Button>
+        )}
+      </View>
+    );
+    return this.renderHeader(left, center, right);
+  }
+
   renderHeader(left, center, right, props) {
     return (
       <Header noShadow {...props} style={styles.container}>
@@ -175,6 +235,8 @@ export default class extends Component {
         return this.renderHeaderHome(title);
       case 'searchBack':
         return this.renderHeaderSearch('ios-arrow-back');
+      case 'soDoGiuong':
+        return this.renderHeaderSDG(title);
       default:
         return this.renderHeaderSearch();
     }

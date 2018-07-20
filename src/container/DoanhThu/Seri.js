@@ -81,7 +81,8 @@ export default class Seri extends React.PureComponent {
     return (
       <Container>
         <FlatList
-          style={{ width: '100%', padding: material.paddingNormal }}
+          style={{ width: '100%' }}
+          contentContainerStyle={{ padding: material.paddingNormal }}
           keyExtractor={(item, index) => index}
           data={data}
           renderItem={this.renderItem.bind(this)}

@@ -21,16 +21,17 @@ export default class ItemGiuong extends Component {
     handleSoDo: PropTypes.func,
     dataVe: PropTypes.array,
     onPress: PropTypes.func,
-    price: PropTypes.object
+    price: PropTypes.object,
+    dataActive: PropTypes.object
   };
 
   checkVe(value, sdgct_label) {
     if (!!_.find(this.props.dataVe, { bvv_number: value })) {
       const ve = _.find(this.props.dataVe, { bvv_number: value });
-      // console.log(
-      //   sdgct_label,
-      //   _.find(this.props.dataVe, { bvv_number: value })
-      // );
+      console.log(
+        sdgct_label,
+        _.find(this.props.dataVe, { bvv_number: value })
+      );
       if (ve.arrVe.bvv_status !== 0) {
         return { backgroundColor: material.colorRequest };
       } else {
@@ -45,6 +46,13 @@ export default class ItemGiuong extends Component {
         return { backgroundColor: material.badgeColor };
       }
     }
+  }
+
+  itemActive(data) {
+    if (data === this.props.dataActive.bvv_number) {
+      return { borderColor: material.colorRequest };
+    }
+    return { borderColor: material.colorBorder };
   }
 
   renderRowItem(width, item) {
@@ -73,7 +81,8 @@ export default class ItemGiuong extends Component {
             style={{
               ...styles.itemRow,
               width: w,
-              ...this.checkVe(item.sdgct_number, item.sdgct_label)
+              ...this.checkVe(item.sdgct_number, item.sdgct_label),
+              ...this.itemActive(item.sdgct_number)
             }}
           >
             <Text>

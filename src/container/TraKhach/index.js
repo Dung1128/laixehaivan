@@ -81,7 +81,7 @@ export default class TraKhach extends React.PureComponent {
     return (
       <Container style={styles.container}>
         <FlatList
-          style={{ width: '100%', padding: material.paddingNormal }}
+          style={{ width: '100%' }}
           contentContainerStyle={styles.contentContainerList}
           keyExtractor={(item, index) => index}
           data={data}

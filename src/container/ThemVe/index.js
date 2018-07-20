@@ -27,7 +27,9 @@ import DanhMucVe from './DanhMucVe';
       phone: haivanSelectors.getVe(state).arrVe.bvv_phone,
       noidon: haivanSelectors.getVe(state).arrVe.bvv_diem_don_khach,
       noitra: haivanSelectors.getVe(state).arrVe.bvv_diem_tra_khach,
-      ghichu: haivanSelectors.getVe(state).arrVe.bvv_ghi_chu
+      ghichu: haivanSelectors.getVe(state).arrVe.bvv_ghi_chu,
+      phoneNguoiDi: haivanSelectors.getVe(state).arrVe.bvv_ten_khach_hang_di,
+      tenNguoiDi: haivanSelectors.getVe(state).arrVe.bvv_phone_di
     },
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
@@ -61,14 +63,15 @@ export default class ThemVe extends React.PureComponent {
       diemden: this.props.route.params.data[
         this.props.route.params.data.length - 1
       ],
-      giamgia: 0,
+      giamgia: this.props.route.params.detailVe.arrVe.bvv_price_discount,
       detailVe: this.props.route.params.detailVe,
       seri: this.props.route.params.detailVe.arrVe.bvv_seri,
       key_danh_muc: '',
       giam_gia_text: '',
       hinh_thuc_giam_gia: '',
       phone: this.props.route.params.detailVe.arrVe.bvv_phone,
-      checkGiamGiaText: false
+      checkGiamGiaText: false,
+      price_truc_tiep: this.props.route.params.detailVe.arrVe.bvv_price_discount
     };
 
     this.danhMuc = [];
@@ -102,10 +105,13 @@ export default class ThemVe extends React.PureComponent {
       diem_tra: val.noitra,
       diem_don: val.noidon,
       fullname: val.user,
+      bvv_ten_khach_hang_di: val.tenNguoiDi,
+      bvv_phone_di: val.phoneNguoiDi,
       hinh_thuc_giam_gia:
         this.state.checkGiamGiaText === true ? this.state.khuyenMai.id : '',
       giam_gia_text:
-        this.state.checkGiamGiaText === true ? this.state.giam_gia_text : ''
+        this.state.checkGiamGiaText === true ? this.state.giam_gia_text : '',
+      price_truc_tiep: parseInt(this.state.giamgia)
     };
 
     this.props.insertVe(params, (e, d) => {
@@ -132,7 +138,14 @@ export default class ThemVe extends React.PureComponent {
       ghi_chu: val.ghichu,
       diem_tra: val.noitra,
       diem_don: val.noidon,
-      fullname: val.user
+      fullname: val.user,
+      bvv_ten_khach_hang_di: val.tenNguoiDi,
+      bvv_phone_di: val.phoneNguoiDi,
+      price_truc_tiep: parseInt(this.state.giamgia),
+      hinh_thuc_giam_gia:
+        this.state.checkGiamGiaText === true ? this.state.khuyenMai.id : '',
+      giam_gia_text:
+        this.state.checkGiamGiaText === true ? this.state.giam_gia_text : ''
     };
 
     this.props.updateVe(params, () => this.props.forwardTo('soDoGiuong'));
@@ -159,7 +172,7 @@ export default class ThemVe extends React.PureComponent {
         });
       }
       case 3:
-        return console.log(3);
+        return this.setState({ checkGiamGiaText: true });
 
       default:
         return console.log('false');
@@ -322,7 +335,7 @@ export default class ThemVe extends React.PureComponent {
           <View style={styless.textInputContainer}>
             <Field
               onSubmitEditing={() => {
-                this.email.focus();
+                this.tenNguoiDi.focus();
               }}
               customOnChange={val => this.setState({ phone: val })}
               inputRef={e => (this.phone = e)}
@@ -334,6 +347,54 @@ export default class ThemVe extends React.PureComponent {
               onIconPress={input => input.onChange('')}
               label={'Điện thoại'}
               name={'phone'}
+              component={InputField}
+              autoCorrect={false}
+              placeholderTextColor="#7e7e7e"
+              inputStyle={styless.input}
+              IconIcom={'call'}
+              IconIcomColor={material.colorDark2}
+            />
+          </View>
+
+          <View style={styless.textInputContainer}>
+            <Field
+              onSubmitEditing={() => {
+                this.phoneNguoiDi.focus();
+              }}
+              customOnChange={val => this.setState({ phone: val })}
+              inputRef={e => (this.tenNguoiDi = e)}
+              keyboardType="default"
+              returnKeyType="next"
+              autoCapitalize={'none'}
+              style={styless.textInput}
+              icon={input => (input.value ? 'close' : null)}
+              onIconPress={input => input.onChange('')}
+              label={'Tên người đi'}
+              name={'tenNguoiDi'}
+              component={InputField}
+              autoCorrect={false}
+              placeholderTextColor="#7e7e7e"
+              inputStyle={styless.input}
+              IconIcom={'person'}
+              IconIcomColor={material.colorDark2}
+            />
+          </View>
+
+          <View style={styless.textInputContainer}>
+            <Field
+              onSubmitEditing={() => {
+                this.email.focus();
+              }}
+              customOnChange={val => this.setState({ phone: val })}
+              inputRef={e => (this.phoneNguoiDi = e)}
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize={'none'}
+              style={styless.textInput}
+              icon={input => (input.value ? 'close' : null)}
+              onIconPress={input => input.onChange('')}
+              label={'Điện thoại người đi'}
+              name={'phoneNguoiDi'}
               component={InputField}
               autoCorrect={false}
               placeholderTextColor="#7e7e7e"
@@ -503,9 +564,11 @@ export default class ThemVe extends React.PureComponent {
             {this.state.khuyenMai.id === 3 && (
               <View style={styles.inputKhuyenMai}>
                 <TextInput
+                  keyboardType="numeric"
                   underlineColorAndroid="transparent"
                   style={styles.fieldInput}
                   placeholder="Số tiền giảm"
+                  onChangeText={val => this.setState({ giamgia: val })}
                 />
               </View>
             )}

@@ -82,9 +82,9 @@ export default class TongDoanhThu extends React.PureComponent {
       <Container>
         <FlatList
           style={{
-            width: '100%',
-            padding: material.paddingNormal
+            width: '100%'
           }}
+          contentContainerStyle={{ padding: material.paddingNormal }}
           keyExtractor={(item, index) => index}
           data={data}
           renderItem={this.renderItem.bind(this)}
