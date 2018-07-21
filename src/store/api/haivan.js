@@ -205,6 +205,13 @@ export default {
         bvv_id_2: params.bvv_id2
       },
       {}
+    ),
+
+  lenXe: params =>
+    API.post(
+      `/api/appdriver/len-xe?adm_id=${params.adm_id}&token=${
+        params.token
+      }&bvv_id=${params.bvv_id}`
     )
 
   // facebookLogin: facebookToken =>

@@ -133,6 +133,15 @@ export default class SoDoGiuong extends React.PureComponent {
     this.props.xuongXe(params, () => this.getList());
   }
 
+  lenXe() {
+    const params = {
+      token: this.props.token,
+      bvv_id: this.state.detailVe.arrVe.bvv_id,
+      adm_id: this.props.profile.adm_id
+    };
+    this.props.lenXe(params, () => this.getList());
+  }
+
   chuyenCho() {
     const params = {
       token: this.props.token,
@@ -332,6 +341,9 @@ export default class SoDoGiuong extends React.PureComponent {
           }}
           onXuongXe={() => {
             this.xuongXe();
+          }}
+          onLenXe={() => {
+            this.lenXe();
           }}
           onHuyVe={() => {
             this.huyve();

@@ -13,7 +13,7 @@ import Browser from './components/Browser';
 import Gallery from './components/Gallery';
 import ConnectionStatusBar from './components/ConnectionStatusBar';
 import Preload from './container/Preload';
-
+import Loading from './components/Loading';
 import getTheme from './theme/components';
 import material from './theme/variables/material';
 
@@ -223,6 +223,7 @@ export default class App extends Component {
           </Drawer>
           <Gallery />
           <Browser />
+          <Loading />
           <ConnectionStatusBar />
         </Container>
       </StyleProvider>

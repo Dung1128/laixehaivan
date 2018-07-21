@@ -75,6 +75,10 @@ export default class Filter extends React.PureComponent {
           </View>
           <Button
             success
+            onPress={() => {
+              this.props.onLenXe();
+              this.setVisible(false);
+            }}
             style={{ ...styles.btn, marginTop: material.paddingNormal }}
           >
             <Text style={styles.textNormal}>Xác nhận lên xe</Text>

@@ -92,7 +92,14 @@ export default class DangCho extends React.PureComponent {
       <Container style={styles.container}>
         {this.state.danhSachCho.arrDanhSach &&
           this.state.danhSachCho.arrDanhSach.length <= 0 && (
-            <Text>Không có dữ liêụ</Text>
+            <Text
+              style={{
+                ...styles.textNormal,
+                marginTop: material.paddingNormal
+              }}
+            >
+              Không có dữ liệu
+            </Text>
           )}
         <FlatList
           style={{ width: '100%' }}

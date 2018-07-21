@@ -56,3 +56,6 @@ export const removeGhe = (...args) => ({ type: 'app/removeGhe', args });
 //thêm vé
 export const themVe = (...args) => ({ type: 'app/themVe', args });
 export const actionThemVe = payload => ({ type: 'app/actionThemVe', payload });
+
+//lên xe
+export const lenXe = (...args) => ({ type: 'app/lenXe', args });

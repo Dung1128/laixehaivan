@@ -8,7 +8,6 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import * as commonActions from '../../store/actions/common';
 import material from '../../theme/variables/material';
-
 import styles from './styles';
 
 @connect(
@@ -28,13 +27,11 @@ export default class ItemGiuong extends Component {
   checkVe(value, sdgct_label) {
     if (!!_.find(this.props.dataVe, { bvv_number: value })) {
       const ve = _.find(this.props.dataVe, { bvv_number: value });
-      console.log(
-        sdgct_label,
-        _.find(this.props.dataVe, { bvv_number: value })
-      );
+      // console.log(
+      //   sdgct_label,
+      //   _.find(this.props.dataVe, { bvv_number: value })
+      // );
       if (ve.arrVe.bvv_status !== 0) {
-        return { backgroundColor: material.colorRequest };
-      } else {
         if (ve.arrVe.lock === 1) {
           return { backgroundColor: material.colorSubtitle };
         }
@@ -43,6 +40,11 @@ export default class ItemGiuong extends Component {
           return { backgroundColor: material.colorPending };
         }
 
+        if (ve.arrVe.bvv_status === 4) {
+          return { backgroundColor: material.inputSuccessBorderColor };
+        }
+        return { backgroundColor: material.colorRequest };
+      } else {
         return { backgroundColor: material.badgeColor };
       }
     }
@@ -53,6 +55,12 @@ export default class ItemGiuong extends Component {
       return { borderColor: material.colorRequest };
     }
     return { borderColor: material.colorBorder };
+  }
+
+  checkLockColor(data) {
+    if (_.find(this.props.dataVe, { bvv_number: data }).arrVe.lock) {
+      return { backgroundColor: material.colorBorder };
+    }
   }
 
   renderRowItem(width, item) {
@@ -82,7 +90,8 @@ export default class ItemGiuong extends Component {
               ...styles.itemRow,
               width: w,
               ...this.checkVe(item.sdgct_number, item.sdgct_label),
-              ...this.itemActive(item.sdgct_number)
+              ...this.itemActive(item.sdgct_number),
+              ...this.checkLockColor(item.sdgct_number)
             }}
           >
             <Text>
