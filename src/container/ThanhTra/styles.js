@@ -55,7 +55,7 @@ export default {
   viewInput: {
     borderWidth: 1,
     borderRadius: 5,
-    padding: material.paddingSmall,
+    paddingHorizontal: material.paddingSmall,
     borderColor: material.colorBorder,
     height: 45,
     justifyContent: 'center',

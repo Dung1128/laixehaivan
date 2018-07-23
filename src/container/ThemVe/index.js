@@ -1,9 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, TextInput, Alert } from 'react-native';
+import { TouchableOpacity, TextInput, Alert, Keyboard } from 'react-native';
 import { Container, Content, Text, View, Button } from 'native-base';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
+import * as JsSearch from 'js-search';
+
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -71,7 +73,9 @@ export default class ThemVe extends React.PureComponent {
       hinh_thuc_giam_gia: '',
       phone: this.props.route.params.detailVe.arrVe.bvv_phone,
       checkGiamGiaText: false,
-      price_truc_tiep: this.props.route.params.detailVe.arrVe.bvv_price_discount
+      price_truc_tiep: this.props.route.params.detailVe.arrVe
+        .bvv_price_discount,
+      listDiemNot: this.props.route.params.data
     };
 
     this.danhMuc = [];
@@ -200,8 +204,15 @@ export default class ThemVe extends React.PureComponent {
           giamgia: d.price_discount,
           checkGiamGiaText: true
         });
+      } else {
+        if (e.message.message) {
+          this.props.setToast(e.message.message, 'error');
+        } else {
+          this.props.setToast(e.message.mes.message, 'error');
+        }
       }
     });
+    Keyboard.dismiss();
   }
 
   getSeri(val) {
@@ -299,12 +310,45 @@ export default class ThemVe extends React.PureComponent {
     );
   }
 
+  searchDiemDi(val) {
+    var search = new JsSearch.Search('bex_ten');
+    search.addIndex('bex_ten');
+    search.addDocuments(this.props.route.params.data);
+    this.setState({
+      listDiemNot: search.search(val)
+    });
+
+    if (val === '') {
+      this.setState({
+        listDiemNot: this.props.route.params.data
+      });
+    }
+    console.log(search.search(val));
+  }
+
+  searchDiemDen(val) {
+    var search = new JsSearch.Search('bex_ten');
+    search.addIndex('bex_ten');
+    search.addDocuments(this.props.route.params.data);
+    this.setState({
+      listDiemNot: search.search(val)
+    });
+
+    if (val === '') {
+      this.setState({
+        listDiemNot: this.props.route.params.data
+      });
+    }
+    console.log(search.search(val));
+  }
+
   render() {
     const { handleSubmit } = this.props;
 
     return (
       <Container style={styles.container}>
         <Content
+          enableResetScrollToCoords={false}
           contentContainerStyle={{ paddingBottom: 10 }}
           showsVerticalScrollIndicator={false}
         >
@@ -313,7 +357,7 @@ export default class ThemVe extends React.PureComponent {
           <View style={styless.textInputContainer}>
             <Field
               onSubmitEditing={() => {
-                this.phone.focus();
+                // this.phone.focus();
               }}
               keyboardType="default"
               returnKeyType="next"
@@ -335,7 +379,7 @@ export default class ThemVe extends React.PureComponent {
           <View style={styless.textInputContainer}>
             <Field
               onSubmitEditing={() => {
-                this.tenNguoiDi.focus();
+                // this.tenNguoiDi.focus();
               }}
               customOnChange={val => this.setState({ phone: val })}
               inputRef={e => (this.phone = e)}
@@ -359,9 +403,9 @@ export default class ThemVe extends React.PureComponent {
           <View style={styless.textInputContainer}>
             <Field
               onSubmitEditing={() => {
-                this.phoneNguoiDi.focus();
+                // this.phoneNguoiDi.focus();
               }}
-              customOnChange={val => this.setState({ phone: val })}
+              // customOnChange={val => this.setState({ tenNguoiDi: val })}
               inputRef={e => (this.tenNguoiDi = e)}
               keyboardType="default"
               returnKeyType="next"
@@ -383,9 +427,9 @@ export default class ThemVe extends React.PureComponent {
           <View style={styless.textInputContainer}>
             <Field
               onSubmitEditing={() => {
-                this.email.focus();
+                // this.email.focus();
               }}
-              customOnChange={val => this.setState({ phone: val })}
+              // customOnChange={val => this.setState({ phone: val })}
               inputRef={e => (this.phoneNguoiDi = e)}
               keyboardType="numeric"
               returnKeyType="next"
@@ -413,7 +457,7 @@ export default class ThemVe extends React.PureComponent {
           >
             <Field
               onSubmitEditing={() => {
-                this.password.focus();
+                // this.password.focus();
               }}
               inputRef={e => (this.email = e)}
               keyboardType="default"
@@ -473,7 +517,7 @@ export default class ThemVe extends React.PureComponent {
           >
             <Field
               onSubmitEditing={() => {
-                this.confirmpassword.focus();
+                // this.ghiChu.focus();
               }}
               inputRef={e => (this.password = e)}
               keyboardType="default"
@@ -526,7 +570,7 @@ export default class ThemVe extends React.PureComponent {
 
           <View style={styless.textInputContainer}>
             <Field
-              inputRef={e => (this.confirmpassword = e)}
+              inputRef={e => (this.ghiChu = e)}
               keyboardType="default"
               returnKeyType="done"
               autoCapitalize={'none'}
@@ -674,7 +718,8 @@ export default class ThemVe extends React.PureComponent {
         />
 
         <ModalFilter
-          data={this.props.route.params.data}
+          data={this.state.listDiemNot}
+          onSearch={val => this.searchDiemDi(val)}
           selectedValue={val => this.checkSelectedDiemDi(val)}
           handleVisible={val =>
             this.setState({
@@ -685,7 +730,8 @@ export default class ThemVe extends React.PureComponent {
         />
 
         <ModalFilter
-          data={this.props.route.params.data}
+          data={this.state.listDiemNot}
+          onSearch={val => this.searchDiemDen(val)}
           selectedValue={val => this.checkSelectedDiemDen(val)}
           handleVisible={val =>
             this.setState({

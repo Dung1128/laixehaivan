@@ -30,7 +30,8 @@ export default class Filter extends React.PureComponent {
   static propTypes = {
     handleVisible: PropTypes.func,
     data: PropTypes.array,
-    selectedValue: PropTypes.func
+    selectedValue: PropTypes.func,
+    onSearch: PropTypes.func
   };
 
   setVisible(val) {
@@ -53,6 +54,7 @@ export default class Filter extends React.PureComponent {
   }
 
   render() {
+    console.log('this.props.data', this.props.data);
     return (
       <Modal
         animationType="slide"
@@ -74,6 +76,7 @@ export default class Filter extends React.PureComponent {
               placeholder="Tìm kiếm"
               underlineColorAndroid="transparent"
               style={styles.TextInput}
+              onChangeText={val => this.props.onSearch(val)}
             />
           </View>
 

@@ -59,10 +59,17 @@ export default class HuyVe extends React.PureComponent {
 
   render() {
     return (
-      <Container>
+      <Container style={{ alignItems: 'center' }}>
         {this.state.danhSachHuy.arrData &&
           this.state.danhSachHuy.arrData.length <= 0 && (
-            <Text>Không có dữ liêụ</Text>
+            <Text
+              style={{
+                fontSize: material.textNormal,
+                marginTop: material.paddingNormal
+              }}
+            >
+              Không có dữ liêụ
+            </Text>
           )}
         <FlatList
           style={{ width: '100%' }}

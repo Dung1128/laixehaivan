@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Fab } from 'native-base';
+import { Button, Icon, Fab, Text } from 'native-base';
 import { connect } from 'react-redux';
 import * as commonActions from '../../store/actions/common';
 
@@ -36,7 +36,7 @@ export default class ChieuDi extends React.PureComponent {
           onPress={() => this.props.forwardTo('xuongXe')}
           style={{ backgroundColor: '#34A34F' }}
         >
-          <Icon name="cloud-done" />
+          <Icon name="arrow-round-down" />
         </Button>
         <Button
           onPress={() => this.props.forwardTo('huyVe')}

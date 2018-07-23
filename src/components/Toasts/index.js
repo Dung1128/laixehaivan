@@ -7,7 +7,10 @@ import { clearToast } from '../../store/actions/common';
 import { getToast } from '../../store/selectors/common';
 import material from '../../theme/variables/material';
 
-@connect(state => ({ toast: getToast(state) }), { clearToast })
+@connect(
+  state => ({ toast: getToast(state) }),
+  { clearToast }
+)
 export default class extends PureComponent {
   constructor(props) {
     super(props);

@@ -59,3 +59,9 @@ export const actionThemVe = payload => ({ type: 'app/actionThemVe', payload });
 
 //lên xe
 export const lenXe = (...args) => ({ type: 'app/lenXe', args });
+
+// trả khách
+export const traKhach = (...args) => ({ type: 'app/traKhach', args });
+
+// danh sách gọi
+export const danhSachGoi = (...args) => ({ type: 'app/danhSachGoi', args });

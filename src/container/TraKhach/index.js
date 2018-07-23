@@ -1,55 +1,27 @@
 import React from 'react';
-import { FlatList, RefreshControl, View } from 'react-native';
+import { FlatList, RefreshControl, View, Alert } from 'react-native';
 import { Container, Content, Text, Tabs, Tab } from 'native-base';
+import { connect } from 'react-redux';
+import * as commonActions from '../../store/actions/common';
+import * as authSelectors from '../../store/selectors/auth';
+import * as haivanActions from '../../store/actions/haivan';
+import * as haivanSelectors from '../../store/selectors/haivan';
+
 import FabButton from '../../components/FabButton';
 import material from '../../theme/variables/material';
 import styles from './styles';
 import Item from './Item';
 
-const data = [
-  {
-    id: 1,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    address: 'Ha Noi'
-  },
-  {
-    id: 2,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    address: 'Ha Noi'
-  },
-  {
-    id: 3,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    address: 'Ha Noi'
-  },
-  {
-    id: 4,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    address: 'Ha Noi'
-  },
-  {
-    id: 5,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    address: 'Ha Noi'
-  },
-  {
-    id: 6,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    address: 'Ha Noi'
-  }
-];
+const data = [];
+
+@connect(
+  state => ({
+    token: authSelectors.getToken(state),
+    profile: authSelectors.getUser(state),
+    did_id: haivanSelectors.getChuyenDi(state)
+  }),
+  { ...commonActions, ...haivanActions }
+)
 export default class TraKhach extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -58,14 +30,57 @@ export default class TraKhach extends React.PureComponent {
       hasMore: true,
       isRefreshing: false,
       bottom: 0,
-      loadingMore: false
+      loadingMore: false,
+      danhSachTraKhach: {
+        arrData: []
+      }
     };
     this.offset = 0;
     this.isMoving = false;
   }
 
+  componentDidMount() {
+    this.getList();
+  }
+
+  getList() {
+    const params = {
+      token: this.props.token,
+      did_id: this.props.did_id,
+      adm_id: this.props.profile.adm_id
+    };
+
+    this.props.traKhach(params, (e, d) => {
+      if (d) {
+        this.setState({ danhSachTraKhach: d });
+      }
+    });
+  }
+
+  xuongXe(item) {
+    Alert.alert(
+      'Thông báo',
+      'Bạn có muốn trả khách không?',
+      [
+        { text: 'Không', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'Đồng ý',
+          onPress: () => {
+            const params = {
+              token: this.props.token,
+              bvv_id: item.bvv_id,
+              adm_id: this.props.profile.adm_id
+            };
+            this.props.xuongXe(params, () => this.getList());
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
   renderItem({ item, index }) {
-    return <Item data={item} />;
+    return <Item onPress={() => this.xuongXe(item)} data={item} />;
   }
 
   renderFooter() {
@@ -75,23 +90,36 @@ export default class TraKhach extends React.PureComponent {
     return <View />;
   }
 
-  refreshList() {}
+  refreshList() {
+    this.getList();
+  }
 
   render() {
     return (
       <Container style={styles.container}>
+        {this.state.danhSachTraKhach.arrData &&
+          this.state.danhSachTraKhach.arrData.length <= 0 && (
+            <Text
+              style={{
+                ...styles.textNormal,
+                marginTop: material.paddingNormal
+              }}
+            >
+              Không có dữ liệu
+            </Text>
+          )}
         <FlatList
           style={{ width: '100%' }}
           contentContainerStyle={styles.contentContainerList}
           keyExtractor={(item, index) => index}
-          data={data}
+          data={this.state.danhSachTraKhach.arrData}
           renderItem={this.renderItem.bind(this)}
           onEndReachedThreshold={material.platform === 'ios' ? 0 : 1}
           onMomentumScrollBegin={() => (this.isMoving = true)}
           onMomentumScrollEnd={() => (this.isMoving = false)}
           shouldRasterizeIOS={this.isMoving}
           renderToHardwareTextureAndroid={this.isMoving}
-          ListFooterComponent={this.renderFooter.bind(this)}
+          // ListFooterComponent={this.renderFooter.bind(this)}
           // ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
           refreshControl={
             <RefreshControl

@@ -7,7 +7,8 @@ import Navigator from './components/Navigator';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AfterInteractions from './components/AfterInteractions';
-import Toasts from './components/Toasts';
+// import Toasts from './components/Toasts';
+import AlertMessage from './components/AlertMessage';
 import SideBar from './components/SideBar';
 import Browser from './components/Browser';
 import Gallery from './components/Gallery';
@@ -219,7 +220,7 @@ export default class App extends Component {
               ref={ref => (this.footer = ref)}
             />
 
-            <Toasts />
+            <AlertMessage />
           </Drawer>
           <Gallery />
           <Browser />

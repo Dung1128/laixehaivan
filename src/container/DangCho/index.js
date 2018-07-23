@@ -112,7 +112,7 @@ export default class DangCho extends React.PureComponent {
           onMomentumScrollEnd={() => (this.isMoving = false)}
           shouldRasterizeIOS={this.isMoving}
           renderToHardwareTextureAndroid={this.isMoving}
-          ListFooterComponent={this.renderFooter.bind(this)}
+          // ListFooterComponent={this.renderFooter.bind(this)}
           // ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
           refreshControl={
             <RefreshControl

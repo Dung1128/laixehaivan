@@ -119,7 +119,7 @@ export default {
     Page: TraKhach,
     headerType: 'home',
     footerType: 'home',
-    cache: true
+    cache: false
   },
   dangCho: {
     title: 'Danh sách đang chờ',
@@ -147,14 +147,14 @@ export default {
     Page: HuyVe,
     headerType: 'home',
     footerType: 'home',
-    cache: true
+    cache: false
   },
   xuongXe: {
     title: 'Danh sách xuống xe',
     Page: XuongXe,
     headerType: 'home',
     footerType: 'home',
-    cache: true
+    cache: false
   },
   themVe: {
     title: 'Thêm Vé',

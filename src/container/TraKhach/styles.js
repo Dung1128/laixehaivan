@@ -1,12 +1,14 @@
 import material from '../../theme/variables/material';
 
 export default {
-  container: {},
+  container: {
+    alignItems: 'center'
+  },
   contentContainerList: {
     padding: material.paddingNormal
   },
   textNormal: {
-    fontSize: material.textSmall
+    fontSize: material.textNormal
   },
   card: {
     padding: material.paddingSmall,

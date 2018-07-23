@@ -212,6 +212,20 @@ export default {
       `/api/appdriver/len-xe?adm_id=${params.adm_id}&token=${
         params.token
       }&bvv_id=${params.bvv_id}`
+    ),
+
+  traKhach: params =>
+    API.get(
+      `/api/appdriver/danh-sach-cho-xuong-xe?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}`
+    ),
+
+  danhSachGoi: params =>
+    API.get(
+      `/api/appdriver/danh-sach-goi?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}`
     )
 
   // facebookLogin: facebookToken =>

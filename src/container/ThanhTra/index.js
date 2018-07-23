@@ -1,11 +1,16 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import { Container, Content, Text, View, Button } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { reduxForm, Field } from 'redux-form';
 import AddImage from '../../components/AddImage';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ModalFilter from './ModalFilter';
+import * as commonActions from '../../store/actions/common';
+import * as haivanActions from '../../store/actions/haivan';
+import * as haivanSelectors from '../../store/selectors/haivan';
+import * as authSelectors from '../../store/selectors/auth';
 import { InputField } from '../../elements/Form';
 import material from '../../theme/variables/material';
 import styles from './styles';
@@ -15,6 +20,15 @@ import xe from './xe';
 import laixe from './laixe';
 import vipham from './vipham';
 
+@connect(
+  state => ({
+    token: authSelectors.getToken(state),
+    profile: authSelectors.getUser(state),
+    did_id: haivanSelectors.getChuyenDi(state),
+    dmVe: haivanSelectors.getDanhMucVe(state)
+  }),
+  { ...commonActions, ...haivanActions }
+)
 @reduxForm({
   form: 'maxe',
   validate: values => {},

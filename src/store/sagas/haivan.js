@@ -92,7 +92,7 @@ const requestGiamGiaText = createRequestSaga({
   request: haivan.giamGiaText,
   key: 'giamGiaText',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng gửi lại mã', 'error')]
+  failure: []
 });
 
 const requestHuyVe = createRequestSaga({
@@ -151,6 +151,20 @@ const requestLenXe = createRequestSaga({
   failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
 });
 
+const requestTraKhach = createRequestSaga({
+  request: haivan.traKhach,
+  key: 'traKhach',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
+});
+
+const requestDanhSachGoi = createRequestSaga({
+  request: haivan.danhSachGoi,
+  key: 'danhSachGoi',
+  success: [],
+  failure: [() => setToast('Lỗi, xin vui lòng thử lại', 'error')]
+});
+
 // root saga reducer
 export default [
   function* fetchWatcher() {
@@ -175,7 +189,9 @@ export default [
       takeLatest('app/checkSuDungVe', requestCheckSuDungVe),
       takeLatest('app/removeGhe', requestRemoveGhe),
       takeLatest('app/themVe', requestThemVe),
-      takeLatest('app/lenXe', requestLenXe)
+      takeLatest('app/lenXe', requestLenXe),
+      takeLatest('app/traKhach', requestTraKhach),
+      takeLatest('app/danhSachGoi', requestDanhSachGoi)
     ]);
   }
 ];
