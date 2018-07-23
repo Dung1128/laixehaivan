@@ -30,8 +30,8 @@ import DanhMucVe from './DanhMucVe';
       noidon: haivanSelectors.getVe(state).arrVe.bvv_diem_don_khach,
       noitra: haivanSelectors.getVe(state).arrVe.bvv_diem_tra_khach,
       ghichu: haivanSelectors.getVe(state).arrVe.bvv_ghi_chu,
-      phoneNguoiDi: haivanSelectors.getVe(state).arrVe.bvv_ten_khach_hang_di,
-      tenNguoiDi: haivanSelectors.getVe(state).arrVe.bvv_phone_di
+      tenNguoiDi: haivanSelectors.getVe(state).arrVe.bvv_ten_khach_hang_di,
+      phoneNguoiDi: haivanSelectors.getVe(state).arrVe.bvv_phone_di
     },
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),

@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Modal, LayoutAnimation } from 'react-native';
 import { Text, View, Button } from 'native-base';
 import { connect } from 'react-redux';
+import numeral from 'numeral';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import * as commonActions from '../../store/actions/common';
@@ -34,7 +35,7 @@ export default class Filter extends React.PureComponent {
   }
 
   render() {
-    // console.log('info', this.props.inforGiuong);
+    console.log('info', this.props.inforGiuong);
     const { inforGiuong } = this.props;
     return (
       <Modal
@@ -54,7 +55,7 @@ export default class Filter extends React.PureComponent {
           </View>
           <View>
             <Text style={styles.textNormal}>
-              Họ và tên: {inforGiuong.bvv_ten_khach_hang}
+              Họ và tên: {inforGiuong.bvv_ten_khach_hang_di}
             </Text>
             <Text style={styles.textNormal}>
               Số điện thoại: {inforGiuong.bvv_phone}
@@ -65,9 +66,12 @@ export default class Filter extends React.PureComponent {
             <Text style={styles.textNormal}>
               Điểm trả: {inforGiuong.bvv_diem_tra_khach}
             </Text>
-            <Text style={styles.textNormal}>Nơi đi & đến: </Text>
             <Text style={styles.textNormal}>
-              Giá vé: {inforGiuong.bvv_price}
+              Nơi đi & đến: {inforGiuong.bvv_ben_a_ten} -{' '}
+              {inforGiuong.bvv_ben_b_ten}
+            </Text>
+            <Text style={styles.textNormal}>
+              Giá vé: {numeral(inforGiuong.bvv_price).format('0,0')} VNĐ
             </Text>
             <Text style={styles.textNormal}>
               Ghi chú: {inforGiuong.bvv_ghi_chu}

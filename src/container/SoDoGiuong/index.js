@@ -357,7 +357,7 @@ export default class SoDoGiuong extends React.PureComponent {
             this.props.actionRemoveGhe(true);
             this.setState({ oldDetailVe: this.state.detailVe });
           }}
-          inforGiuong={this.state.inforGiuong}
+          inforGiuong={this.props.ve}
           setSoDoGiuong={ob =>
             this.setState({
               soDoGiuong: ob

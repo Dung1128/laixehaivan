@@ -4,11 +4,12 @@ import material from '../../theme/variables/material';
 export default {
   itemRow: {
     borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     borderColor: material.colorBorder,
     marginVertical: 2,
-    height: 120
+    height: 150,
+    padding: material.paddingSmall
   },
   textNormal: {
     paddingBottom: material.paddingSmall,
@@ -42,5 +43,12 @@ export default {
   },
   textNormal: {
     fontSize: material.textNormal
+  },
+  textSmall: {
+    fontSize: material.textSmall
+  },
+  headerVe: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 };

@@ -68,7 +68,7 @@ export default StyleSheet.create({
     height: 25
   },
   iconText: {
-    fontSize: material.platform === 'ios' ? 14 : 12,
+    fontSize: material.textNormal,
     fontWeight: '400',
     textAlign: 'center',
     color: '#fff',
@@ -77,7 +77,7 @@ export default StyleSheet.create({
   iconTextLast: {
     color: '#eee',
     marginLeft: 20,
-    fontSize: material.platform === 'ios' ? 14 : 12,
+    fontSize: material.textNormal,
     textAlign: 'center'
   }
 });

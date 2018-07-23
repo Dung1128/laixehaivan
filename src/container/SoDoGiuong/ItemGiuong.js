@@ -94,44 +94,24 @@ export default class ItemGiuong extends Component {
               ...this.checkLockColor(item.sdgct_number)
             }}
           >
-            <Text>
-              {item.sdgct_label_full}
-              {/* {item.id} */}
-            </Text>
-            {this.props.price ? (
-              _.find(this.props.dataVe, {
-                bvv_number: item.sdgct_number
-              }).arrVe.bvv_price === 0 && (
-                <Text>
-                  {this.props.price.price > 1000
-                    ? this.props.price.price / 1000
-                    : this.props.price.price}K
-                </Text>
-              )
-            ) : (
-              <View>
-                <Text>
-                  {_.find(this.props.dataVe, {
-                    bvv_number: item.sdgct_number
-                  }).arrVe.bvv_price / 1000}K
-                </Text>
-                <Text numberOfLines={1}>
-                  {
-                    _.find(this.props.dataVe, {
-                      bvv_number: item.sdgct_number
-                    }).arrVe.bvv_ten_khach_hang
-                  }
-                </Text>
-              </View>
-            )}
-            {!!_.find(this.props.dataVe, {
-              bvv_number: item.sdgct_number
-            }) &&
-              _.find(this.props.dataVe, {
-                bvv_number: item.sdgct_number
-              }).arrVe.bvv_price !== 0 && (
+            <View style={styles.headerVe}>
+              <Text style={styles.textSmall}>
+                {item.sdgct_label_full}
+                {/* {item.id} */}
+              </Text>
+              {this.props.price ? (
+                _.find(this.props.dataVe, {
+                  bvv_number: item.sdgct_number
+                }).arrVe.bvv_price === 0 && (
+                  <Text numberOfLines={1} style={styles.textSmall}>
+                    {this.props.price.price > 1000
+                      ? this.props.price.price / 1000
+                      : this.props.price.price}K
+                  </Text>
+                )
+              ) : (
                 <View>
-                  <Text>
+                  <Text numberOfLines={1}>
                     {_.find(this.props.dataVe, {
                       bvv_number: item.sdgct_number
                     }).arrVe.bvv_price / 1000}K
@@ -145,6 +125,80 @@ export default class ItemGiuong extends Component {
                   </Text>
                 </View>
               )}
+              {!!_.find(this.props.dataVe, {
+                bvv_number: item.sdgct_number
+              }) &&
+                _.find(this.props.dataVe, {
+                  bvv_number: item.sdgct_number
+                }).arrVe.bvv_price !== 0 && (
+                  <Text numberOfLines={1} style={styles.textSmall}>
+                    {_.find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    }).arrVe.bvv_price / 1000}K
+                  </Text>
+                )}
+            </View>
+
+            {!!_.find(this.props.dataVe, {
+              bvv_number: item.sdgct_number
+            }) &&
+              _.find(this.props.dataVe, {
+                bvv_number: item.sdgct_number
+              }).arrVe.bvv_price !== 0 && (
+                <View>
+                  <Text
+                    style={{ ...styles.textSmall, fontWeight: 'bold' }}
+                    numberOfLines={1}
+                  >
+                    {
+                      _.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_phone_di
+                    }
+                  </Text>
+                  {_
+                    .find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    })
+                    .arrVe.bvv_danh_muc.toString() !== '' && (
+                    <Text style={styles.textSmall}>
+                      Seri:{' '}
+                      {
+                        _.find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        }).arrVe.bvv_danh_muc
+                      }
+                    </Text>
+                  )}
+
+                  {_
+                    .find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    })
+                    .arrVe.bvv_ghi_chu.toString() !== '' && (
+                    <Text style={styles.textSmall}>
+                      Ghi chú:
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_ghi_chu.toString()}
+                    </Text>
+                  )}
+
+                  <Text
+                    style={{ ...styles.textSmall, fontWeight: 'bold' }}
+                    numberOfLines={1}
+                  >
+                    {
+                      _.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ten_khach_hang
+                    }
+                  </Text>
+                </View>
+              )}
+
             {/* <Text>{item.price}</Text> */}
           </TouchableOpacity>
         ))}
