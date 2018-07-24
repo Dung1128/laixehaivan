@@ -139,20 +139,6 @@ export default class ItemGiuong extends Component {
                                     bvv_number: item.sdgct_number
                                   }).price}K
                             </Text>
-                            <Text style={styles.textSmall} numberOfLines={1}>
-                              {
-                                _.find(this.props.dataOffline, {
-                                  bvv_number: item.sdgct_number
-                                }).phone
-                              }
-                            </Text>
-                            <Text style={styles.textSmall} numberOfLines={1}>
-                              {
-                                _.find(this.props.dataOffline, {
-                                  bvv_number: item.sdgct_number
-                                }).fullname
-                              }
-                            </Text>
                           </View>
                         ) : (
                           <Text numberOfLines={1} style={styles.textSmall}>
@@ -192,6 +178,31 @@ export default class ItemGiuong extends Component {
                       </Text>
                     )}
                 </View>
+
+                {this.props.price &&
+                  _.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }).arrVe.bvv_price === 0 &&
+                  _.find(this.props.dataOffline, {
+                    bvv_number: item.sdgct_number
+                  }) && (
+                    <View>
+                      <Text style={styles.textSmall} numberOfLines={1}>
+                        {
+                          _.find(this.props.dataOffline, {
+                            bvv_number: item.sdgct_number
+                          }).phone
+                        }
+                      </Text>
+                      <Text style={styles.textSmall} numberOfLines={1}>
+                        {
+                          _.find(this.props.dataOffline, {
+                            bvv_number: item.sdgct_number
+                          }).fullname
+                        }
+                      </Text>
+                    </View>
+                  )}
 
                 {!!_.find(this.props.dataVe, {
                   bvv_number: item.sdgct_number
