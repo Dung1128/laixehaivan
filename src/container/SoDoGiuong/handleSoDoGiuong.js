@@ -7,7 +7,7 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import * as commonActions from '../../store/actions/common';
 import material from '../../theme/variables/material';
-import variable from '../../theme/variables/platform';
+import variables from '../../theme/variables/platform';
 import styles from './styles';
 
 @connect(
