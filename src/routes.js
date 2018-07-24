@@ -26,6 +26,7 @@ import HuyVe from './container/HuyVe';
 import XuongXe from './container/XuongXe';
 import ThemVe from './container/ThemVe';
 import AddBangDieuDo from './container/AddBangDieuDo';
+import VeOffline from './container/VeOffline';
 
 export default {
   //new
@@ -112,7 +113,7 @@ export default {
     Page: SoDoGiuong,
     headerType: 'soDoGiuong',
     footerType: 'home',
-    cache: false
+    cache: true
   },
   traKhach: {
     title: 'Trả khách',
@@ -210,6 +211,13 @@ export default {
     Page: Markets,
     headerType: 'none',
     footerType: 'none',
+    cache: true
+  },
+  veOffline: {
+    title: 'Vé offline',
+    Page: VeOffline,
+    headerType: 'home',
+    footerType: 'home',
     cache: true
   }
 

@@ -11,7 +11,10 @@ const init = {
   },
   actionXepCho: false,
   actionRemoveGhe: false,
-  actionThemVe: false
+  actionThemVe: false,
+  dataOffline: [],
+  saveConnect: true,
+  UpdateSDG: new Date()
 };
 
 export default (state = init, { type, payload }) => {
@@ -32,6 +35,19 @@ export default (state = init, { type, payload }) => {
       return { ...state, actionRemoveGhe: payload };
     case 'app/actionThemVe':
       return { ...state, actionThemVe: payload };
+    case 'app/saveOffline': {
+      const newArray = [];
+      newArray.push(payload);
+      return { ...state, dataOffline: [...state.dataOffline, ...newArray] };
+    }
+    case 'app/subObjOffline':
+      return { ...state, dataOffline: payload };
+    case 'app/saveConnect': {
+      return { ...state, saveConnect: payload };
+    }
+    case 'app/actionUpdateSDG': {
+      return { ...state, UpdateSDG: payload };
+    }
     default:
       return state;
   }

@@ -98,7 +98,7 @@ export const InputField = ({
           <View
             style={{
               flexDirection: 'row',
-              width: iconName || unit ? '75%' : '100%'
+              width: iconName || unit ? '70%' : '90%'
             }}
           >
             {addon}
@@ -141,7 +141,7 @@ export const InputField = ({
               </View>
             )}
           {unit && (
-            <View style={{ width: '25%', alignItems: 'flex-end' }}>
+            <View style={{ width: '30%', alignItems: 'flex-end' }}>
               <Text style={styles.textNormal}>{unit}</Text>
             </View>
           )}

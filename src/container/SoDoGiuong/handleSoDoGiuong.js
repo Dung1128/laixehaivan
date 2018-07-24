@@ -1,12 +1,13 @@
 import React from 'react';
 import { TouchableOpacity, Modal, LayoutAnimation } from 'react-native';
-import { Text, View, Button } from 'native-base';
+import { Text, View, Button, Card } from 'native-base';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import * as commonActions from '../../store/actions/common';
 import material from '../../theme/variables/material';
+import variable from '../../theme/variables/platform';
 import styles from './styles';
 
 @connect(
@@ -53,7 +54,7 @@ export default class Filter extends React.PureComponent {
               <IconIonicons name="ios-arrow-back" size={28} />
             </TouchableOpacity>
           </View>
-          <View>
+          <Card style={styles.cardView}>
             <Text style={styles.textNormal}>
               Họ và tên: {inforGiuong.bvv_ten_khach_hang_di}
             </Text>
@@ -76,74 +77,93 @@ export default class Filter extends React.PureComponent {
             <Text style={styles.textNormal}>
               Ghi chú: {inforGiuong.bvv_ghi_chu}
             </Text>
+          </Card>
+          <View style={styles.itemButton}>
+            <Button
+              disabled={inforGiuong.bvv_status === 11}
+              success
+              onPress={() => {
+                this.props.onLenXe();
+                this.setVisible(false);
+              }}
+              style={{
+                ...styles.btn,
+                backgroundColor:
+                  inforGiuong.bvv_status === 11
+                    ? material.colorRefund
+                    : variables.btnSuccessBg
+              }}
+            >
+              <Text style={styles.textNormal}>Xác nhận lên xe</Text>
+            </Button>
+
+            <Button
+              onPress={() => {
+                this.props.onXuongXe();
+                this.setVisible(false);
+              }}
+              warning
+              style={styles.btn}
+            >
+              <Text style={styles.textNormal}>Xuống xe</Text>
+            </Button>
           </View>
-          <Button
-            success
-            onPress={() => {
-              this.props.onLenXe();
-              this.setVisible(false);
-            }}
-            style={{ ...styles.btn, marginTop: material.paddingNormal }}
-          >
-            <Text style={styles.textNormal}>Xác nhận lên xe</Text>
-          </Button>
-          <Button
-            onPress={() => {
-              this.props.onXuongXe();
-              this.setVisible(false);
-            }}
-            warning
-            style={styles.btn}
-          >
-            <Text style={styles.textNormal}>Xuống xe</Text>
-          </Button>
-          <Button
-            onPress={() => {
-              this.props.onChange();
-              this.setVisible(false);
-            }}
-            primary
-            style={styles.btn}
-          >
-            <Text style={styles.textNormal}>Chỉnh sửa</Text>
-          </Button>
-          <Button
-            onPress={() => {
-              this.props.onRemoveGhe();
-              this.setVisible(false);
-            }}
-            info
-            style={styles.btn}
-          >
-            <Text style={styles.textNormal}>Chuyển chỗ</Text>
-          </Button>
-          <Button
-            onPress={() => {
-              this.props.onThemVe();
-              this.setVisible(false);
-            }}
-            success
-            style={styles.btn}
-          >
-            <Text style={styles.textNormal}>Thêm vé</Text>
-          </Button>
-          <Button
-            onPress={() => {
-              this.props.onChuyenCho();
-              this.setVisible(false);
-            }}
-            warning
-            style={styles.btn}
-          >
-            <Text style={styles.textNormal}>Chuyển chờ</Text>
-          </Button>
+          <View style={styles.itemButton}>
+            <Button
+              onPress={() => {
+                this.props.onChange();
+                this.setVisible(false);
+              }}
+              primary
+              style={styles.btn}
+            >
+              <Text style={styles.textNormal}>Chỉnh sửa</Text>
+            </Button>
+            <Button
+              onPress={() => {
+                this.props.onRemoveGhe();
+                this.setVisible(false);
+              }}
+              info
+              style={styles.btn}
+            >
+              <Text style={styles.textNormal}>Chuyển chỗ</Text>
+            </Button>
+          </View>
+          <View style={styles.itemButton}>
+            <Button
+              onPress={() => {
+                this.props.onThemVe();
+                this.setVisible(false);
+              }}
+              success
+              style={styles.btn}
+            >
+              <Text style={styles.textNormal}>Thêm vé</Text>
+            </Button>
+            <Button
+              onPress={() => {
+                this.props.onChuyenCho();
+                this.setVisible(false);
+              }}
+              warning
+              style={styles.btn}
+            >
+              <Text style={styles.textNormal}>Chuyển chờ</Text>
+            </Button>
+          </View>
+
           <Button
             onPress={() => {
               this.props.onHuyVe();
               this.setVisible(false);
             }}
             danger
-            style={styles.btn}
+            style={{
+              ...styles.btn,
+              width: '100%',
+              marginTop: material.paddingSmall
+            }}
           >
             <Text style={styles.textNormal}>Huỷ vé</Text>
           </Button>

@@ -45,7 +45,7 @@ export default {
     paddingBottom: 0,
     borderBottomWidth: 1,
     borderColor: '#ccc',
-    width: '100%',
+    width: '50%',
     backgroundColor: 'white',
     paddingLeft: 0,
     paddingRight: 0,

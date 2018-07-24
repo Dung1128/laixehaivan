@@ -65,3 +65,17 @@ export const traKhach = (...args) => ({ type: 'app/traKhach', args });
 
 // danh sách gọi
 export const danhSachGoi = (...args) => ({ type: 'app/danhSachGoi', args });
+
+// request offline
+export const saveOffline = payload => ({ type: 'app/saveOffline', payload });
+export const subObjOffline = payload => ({
+  type: 'app/subObjOffline',
+  payload
+});
+export const saveConnect = payload => ({ type: 'app/saveConnect', payload });
+
+//cập nhật sơ đồ giường
+export const actionUpdateSDG = payload => ({
+  type: 'app/actionUpdateSDG',
+  payload
+});

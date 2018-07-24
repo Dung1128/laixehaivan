@@ -30,10 +30,10 @@ export default {
     paddingHorizontal: material.paddingNormal
   },
   btn: {
-    width: '100%',
+    width: '48%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: material.paddingSmall
+    height: 50
   },
   header: {
     width: '100%',
@@ -50,5 +50,14 @@ export default {
   headerVe: {
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  cardView: {
+    padding: material.paddingSmall
+  },
+  itemButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: material.paddingSmall
   }
 };

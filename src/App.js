@@ -20,6 +20,7 @@ import material from './theme/variables/material';
 
 import { getDrawerState, getRouter } from './store/selectors/common';
 import * as commonActions from './store/actions/common';
+import * as haivanActions from './store/actions/haivan';
 import * as accountActions from './store/actions/account';
 import * as notificationActions from './store/actions/notification';
 
@@ -40,7 +41,12 @@ UIManager.setLayoutAnimationEnabledExperimental &&
     isPlayingGallery: state.ui.gallery.isPlaying,
     drawerState: getDrawerState(state)
   }),
-  { ...commonActions, ...accountActions, ...notificationActions }
+  {
+    ...commonActions,
+    ...accountActions,
+    ...notificationActions,
+    ...haivanActions
+  }
 )
 export default class App extends Component {
   constructor(props) {
@@ -225,7 +231,9 @@ export default class App extends Component {
           <Gallery />
           <Browser />
           <Loading />
-          <ConnectionStatusBar />
+          <ConnectionStatusBar
+            onChangeStatus={val => this.props.saveConnect(val)}
+          />
         </Container>
       </StyleProvider>
     );

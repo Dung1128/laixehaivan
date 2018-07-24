@@ -45,10 +45,10 @@ export default class ChieuDi extends React.PureComponent {
           <Icon name="close-circle" />
         </Button>
         <Button
-          onPress={() => this.props.forwardTo('danhSachGoi')}
+          onPress={() => this.props.forwardTo('veOffline')}
           style={{ backgroundColor: '#DD5144' }}
         >
-          <Icon name="call" />
+          <Icon name="wifi" />
         </Button>
       </Fab>
     );

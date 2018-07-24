@@ -19,6 +19,11 @@ export default {
       name: 'Doanh thu',
       route: 'doanhThu',
       icon: 'trending-up'
+    },
+    {
+      name: 'Gọi',
+      route: 'danhSachGoi',
+      icon: 'call'
     }
   ]
 };

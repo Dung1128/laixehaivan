@@ -20,5 +20,8 @@ export default {
   rowNote: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  textSmall: {
+    fontSize: material.textSmall
   }
 };

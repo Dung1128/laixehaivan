@@ -13,7 +13,7 @@ import {
   browser
 } from './common';
 
-export default combineReducers({
+const appReducer = combineReducers({
   form,
   router,
   notification,
@@ -28,3 +28,12 @@ export default combineReducers({
   auth,
   haivan
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === 'app/logout') {
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
+
+export default rootReducer;

@@ -13,6 +13,7 @@ import * as commonActions from '../../store/actions/common';
 import * as authSelectors from '../../store/selectors/auth';
 import * as haivanActions from '../../store/actions/haivan';
 import * as haivanSelectors from '../../store/selectors/haivan';
+import styles from '../ChuyenDiCuaBan/styles';
 
 @connect(
   state => ({
@@ -22,7 +23,10 @@ import * as haivanSelectors from '../../store/selectors/haivan';
     ve: haivanSelectors.getVe(state).arrVe,
     getActionXepCho: haivanSelectors.actionXepCho(state),
     getActionRemoveGhe: haivanSelectors.actionRemoveGhe(state),
-    getActionThemVe: haivanSelectors.actionThemVe(state)
+    getActionThemVe: haivanSelectors.actionThemVe(state),
+    getUpdateSDG: haivanSelectors.UpdateSDG(state),
+    getConnect: haivanSelectors.saveConnect(state),
+    getDataOffline: haivanSelectors.dataOffline(state)
   }),
   { ...commonActions, ...haivanActions }
 )
@@ -169,19 +173,26 @@ export default class SoDoGiuong extends React.PureComponent {
       bvv_number: val.bvv_number
     };
 
-    this.props.checkSuDungVe(params, (e, d) => {
-      if (d && d.message === 'OK') {
-        this.props.forwardTo('themVe', {
+    this.props.getConnect
+      ? this.props.checkSuDungVe(params, (e, d) => {
+          if (d && d.message === 'OK') {
+            this.props.forwardTo('themVe', {
+              data: this.state.soDoGiuong.arrBen,
+              dataGiaVe: this.state.soDoGiuong.arrGiaVe,
+              arrVeNumber: this.state.soDoGiuong.arrVeNumber,
+              detailVe: val
+            });
+          }
+          if (d && d.message !== 'OK') {
+            this.props.setToast(d.message);
+          }
+        })
+      : this.props.forwardTo('themVe', {
           data: this.state.soDoGiuong.arrBen,
           dataGiaVe: this.state.soDoGiuong.arrGiaVe,
           arrVeNumber: this.state.soDoGiuong.arrVeNumber,
           detailVe: val
         });
-      }
-      if (d && d.message !== 'OK') {
-        this.props.setToast(d.message);
-      }
-    });
   }
 
   xepCho() {
@@ -245,7 +256,45 @@ export default class SoDoGiuong extends React.PureComponent {
     );
   }
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.getUpdateSDG !== this.props.getUpdateSDG) {
+      this.getList();
+      this.danhMucVe();
+    }
+  }
+
+  onCreate(val) {
+    const newData = [];
+    Alert.alert(
+      'Thông báo',
+      'Bạn có đồng bộ vé không?',
+      [
+        { text: 'Không', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'Đồng ý',
+          onPress: () => {
+            this.props.insertVe(val, (e, d) => {
+              if (d) {
+                this.props.actionUpdateSDG(new Date());
+
+                this.props.getDataOffline.map((it, index) => {
+                  if (
+                    _.findIndex(this.props.getDataOffline, {
+                      bvv_number: val.bvv_number
+                    }) !== index
+                  ) {
+                    newData.push(it);
+                  }
+                });
+                this.props.subObjOffline(newData);
+              }
+            });
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  }
 
   render() {
     const { soDoGiuong } = this.setState;
@@ -254,6 +303,18 @@ export default class SoDoGiuong extends React.PureComponent {
       <Container style={{ padding: material.paddingSmall }}>
         <Content showsVerticalScrollIndicator={false}>
           <ItemChuyenDi detail data={this.state.soDoGiuong.arrInfo} />
+          {this.props.getDataOffline.length > 0 && (
+            <Text
+              style={{
+                ...styles.textSmall,
+                paddingHorizontal: material.paddingSmall,
+                color: material.colorDeclined,
+                fontWeight: 'bold'
+              }}
+            >
+              Vui lòng cập nhật vé offline!
+            </Text>
+          )}
           {this.state.newData && (
             <ItemGiuong
               onPress={val => {
@@ -314,10 +375,12 @@ export default class SoDoGiuong extends React.PureComponent {
                     : this.checkSuDungVe(val);
                 }
               }}
+              onCreate={val => this.onCreate(val)}
               data={this.state.newData}
               dataVe={this.state.soDoGiuong.arrVeNumber}
               price={this.state.price}
               dataActive={this.props.ve}
+              dataOffline={this.props.getDataOffline}
               // handleSoDo={val =>
               //   this.setState({
               //     inforGiuong: val,

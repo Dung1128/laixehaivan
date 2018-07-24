@@ -47,10 +47,13 @@ export default class ConnectionStatusBar extends React.Component {
   onConnectionChange(state) {
     const isConnected = this.isStateConnected(state);
     if (isConnected !== this.state.isConnected) {
-      this.setState({
-        isConnected,
-        isCancelled: false
-      });
+      this.setState(
+        {
+          isConnected,
+          isCancelled: false
+        },
+        () => this.props.onChangeStatus(this.state.isConnected)
+      );
       if (this.props.onConnectionChange) {
         this.props.onConnectionChange(isConnected, false);
       }
@@ -58,7 +61,7 @@ export default class ConnectionStatusBar extends React.Component {
       if (!isConnected) {
         setTimeout(() => {
           this.getInitialConnectionState();
-        }, 3000);
+        }, 2000);
       }
 
       if (
@@ -73,7 +76,10 @@ export default class ConnectionStatusBar extends React.Component {
   async getInitialConnectionState() {
     const state = await NetInfo.getConnectionInfo();
     const isConnected = this.isStateConnected(state);
-    this.state.isConnected !== isConnected && this.setState({ isConnected });
+    this.state.isConnected !== isConnected &&
+      this.setState({ isConnected }, () =>
+        this.props.onChangeStatus(this.state.isConnected)
+      );
     this.props.onConnectionChange &&
       this.props.onConnectionChange(isConnected, true);
   }
@@ -82,6 +88,7 @@ export default class ConnectionStatusBar extends React.Component {
 
   render = () => {
     const { style, textStyle } = this.props;
+
     if (this.state.isConnected || this.state.isCancelled) {
       return false;
     }

@@ -6,3 +6,6 @@ export const getVe = state => state.haivan.detailVe;
 export const actionXepCho = state => state.haivan.actionXepCho;
 export const actionRemoveGhe = state => state.haivan.actionRemoveGhe;
 export const actionThemVe = state => state.haivan.actionThemVe;
+export const dataOffline = state => state.haivan.dataOffline;
+export const saveConnect = state => state.haivan.saveConnect;
+export const UpdateSDG = state => state.haivan.UpdateSDG;

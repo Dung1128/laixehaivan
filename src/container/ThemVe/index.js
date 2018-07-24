@@ -36,7 +36,8 @@ import DanhMucVe from './DanhMucVe';
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
     did_id: haivanSelectors.getChuyenDi(state),
-    dmVe: haivanSelectors.getDanhMucVe(state)
+    dmVe: haivanSelectors.getDanhMucVe(state),
+    getConnect: haivanSelectors.saveConnect(state)
   }),
   { ...commonActions, ...haivanActions }
 )
@@ -91,6 +92,11 @@ export default class ThemVe extends React.PureComponent {
     this.showGiaVe();
   }
 
+  saveParams(params) {
+    this.props.saveOffline(params);
+    this.props.resetTo('soDoGiuong');
+  }
+
   DatVe(val) {
     const params = {
       adm_id: this.props.profile.adm_id,
@@ -115,14 +121,18 @@ export default class ThemVe extends React.PureComponent {
         this.state.checkGiamGiaText === true ? this.state.khuyenMai.id : '',
       giam_gia_text:
         this.state.checkGiamGiaText === true ? this.state.giam_gia_text : '',
-      price_truc_tiep: parseInt(this.state.giamgia)
+      price_truc_tiep: parseInt(this.state.giamgia),
+      bvv_number: this.props.route.params.detailVe.bvv_number
     };
 
-    this.props.insertVe(params, (e, d) => {
-      if (d) {
-        this.props.forwardTo('soDoGiuong');
-      }
-    });
+    this.props.getConnect
+      ? this.props.insertVe(params, (e, d) => {
+          if (d) {
+            this.props.actionUpdateSDG(new Date());
+            this.props.resetTo('soDoGiuong');
+          }
+        })
+      : this.saveParams(params);
   }
 
   UpdateVe(val) {
@@ -152,7 +162,10 @@ export default class ThemVe extends React.PureComponent {
         this.state.checkGiamGiaText === true ? this.state.giam_gia_text : ''
     };
 
-    this.props.updateVe(params, () => this.props.forwardTo('soDoGiuong'));
+    this.props.updateVe(params, () => {
+      this.props.forwardTo('soDoGiuong');
+      this.props.actionUpdateSDG(new Date());
+    });
   }
 
   checkKhuyenMai() {
@@ -345,6 +358,8 @@ export default class ThemVe extends React.PureComponent {
   render() {
     const { handleSubmit } = this.props;
 
+    console.log(this.props.getConnect);
+
     return (
       <Container style={styles.container}>
         <Content
@@ -352,31 +367,24 @@ export default class ThemVe extends React.PureComponent {
           contentContainerStyle={{ paddingBottom: 10 }}
           showsVerticalScrollIndicator={false}
         >
-          {this.renderItem(this.state.diemdi, 'bus', 'Điểm đi', 0)}
-          {this.renderItem(this.state.diemden, 'bus', 'Điểm đến', 1)}
-          <View style={styless.textInputContainer}>
-            <Field
-              onSubmitEditing={() => {
-                // this.phone.focus();
-              }}
-              keyboardType="default"
-              returnKeyType="next"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Họ và tên'}
-              name={'user'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              inputStyle={styless.input}
-              IconIcom={'person'}
-              IconIcomColor={material.colorDark2}
-            />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '100%'
+            }}
+          >
+            {this.renderItem(this.state.diemdi, 'bus', 'Điểm đi', 0)}
+            {this.renderItem(this.state.diemden, 'bus', 'Điểm đến', 1)}
           </View>
 
-          <View style={styless.textInputContainer}>
+          <View
+            style={{
+              ...styless.textInputContainer,
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+            }}
+          >
             <Field
               onSubmitEditing={() => {
                 // this.tenNguoiDi.focus();
@@ -398,23 +406,18 @@ export default class ThemVe extends React.PureComponent {
               IconIcom={'call'}
               IconIcomColor={material.colorDark2}
             />
-          </View>
-
-          <View style={styless.textInputContainer}>
             <Field
               onSubmitEditing={() => {
-                // this.phoneNguoiDi.focus();
+                // this.phone.focus();
               }}
-              // customOnChange={val => this.setState({ tenNguoiDi: val })}
-              inputRef={e => (this.tenNguoiDi = e)}
               keyboardType="default"
               returnKeyType="next"
               autoCapitalize={'none'}
               style={styless.textInput}
               icon={input => (input.value ? 'close' : null)}
               onIconPress={input => input.onChange('')}
-              label={'Tên người đi'}
-              name={'tenNguoiDi'}
+              label={'Họ và tên'}
+              name={'user'}
               component={InputField}
               autoCorrect={false}
               placeholderTextColor="#7e7e7e"
@@ -424,7 +427,13 @@ export default class ThemVe extends React.PureComponent {
             />
           </View>
 
-          <View style={styless.textInputContainer}>
+          <View
+            style={{
+              ...styless.textInputContainer,
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+            }}
+          >
             <Field
               onSubmitEditing={() => {
                 // this.email.focus();
@@ -444,6 +453,27 @@ export default class ThemVe extends React.PureComponent {
               placeholderTextColor="#7e7e7e"
               inputStyle={styless.input}
               IconIcom={'call'}
+              IconIcomColor={material.colorDark2}
+            />
+            <Field
+              onSubmitEditing={() => {
+                // this.phoneNguoiDi.focus();
+              }}
+              // customOnChange={val => this.setState({ tenNguoiDi: val })}
+              inputRef={e => (this.tenNguoiDi = e)}
+              keyboardType="default"
+              returnKeyType="next"
+              autoCapitalize={'none'}
+              style={styless.textInput}
+              icon={input => (input.value ? 'close' : null)}
+              onIconPress={input => input.onChange('')}
+              label={'Tên người đi'}
+              name={'tenNguoiDi'}
+              component={InputField}
+              autoCorrect={false}
+              placeholderTextColor="#7e7e7e"
+              inputStyle={styless.input}
+              IconIcom={'person'}
               IconIcomColor={material.colorDark2}
             />
           </View>
@@ -486,7 +516,7 @@ export default class ThemVe extends React.PureComponent {
               >
                 <IconMaterialIcons
                   name="check-box-outline-blank"
-                  size={24}
+                  size={28}
                   color={material.colorDark2}
                 />
               </TouchableOpacity>
@@ -501,7 +531,7 @@ export default class ThemVe extends React.PureComponent {
               >
                 <IconMaterialIcons
                   name="check-box"
-                  size={24}
+                  size={28}
                   color={material.colorDark2}
                 />
               </TouchableOpacity>
@@ -546,7 +576,7 @@ export default class ThemVe extends React.PureComponent {
               >
                 <IconMaterialIcons
                   name="check-box-outline-blank"
-                  size={24}
+                  size={28}
                   color={material.colorDark2}
                 />
               </TouchableOpacity>
@@ -561,7 +591,7 @@ export default class ThemVe extends React.PureComponent {
               >
                 <IconMaterialIcons
                   name="check-box"
-                  size={24}
+                  size={28}
                   color={material.colorDark2}
                 />
               </TouchableOpacity>
@@ -644,6 +674,7 @@ export default class ThemVe extends React.PureComponent {
           </View>
           {this.state.detailVe.arrVe.bvv_seri === 0 && (
             <DanhMucVe
+              seri={this.state.seri}
               // initialValue={}
               data={this.danhMuc}
               onChangeText={value => {
@@ -656,15 +687,6 @@ export default class ThemVe extends React.PureComponent {
               }}
             />
           )}
-          <View
-            style={{
-              ...styless.textInputContainer,
-              paddingTop: material.paddingSmall,
-              marginBottom: 0
-            }}
-          >
-            <Text style={styles.textNormal}>Seri: {this.state.seri}</Text>
-          </View>
 
           <View
             style={{

@@ -144,6 +144,27 @@ export default class Item extends Component {
                     Đã book
                   </Text>
                 </View>
+                <View
+                  style={{
+                    ...styles.rowNote,
+                    marginLeft: material.paddingNormal
+                  }}
+                >
+                  <View
+                    style={{
+                      ...styles.note,
+                      backgroundColor: material.segmentBackgroundColor
+                    }}
+                  />
+                  <Text
+                    style={{
+                      ...styles.textNormal,
+                      marginLeft: material.paddingSmall
+                    }}
+                  >
+                    Vé offline
+                  </Text>
+                </View>
               </View>
             </View>
           )}
