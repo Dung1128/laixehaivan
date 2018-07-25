@@ -1,11 +1,20 @@
 import React, { PureComponent } from 'react';
-import { PixelRatio } from 'react-native';
+import { PixelRatio, View } from 'react-native';
+import { connect } from 'react-redux';
 import { Button, Footer, FooterTab, Text } from 'native-base';
+import * as haivanSelectors from '../../store/selectors/haivan';
 import Icon from '../../elements/Icon';
 import styles from './styles';
 import options from './options';
 import material from '../../theme/variables/material';
 
+@connect(
+  state => ({
+    getCountTraKhach: haivanSelectors.countTraKhach(state),
+    getCountDangCho: haivanSelectors.countDangCho(state)
+  }),
+  {}
+)
 export default class extends PureComponent {
   constructor(props) {
     super(props);
@@ -60,6 +69,24 @@ export default class extends PureComponent {
                 >
                   {item.name}
                 </Text>
+
+                {this.props.getCountTraKhach > 0 &&
+                  item.name === 'Trả khách' && (
+                    <View style={styles.viewBadge}>
+                      <Text numberOfLines={1} style={styles.textSmall}>
+                        {this.props.getCountTraKhach}
+                      </Text>
+                    </View>
+                  )}
+
+                {this.props.getCountDangCho > 0 &&
+                  item.name === 'Đang chờ' && (
+                    <View style={styles.viewBadgeDangCho}>
+                      <Text numberOfLines={1} style={styles.textSmall}>
+                        {this.props.getCountDangCho}
+                      </Text>
+                    </View>
+                  )}
               </Button>
             );
           })}

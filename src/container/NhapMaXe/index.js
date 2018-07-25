@@ -16,7 +16,7 @@ export default class NhapMaXe extends React.PureComponent {
   render() {
     return (
       <Container style={styles.container}>
-        <Content>
+        {/* <Content>
           <View
             style={{
               ...styless.textInputContainer,
@@ -47,7 +47,11 @@ export default class NhapMaXe extends React.PureComponent {
           <Button success style={styles.btn}>
             <Text>Xác nhận</Text>
           </Button>
-        </Content>
+        </Content> */}
+
+        <View style={{ padding: material.paddingNormal }}>
+          <Text>Tính năng đang trong quá trình phát triển</Text>
+        </View>
       </Container>
     );
   }

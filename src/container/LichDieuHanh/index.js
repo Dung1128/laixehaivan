@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Content, Text, Tabs, Tab } from 'native-base';
+import { Container, Content, Text, Tabs, Tab, View } from 'native-base';
 import DateTimePicker from '../../components/DateTimePick';
 import material from '../../theme/variables/material';
 import { TabTask } from './tabTask';
@@ -92,7 +92,10 @@ export default class LichDieuHanh extends React.PureComponent {
             this.setState({ currentDate: val.date });
           }}
         />
-        <TabTask screenProps={data} />
+        {/* <TabTask screenProps={data} /> */}
+        <View style={{ padding: material.paddingNormal }}>
+          <Text>Lịch điều hành đang trong quá trình phát triển</Text>
+        </View>
       </Container>
     );
   }

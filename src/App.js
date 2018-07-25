@@ -82,8 +82,14 @@ export default class App extends Component {
       if (route) {
         // show header and footer, and clear search string
         this.navigator.navigate(route);
-        this.header.show(route.headerType, route.title);
-        this.footer.show(route.footerType, route.routeName);
+        // this.header.show(route.headerType, route.title);
+        this.handleShowHeaderFooter(this.header, route.headerType, route.title);
+        // this.footer.show(route.footerType, route.routeName);
+        this.handleShowHeaderFooter(
+          this.footer,
+          route.footerType,
+          route.routeName
+        );
       } else {
         // no need to push to route
         this.props.setToast(
@@ -96,6 +102,24 @@ export default class App extends Component {
     // check drawer
     if (drawerState !== this.props.drawerState) {
       this.drawer._root[drawerState === 'opened' ? 'open' : 'close']();
+    }
+  }
+
+  handleShowHeaderFooter(ref, footerType, routeName) {
+    if (!ref) {
+      return;
+    }
+    let element = ref;
+    let whatdog = 10;
+    while (element._reactInternalFiber && whatdog > 0) {
+      if (element.show) {
+        element.show(footerType, routeName);
+        break;
+      }
+      element =
+        element._reactInternalFiber.child &&
+        element._reactInternalFiber.child.stateNode;
+      whatdog--;
     }
   }
 

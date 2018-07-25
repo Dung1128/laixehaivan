@@ -16,14 +16,14 @@ export default {
       icon: 'git-compare'
     },
     {
-      name: 'Doanh thu',
-      route: 'doanhThu',
-      icon: 'trending-up'
-    },
-    {
       name: 'Gọi',
       route: 'danhSachGoi',
       icon: 'call'
+    },
+    {
+      name: 'Doanh thu',
+      route: 'doanhThu',
+      icon: 'trending-up'
     }
   ]
 };

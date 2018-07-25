@@ -58,18 +58,18 @@ export default StyleSheet.create({
     // borderColor: '#fff'
   },
   textSmall: {
-    fontSize: material.textBadge,
+    fontSize: material.textSuperTiny,
     color: material.badgeColor,
     alignSelf: 'center',
     paddingTop: 0
   },
   viewBadge: {
-    backgroundColor: material.primaryColor,
+    backgroundColor: material.badgeBg,
     paddingHorizontal: 3,
     // paddingVertical: 2,
     borderRadius: 10,
     position: 'absolute',
-    left: material.deviceWidth / 5 - material.deviceWidth / 10,
+    left: material.deviceWidth / 5 - material.deviceWidth / 11,
     top: 3,
     alignContent: 'center',
     justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-start',
@@ -77,5 +77,11 @@ export default StyleSheet.create({
     height: 20,
     alignSelf: 'center',
     paddingTop: 0
+  },
+  get viewBadgeDangCho() {
+    return {
+      ...this.viewBadge,
+      left: material.deviceWidth / 6 - material.deviceWidth / 15
+    };
   }
 });

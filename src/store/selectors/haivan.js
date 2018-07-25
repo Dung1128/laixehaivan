@@ -9,3 +9,5 @@ export const actionThemVe = state => state.haivan.actionThemVe;
 export const dataOffline = state => state.haivan.dataOffline;
 export const saveConnect = state => state.haivan.saveConnect;
 export const UpdateSDG = state => state.haivan.UpdateSDG;
+export const countTraKhach = state => state.haivan.countTraKhach;
+export const countDangCho = state => state.haivan.countDangCho;

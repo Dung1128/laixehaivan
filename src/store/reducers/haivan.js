@@ -14,7 +14,9 @@ const init = {
   actionThemVe: false,
   dataOffline: [],
   saveConnect: true,
-  UpdateSDG: new Date()
+  UpdateSDG: new Date(),
+  countTraKhach: 1,
+  countDangCho: 3
 };
 
 export default (state = init, { type, payload }) => {
