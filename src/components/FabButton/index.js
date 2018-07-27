@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Icon, Fab, Text } from 'native-base';
 import { connect } from 'react-redux';
 import * as commonActions from '../../store/actions/common';
+import material from '../../theme/variables/material';
 
 @connect(
   state => ({}),
@@ -49,6 +50,12 @@ export default class ChieuDi extends React.PureComponent {
           style={{ backgroundColor: '#DD5144' }}
         >
           <Icon name="wifi" />
+        </Button>
+        <Button
+          onPress={() => this.props.forwardTo('chiPhiChuyenDi')}
+          style={{ backgroundColor: material.colorRequest }}
+        >
+          <Icon name="logo-usd" />
         </Button>
       </Fab>
     );

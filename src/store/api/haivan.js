@@ -246,7 +246,7 @@ export default {
     API.get(
       `/api/appdriver/dieu-hanh/get-info?adm_id=${params.adm_id}&token=${
         params.token
-      }`
+      }&did_id=${params.did_id}`
     ),
 
   saveDieuHanh: params =>
@@ -264,6 +264,13 @@ export default {
         did_gio_dieu_hanh: params.did_gio_dieu_hanh
       },
       {}
+    ),
+
+  getInfoThanhTra: params =>
+    API.get(
+      `/api/appdriver/thanh-tra/get-info?adm_id=${params.adm_id}&token=${
+        params.token
+      }`
     )
 
   // facebookLogin: facebookToken =>

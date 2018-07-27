@@ -27,6 +27,7 @@ import XuongXe from './container/XuongXe';
 import ThemVe from './container/ThemVe';
 import AddBangDieuDo from './container/AddBangDieuDo';
 import VeOffline from './container/VeOffline';
+import ChiPhiChuyenDi from './container/ChiPhiChuyenDi';
 
 export default {
   //new
@@ -219,6 +220,13 @@ export default {
     headerType: 'home',
     footerType: 'home',
     cache: true
+  },
+  chiPhiChuyenDi: {
+    title: 'Chi phí',
+    Page: ChiPhiChuyenDi,
+    headerType: 'home',
+    footerType: 'home',
+    cache: false
   }
 
   //new version

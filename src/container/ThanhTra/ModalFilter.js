@@ -48,7 +48,26 @@ export default class Filter extends React.PureComponent {
         }}
         style={styles.rowFilter}
       >
-        <Text>{item.bex_ten}</Text>
+        <Text style={styles.textNormal}>
+          {item.tuy_name ||
+            item.xe_bien_kiem_soat ||
+            item.lx_name ||
+            item.tv_name ||
+            item.xdm_name}
+        </Text>
+        {item.arrLoiChi &&
+          item.arrLoiChi.map((item, index) => (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => {
+                this.props.selectedValue(item);
+                this.setVisible(false);
+              }}
+              style={styles.viewChild}
+            >
+              <Text style={styles.textNormal}>{item.xdm_name}</Text>
+            </TouchableOpacity>
+          ))}
       </TouchableOpacity>
     );
   }

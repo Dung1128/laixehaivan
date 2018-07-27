@@ -78,5 +78,12 @@ export default {
     borderColor: material.colorBorder,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  textNormal: {
+    fontSize: material.textNormal,
+    paddingVertical: material.paddingSmall
+  },
+  viewChild: {
+    paddingHorizontal: material.paddingNormal
   }
 };

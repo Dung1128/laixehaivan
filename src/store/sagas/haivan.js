@@ -193,6 +193,13 @@ const requestSaveDieuHanh = createRequestSaga({
   failure: [data => setToast(data.message.message, 'error')]
 });
 
+const requestGetInfoThanhTra = createRequestSaga({
+  request: haivan.getInfoThanhTra,
+  key: 'getInfoThanhTra',
+  success: [],
+  failure: [data => setToast(data.message.message, 'error')]
+});
+
 // root saga reducer
 export default [
   function* fetchWatcher() {
@@ -223,7 +230,8 @@ export default [
       takeLatest('app/getDoanhThu', requestGetDoanhThu),
       takeLatest('app/changePassword', requestChangePassword),
       takeLatest('app/getInfoDieuHanh', requestGetInfoDieuHanh),
-      takeLatest('app/saveDieuHanh', requestSaveDieuHanh)
+      takeLatest('app/saveDieuHanh', requestSaveDieuHanh),
+      takeLatest('app/getInfoThanhTra', requestGetInfoThanhTra)
     ]);
   }
 ];

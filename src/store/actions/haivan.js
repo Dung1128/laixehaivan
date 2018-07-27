@@ -110,3 +110,10 @@ export const actionUpdateChuyen = payload => ({
   type: 'app/actionUpdateChuyen',
   payload
 });
+
+// thanh tra
+
+export const getInfoThanhTra = (...args) => ({
+  type: 'app/getInfoThanhTra',
+  args
+});

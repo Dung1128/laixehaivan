@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Container, Content, Text, View, Button } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { reduxForm, Field } from 'redux-form';
+import * as JsSearch from 'js-search';
 import AddImage from '../../components/AddImage';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ModalFilter from './ModalFilter';
@@ -39,71 +40,114 @@ export default class ThanhTra extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
+      visibleTuyenXe: false,
+      visibleXe: false,
+      visibleLaiXe1: false,
+      visibleLaiXe2: false,
+      visibleTiepVien: false,
+      visibleTiepVien: false,
+      visibleViPham: false,
       tuyenXe: {
-        id: 1,
-        name: 'Chọn tuyến xe',
-        type: 1
+        id: 0,
+        tuy_name: 'Chọn tuyến xe'
       },
       xe: {
-        id: 1,
-        name: 'Chọn xe',
-        type: 2
+        id: 0,
+        xe_bien_kiem_soat: 'Chọn xe'
       },
       laixe1: {
-        id: 1,
-        name: 'Chọn lái xe 1',
-        type: 3
+        id: 0,
+        lx_name: 'Chọn lái xe 1'
       },
       laixe2: {
-        id: 1,
-        name: 'Chọn lái xe 2',
-        type: 4
+        id: 0,
+        lx_name: 'Chọn lái xe 2'
       },
       tiepVien: {
-        id: 1,
-        name: 'Tiếp viên',
-        type: 5
+        id: 0,
+        tv_name: 'Tiếp viên'
       },
       viPham: {
-        id: 1,
-        name: 'Loại vi phạm',
-        type: 6
+        id: 0,
+        xdm_name: 'Loại vi phạm'
+      },
+      dataTuyenXe: [],
+      dataXe: [],
+      dataLaiXe1: [],
+      dataLaiXe2: [],
+      dataTiepVien: [],
+      dataViPham: [],
+      dataThanhTra: {
+        arrLaiXe: [],
+        arrLoiViPham: [],
+        arrTiepVien: [],
+        arrTuyen: [],
+        arrXe: []
       }
     };
   }
 
-  chooseData(type) {
+  componentDidMount() {
+    this.getInfo();
+  }
+
+  getInfo() {
+    const params = {
+      adm_id: this.props.profile.adm_id,
+      token: this.props.token
+    };
+    this.props.getInfoThanhTra(params, (e, d) => {
+      if (d && d) {
+        this.setState({
+          dataThanhTra: d,
+          dataTuyenXe: d.arrTuyen,
+          dataXe: d.arrXe,
+          dataLaiXe1: d.arrLaiXe,
+          dataLaiXe2: d.arrLaiXe,
+          dataTiepVien: d.arrTiepVien,
+          dataViPham: d.arrLoiViPham
+        });
+      }
+    });
+  }
+
+  chooseCase(type) {
     switch (type) {
       case 1:
-        return tuyenxe;
+        return this.setState({
+          visibleTuyenXe: true,
+          type
+        });
       case 2:
-        return xe;
-      case 3: {
-        laixe.map(item => {
-          item.type = 3;
+        return this.setState({
+          visibleXe: true,
+          type
         });
 
-        return laixe;
-      }
-      case 4: {
-        laixe.map(item => {
-          item.type = 4;
+      case 3:
+        return this.setState({
+          visibleLaiXe1: true,
+          type
+        });
+      case 4:
+        return this.setState({
+          visibleLaiXe2: true,
+          type
+        });
+      case 5:
+        return this.setState({
+          visibleTiepVien: true,
+          type
         });
 
-        return laixe;
-      }
-      case 5: {
-        laixe.map(item => {
-          item.type = 5;
-        });
-
-        return laixe;
-      }
       case 6:
-        return vipham;
+        return this.setState({
+          visibleViPham: true,
+          type
+        });
+
       default:
-        return [];
+        return console.log('default');
     }
   }
 
@@ -111,12 +155,9 @@ export default class ThanhTra extends React.PureComponent {
     return (
       <TouchableOpacity
         style={styles.itemFilter}
-        onPress={() =>
-          this.setState({
-            visible: true,
-            type
-          })
-        }
+        onPress={() => {
+          this.chooseCase(type);
+        }}
       >
         <IconMaterialCommunityIcons
           name={nameIcon}
@@ -129,7 +170,11 @@ export default class ThanhTra extends React.PureComponent {
             paddingLeft: material.paddingSmall
           }}
         >
-          {item.name}{' '}
+          {item.tuy_name ||
+            item.xe_bien_kiem_soat ||
+            item.lx_name ||
+            item.tv_name ||
+            item.xdm_name}{' '}
         </Text>
       </TouchableOpacity>
     );
@@ -153,6 +198,70 @@ export default class ThanhTra extends React.PureComponent {
       default:
         return null;
     }
+  }
+
+  searchTuyenXe(val) {
+    var search = new JsSearch.Search('tuy_name');
+    search.addIndex('tuy_name');
+    search.addDocuments(this.state.dataThanhTra.arrTuyen);
+    this.setState({
+      dataTuyenXe: search.search(val)
+    });
+
+    if (val === '') {
+      this.setState({
+        dataTuyenXe: this.state.dataThanhTra.arrTuyen
+      });
+    }
+    console.log(search.search(val));
+  }
+
+  searchLaiXe1(val) {
+    var search = new JsSearch.Search('lx_name');
+    search.addIndex('lx_name');
+    search.addDocuments(this.state.dataThanhTra.arrLaiXe);
+    this.setState({
+      dataLaiXe1: search.search(val)
+    });
+
+    if (val === '') {
+      this.setState({
+        dataLaiXe1: this.state.dataThanhTra.arrLaiXe
+      });
+    }
+    console.log(search.search(val));
+  }
+
+  searchLaiXe2(val) {
+    var search = new JsSearch.Search('lx_name');
+    search.addIndex('lx_name');
+    search.addDocuments(this.state.dataThanhTra.arrLaiXe);
+    this.setState({
+      dataLaiXe2: search.search(val)
+    });
+
+    if (val === '') {
+      this.setState({
+        dataLaiXe2: this.state.dataThanhTra.arrLaiXe
+      });
+    }
+    console.log(search.search(val));
+  }
+
+  searchTiepVien(val) {
+    var search = new JsSearch.Search('tv_name');
+    search.addIndex('tv_name');
+    search.addDocuments(this.state.dataThanhTra.arrTiepVien);
+    this.setState({
+      dataTiepVien: search.search(val)
+    });
+
+    if (val === '') {
+      this.setState({
+        dataTiepVien: this.state.dataThanhTra.arrTiepVien
+      });
+    }
+    console.log(search.search(val));
   }
 
   submitForm(val) {
@@ -444,14 +553,93 @@ export default class ThanhTra extends React.PureComponent {
           </Button>
 
           <ModalFilter
-            data={this.chooseData(this.state.type)}
+            data={this.state.dataTuyenXe}
+            onSearch={val => this.searchTuyenXe(val)}
+            selectedValue={val =>
+              this.setState({
+                tuyenXe: val
+              })
+            }
+            handleVisible={val =>
+              this.setState({
+                visibleTuyenXe: val
+              })
+            }
+            visible={this.state.visibleTuyenXe}
+          />
+
+          <ModalFilter
+            data={this.state.dataXe}
             selectedValue={val => this.checkSelectedValue(val)}
             handleVisible={val =>
               this.setState({
-                visible: val
+                visibleXe: val
               })
             }
-            visible={this.state.visible}
+            visible={this.state.visibleXe}
+          />
+          <ModalFilter
+            data={this.state.dataLaiXe1}
+            onSearch={val => this.searchLaiXe1(val)}
+            selectedValue={val =>
+              this.setState({
+                laixe1: val
+              })
+            }
+            handleVisible={val =>
+              this.setState({
+                visibleLaiXe1: val
+              })
+            }
+            visible={this.state.visibleLaiXe1}
+          />
+
+          <ModalFilter
+            data={this.state.dataLaiXe2}
+            onSearch={val => this.searchLaiXe2(val)}
+            selectedValue={val =>
+              this.setState({
+                laixe2: val
+              })
+            }
+            handleVisible={val =>
+              this.setState({
+                visibleLaiXe2: val
+              })
+            }
+            visible={this.state.visibleLaiXe2}
+          />
+
+          <ModalFilter
+            data={this.state.dataTiepVien}
+            onSearch={val => this.searchTiepVien(val)}
+            selectedValue={val =>
+              this.setState({
+                tiepVien: val
+              })
+            }
+            handleVisible={val =>
+              this.setState({
+                visibleTiepVien: val
+              })
+            }
+            visible={this.state.visibleTiepVien}
+          />
+
+          <ModalFilter
+            data={this.state.dataViPham}
+            onSearch={val => console.log('search', val)}
+            selectedValue={val =>
+              this.setState({
+                viPham: val
+              })
+            }
+            handleVisible={val =>
+              this.setState({
+                visibleViPham: val
+              })
+            }
+            visible={this.state.visibleViPham}
           />
         </Content>
       </Container>

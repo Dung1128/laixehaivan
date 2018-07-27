@@ -101,7 +101,8 @@ export default class AddBangDieuDo extends React.PureComponent {
   getInfo() {
     const params = {
       token: this.props.token,
-      adm_id: this.props.profile.adm_id
+      adm_id: this.props.profile.adm_id,
+      did_id: this.props.did_id
     };
     this.props.getInfoDieuHanh(params, (e, d) => {
       this.setState({
