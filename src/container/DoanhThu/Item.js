@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Text, Card, Button } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import moment from 'moment';
+import numeral from 'numeral';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
@@ -34,32 +35,27 @@ export default class Item extends Component {
           <Text style={styles.textNormal}>
             Họ tên:{' '}
             <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-              {data.name}
+              {data.bvv_ten_khach_hang}
             </Text>
           </Text>
 
           <Text style={styles.textNormal}>
             SĐT:{' '}
             <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-              {data.sdt}
+              {data.bvv_phone}
             </Text>
           </Text>
           <Text style={styles.textNormal}>
             Giường:{' '}
             <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-              {data.giuong}
+              {data.sdgct_label_full}
             </Text>
           </Text>
-          <Text style={styles.textNormal}>
-            Điểm đi:{' '}
-            <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-              {data.address}
-            </Text>
-          </Text>
+
           <Text style={styles.textNormal}>
             Giá:{' '}
             <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-              {data.price}
+              {numeral(data.bvv_price).format('0,0')} VNĐ
             </Text>
           </Text>
         </View>

@@ -73,5 +73,20 @@ export default {
     justifyContent: 'center',
     // borderRightWidth: 1,
     marginBottom: material.paddingSmall
+  },
+  textNormal: {
+    fontSize: material.textNormal
+  },
+  detailDoanhThu: {
+    paddingHorizontal: material.paddingNormal,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  get numberDoanhThu() {
+    return {
+      ...this.textNormal,
+      fontWeight: 'bold',
+      color: material.colorComplete
+    };
   }
 };

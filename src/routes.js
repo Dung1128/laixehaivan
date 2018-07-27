@@ -169,7 +169,7 @@ export default {
     Page: AddBangDieuDo,
     headerType: 'back',
     footerType: 'none',
-    cache: true
+    cache: false
   },
 
   //default

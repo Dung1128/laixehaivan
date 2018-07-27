@@ -1,55 +1,25 @@
 import React from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
+import { connect } from 'react-redux';
 import { Container, Content, Text, Tabs, Tab } from 'native-base';
 import FabButton from '../../components/FabButton';
 import material from '../../theme/variables/material';
-// import styles from './styles';
+import styles from './styles';
 import Item from './Item';
+import numeral from 'numeral';
+import * as commonActions from '../../store/actions/common';
+import * as authSelectors from '../../store/selectors/auth';
+import * as haivanSelectors from '../../store/selectors/haivan';
+import * as haivanActions from '../../store/actions/haivan';
 
-const data = [
-  {
-    id: 1,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    price: '1234823'
-  },
-  {
-    id: 2,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    price: '1234823'
-  },
-  {
-    id: 3,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    price: '1234823'
-  },
-  {
-    id: 4,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    price: '1234823'
-  },
-  {
-    id: 5,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    price: '1234823'
-  },
-  {
-    id: 6,
-    name: 'Nguyen van A',
-    sdt: '0928312112',
-    giuong: 'A1',
-    address: '1234823'
-  }
-];
+@connect(
+  state => ({
+    token: authSelectors.getToken(state),
+    profile: authSelectors.getUser(state),
+    did_id: haivanSelectors.getChuyenDi(state)
+  }),
+  { ...commonActions, ...haivanActions }
+)
 export default class TongDoanhThu extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -58,10 +28,37 @@ export default class TongDoanhThu extends React.PureComponent {
       hasMore: true,
       isRefreshing: false,
       bottom: 0,
-      loadingMore: false
+      loadingMore: false,
+      dataDoanhThu: {
+        arrVeNumber: [],
+        tongDoanhThu: 0,
+        tongDoanhThuTrenXe: 0,
+        tongVe: 0,
+        tongVeTrenXe: 0
+      }
     };
     this.offset = 0;
     this.isMoving = false;
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData() {
+    const params = {
+      token: this.props.token,
+      did_id: this.props.did_id,
+      adm_id: this.props.profile.adm_id
+    };
+
+    this.props.getDoanhThu(params, (e, d) => {
+      if (d) {
+        this.setState({
+          dataDoanhThu: d
+        });
+      }
+    });
   }
 
   renderItem({ item, index }) {
@@ -80,13 +77,40 @@ export default class TongDoanhThu extends React.PureComponent {
   render() {
     return (
       <Container>
+        <View style={styles.detailDoanhThu}>
+          <Text style={styles.textNormal}>Tổng doanh thu :</Text>
+          <Text style={styles.numberDoanhThu}>
+            {numeral(this.state.dataDoanhThu.tongDoanhThu).format('0,0')} VNĐ
+          </Text>
+        </View>
+        <View style={styles.detailDoanhThu}>
+          <Text style={styles.textNormal}>Tổng doanh thu trên xe :</Text>
+          <Text style={styles.numberDoanhThu}>
+            {numeral(this.state.dataDoanhThu.tongDoanhThuTrenXe).format('0,0')}{' '}
+            VNĐ
+          </Text>
+        </View>
+        <View
+          style={{
+            ...styles.detailDoanhThu,
+            paddingBottom: material.paddingSmall
+          }}
+        >
+          <Text style={styles.textNormal}>Vé trên xe / Tổng vé :</Text>
+          <Text style={styles.textNormal}>
+            {this.state.dataDoanhThu.tongVeTrenXe}/{
+              this.state.dataDoanhThu.tongVe
+            }{' '}
+            vé
+          </Text>
+        </View>
         <FlatList
           style={{
             width: '100%'
           }}
           contentContainerStyle={{ padding: material.paddingNormal }}
           keyExtractor={(item, index) => index}
-          data={data}
+          data={this.state.dataDoanhThu.arrVeNumber}
           renderItem={this.renderItem.bind(this)}
           onEndReachedThreshold={material.platform === 'ios' ? 0 : 1}
           onMomentumScrollBegin={() => (this.isMoving = true)}
@@ -103,7 +127,7 @@ export default class TongDoanhThu extends React.PureComponent {
             />
           }
         />
-        <FabButton />
+        {/* <FabButton /> */}
       </Container>
     );
   }

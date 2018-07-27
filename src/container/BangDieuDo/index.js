@@ -27,6 +27,11 @@ export default class BangDieuDo extends React.PureComponent {
       currentDate: new Date()
     };
   }
+
+  componentDidMount() {
+    // this.getInfo();
+  }
+
   render() {
     return (
       <Container>

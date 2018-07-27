@@ -15,8 +15,14 @@ const init = {
   dataOffline: [],
   saveConnect: true,
   UpdateSDG: new Date(),
-  countTraKhach: 1,
-  countDangCho: 3
+  actionUpdateChuyen: new Date(),
+  countTraKhach: 0,
+  countDangCho: 0,
+  infoDieuHanh: {
+    arrLaiXe: [],
+    arrTiepVien: [],
+    arrXe: []
+  }
 };
 
 export default (state = init, { type, payload }) => {
@@ -50,6 +56,11 @@ export default (state = init, { type, payload }) => {
     case 'app/actionUpdateSDG': {
       return { ...state, UpdateSDG: payload };
     }
+    case 'app/saveInfoDieuHanh': {
+      return { ...state, infoDieuHanh: payload };
+    }
+    case 'app/actionUpdateChuyen':
+      return { ...state, actionUpdateChuyen: payload };
     default:
       return state;
   }

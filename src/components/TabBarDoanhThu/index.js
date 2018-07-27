@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Text, View } from 'native-base';
+import numeral from 'numeral';
 import material from '../../theme/variables/material';
 import styles from './styles';
 // import options from './options';

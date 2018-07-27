@@ -8,6 +8,7 @@ export default class DoanhThu extends React.PureComponent {
     return (
       <Container>
         <TabTask />
+
         <FabButton />
       </Container>
     );

@@ -1,11 +1,28 @@
 import React from 'react';
 import { Container, Content, Text, View, Button } from 'native-base';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
 import { InputField } from '../../elements/Form';
 import styles from './styles';
 import styless from '../Register/styles';
 import material from '../../theme/variables/material';
+import * as commonActions from '../../store/actions/common';
+import * as authSelectors from '../../store/selectors/auth';
+import * as haivanSelectors from '../../store/selectors/haivan';
+import * as haivanActions from '../../store/actions/haivan';
 
+@connect(
+  state => ({
+    initialValues: {
+      password: '',
+      passwordNew: '',
+      confirmPassword: ''
+    },
+    token: authSelectors.getToken(state),
+    profile: authSelectors.getUser(state)
+  }),
+  { ...commonActions, ...haivanActions }
+)
 @reduxForm({
   form: 'doimatkhau',
   validate: values => {},
@@ -19,17 +36,44 @@ export default class DoiMatKhau extends React.PureComponent {
       secureText: true,
       iconEye: 'eye',
       secureTextRe: true,
-      iconEyeRe: 'eye'
+      iconEyeRe: 'eye',
+      secureTextNew: true,
+      iconEyeNew: 'eye'
     };
   }
+
+  changePass(val) {
+    if (
+      val.password.toString() === '' ||
+      val.passwordNew.toString() === '' ||
+      val.confirmPassword.toString() === ''
+    ) {
+      return this.props.setToast('Mật khẩu không được để trống!');
+    }
+
+    if (val.passwordNew.toString() !== val.confirmPassword.toString()) {
+      return this.props.setToast('Mật khẩu không trùng khớp!');
+    }
+
+    const params = {
+      token: this.props.token,
+      adm_id: this.props.profile.adm_id,
+      password: val.confirmPassword.toString(),
+      passwordOld: val.password.toString()
+    };
+
+    this.props.changePassword(params);
+  }
+
   render() {
+    const { handleSubmit } = this.props;
     return (
       <Container style={styles.container}>
         <Content>
           <View style={styles.textInputContainer}>
             <Field
               onSubmitEditing={() => {
-                this.confirmpassword.focus();
+                this.passwordNew.focus();
               }}
               inputRef={e => (this.password = e)}
               passwordOption
@@ -59,6 +103,38 @@ export default class DoiMatKhau extends React.PureComponent {
 
           <View style={styles.textInputContainer}>
             <Field
+              onSubmitEditing={() => {
+                this.confirmpassword.focus();
+              }}
+              inputRef={e => (this.passwordNew = e)}
+              passwordOption
+              secureTextEntry={this.state.secureTextNew}
+              keyboardType="default"
+              returnKeyType="next"
+              autoCapitalize={'none'}
+              style={styles.textInput}
+              icon={input => (input.value ? 'close' : null)}
+              onIconPress={input => input.onChange('')}
+              label={'Mật khẩu mới'}
+              name={'passwordNew'}
+              component={InputField}
+              autoCorrect={false}
+              placeholderTextColor="#7e7e7e"
+              inputStyle={styles.input}
+              icon={input => this.state.iconEyeNew}
+              IconIcom="lock"
+              onIconPress={input => {
+                this.setState({
+                  secureTextNew: !this.state.secureTextNew,
+                  iconEyeNew:
+                    this.state.iconEyeNew === 'eye' ? 'eye-slash' : 'eye'
+                });
+              }}
+            />
+          </View>
+
+          <View style={styles.textInputContainer}>
+            <Field
               // onSubmitEditing={handleSubmit(this.onRegister.bind(this))}
               inputRef={e => (this.confirmpassword = e)}
               keyboardType="default"
@@ -69,7 +145,7 @@ export default class DoiMatKhau extends React.PureComponent {
               icon={input => (input.value ? 'close' : null)}
               onIconPress={input => input.onChange('')}
               label={'Nhập lại mật khẩu'}
-              name={'confirmpassword'}
+              name={'confirmPassword'}
               component={InputField}
               autoCorrect={false}
               placeholderTextColor="#7e7e7e"
@@ -86,7 +162,11 @@ export default class DoiMatKhau extends React.PureComponent {
             />
           </View>
 
-          <Button success style={styles.btn}>
+          <Button
+            onPress={handleSubmit(this.changePass.bind(this))}
+            success
+            style={styles.btn}
+          >
             <Text>Xác nhận</Text>
           </Button>
         </Content>

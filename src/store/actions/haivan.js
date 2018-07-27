@@ -79,3 +79,34 @@ export const actionUpdateSDG = payload => ({
   type: 'app/actionUpdateSDG',
   payload
 });
+
+//doanh thu vé
+
+export const getDoanhThu = (...args) => ({ type: 'app/getDoanhThu', args });
+
+//đổi mật khẩu
+
+export const changePassword = (...args) => ({
+  type: 'app/changePassword',
+  args
+});
+
+export const getInfoDieuHanh = (...args) => ({
+  type: 'app/getInfoDieuHanh',
+  args
+});
+
+export const saveInfoDieuHanh = payload => ({
+  type: 'app/saveInfoDieuHanh',
+  payload
+});
+
+//xếp lại lịchd điều hành
+export const saveDieuHanh = (...args) => ({ type: 'app/saveDieuHanh', args });
+
+//cập nhật danh sách chuyến
+
+export const actionUpdateChuyen = payload => ({
+  type: 'app/actionUpdateChuyen',
+  payload
+});

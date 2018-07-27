@@ -18,5 +18,20 @@ export default {
   rowNote: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  textNormal: {
+    fontSize: material.textNormal
+  },
+  detailDoanhThu: {
+    paddingHorizontal: material.paddingNormal,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  get numberDoanhThu() {
+    return {
+      ...this.textNormal,
+      fontWeight: 'bold',
+      color: material.colorComplete
+    };
   }
 };

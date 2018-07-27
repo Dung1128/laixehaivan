@@ -226,6 +226,44 @@ export default {
       `/api/appdriver/danh-sach-goi?adm_id=${params.adm_id}&token=${
         params.token
       }&did_id=${params.did_id}`
+    ),
+
+  getDoanhThu: params =>
+    API.get(
+      `/api/appdriver/get-danh-thu?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}`
+    ),
+
+  changePassword: params =>
+    API.post(
+      `/api/appdriver/change-password?adm_id=${params.adm_id}&token=${
+        params.token
+      }&password=${params.password}&passwordOld=${params.passwordOld}`
+    ),
+
+  getInfoDieuHanh: params =>
+    API.get(
+      `/api/appdriver/dieu-hanh/get-info?adm_id=${params.adm_id}&token=${
+        params.token
+      }`
+    ),
+
+  saveDieuHanh: params =>
+    API.post(
+      `/api/appdriver/dieu-hanh/save`,
+      {
+        adm_id: params.adm_id,
+        token: params.token,
+        did_id: params.did_id,
+        xe_id: params.xe_id,
+        lx_id_1: params.lx_id_1,
+        lx_id_2: params.lx_id_2,
+        tv_id: params.tv_id,
+        did_gio_xuat_ben_that: params.did_gio_xuat_ben_that,
+        did_gio_dieu_hanh: params.did_gio_dieu_hanh
+      },
+      {}
     )
 
   // facebookLogin: facebookToken =>

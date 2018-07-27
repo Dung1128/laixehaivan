@@ -31,7 +31,8 @@ export default class Item extends Component {
         onPress={() => {
           this.props.saveChuyenDi(data.did_id);
           !this.props.lichdieuhanh && this.props.forwardTo('soDoGiuong');
-          this.props.bangdieudo && this.props.forwardTo('addBangDieuDo');
+          this.props.bangdieudo &&
+            this.props.forwardTo('addBangDieuDo', { data: data });
         }}
       >
         <Card style={styles.card}>
