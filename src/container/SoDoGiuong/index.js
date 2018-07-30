@@ -226,6 +226,8 @@ export default class SoDoGiuong extends React.PureComponent {
       if (d) {
         this.props.actionRemoveGhe(false);
         this.getList();
+      } else {
+        this.props.actionRemoveGhe(false);
       }
     });
   }

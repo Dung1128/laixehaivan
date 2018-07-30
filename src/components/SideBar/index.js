@@ -137,7 +137,7 @@ export default class extends PureComponent {
   onFanProfilePress() {
     const { forwardTo, closeDrawer } = this.props;
     closeDrawer();
-    forwardTo('fanProfile');
+    // forwardTo('fanProfile');
   }
 
   _handleSuccessLogout() {

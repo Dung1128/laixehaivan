@@ -23,7 +23,7 @@ export default {
     overflow: 'hidden',
     flex: 1,
     borderWidth: 1,
-    borderColor: material.primaryColor,
+    borderColor: material.colorHeader,
     elevation: 0,
     shadowOffset: null,
     shadowOpacity: 0,

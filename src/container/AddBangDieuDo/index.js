@@ -105,6 +105,7 @@ export default class AddBangDieuDo extends React.PureComponent {
       did_id: this.props.did_id
     };
     this.props.getInfoDieuHanh(params, (e, d) => {
+      this.props.saveInfoDieuHanh(d);
       this.setState({
         dataInfo: d,
         searchXe: d.arrXe,

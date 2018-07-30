@@ -86,6 +86,7 @@ export default class ThemVe extends React.PureComponent {
 
     console.log('danh muc ve', this.props.dmVe.dataDM);
     console.log('detail ve', this.props.route.params.detailVe);
+    console.log('this.props.route.params.data', this.props.route.params.data);
   }
 
   componentDidMount() {

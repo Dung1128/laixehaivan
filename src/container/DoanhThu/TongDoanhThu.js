@@ -92,18 +92,46 @@ export default class TongDoanhThu extends React.PureComponent {
         </View>
         <View
           style={{
+            ...styles.detailDoanhThu
+          }}
+        >
+          <Text style={styles.textNormal}>Tổng số vé :</Text>
+          <Text style={styles.textNormal}>
+            {this.state.dataDoanhThu.tongVe} vé
+          </Text>
+        </View>
+        <View
+          style={{
+            ...styles.detailDoanhThu
+          }}
+        >
+          <Text style={styles.textNormal}>Số vé trên xe :</Text>
+          <Text style={styles.textNormal}>
+            {this.state.dataDoanhThu.tongVeTrenXe} vé
+          </Text>
+        </View>
+        <View style={styles.detailDoanhThu}>
+          <Text style={styles.textNormal}>Tổng chi phí :</Text>
+          <Text style={styles.numberDoanhThu}>
+            {numeral(this.state.dataDoanhThu.tongChiPhi).format('0,0')} VNĐ
+          </Text>
+        </View>
+        <View
+          style={{
             ...styles.detailDoanhThu,
             paddingBottom: material.paddingSmall
           }}
         >
-          <Text style={styles.textNormal}>Vé trên xe / Tổng vé :</Text>
-          <Text style={styles.textNormal}>
-            {this.state.dataDoanhThu.tongVeTrenXe}/{
-              this.state.dataDoanhThu.tongVe
-            }{' '}
-            vé
+          <Text style={styles.textNormal}>Còn lại :</Text>
+          <Text style={styles.numberDoanhThu}>
+            {numeral(
+              this.state.dataDoanhThu.tongDoanhThu -
+                this.state.dataDoanhThu.tongChiPhi
+            ).format('0,0')}{' '}
+            VNĐ
           </Text>
         </View>
+
         <FlatList
           style={{
             width: '100%'

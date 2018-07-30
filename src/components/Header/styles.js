@@ -1,9 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import material from '../../theme/variables/material';
 
 export default StyleSheet.create({
   container: {
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
+    backgroundColor: material.colorHeader,
+    paddingRight: 0,
+    // marginTop: Platform.OS === 'ios' ? 22 : 0,
+    height: 64,
+    paddingTop: 0
   },
   searchContainer: {
     backgroundColor: '#e1e1e1',
@@ -21,7 +26,8 @@ export default StyleSheet.create({
     paddingRight: 0
   },
   menuIcon: {
-    marginLeft: 10
+    marginLeft: 10,
+    color: 'black'
   },
   uploadIcon: {
     fontSize: 17,
@@ -51,7 +57,7 @@ export default StyleSheet.create({
     fontSize: 20
   },
   title: {
-    color: material.badgeColor,
+    color: 'black',
     fontSize: material.textTitle,
     alignItems: 'center'
   }

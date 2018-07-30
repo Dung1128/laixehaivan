@@ -182,7 +182,7 @@ const requestChangePassword = createRequestSaga({
 const requestGetInfoDieuHanh = createRequestSaga({
   request: haivan.getInfoDieuHanh,
   key: 'getInfoDieuHanh',
-  success: [data => saveInfoDieuHanh(data)],
+  success: [],
   failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
 });
 
@@ -196,6 +196,20 @@ const requestSaveDieuHanh = createRequestSaga({
 const requestGetInfoThanhTra = createRequestSaga({
   request: haivan.getInfoThanhTra,
   key: 'getInfoThanhTra',
+  success: [],
+  failure: [data => setToast(data.message.message, 'error')]
+});
+
+const requestGetChiPhi = createRequestSaga({
+  request: haivan.getChiPhi,
+  key: 'getChiPhi',
+  success: [],
+  failure: [data => setToast(data.message.message, 'error')]
+});
+
+const requestSaveChiPhi = createRequestSaga({
+  request: haivan.saveChiPhi,
+  key: 'saveChiPhi',
   success: [],
   failure: [data => setToast(data.message.message, 'error')]
 });
@@ -231,7 +245,9 @@ export default [
       takeLatest('app/changePassword', requestChangePassword),
       takeLatest('app/getInfoDieuHanh', requestGetInfoDieuHanh),
       takeLatest('app/saveDieuHanh', requestSaveDieuHanh),
-      takeLatest('app/getInfoThanhTra', requestGetInfoThanhTra)
+      takeLatest('app/getInfoThanhTra', requestGetInfoThanhTra),
+      takeLatest('app/getChiPhi', requestGetChiPhi),
+      takeLatest('app/saveChiPhi', requestSaveChiPhi)
     ]);
   }
 ];

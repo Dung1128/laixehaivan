@@ -117,3 +117,10 @@ export const getInfoThanhTra = (...args) => ({
   type: 'app/getInfoThanhTra',
   args
 });
+
+//lấy danh mục chi phí
+export const getChiPhi = (...args) => ({ type: 'app/getChiPhi', args });
+
+//save chi phí
+
+export const saveChiPhi = (...args) => ({ type: 'app/saveChiPhi', args });

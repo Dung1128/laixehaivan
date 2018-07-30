@@ -39,7 +39,18 @@ export default class Item extends Component {
                 {data.bvv_ten_khach_hang_di}
               </Text>
             </Text>
-
+            <Text style={styles.textNormal}>
+              Số ghế:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.number_text}
+              </Text>
+            </Text>
+            <Text style={styles.textNormal}>
+              Số số lượng:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.so_luong}
+              </Text>
+            </Text>
             <Text style={styles.textNormal}>
               SĐT:{' '}
               <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>

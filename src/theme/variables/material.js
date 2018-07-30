@@ -49,6 +49,8 @@ export default {
   colorSubtitle: '#9097A5',
   colorLight: '#F4F7FD',
 
+  colorHeader: '#f3a43a',
+  colorTab: '#59656C',
   // Badge
   badgeBg: '#ED1727',
   badgeColor: '#fff',
@@ -194,7 +196,7 @@ export default {
   toolbarInverseBg: '#222',
   toolbarTextColor: '#fff',
   toolbarDefaultBorder: '#262D33',
-  iosStatusbar: 'light-content',
+  iosStatusbar: 'dark-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)

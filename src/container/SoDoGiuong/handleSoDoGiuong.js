@@ -110,12 +110,19 @@ export default class Filter extends React.PureComponent {
           </View>
           <View style={styles.itemButton}>
             <Button
+              disabled={inforGiuong.bvv_status === 11}
               onPress={() => {
                 this.props.onChange();
                 this.setVisible(false);
               }}
               primary
-              style={styles.btn}
+              style={{
+                ...styles.btn,
+                backgroundColor:
+                  inforGiuong.bvv_status === 11
+                    ? material.colorRefund
+                    : variables.btnPrimaryBg
+              }}
             >
               <Text style={styles.textNormal}>Chỉnh sửa</Text>
             </Button>
@@ -142,18 +149,26 @@ export default class Filter extends React.PureComponent {
               <Text style={styles.textNormal}>Thêm vé</Text>
             </Button>
             <Button
+              disabled={inforGiuong.bvv_status === 11}
               onPress={() => {
                 this.props.onChuyenCho();
                 this.setVisible(false);
               }}
               warning
-              style={styles.btn}
+              style={{
+                ...styles.btn,
+                backgroundColor:
+                  inforGiuong.bvv_status === 11
+                    ? material.colorRefund
+                    : variables.btnWarningBg
+              }}
             >
               <Text style={styles.textNormal}>Chuyển chờ</Text>
             </Button>
           </View>
 
           <Button
+            disabled={inforGiuong.bvv_status === 11}
             onPress={() => {
               this.props.onHuyVe();
               this.setVisible(false);
@@ -162,7 +177,11 @@ export default class Filter extends React.PureComponent {
             style={{
               ...styles.btn,
               width: '100%',
-              marginTop: material.paddingSmall
+              marginTop: material.paddingSmall,
+              backgroundColor:
+                inforGiuong.bvv_status === 11
+                  ? material.colorRefund
+                  : variables.btnDangerBg
             }}
           >
             <Text style={styles.textNormal}>Huỷ vé</Text>

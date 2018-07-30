@@ -8,7 +8,7 @@ export default {
     // justifyContent: 'center',
     borderColor: material.colorBorder,
     marginVertical: 2,
-    height: 150,
+    minHeight: 150,
     padding: material.paddingSmall
   },
   textNormal: {

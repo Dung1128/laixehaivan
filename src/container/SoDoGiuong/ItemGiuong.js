@@ -232,7 +232,33 @@ export default class ItemGiuong extends Component {
                             _.find(this.props.dataVe, {
                               bvv_number: item.sdgct_number
                             }).arrVe.bvv_danh_muc
+                          }{' '}
+                          /{' '}
+                          {
+                            _.find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            }).arrVe.bvv_seri
                           }
+                        </Text>
+                      )}
+
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_ghi_chu.toString() !== '' && (
+                        <Text style={styles.textSmall}>
+                          {_
+                            .find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            })
+                            .arrVe.bvv_ben_a_ma.toString()}{' '}
+                          -{' '}
+                          {_
+                            .find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            })
+                            .arrVe.bvv_ben_b_ma.toString()}
                         </Text>
                       )}
 
@@ -258,7 +284,7 @@ export default class ItemGiuong extends Component {
                         {
                           _.find(this.props.dataVe, {
                             bvv_number: item.sdgct_number
-                          }).arrVe.bvv_ten_khach_hang
+                          }).arrVe.bvv_ten_khach_hang_di
                         }
                       </Text>
                     </View>

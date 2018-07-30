@@ -271,6 +271,25 @@ export default {
       `/api/appdriver/thanh-tra/get-info?adm_id=${params.adm_id}&token=${
         params.token
       }`
+    ),
+
+  getChiPhi: params =>
+    API.get(
+      `/api/appdriver/get-chi-phi?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}`
+    ),
+
+  saveChiPhi: params =>
+    API.post(
+      `/api/appdriver/save-chi-phi?adm_id=${params.adm_id}&token=${
+        params.token
+      }`,
+      {
+        did_id: params.did_id,
+        arrChiPhi: params.arrChiPhi
+      },
+      {}
     )
 
   // facebookLogin: facebookToken =>

@@ -135,7 +135,7 @@ export default {
     Page: DoanhThu,
     headerType: 'home',
     footerType: 'home',
-    cache: true
+    cache: false
   },
   danhSachGoi: {
     title: 'Danh sách gọi',

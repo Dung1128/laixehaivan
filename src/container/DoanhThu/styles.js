@@ -2,9 +2,7 @@ import material from '../../theme/variables/material';
 
 export default {
   contentContainerList: {},
-  textNormal: {
-    fontSize: material.textSmall
-  },
+
   card: {
     padding: material.paddingSmall,
     borderRadius: 5,
@@ -33,5 +31,15 @@ export default {
       fontWeight: 'bold',
       color: material.colorComplete
     };
+  },
+  container: {
+    alignItems: 'center'
+  },
+  totalSeri: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: material.paddingNormal + 4,
+    paddingBottom: material.paddingSmall
   }
 };

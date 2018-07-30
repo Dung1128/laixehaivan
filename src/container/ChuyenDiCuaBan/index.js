@@ -26,6 +26,25 @@ export default class ChuyenDiCuaBan extends React.PureComponent {
     this.state = {};
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.timeChuyenDi !== this.props.timeChuyenDi) {
+      this.getMenu();
+    }
+  }
+
+  getMenu() {
+    const params = {
+      adm_id: this.props.profile.adm_id,
+      token: this.props.token
+    };
+    this.props.getMenu(params, (e, d) => {
+      if (d && d.arrMenu) {
+        this.props.saveMenu(d.arrMenu);
+      }
+    });
+    this.props.forwardTo('chuyenDiCuaBan');
+  }
+
   render() {
     console.log('dm', this.props.timeChuyenDi);
     return (

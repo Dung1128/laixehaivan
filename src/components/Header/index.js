@@ -127,9 +127,7 @@ export default class extends Component {
     const numberNotification =
       this.props.unReadNotification !== 0 ? (
         <View style={styles.badgeContainer}>
-          <Text small white>
-            {this.props.unReadNotification}
-          </Text>
+          <Text small>{this.props.unReadNotification}</Text>
         </View>
       ) : null;
 
@@ -138,11 +136,7 @@ export default class extends Component {
         <Icon style={styles.menuIcon} name="menu" />
       </Button>
     );
-    const center = (
-      <Title white style={{ alignSelf: 'center' }}>
-        {title}
-      </Title>
-    );
+    const center = <Text style={styles.title}>{title}</Text>;
     const right = (
       <View style={styles.rowIconContainer}>
         {/* <Button transparent onPress={() => this._onPressNotification()}>

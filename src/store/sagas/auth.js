@@ -14,7 +14,9 @@ const requestLogin = createRequestSaga({
   key: 'login',
   cancel: APP_LOGOUT,
   success: [data => saveLoggedToken(data), () => setAuthState(true)],
-  failure: [() => setToast('Please check your account and password.', 'danger')]
+  failure: [
+    () => setToast('Vui lòng kiểm tra tài khoản hoặc mật khẩu', 'danger')
+  ]
 });
 
 // const requestLoginFacebook = createRequestSaga({
