@@ -43,6 +43,18 @@ export default class Item extends Component {
               </Text>
             </Text>
             <Text style={styles.textNormal}>
+              Danh mục vé:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.info.bvd_ma_ve}
+              </Text>
+            </Text>
+            <Text style={styles.textNormal}>
+              Seri:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.info.bvv_seri}
+              </Text>
+            </Text>
+            <Text style={styles.textNormal}>
               Giường:{' '}
               <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
                 {giuong}

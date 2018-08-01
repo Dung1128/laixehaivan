@@ -17,7 +17,8 @@ import * as authSelectors from '../../store/selectors/auth';
 import * as haivanSelectors from '../../store/selectors/haivan';
 import * as haivanActions from '../../store/actions/haivan';
 import styles from './styles';
-
+import NumericInput from '../../components/NumericInput';
+import platform from '../../theme/variables/platform';
 @connect(
   state => ({
     token: authSelectors.getToken(state),
@@ -46,7 +47,24 @@ export default class HuongDanSuDung extends React.PureComponent {
       <View style={styles.item}>
         <View style={styles.textInputContainer}>
           <Item>
-            <Input
+            <NumericInput
+              value={
+                item.tcp_price === 0
+                  ? '0'
+                  : numeral(item.tcp_price).format('0,0')
+              }
+              onChangeText={val => {
+                this.chiPhi[index].tcp_price = parseInt(val);
+              }}
+              returnKeyType="next"
+              keyboardType="numeric"
+              underlineColorAndroid="transparent"
+              style={styles.input}
+              placeholderTextColor={platform.textHideGray}
+              placeholder="Chi phí"
+            />
+
+            {/* <Input
               onChangeText={val => {
                 this.chiPhi[index].tcp_price = parseInt(val);
               }}
@@ -59,7 +77,7 @@ export default class HuongDanSuDung extends React.PureComponent {
                   : numeral(item.tcp_price).format('0,0')
               }
               underlineColorAndroid="transparent"
-            />
+            /> */}
           </Item>
         </View>
 

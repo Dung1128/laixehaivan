@@ -23,7 +23,7 @@ export default {
     overflow: 'hidden',
     flex: 1,
     borderWidth: 1,
-    borderColor: material.primaryColor,
+    borderColor: material.colorHeader,
     elevation: 0,
     shadowOffset: null,
     shadowOpacity: 0,
@@ -72,21 +72,6 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     // borderRightWidth: 1,
-    marginBottom: material.paddingSmall
-  },
-  textNormal: {
-    fontSize: material.textNormal
-  },
-  detailDoanhThu: {
-    paddingHorizontal: material.paddingNormal,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  get numberDoanhThu() {
-    return {
-      ...this.textNormal,
-      fontWeight: 'bold',
-      color: material.colorComplete
-    };
+    marginBottom: material.paddingNormal
   }
 };

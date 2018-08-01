@@ -37,7 +37,7 @@ export default class XuongXe extends React.PureComponent {
   }
 
   renderItem({ item, index }) {
-    return <Item pending data={item} />;
+    return <Item pending data={item} index={index} />;
   }
 
   getList() {

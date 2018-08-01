@@ -187,12 +187,16 @@ export default class extends PureComponent {
   }
 
   navigateTo(route) {
+    console.log('this.props.profile.adm_id', this.props.profile.adm_id);
     const { forwardTo, closeDrawer, resetTo } = this.props;
     if (route === 'logout') {
       this.props.onLogout(this.props.profile.adm_id, () => {
         closeDrawer();
-        forwardTo('login');
-        this.props.logout();
+        this.props.Logout();
+
+        setTimeout(() => {
+          this.props.logout();
+        }, 200);
       });
     } else {
       if (route !== '') {

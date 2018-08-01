@@ -185,6 +185,7 @@ export default {
   get inputColorPlaceholder() {
     return '#575757';
   },
+  textHideGray: '#A7A7A7',
 
   inputGroupMarginBottom: 10,
   inputHeightBase: 50,

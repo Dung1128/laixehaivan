@@ -26,7 +26,7 @@ class TabBarComponent extends React.PureComponent {
       <Button
         style={{
           ...buttonStyle,
-          backgroundColor: active ? material.primaryColor : '#fff'
+          backgroundColor: active ? material.colorHeader : '#fff'
         }}
         onPress={e => {
           this.props.navigation.navigate(routeName);

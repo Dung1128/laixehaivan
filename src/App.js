@@ -145,6 +145,7 @@ export default class App extends Component {
           route={route}
           app={this}
           ref={ref => this.pageInstances.set(route.routeName, ref)}
+          onLogout={this._logout.bind(this)}
         />
       </AfterInteractions>
     );
@@ -195,6 +196,11 @@ export default class App extends Component {
       whatdog--;
     }
   }
+  _logout() {
+    if (this.extraNavigator) {
+      this.extraNavigator.clearAllScenes();
+    }
+  }
 
   _handlePageWillBlur = ({ routeName, cache }) => {
     if (cache)
@@ -224,7 +230,7 @@ export default class App extends Component {
             tweenDuration={300}
             tweenEasing="easeOutCubic"
             useInteractionManager
-            content={<SideBar />}
+            content={<SideBar Logout={this._logout.bind(this)} />}
             onClose={closeDrawer}
             onOpen={openDrawer}
           >
@@ -236,12 +242,14 @@ export default class App extends Component {
             />
 
             <Navigator
+              onRef={ref => (this.extraNavigator = ref)}
               ref={ref => (this.navigator = ref)}
               initialRoute={route}
               renderScene={this._renderPage}
               onFocus={this._handlePageWillFocus}
               onBlur={this._handlePageWillBlur}
               transition={this._transitionScene}
+              Logout={this._logout.bind(this)}
             />
 
             <Footer

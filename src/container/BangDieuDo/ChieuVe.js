@@ -45,7 +45,7 @@ export default class ChieuVe extends React.PureComponent {
     };
 
     this.props.listChuyenDi(params, (e, d) => {
-      if (d && d.arrItem.length > 0) {
+      if (d) {
         d.arrItem.map((item, index) => {
           if (item.not_chieu_di === 2) {
             newData.push(item);
@@ -58,7 +58,10 @@ export default class ChieuVe extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.timeChuyenDi !== this.props.timeChuyenDi) {
+    if (
+      nextProps.token !== null &&
+      nextProps.timeChuyenDi !== this.props.timeChuyenDi
+    ) {
       this.getList(moment(nextProps.timeChuyenDi).format('DD-MM-YYYY'));
     }
   }

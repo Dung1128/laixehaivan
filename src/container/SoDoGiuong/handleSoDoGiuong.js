@@ -98,30 +98,37 @@ export default class Filter extends React.PureComponent {
             </Button>
 
             <Button
+              disabled={inforGiuong.bvv_status !== 11}
               onPress={() => {
                 this.props.onXuongXe();
                 this.setVisible(false);
               }}
               warning
-              style={styles.btn}
+              style={{
+                ...styles.btn,
+                backgroundColor:
+                  inforGiuong.bvv_status !== 11
+                    ? material.colorRefund
+                    : variables.btnWarningBg
+              }}
             >
               <Text style={styles.textNormal}>Xuống xe</Text>
             </Button>
           </View>
           <View style={styles.itemButton}>
             <Button
-              disabled={inforGiuong.bvv_status === 11}
+              // disabled={inforGiuong.bvv_status === 11}
               onPress={() => {
                 this.props.onChange();
                 this.setVisible(false);
               }}
               primary
               style={{
-                ...styles.btn,
-                backgroundColor:
-                  inforGiuong.bvv_status === 11
-                    ? material.colorRefund
-                    : variables.btnPrimaryBg
+                ...styles.btn
+                // backgroundColor:
+                //   inforGiuong.bvv_status === 11
+                //     ? material.colorRefund
+                //     : variables.btnPrimaryBg
               }}
             >
               <Text style={styles.textNormal}>Chỉnh sửa</Text>

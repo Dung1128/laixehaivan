@@ -100,6 +100,26 @@ export default class ThemVe extends React.PureComponent {
   }
 
   DatVe(val) {
+    if (this.state.phone.toString() != '') {
+      if (
+        this.state.phone.toString().length > 13 ||
+        this.state.phone.toString().length < 10
+      ) {
+        console.log(this.state.phone);
+        return Alert.alert('Thông báo', 'Số điện thoại sai dịnh dạng');
+      }
+    }
+
+    if (val.phoneNguoiDi.toString() !== '') {
+      if (
+        val.phoneNguoiDi.toString().length > 13 ||
+        val.phoneNguoiDi.toString().length < 10
+      ) {
+        console.log(val.phoneNguoiDi);
+        return Alert.alert('Thông báo', 'Số điện thoại sai dịnh dạng');
+      }
+    }
+
     const params = {
       adm_id: this.props.profile.adm_id,
       token: this.props.token,
@@ -218,7 +238,6 @@ export default class ThemVe extends React.PureComponent {
     };
     this.props.giamGiaText(params, (e, d) => {
       if (d && d.price_discount) {
-        console.log('fuck');
         this.setState({
           giamgia: d.price_discount,
           checkGiamGiaText: true
@@ -430,7 +449,7 @@ export default class ThemVe extends React.PureComponent {
               returnKeyType="next"
               autoCapitalize={'none'}
               style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
+              // icon={input => (input.value ? 'close' : null)}
               onIconPress={input => input.onChange('')}
               label={'Điện thoại'}
               name={'phone'}
@@ -449,7 +468,7 @@ export default class ThemVe extends React.PureComponent {
               returnKeyType="next"
               autoCapitalize={'none'}
               style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
+              // icon={input => (input.value ? 'close' : null)}
               onIconPress={input => input.onChange('')}
               label={'Họ và tên'}
               name={'user'}
@@ -479,7 +498,7 @@ export default class ThemVe extends React.PureComponent {
               returnKeyType="next"
               autoCapitalize={'none'}
               style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
+              // icon={input => (input.value ? 'close' : null)}
               onIconPress={input => input.onChange('')}
               label={'Điện thoại người đi'}
               name={'phoneNguoiDi'}
@@ -500,7 +519,7 @@ export default class ThemVe extends React.PureComponent {
               returnKeyType="next"
               autoCapitalize={'none'}
               style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
+              // icon={input => (input.value ? 'close' : null)}
               onIconPress={input => input.onChange('')}
               label={'Tên người đi'}
               name={'tenNguoiDi'}

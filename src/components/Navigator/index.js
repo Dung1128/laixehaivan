@@ -22,6 +22,11 @@ export default class Navigator extends Component {
     this.blurIndex = -1;
     // should be private, reference use map, stack use array
     this._sceneRefs = new Map();
+    this.clearAllScenes = this.clearAllScenes.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.onRef(this);
   }
 
   shouldComponentUpdate() {
@@ -36,6 +41,17 @@ export default class Navigator extends Component {
   getScene(index) {
     const route = this.routeStack[index];
     return route ? this._sceneRefs.get(route.routeName) : null;
+  }
+
+  clearAllScenes() {
+    const initialRoute = { ...this.props.initialRoute, cache: false };
+    this.scenes = [this._renderScene(initialRoute)];
+    this.routeStack = [initialRoute];
+    this.presentedIndex = 0;
+    this.blurIndex = -1;
+    // should be private, reference use map, stack use array
+    this._sceneRefs = new Map();
+    this.forceUpdate();
   }
 
   enable(index, enabled = true) {

@@ -36,7 +36,6 @@ export default class ChieuDi extends React.PureComponent {
   }
 
   getList(time) {
-    const newData = [];
     const params = {
       token: this.props.token,
       day: time,
@@ -44,14 +43,15 @@ export default class ChieuDi extends React.PureComponent {
     };
 
     this.props.listChuyenDi(params, (e, d) => {
-      if (d && d.arrItem.length > 0) {
+      this.newData = [];
+      if (d) {
         d.arrItem.map((item, index) => {
           if (item.not_chieu_di === 1) {
-            newData.push(item);
+            this.newData.push(item);
           }
         });
 
-        this.setState({ listChieuDi: newData });
+        this.setState({ listChieuDi: this.newData });
       }
     });
   }
@@ -72,7 +72,10 @@ export default class ChieuDi extends React.PureComponent {
   // }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.timeChuyenDi !== this.props.timeChuyenDi) {
+    if (
+      nextProps.token !== null &&
+      nextProps.timeChuyenDi !== this.props.timeChuyenDi
+    ) {
       console.log('nextProps', nextProps.timeChuyenDi);
       this.getList(moment(nextProps.timeChuyenDi).format('DD-MM-YYYY'));
     }

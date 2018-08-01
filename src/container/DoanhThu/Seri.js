@@ -35,7 +35,6 @@ export default class Seri extends React.PureComponent {
     };
     this.offset = 0;
     this.isMoving = false;
-    this.doanhThuSeri = 0;
   }
 
   componentDidMount() {
@@ -59,17 +58,12 @@ export default class Seri extends React.PureComponent {
         d.arrVeNumber.map(item => {
           if (item.arrVe.bvv_seri === 0) {
             newData.push(item.arrVe);
-            this.doanhThuSeri += item.arrVe.bvv_price;
           }
         });
 
-        this.setState(
-          {
-            noSeri: newData,
-            total: this.doanhThuSeri
-          },
-          () => console.log(this.state.noSeri)
-        );
+        this.setState({
+          noSeri: newData
+        });
       }
     });
   }
@@ -88,15 +82,8 @@ export default class Seri extends React.PureComponent {
   render() {
     return (
       <Container style={styles.container}>
-        {this.state.noSeri.length <= 0 ? (
+        {this.state.noSeri.length <= 0 && (
           <Text style={styles.textNormal}>Không có dữ liệu</Text>
-        ) : (
-          <View style={styles.totalSeri}>
-            <Text style={styles.textNormal}>Doanh thu </Text>
-            <Text style={styles.textNormal}>
-              {numeral(this.state.total).format('0,0')} VNĐ
-            </Text>
-          </View>
         )}
         <FlatList
           style={{ width: '100%' }}

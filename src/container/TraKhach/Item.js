@@ -45,20 +45,40 @@ export default class Item extends Component {
             <Text style={styles.textNormal}>
               Giường:{' '}
               <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {data.ghe}
+                {data.ghe || data.sdgct_label_full}
               </Text>
             </Text>
-            <Text style={styles.textNormal}>
-              Điểm trả:{' '}
-              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {data.diem_xuong}
+            {pending && (
+              <Text style={styles.textNormal}>
+                Ghi chú:{' '}
+                <Text style={styles.textNormal}>{data.bvv_ghi_chu}</Text>
               </Text>
-            </Text>
+            )}
+            {!pending ? (
+              <Text style={styles.textNormal}>
+                Điểm trả:{' '}
+                <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                  {data.diem_xuong}
+                </Text>
+              </Text>
+            ) : (
+              <Text style={styles.textNormal}>
+                Điểm trả:{' '}
+                <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                  {data.bvv_diem_tra_khach.toString() !== ''
+                    ? data.bvv_diem_tra_khach.toString()
+                    : data.ben_b}
+                </Text>
+              </Text>
+            )}
           </View>
-          {!pending && (
+
+          {!pending ? (
             <Button onPress={onPress} success>
               <Text>Xuống xe</Text>
             </Button>
+          ) : (
+            <Text style={styles.textNormal}>{this.props.index + 1}</Text>
           )}
         </Card>
       </TouchableOpacity>

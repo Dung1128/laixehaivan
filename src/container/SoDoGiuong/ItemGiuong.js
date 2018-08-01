@@ -270,6 +270,28 @@ export default class ItemGiuong extends Component {
                         </Text>
                       )}
 
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }) && (
+                        <Text numberOfLines={2} style={styles.textSmall}>
+                          {_
+                            .find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            })
+                            .arrVe.bvv_diem_don_khach.toString() !== '' &&
+                            _
+                              .find(this.props.dataVe, {
+                                bvv_number: item.sdgct_number
+                              })
+                              .arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
+                          {_
+                            .find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            })
+                            .arrVe.bvv_diem_tra_khach.toString()}
+                        </Text>
+                      )}
+
                       {_
                         .find(this.props.dataVe, {
                           bvv_number: item.sdgct_number

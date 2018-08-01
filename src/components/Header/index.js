@@ -11,6 +11,7 @@ import {
   Item,
   Input
 } from 'native-base';
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { View, Keyboard } from 'react-native';
 import * as commonSelectors from '../../store/selectors/common';
 import * as commonActions from '../../store/actions/common';
@@ -164,6 +165,12 @@ export default class extends Component {
     );
     const right = (
       <View style={styles.rowIconContainer}>
+        <Button
+          onPress={() => this.props.actionUpdateSDG(new Date())}
+          transparent
+        >
+          <IconMaterialIcons size={24} name="update" />
+        </Button>
         {this.props.getActionXepCho === true && (
           <Button
             onPress={() => {
@@ -173,7 +180,7 @@ export default class extends Component {
             }}
             transparent
           >
-            <Text>Huỷ</Text>
+            <Text style={styles.textNormal}>Huỷ</Text>
           </Button>
         )}
         {this.props.getActionRemoveGhe === true && (
@@ -185,7 +192,7 @@ export default class extends Component {
             }}
             transparent
           >
-            <Text>Huỷ</Text>
+            <Text style={styles.textNormal}>Huỷ</Text>
           </Button>
         )}
 
@@ -198,7 +205,7 @@ export default class extends Component {
             }}
             transparent
           >
-            <Text>Huỷ</Text>
+            <Text style={styles.textNormal}>Huỷ</Text>
           </Button>
         )}
       </View>

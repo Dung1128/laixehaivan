@@ -45,13 +45,30 @@ export default class Item extends Component {
             <Text style={styles.textNormal}>
               Giường:{' '}
               <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {giuong}
+                {data.sdgct_label_full}
               </Text>
             </Text>
+
+            <Text style={styles.textNormal}>
+              Danh mục vé:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.bvd_ma_ve}
+              </Text>
+            </Text>
+
+            <Text style={styles.textNormal}>
+              Seri:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.bvv_seri}
+              </Text>
+            </Text>
+
             <Text style={styles.textNormal}>
               Điểm trả:{' '}
               <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {data.bvv_diem_tra_khach}
+                {data.bvv_diem_tra_khach.toString() !== ''
+                  ? data.bvv_diem_tra_khach.toString()
+                  : data.ben_b}
               </Text>
             </Text>
           </View>

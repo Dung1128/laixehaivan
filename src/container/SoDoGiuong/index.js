@@ -292,7 +292,7 @@ export default class SoDoGiuong extends React.PureComponent {
     this.count1 = 0;
     this.count2 = 0;
 
-    if (this.props.did_id !== nextProps.did_id) {
+    if (this.props.did_id !== nextProps.did_id && nextProps.token !== null) {
       this.getList(nextProps.did_id, nextProps.getDataOffline);
       this.danhMucVe(nextProps.did_id);
     }
@@ -314,14 +314,16 @@ export default class SoDoGiuong extends React.PureComponent {
         tongSoVe: this.count1 + this.count2
       });
     }
-    if (
-      this.props.getUpdateSDG !== nextProps.getUpdateSDG ||
-      this.props.getDataOffline !== nextProps.getDataOffline
-    ) {
-      console.log('nextProps.getDataOffline', nextProps.getDataOffline);
-      this.props.getConnect &&
-        this.getList(this.props.did_id, nextProps.getDataOffline);
-      this.props.getConnect && this.danhMucVe(this.props.did_id);
+    if (nextProps.token !== null) {
+      if (
+        this.props.getUpdateSDG !== nextProps.getUpdateSDG ||
+        this.props.getDataOffline !== nextProps.getDataOffline
+      ) {
+        console.log('nextProps.getDataOffline', nextProps.getDataOffline);
+        this.props.getConnect &&
+          this.getList(this.props.did_id, nextProps.getDataOffline);
+        this.props.getConnect && this.danhMucVe(this.props.did_id);
+      }
     }
   }
 

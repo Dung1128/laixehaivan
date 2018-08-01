@@ -27,7 +27,10 @@ export default class ChuyenDiCuaBan extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.timeChuyenDi !== this.props.timeChuyenDi) {
+    if (
+      nextProps.timeChuyenDi !== this.props.timeChuyenDi &&
+      nextProps.token !== null
+    ) {
       this.getMenu();
     }
   }

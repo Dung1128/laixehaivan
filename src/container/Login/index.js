@@ -55,7 +55,7 @@ export default class Login extends React.PureComponent {
 
     this.props.login(val.user, val.password, 'login', (e, d) => {
       if (d) {
-        console.log(d);
+        // console.log(d);
         const params = {
           adm_id: d.adm_id,
           token: d.token

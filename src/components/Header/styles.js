@@ -60,5 +60,9 @@ export default StyleSheet.create({
     color: 'black',
     fontSize: material.textTitle,
     alignItems: 'center'
+  },
+  textNormal: {
+    fontSize: material.textNormal,
+    color: 'black'
   }
 });
