@@ -71,7 +71,12 @@ export default class TraKhach extends React.PureComponent {
               bvv_id: item.bvv_id,
               adm_id: this.props.profile.adm_id
             };
-            this.props.xuongXe(params, () => this.getList());
+            this.props.xuongXe(params, (e, d) => {
+              if (d) {
+                this.getList();
+                this.props.actionUpdateSDG(new Date());
+              }
+            });
           }
         }
       ],

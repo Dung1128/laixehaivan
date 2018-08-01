@@ -57,30 +57,41 @@ export default class SoDoGiuong extends React.PureComponent {
         arrVe: {
           bvv_id: 0
         }
-      }
+      },
+      tongSoVe: 0
     };
   }
 
   componentDidMount() {
-    this.getList();
-    this.danhMucVe();
+    this.getList(this.props.did_id, this.props.getDataOffline);
+    this.danhMucVe(this.props.did_id);
   }
 
-  danhMucVe() {
+  danhMucVe(did_id) {
     const params = {
       token: this.props.token,
-      did_id: this.props.did_id,
+      did_id: did_id,
       adm_id: this.props.profile.adm_id
     };
 
     this.props.getDanhMucVe(params);
   }
 
-  getList() {
+  getList(did_id, dataOff) {
+    this.countOffline = 0;
+    this.countVe = 0;
     const newData = [];
+    console.log('data Off', dataOff);
+
+    dataOff.map(item => {
+      if (item.did_id === did_id) {
+        this.countOffline += 1;
+      }
+    });
+
     const params = {
       token: this.props.token,
-      did_id: this.props.did_id,
+      did_id: did_id,
       adm_id: this.props.profile.adm_id
     };
 
@@ -113,6 +124,12 @@ export default class SoDoGiuong extends React.PureComponent {
           //   )
           // );
 
+          d.arrVeNumber.map(item => {
+            if (item.arrVe.bvv_status !== 0) {
+              this.countVe += 1;
+            }
+          });
+
           this.setState({
             price: _.find(
               _.find(this.state.soDoGiuong.arrGiaVe, {
@@ -121,7 +138,8 @@ export default class SoDoGiuong extends React.PureComponent {
               {
                 diem_b: this.state.soDoGiuong.arrInfo.tuy_ben_b
               }
-            )
+            ),
+            tongSoVe: this.countVe + this.countOffline
           });
         });
       }
@@ -134,7 +152,13 @@ export default class SoDoGiuong extends React.PureComponent {
       bvv_id: this.state.detailVe.arrVe.bvv_id,
       adm_id: this.props.profile.adm_id
     };
-    this.props.xuongXe(params, () => this.getList());
+    this.props.xuongXe(params, (e, d) => {
+      if (d) {
+        this.getList(this.props.did_id, this.props.getDataOffline);
+      } else {
+        this.props.setToast(e.message.message, 'error');
+      }
+    });
   }
 
   lenXe() {
@@ -143,7 +167,9 @@ export default class SoDoGiuong extends React.PureComponent {
       bvv_id: this.state.detailVe.arrVe.bvv_id,
       adm_id: this.props.profile.adm_id
     };
-    this.props.lenXe(params, () => this.getList());
+    this.props.lenXe(params, () =>
+      this.getList(this.props.did_id, this.props.getDataOffline)
+    );
   }
 
   chuyenCho() {
@@ -153,7 +179,9 @@ export default class SoDoGiuong extends React.PureComponent {
       adm_id: this.props.profile.adm_id,
       did_id: this.props.did_id
     };
-    this.props.chuyenCho(params, () => this.getList());
+    this.props.chuyenCho(params, () =>
+      this.getList(this.props.did_id, this.props.getDataOffline)
+    );
   }
 
   huyve() {
@@ -162,7 +190,9 @@ export default class SoDoGiuong extends React.PureComponent {
       bvv_id: this.state.detailVe.arrVe.bvv_id,
       adm_id: this.props.profile.adm_id
     };
-    this.props.huyVe(params, () => this.getList());
+    this.props.huyVe(params, () =>
+      this.getList(this.props.did_id, this.props.getDataOffline)
+    );
   }
 
   checkSuDungVe(val) {
@@ -206,7 +236,7 @@ export default class SoDoGiuong extends React.PureComponent {
     this.props.xepChoGheCho(params, (e, d) => {
       if (d) {
         this.props.actionXepCho(false);
-        this.getList();
+        this.getList(this.props.did_id, this.props.getDataOffline);
       }
     });
   }
@@ -225,7 +255,7 @@ export default class SoDoGiuong extends React.PureComponent {
     this.props.removeGhe(params, (e, d) => {
       if (d) {
         this.props.actionRemoveGhe(false);
-        this.getList();
+        this.getList(this.props.did_id, this.props.getDataOffline);
       } else {
         this.props.actionRemoveGhe(false);
       }
@@ -252,16 +282,46 @@ export default class SoDoGiuong extends React.PureComponent {
       },
       (e, d) => {
         if (d) {
-          this.getList();
+          this.getList(this.props.did_id, this.props.getDataOffline);
         }
       }
     );
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.getUpdateSDG !== this.props.getUpdateSDG) {
-      this.getList();
-      this.danhMucVe();
+    this.count1 = 0;
+    this.count2 = 0;
+
+    if (this.props.did_id !== nextProps.did_id) {
+      this.getList(nextProps.did_id, nextProps.getDataOffline);
+      this.danhMucVe(nextProps.did_id);
+    }
+
+    if (this.props.getDataOffline !== nextProps.getDataOffline) {
+      nextProps.getDataOffline.map(item => {
+        if (item.did_id === nextProps.did_id) {
+          this.count1 += 1;
+        }
+      });
+
+      this.state.soDoGiuong.arrVeNumber.map(item => {
+        if (item.arrVe.bvv_status !== 0) {
+          this.count2 += 1;
+        }
+      });
+
+      this.setState({
+        tongSoVe: this.count1 + this.count2
+      });
+    }
+    if (
+      this.props.getUpdateSDG !== nextProps.getUpdateSDG ||
+      this.props.getDataOffline !== nextProps.getDataOffline
+    ) {
+      console.log('nextProps.getDataOffline', nextProps.getDataOffline);
+      this.props.getConnect &&
+        this.getList(this.props.did_id, nextProps.getDataOffline);
+      this.props.getConnect && this.danhMucVe(this.props.did_id);
     }
   }
 
@@ -289,6 +349,23 @@ export default class SoDoGiuong extends React.PureComponent {
                   }
                 });
                 this.props.subObjOffline(newData);
+              } else if (
+                e.message.message.toString() ===
+                'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
+              ) {
+                this.getList(this.props.did_id);
+                this.danhMucVe(this.props.did_id);
+
+                this.props.getDataOffline.map((it, index) => {
+                  if (
+                    _.findIndex(this.props.getDataOffline, {
+                      bvv_number: val.bvv_number
+                    }) !== index
+                  ) {
+                    newData.push(it);
+                  }
+                });
+                this.props.subObjOffline(newData);
               }
             });
           }
@@ -304,7 +381,11 @@ export default class SoDoGiuong extends React.PureComponent {
     return (
       <Container style={{ padding: material.paddingSmall }}>
         <Content showsVerticalScrollIndicator={false}>
-          <ItemChuyenDi detail data={this.state.soDoGiuong.arrInfo} />
+          <ItemChuyenDi
+            detail
+            data={this.state.soDoGiuong.arrInfo}
+            tongSoVe={this.state.tongSoVe}
+          />
           {this.props.getDataOffline.length > 0 && (
             <Text
               style={{
@@ -383,6 +464,7 @@ export default class SoDoGiuong extends React.PureComponent {
               price={this.state.price}
               dataActive={this.props.ve}
               dataOffline={this.props.getDataOffline}
+              did_id={this.props.did_id}
               // handleSoDo={val =>
               //   this.setState({
               //     inforGiuong: val,

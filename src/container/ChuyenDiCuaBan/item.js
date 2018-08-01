@@ -58,6 +58,15 @@ export default class Item extends Component {
             </Text>
           )}
 
+          {detail && (
+            <Text style={styles.textNormal}>
+              Ngày:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.day}
+              </Text>
+            </Text>
+          )}
+
           <Text style={styles.textNormal}>
             Biển kiểm soát:{' '}
             <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
@@ -90,7 +99,7 @@ export default class Item extends Component {
                 <Text style={styles.textNormal}>
                   Đã đặt:{' '}
                   <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                    {data.did_so_cho_da_ban}
+                    {this.props.tongSoVe}
                   </Text>
                 </Text>
                 <Text
@@ -101,9 +110,7 @@ export default class Item extends Component {
                 >
                   Còn trống:{' '}
                   <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                    {data.tong_so_cho - data.did_so_cho_da_ban}/{
-                      data.tong_so_cho
-                    }
+                    {data.tong_so_cho - this.props.tongSoVe}/{data.tong_so_cho}
                   </Text>
                 </Text>
               </View>

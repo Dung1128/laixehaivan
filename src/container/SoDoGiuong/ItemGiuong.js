@@ -63,9 +63,13 @@ export default class ItemGiuong extends Component {
     }
   }
 
-  checkVeOffline(data) {
-    console.log(data);
-    if (_.find(this.props.dataOffline, { bvv_number: data })) {
+  checkVeOffline(data, status) {
+    if (
+      _.find(this.props.dataVe, { bvv_number: data }).arrVe.bvv_status === 0 &&
+      _.find(this.props.dataOffline, { bvv_number: data }) &&
+      _.find(this.props.dataOffline, { bvv_number: data }).did_id ===
+        this.props.did_id
+    ) {
       return { backgroundColor: material.segmentBackgroundColor };
     }
   }
@@ -112,7 +116,7 @@ export default class ItemGiuong extends Component {
                   ...styles.itemRow,
                   width: w,
                   ...this.checkVe(item.sdgct_number, item.sdgct_label),
-                  ...this.checkVeOffline(item.sdgct_number),
+                  ...this.checkVeOffline(item.sdgct_number, item),
                   ...this.itemActive(item.sdgct_number),
                   ...this.checkLockColor(item.sdgct_number)
                 }}
@@ -126,7 +130,10 @@ export default class ItemGiuong extends Component {
                       <View>
                         {_.find(this.props.dataOffline, {
                           bvv_number: item.sdgct_number
-                        }) ? (
+                        }) &&
+                        _.find(this.props.dataOffline, {
+                          bvv_number: item.sdgct_number
+                        }).did_id === this.props.did_id ? (
                           <View>
                             <Text numberOfLines={1} style={styles.textSmall}>
                               {_.find(this.props.dataOffline, {
@@ -151,12 +158,12 @@ export default class ItemGiuong extends Component {
                     )
                   ) : (
                     <View>
-                      <Text numberOfLines={1}>
+                      <Text style={styles.textSmall} numberOfLines={1}>
                         {_.find(this.props.dataVe, {
                           bvv_number: item.sdgct_number
                         }).arrVe.bvv_price / 1000}K
                       </Text>
-                      <Text numberOfLines={1}>
+                      <Text style={styles.textSmall} numberOfLines={1}>
                         {
                           _.find(this.props.dataVe, {
                             bvv_number: item.sdgct_number
@@ -185,7 +192,10 @@ export default class ItemGiuong extends Component {
                   }).arrVe.bvv_price === 0 &&
                   _.find(this.props.dataOffline, {
                     bvv_number: item.sdgct_number
-                  }) && (
+                  }) &&
+                  _.find(this.props.dataOffline, {
+                    bvv_number: item.sdgct_number
+                  }).did_id === this.props.did_id && (
                     <View>
                       <Text style={styles.textSmall} numberOfLines={1}>
                         {
@@ -242,11 +252,9 @@ export default class ItemGiuong extends Component {
                         </Text>
                       )}
 
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_ghi_chu.toString() !== '' && (
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }) && (
                         <Text style={styles.textSmall}>
                           {_
                             .find(this.props.dataVe, {
@@ -320,7 +328,7 @@ export default class ItemGiuong extends Component {
 
   render() {
     const { data, dataVe, dataOffline } = this.props;
-    console.log('data offline', dataOffline);
+    // console.log('data offline', dataOffline);
     // console.log('dataVe', dataVe);
 
     return (

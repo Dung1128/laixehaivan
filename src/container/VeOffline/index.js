@@ -26,8 +26,40 @@ export default class HuyVe extends React.PureComponent {
       danhSachHuy: {
         arrData: []
       },
-      isRefreshing: false
+      isRefreshing: false,
+      dataOffline: []
     };
+  }
+
+  componentDidMount() {
+    const newArray = [];
+    this.props.getDataOffline.map((item, index) => {
+      if (item.did_id === this.props.did_id) {
+        newArray.push(item);
+      }
+    });
+
+    this.setState({
+      dataOffline: newArray
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const newArray = [];
+    if (
+      this.props.getDataOffline !== nextProps.getDataOffline ||
+      this.props.did_id !== nextProps.did_id
+    ) {
+      nextProps.getDataOffline.map((item, index) => {
+        if (item.did_id === nextProps.did_id) {
+          newArray.push(item);
+        }
+      });
+
+      this.setState({
+        dataOffline: newArray
+      });
+    }
   }
 
   requestVe(item) {
@@ -62,8 +94,8 @@ export default class HuyVe extends React.PureComponent {
   render() {
     return (
       <Container style={{ alignItems: 'center' }}>
-        {this.props.getDataOffline &&
-          this.props.getDataOffline.length <= 0 && (
+        {this.state.dataOffline &&
+          this.state.dataOffline.length <= 0 && (
             <Text
               style={{
                 fontSize: material.textNormal,
@@ -77,7 +109,7 @@ export default class HuyVe extends React.PureComponent {
           style={{ width: '100%' }}
           contentContainerStyle={{ padding: material.paddingNormal }}
           keyExtractor={(item, index) => index}
-          data={this.props.getDataOffline}
+          data={this.state.dataOffline}
           renderItem={this.renderItem.bind(this)}
           onEndReachedThreshold={material.platform === 'ios' ? 0 : 1}
           onMomentumScrollBegin={() => (this.isMoving = true)}

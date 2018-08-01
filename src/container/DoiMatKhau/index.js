@@ -62,7 +62,11 @@ export default class DoiMatKhau extends React.PureComponent {
       passwordOld: val.password.toString()
     };
 
-    this.props.changePassword(params);
+    this.props.changePassword(params, (e, d) => {
+      if (e) {
+        this.props.setToast(e.message.message, 'error');
+      }
+    });
   }
 
   render() {

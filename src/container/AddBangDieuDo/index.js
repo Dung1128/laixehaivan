@@ -212,6 +212,8 @@ export default class AddBangDieuDo extends React.PureComponent {
     this.props.saveDieuHanh(params, (e, d) => {
       if (d) {
         this.props.resetTo('bangDieuDo');
+      } else {
+        this.props.setToast(e.message.message, 'error');
       }
     });
   }

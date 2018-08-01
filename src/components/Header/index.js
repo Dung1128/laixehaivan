@@ -210,7 +210,7 @@ export default class extends Component {
     return (
       <Header noShadow {...props} style={styles.container}>
         <Left style={{ flex: 0.5 }}>{left}</Left>
-        <Body style={{ flex: 1 }}>{center}</Body>
+        <Body style={{ flex: 1, alignItems: 'center' }}>{center}</Body>
         <Right style={{ flex: 0.5 }}>{right}</Right>
       </Header>
     );

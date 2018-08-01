@@ -107,6 +107,8 @@ export default class ThanhTra extends React.PureComponent {
           dataTiepVien: d.arrTiepVien,
           dataViPham: d.arrLoiViPham
         });
+      } else {
+        this.props.setToast(e.message.message, 'error');
       }
     });
   }

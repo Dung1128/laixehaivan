@@ -59,65 +59,95 @@ export default class extends PureComponent {
     menu.map(item => {
       switch (item.id) {
         case 1:
-          return newMenu.push({
-            name: item.title,
-            route: '',
-            icon: 'bus'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: '',
+              icon: 'bus'
+            })
+          );
         case 2:
-          return newMenu.push({
-            name: item.title,
-            route: 'chuyenDiCuaBan',
-            icon: 'heart'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: 'chuyenDiCuaBan',
+              icon: 'heart'
+            })
+          );
         case 3:
-          return newMenu.push({
-            name: item.title,
-            route: 'bangDieuDo',
-            icon: 'folder-open'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: 'bangDieuDo',
+              icon: 'folder-open'
+            })
+          );
         case 4:
-          return newMenu.push({
-            name: item.title,
-            route: 'lichDieuHanh',
-            icon: 'md-information-circle'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: 'lichDieuHanh',
+              icon: 'md-information-circle'
+            })
+          );
         case 5:
-          return newMenu.push({
-            name: item.title,
-            route: 'thanhTra',
-            icon: 'contacts'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: 'thanhTra',
+              icon: 'contacts'
+            })
+          );
         case 6:
-          return newMenu.push({
-            name: item.title,
-            route: 'lichSuThanhTra',
-            icon: 'contacts'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: 'lichSuThanhTra',
+              icon: 'contacts'
+            })
+          );
         case 7:
-          return newMenu.push({
-            name: item.title,
-            route: 'huongDanSuDung',
-            icon: 'bookmark'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: 'huongDanSuDung',
+              icon: 'bookmark'
+            })
+          );
         case 8:
-          return newMenu.push({
-            name: item.title,
-            route: 'nhapMaXe',
-            icon: 'keypad'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: 'nhapMaXe',
+              icon: 'keypad'
+            })
+          );
         case 9:
-          return newMenu.push({
-            name: item.title,
-            route: 'doiMatKhau',
-            icon: 'unlock'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: 'doiMatKhau',
+              icon: 'unlock'
+            })
+          );
         case 10:
-          return newMenu.push({
-            name: item.title,
-            route: 'logout',
-            icon: 'contact'
-          });
+          return (
+            item.status !== 0 &&
+            newMenu.push({
+              name: item.title,
+              route: 'logout',
+              icon: 'contact'
+            })
+          );
 
         default:
           return newMenu;

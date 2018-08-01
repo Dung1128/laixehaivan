@@ -5,8 +5,8 @@ export default {
     padding: material.paddingNormal
   },
   textNormal: {
-    fontSize: material.textNormal,
-    paddingLeft: material.paddingSmall
+    fontSize: material.textNormal
+    // paddingLeft: material.paddingSmall
   },
   inputKhuyenMai: {
     width: '100%',

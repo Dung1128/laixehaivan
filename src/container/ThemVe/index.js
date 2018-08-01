@@ -94,6 +94,7 @@ export default class ThemVe extends React.PureComponent {
   }
 
   saveParams(params) {
+    console.log(params);
     this.props.saveOffline(params);
     this.props.resetTo('soDoGiuong');
   }
@@ -123,7 +124,8 @@ export default class ThemVe extends React.PureComponent {
       giam_gia_text:
         this.state.checkGiamGiaText === true ? this.state.giam_gia_text : '',
       price_truc_tiep: parseInt(this.state.giamgia),
-      bvv_number: this.props.route.params.detailVe.bvv_number
+      bvv_number: this.props.route.params.detailVe.bvv_number,
+      soGhe: this.props.route.params.detailVe.arrVe.sdgct_label_full
     };
 
     this.props.getConnect
@@ -131,6 +133,8 @@ export default class ThemVe extends React.PureComponent {
           if (d) {
             this.props.actionUpdateSDG(new Date());
             this.props.resetTo('soDoGiuong');
+          } else {
+            this.props.setToast(e.message.message, 'error');
           }
         })
       : this.saveParams(params);
@@ -170,6 +174,7 @@ export default class ThemVe extends React.PureComponent {
   }
 
   checkKhuyenMai() {
+    console.log('this.state.khuyenMai', this.state.khuyenMai.id);
     switch (this.state.khuyenMai.id) {
       case 4: {
         const params = {
@@ -190,7 +195,7 @@ export default class ThemVe extends React.PureComponent {
         });
       }
       case 3:
-        return this.setState({ checkGiamGiaText: true });
+        return this.setState({ checkGiamGiaText: true, giamgia: 0 });
 
       default:
         return console.log('false');
@@ -230,21 +235,26 @@ export default class ThemVe extends React.PureComponent {
   }
 
   getSeri(val) {
-    const params = {
-      adm_id: this.props.profile.adm_id,
-      token: this.props.token,
-      did_id: this.props.did_id,
-      dm_id: this.state.key_danh_muc,
-      price: this.state.price.price
-    };
+    console.log('val', val);
+    if (val === 0) {
+      return this.setState({ seri: 0 });
+    } else {
+      const params = {
+        adm_id: this.props.profile.adm_id,
+        token: this.props.token,
+        did_id: this.props.did_id,
+        dm_id: this.state.key_danh_muc,
+        price: this.state.price.price
+      };
 
-    this.props.getSeriMin(params, (e, d) => {
-      if (d) {
-        this.setState({
-          seri: d.seri
-        });
-      }
-    });
+      this.props.getSeriMin(params, (e, d) => {
+        if (d) {
+          this.setState({
+            seri: d.seri
+          });
+        }
+      });
+    }
   }
 
   showGiaVe() {
@@ -322,6 +332,30 @@ export default class ThemVe extends React.PureComponent {
         </Text>
       </View>
     );
+  }
+
+  viewSeri(title, val) {
+    return (
+      <View style={styles.viewGiaVe}>
+        <Text style={styles.textNormal}>{title}</Text>
+        <Text style={{ ...styles.textNormal, color: material.colorDeclined }}>
+          {val}
+        </Text>
+      </View>
+    );
+  }
+
+  mapKhuyenMai(key) {
+    switch (key) {
+      case 3:
+        return this.viewSeri('Hình thức khuyến mãi', 'Trực tiếp');
+      case 4:
+        return this.viewSeri('Hình thức khuyến mãi', 'Trẻ em');
+      case 6:
+        return this.viewSeri('Hình thức khuyến mãi', 'Mã khuyến mãi');
+      default:
+        return <View />;
+    }
   }
 
   searchDiemDi(val) {
@@ -618,81 +652,108 @@ export default class ThemVe extends React.PureComponent {
               IconIcomColor={material.colorDark2}
             />
           </View>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => this.setState({ visible: !this.state.visible })}
-            style={{
-              ...styless.textInputContainer,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            <IconFontAwesome
-              name="gift"
-              size={24}
-              color={material.colorDark2}
-            />
-            <Text style={styles.textNormal}>{this.state.khuyenMai.value}</Text>
-          </TouchableOpacity>
-
-          <View style={{ ...styless.textInputContainer, marginBottom: 0 }}>
-            {this.state.khuyenMai.id === 3 && (
-              <View style={styles.inputKhuyenMai}>
-                <TextInput
-                  keyboardType="numeric"
-                  underlineColorAndroid="transparent"
-                  style={styles.fieldInput}
-                  placeholder="Số tiền giảm"
-                  onChangeText={val => this.setState({ giamgia: val })}
-                />
-              </View>
-            )}
-            {this.state.khuyenMai.id === 6 && (
-              <View
+          {this.state.seri === 0 && (
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => this.setState({ visible: !this.state.visible })}
+              style={{
+                ...styless.textInputContainer,
+                flexDirection: 'row',
+                alignItems: 'center'
+              }}
+            >
+              <IconFontAwesome
+                name="gift"
+                size={24}
+                color={material.colorDark2}
+              />
+              <Text
                 style={{
-                  ...styles.inputKhuyenMai,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingRight: 0,
-                  alignItems: 'center'
+                  ...styles.textNormal,
+                  paddingLeft: material.paddingSmall
                 }}
               >
-                <TextInput
-                  underlineColorAndroid="transparent"
-                  style={styles.fieldInput}
-                  placeholder="Mã giảm giá"
-                  onChangeText={val => this.setState({ giam_gia_text: val })}
-                />
-                <Button
-                  onPress={() => this.onSuDungMa()}
-                  success
-                  style={styles.button}
-                >
-                  <Text>Sử dụng</Text>
-                </Button>
+                {this.state.khuyenMai.value}
+              </Text>
+            </TouchableOpacity>
+          )}
+          {this.state.seri === 0 && (
+            <View>
+              <View style={{ ...styless.textInputContainer, marginBottom: 0 }}>
+                {this.state.khuyenMai.id === 3 && (
+                  <View style={styles.inputKhuyenMai}>
+                    <TextInput
+                      keyboardType="numeric"
+                      underlineColorAndroid="transparent"
+                      style={styles.fieldInput}
+                      placeholder="Số tiền giảm"
+                      onChangeText={val => this.setState({ giamgia: val })}
+                    />
+                  </View>
+                )}
+                {this.state.khuyenMai.id === 6 && (
+                  <View
+                    style={{
+                      ...styles.inputKhuyenMai,
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      paddingRight: 0,
+                      alignItems: 'center'
+                    }}
+                  >
+                    <TextInput
+                      underlineColorAndroid="transparent"
+                      style={styles.fieldInput}
+                      placeholder="Mã giảm giá"
+                      onChangeText={val =>
+                        this.setState({ giam_gia_text: val })
+                      }
+                    />
+                    <Button
+                      onPress={() => this.onSuDungMa()}
+                      success
+                      style={styles.button}
+                    >
+                      <Text>Sử dụng</Text>
+                    </Button>
+                  </View>
+                )}
               </View>
-            )}
-          </View>
+            </View>
+          )}
+
           {this.state.detailVe.arrVe.bvv_seri === 0 && (
             <DanhMucVe
               seri={this.state.seri}
               // initialValue={}
-              data={this.danhMuc}
+              data={[{ ...{ label: 'Bỏ chọn', value: 0 } }, ...this.danhMuc]}
               onChangeText={value => {
                 this.setState(
                   {
                     key_danh_muc: value
                   },
-                  () => this.getSeri()
+                  () => this.getSeri(value)
                 );
               }}
             />
           )}
 
+          {this.state.detailVe.arrVe.bvv_seri !== 0 && (
+            <View>
+              {this.viewSeri(
+                'Danh mục vé: ',
+                this.state.detailVe.arrVe.bvv_danh_muc
+              )}
+              {this.viewSeri('Seri: ', this.state.detailVe.arrVe.bvv_seri)}
+            </View>
+          )}
+
+          {this.mapKhuyenMai(this.state.detailVe.arrVe.bvv_hinh_thuc_giam_gia)}
+
           <View
             style={{
-              ...styless.textInputContainer,
-              paddingVertical: material.paddingSmall
+              ...styless.textInputContainer
+              // paddingVertical: material.paddingSmall
             }}
           >
             {this.renderGiave(

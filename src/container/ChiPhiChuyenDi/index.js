@@ -10,7 +10,7 @@ import {
   Item
 } from 'native-base';
 import { connect } from 'react-redux';
-
+import numeral from 'numeral';
 import FabButton from '../../components/FabButton';
 import * as commonActions from '../../store/actions/common';
 import * as authSelectors from '../../store/selectors/auth';
@@ -48,13 +48,15 @@ export default class HuongDanSuDung extends React.PureComponent {
           <Item>
             <Input
               onChangeText={val => {
-                this.chiPhi[index].tcp_price = val;
+                this.chiPhi[index].tcp_price = parseInt(val);
               }}
               keyboardType="numeric"
               style={styles.input}
               placeholder="Chi phí"
               defaultValue={
-                item.tcp_price === 0 ? '0' : item.tcp_price.toString()
+                item.tcp_price === 0
+                  ? '0'
+                  : numeral(item.tcp_price).format('0,0')
               }
               underlineColorAndroid="transparent"
             />
@@ -90,6 +92,8 @@ export default class HuongDanSuDung extends React.PureComponent {
         this.setState({
           arrChiPhi: d
         });
+      } else {
+        this.props.setToast(e.message.message, 'error');
       }
     });
   }
@@ -107,6 +111,8 @@ export default class HuongDanSuDung extends React.PureComponent {
     this.props.saveChiPhi(params, (e, d) => {
       if (d) {
         this.props.setToast('Cập nhật dữ liệu thành công.');
+      } else {
+        this.props.setToast(e.message.message, 'error');
       }
     });
   }

@@ -50,7 +50,7 @@ const requestInsertVe = createRequestSaga({
   request: haivan.insertVe,
   key: 'insertVe',
   success: [],
-  failure: [() => setToast('lỗi, xin vui lòng gửi lại', 'error')]
+  failure: []
 });
 
 const requestUpdateVe = createRequestSaga({
@@ -78,7 +78,7 @@ const requestXuongXe = createRequestSaga({
   request: haivan.xuongXe,
   key: 'xuongXe',
   success: [],
-  failure: [data => setToast(data.message.message, 'error')]
+  failure: []
 });
 
 const requestGiamGiaTreEm = createRequestSaga({
@@ -176,7 +176,7 @@ const requestChangePassword = createRequestSaga({
   request: haivan.changePassword,
   key: 'changePassword',
   success: [data => setToast('Đổi mật khẩu thành công', 'error')],
-  failure: [data => setToast(data.message.message, 'error')]
+  failure: []
 });
 
 const requestGetInfoDieuHanh = createRequestSaga({
@@ -190,28 +190,28 @@ const requestSaveDieuHanh = createRequestSaga({
   request: haivan.saveDieuHanh,
   key: 'saveDieuHanh',
   success: [() => setToast('Cập nhật thành công')],
-  failure: [data => setToast(data.message.message, 'error')]
+  failure: []
 });
 
 const requestGetInfoThanhTra = createRequestSaga({
   request: haivan.getInfoThanhTra,
   key: 'getInfoThanhTra',
   success: [],
-  failure: [data => setToast(data.message.message, 'error')]
+  failure: []
 });
 
 const requestGetChiPhi = createRequestSaga({
   request: haivan.getChiPhi,
   key: 'getChiPhi',
   success: [],
-  failure: [data => setToast(data.message.message, 'error')]
+  failure: []
 });
 
 const requestSaveChiPhi = createRequestSaga({
   request: haivan.saveChiPhi,
   key: 'saveChiPhi',
   success: [],
-  failure: [data => setToast(data.message.message, 'error')]
+  failure: []
 });
 
 // root saga reducer

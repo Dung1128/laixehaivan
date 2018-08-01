@@ -44,12 +44,12 @@ export default class Item extends Component {
                 {data.phone}
               </Text>
             </Text>
-            {/* <Text style={styles.textNormal}>
+            <Text style={styles.textNormal}>
               Giường:{' '}
               <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {giuong}
+                {data.soGhe}
               </Text>
-            </Text> */}
+            </Text>
             <Text style={styles.textNormal}>
               Giá vé:{' '}
               <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>

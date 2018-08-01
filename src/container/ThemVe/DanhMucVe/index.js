@@ -18,40 +18,55 @@ export default class extends React.Component {
   render() {
     const { initialValue, onChangeText } = this.props;
     return (
-      <View style={{ marginTop: material.paddingSmall }}>
-        <View style={{ flexDirection: 'row' }}>
-          <IconFontAwesome
-            name="list-alt"
-            size={22}
-            color={material.colorDark2}
-          />
-          <Text style={{ fontSize: material.textNormal, marginLeft: 10 }}>
-            Danh mục vé
-          </Text>
-        </View>
-
+      <View
+        style={{
+          marginTop: material.paddingSmall,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}
+      >
         <View
           style={{
+            // marginTop: material.paddingSmall,
             flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between'
+            // justifyContent: 'space-between',
+            alignItems: 'center'
           }}
         >
-          <Dropdown
-            containerStyle={styles.container}
-            itemTextStyle={{
-              fontSize: material.textNormal
+          <View style={{ flexDirection: 'row' }}>
+            <IconFontAwesome
+              name="list-alt"
+              size={22}
+              color={material.colorDark2}
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between'
             }}
-            itemPadding={10}
-            fontSize={material.textSmall}
-            pickerStyle={{ borderWidth: 0, marginTop: 25 }}
-            value={initialValue}
-            label={'Chọn danh mục'}
-            data={this.props.data}
-            dropdownPosition={0.6}
-            onChangeText={onChangeText}
-          />
-          <Text style={{ fontSize: material.textSmall }}>
+          >
+            <Dropdown
+              containerStyle={styles.container}
+              itemTextStyle={{
+                fontSize: material.textNormal
+              }}
+              itemPadding={10}
+              fontSize={material.textSmall}
+              pickerStyle={{ borderWidth: 0, marginTop: 25 }}
+              value={initialValue}
+              label={'Chọn danh mục'}
+              data={this.props.data}
+              dropdownPosition={0.6}
+              onChangeText={onChangeText}
+            />
+          </View>
+        </View>
+        <View>
+          <Text numberOfLines={1} style={{ fontSize: material.textNormal }}>
             Seri: {this.props.seri}
           </Text>
         </View>
