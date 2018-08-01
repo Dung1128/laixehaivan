@@ -21,6 +21,7 @@ import * as notificationActions from '../../store/actions/notification';
 import Icon from '../../elements/Icon';
 import styles from './styles';
 import material from '../../theme/variables/material';
+import * as authSelectors from '../../store/selectors/auth';
 
 @connect(
   state => ({
@@ -28,7 +29,10 @@ import material from '../../theme/variables/material';
     unReadNotification: state.notification.unRead,
     getActionXepCho: haivanSelectors.actionXepCho(state),
     getActionRemoveGhe: haivanSelectors.actionRemoveGhe(state),
-    getActionThemVe: haivanSelectors.actionThemVe(state)
+    getActionThemVe: haivanSelectors.actionThemVe(state),
+    token: authSelectors.getToken(state),
+    profile: authSelectors.getUser(state),
+    did_id: haivanSelectors.getChuyenDi(state)
   }),
   { ...commonActions, ...notificationActions, ...haivanActions }
 )
@@ -66,6 +70,19 @@ export default class extends Component {
       this.props.search(value);
     }
   };
+
+  xuongXeAll() {
+    const params = {
+      token: this.props.token,
+      did_id: this.props.did_id,
+      adm_id: this.props.profile.adm_id
+    };
+    this.props.xuongXeAll(params, (e, d) => {
+      if (d) {
+        this.props.actionUpdateSDG(new Date());
+      }
+    });
+  }
 
   _onPressSearch = () => {
     const { forwardTo } = this.props;
@@ -140,6 +157,16 @@ export default class extends Component {
     const center = <Text style={styles.title}>{title}</Text>;
     const right = (
       <View style={styles.rowIconContainer}>
+        {title === 'Trả khách' && (
+          <Button
+            onPress={() => {
+              this.xuongXeAll();
+            }}
+            transparent
+          >
+            <Text style={styles.textNormal}>Xuống xe</Text>
+          </Button>
+        )}
         {/* <Button transparent onPress={() => this._onPressNotification()}>
           {numberNotification}
           <Icon style={styles.icon} name="ios-notifications" />

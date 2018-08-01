@@ -18,7 +18,8 @@ const data = [];
   state => ({
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
-    did_id: haivanSelectors.getChuyenDi(state)
+    did_id: haivanSelectors.getChuyenDi(state),
+    getUpdateSDG: haivanSelectors.UpdateSDG(state)
   }),
   { ...commonActions, ...haivanActions }
 )
@@ -41,6 +42,15 @@ export default class TraKhach extends React.PureComponent {
 
   componentDidMount() {
     this.getList();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.token !== null &&
+      nextProps.getUpdateSDG !== this.props.getUpdateSDG
+    ) {
+      this.getList();
+    }
   }
 
   getList() {

@@ -124,3 +124,6 @@ export const getChiPhi = (...args) => ({ type: 'app/getChiPhi', args });
 //save chi phí
 
 export const saveChiPhi = (...args) => ({ type: 'app/saveChiPhi', args });
+
+//xuống xe all
+export const xuongXeAll = (...args) => ({ type: 'app/xuongXeAll', args });

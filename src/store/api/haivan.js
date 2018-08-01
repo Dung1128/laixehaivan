@@ -290,6 +290,13 @@ export default {
         arrChiPhi: params.arrChiPhi
       },
       {}
+    ),
+
+  xuongXeAll: params =>
+    API.post(
+      `/api/appdriver/xuong-xe-all?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}`
     )
 
   // facebookLogin: facebookToken =>
