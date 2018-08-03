@@ -309,20 +309,28 @@ export default class ThemVe extends React.PureComponent {
     this.setState({ diemden: val }, () => this.showGiaVe());
   }
 
+  checkEditAddress(type) {
+    if (
+      this.state.seri !== 0 ||
+      this.props.route.params.detailVe.arrVe.bvv_status === 11
+    ) {
+      Alert.alert('Không được thay đổi địa điểm');
+    } else {
+      type === 0
+        ? this.setState({
+            visibleDiemDi: true
+          })
+        : this.setState({
+            visibleDiemDen: true
+          });
+    }
+  }
+
   renderItem(item, nameIcon, title, type) {
     return (
       <TouchableOpacity
         style={styles.itemFilter}
-        disabled={this.state.seri !== 0}
-        onPress={() =>
-          type === 0
-            ? this.setState({
-                visibleDiemDi: true
-              })
-            : this.setState({
-                visibleDiemDen: true
-              })
-        }
+        onPress={() => this.checkEditAddress(type)}
       >
         <IconMaterialCommunityIcons
           name={nameIcon}
@@ -671,31 +679,32 @@ export default class ThemVe extends React.PureComponent {
               IconIcomColor={material.colorDark2}
             />
           </View>
-          {this.state.seri === 0 && (
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => this.setState({ visible: !this.state.visible })}
-              style={{
-                ...styless.textInputContainer,
-                flexDirection: 'row',
-                alignItems: 'center'
-              }}
-            >
-              <IconFontAwesome
-                name="gift"
-                size={24}
-                color={material.colorDark2}
-              />
-              <Text
+          {this.state.seri === 0 &&
+            this.props.route.params.detailVe.arrVe.bvv_status !== 11 && (
+              <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={() => this.setState({ visible: !this.state.visible })}
                 style={{
-                  ...styles.textNormal,
-                  paddingLeft: material.paddingSmall
+                  ...styless.textInputContainer,
+                  flexDirection: 'row',
+                  alignItems: 'center'
                 }}
               >
-                {this.state.khuyenMai.value}
-              </Text>
-            </TouchableOpacity>
-          )}
+                <IconFontAwesome
+                  name="gift"
+                  size={24}
+                  color={material.colorDark2}
+                />
+                <Text
+                  style={{
+                    ...styles.textNormal,
+                    paddingLeft: material.paddingSmall
+                  }}
+                >
+                  {this.state.khuyenMai.value}
+                </Text>
+              </TouchableOpacity>
+            )}
           {this.state.seri === 0 && (
             <View>
               <View style={{ ...styless.textInputContainer, marginBottom: 0 }}>
@@ -803,6 +812,7 @@ export default class ThemVe extends React.PureComponent {
             </Button>
           )}
         </Content>
+
         <KhuyenMai
           setKhuyenMai={ob => {
             this.setState(

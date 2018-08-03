@@ -126,7 +126,10 @@ export default class ItemGiuong extends Component {
                   {this.props.price ? (
                     _.find(this.props.dataVe, {
                       bvv_number: item.sdgct_number
-                    }).arrVe.bvv_price === 0 && (
+                    }).arrVe.bvv_price === 0 &&
+                    _.find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    }).arrVe.bvv_status === 0 && (
                       <View>
                         {_.find(this.props.dataOffline, {
                           bvv_number: item.sdgct_number
@@ -177,7 +180,7 @@ export default class ItemGiuong extends Component {
                   }) &&
                     _.find(this.props.dataVe, {
                       bvv_number: item.sdgct_number
-                    }).arrVe.bvv_price !== 0 && (
+                    }).arrVe.bvv_status !== 0 && (
                       <Text numberOfLines={1} style={styles.textSmall}>
                         {_.find(this.props.dataVe, {
                           bvv_number: item.sdgct_number
@@ -331,7 +334,7 @@ export default class ItemGiuong extends Component {
   renderItem(data, index) {
     return (
       data.data.length !== 0 && (
-        <Card style={styles.card}>
+        <View style={styles.card}>
           {index !== 1 &&
             (index !== 3 && (
               <Text style={styles.textNormal}>
@@ -343,7 +346,7 @@ export default class ItemGiuong extends Component {
           {data.data.map((item, index) =>
             this.renderRowItem(item.data.length, item)
           )}
-        </Card>
+        </View>
       )
     );
   }

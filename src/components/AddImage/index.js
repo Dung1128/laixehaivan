@@ -54,6 +54,7 @@ export default class extends Component {
     this.setState({ modalVisible: visible });
   }
   addImage() {
+    this.arrayImg = [];
     ImagePicker.launchImageLibrary(imagePickerOptions, response => {
       // console.log('Response = ', response);
 
@@ -67,9 +68,12 @@ export default class extends Component {
         this.setModalVisible(true);
 
         this.arrayImg.push(response);
-        this.setState({
-          dataImage: this.arrayImg
-        });
+        this.setState(
+          {
+            dataImage: this.arrayImg
+          },
+          () => this.props.chooseImage(this.arrayImg)
+        );
 
         // const source = { uri: response.uri };
         // const params = {

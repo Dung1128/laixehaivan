@@ -273,6 +273,25 @@ export default {
       }`
     ),
 
+  editInfoThanhTra: params =>
+    API.post(
+      `/api/appdriver/thanh-tra/save?adm_id=${params.adm_id}&token=${
+        params.token
+      }
+      `,
+      {
+        arrPost: params.arrPost
+      },
+      {}
+    ),
+
+  getListThanhTra: params =>
+    API.get(
+      `/api/appdriver/thanh-tra/get-view-listing?adm_id=${
+        params.adm_id
+      }&token=${params.token}&did_id=${params.did_id}&day=${params.day}`
+    ),
+
   getChiPhi: params =>
     API.get(
       `/api/appdriver/get-chi-phi?adm_id=${params.adm_id}&token=${

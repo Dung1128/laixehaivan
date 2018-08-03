@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Text, View, Button } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
@@ -16,13 +16,20 @@ import { InputField } from '../../elements/Form';
 import material from '../../theme/variables/material';
 import styles from './styles';
 import styless from '../Register/styles';
-import tuyenxe from './tuyenxe';
-import xe from './xe';
-import laixe from './laixe';
-import vipham from './vipham';
 
 @connect(
   state => ({
+    initialValues: {
+      lenhVanChuyen: 0,
+      diaDiem: '',
+      soKhachXe: 0,
+      soKhachLen: 0,
+      tienKhach: 0,
+      soKhachPhoi: 0,
+      tienHang: 0,
+      noiDungViPham: '',
+      ghiChu: ''
+    },
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
     did_id: haivanSelectors.getChuyenDi(state),
@@ -31,7 +38,7 @@ import vipham from './vipham';
   { ...commonActions, ...haivanActions }
 )
 @reduxForm({
-  form: 'maxe',
+  form: 'thanhTra',
   validate: values => {},
   destroyOnUnmount: !__DEV__,
   enableReinitialize: true
@@ -48,27 +55,27 @@ export default class ThanhTra extends React.PureComponent {
       visibleTiepVien: false,
       visibleViPham: false,
       tuyenXe: {
-        id: 0,
+        tuy_id: 0,
         tuy_name: 'Chọn tuyến xe'
       },
       xe: {
-        id: 0,
+        xe_id: 0,
         xe_bien_kiem_soat: 'Chọn xe'
       },
       laixe1: {
-        id: 0,
+        lx_id: 0,
         lx_name: 'Chọn lái xe 1'
       },
       laixe2: {
-        id: 0,
+        lx_id: 0,
         lx_name: 'Chọn lái xe 2'
       },
       tiepVien: {
-        id: 0,
+        tv_id: 0,
         tv_name: 'Tiếp viên'
       },
       viPham: {
-        id: 0,
+        xdm_id: 0,
         xdm_name: 'Loại vi phạm'
       },
       dataTuyenXe: [],
@@ -83,7 +90,8 @@ export default class ThanhTra extends React.PureComponent {
         arrTiepVien: [],
         arrTuyen: [],
         arrXe: []
-      }
+      },
+      imageData: [{ data: '' }]
     };
   }
 
@@ -182,26 +190,6 @@ export default class ThanhTra extends React.PureComponent {
     );
   }
 
-  checkSelectedValue(val) {
-    console.log(val);
-    switch (val.type) {
-      case 1:
-        return this.setState({ tuyenXe: val });
-      case 2:
-        return this.setState({ xe: val });
-      case 3:
-        return this.setState({ laixe1: val });
-      case 4:
-        return this.setState({ laixe2: val });
-      case 5:
-        return this.setState({ tiepVien: val });
-      case 6:
-        return this.setState({ viPham: val });
-      default:
-        return null;
-    }
-  }
-
   searchTuyenXe(val) {
     var search = new JsSearch.Search('tuy_name');
     search.addIndex('tuy_name');
@@ -267,6 +255,39 @@ export default class ThanhTra extends React.PureComponent {
   }
 
   submitForm(val) {
+    console.log(this.state.tuyenXe);
+    const params = {
+      token: this.props.token,
+      adm_id: this.props.profile.adm_id,
+      arrPost: {
+        xtt_tuyen_id: this.state.tuyenXe.tuy_id,
+        xtt_xe_id: this.state.xe.xe_id,
+        xtt_so_lenh_van_chuyen: val.lenhVanChuyen,
+        xtt_dia_diem: val.diaDiem,
+        xtt_so_khach_tren_xe: val.soKhachXe,
+        xtt_so_khach_len: val.soKhachLen,
+        xtt_tien_khach: val.tienKhach,
+        xtt_so_khach: val.soKhachPhoi,
+        xtt_tien_hang: val.tienHang,
+        xtt_lai_xe_1: this.state.laixe1.lx_id,
+        xtt_lai_xe_2: this.state.laixe2.lx_id,
+        xtt_tiep_vien: this.state.tiepVien.tv_id,
+        xtt_noi_dung_vi_pham: val.noiDungViPham,
+        xtt_loai_vi_pham: this.state.viPham.xdm_id,
+        xtt_img: this.state.imageData[0].data,
+        xtt_thong_tin_khac:'Kiem Tra',
+        xtt_lat: '',
+        xtt_long: ''
+      }
+    };
+    this.props.editInfoThanhTra(params, (e, d) => {
+      if (d) {
+        this.props.setToast('Thành công');
+      } else {
+        this.props.setToast('Lỗi, xin vui lòng thử lại sau');
+      }
+      Keyboard.dismiss();
+    });
     console.log(val);
   }
 
@@ -290,9 +311,9 @@ export default class ThanhTra extends React.PureComponent {
             }}
           >
             <Field
-              onSubmitEditing={() => {
-                this.diadiem.focus();
-              }}
+              // onSubmitEditing={() => {
+              //   this.diadiem.focus();
+              // }}
               keyboardType="default"
               returnKeyType="next"
               autoCapitalize={'none'}
@@ -318,9 +339,9 @@ export default class ThanhTra extends React.PureComponent {
             }}
           >
             <Field
-              onSubmitEditing={() => {
-                this.soKhachTrenXe.focus();
-              }}
+              // onSubmitEditing={() => {
+              //   this.soKhachTrenXe.focus();
+              // }}
               inputRef={e => (this.diadiem = e)}
               keyboardType="default"
               returnKeyType="next"
@@ -351,9 +372,9 @@ export default class ThanhTra extends React.PureComponent {
             }}
           >
             <Field
-              onSubmitEditing={() => {
-                this.soKhachLen.focus();
-              }}
+              // onSubmitEditing={() => {
+              //   this.soKhachLen.focus();
+              // }}
               inputRef={e => (this.soKhachTrenXe = e)}
               keyboardType="numeric"
               returnKeyType="next"
@@ -379,9 +400,9 @@ export default class ThanhTra extends React.PureComponent {
             }}
           >
             <Field
-              onSubmitEditing={() => {
-                this.tienKhach.focus();
-              }}
+              // onSubmitEditing={() => {
+              //   this.tienKhach.focus();
+              // }}
               inputRef={e => (this.soKhachLen = e)}
               keyboardType="numeric"
               returnKeyType="next"
@@ -407,9 +428,9 @@ export default class ThanhTra extends React.PureComponent {
             }}
           >
             <Field
-              onSubmitEditing={() => {
-                this.soKhachPhoi.focus();
-              }}
+              // onSubmitEditing={() => {
+              //   this.soKhachPhoi.focus();
+              // }}
               inputRef={e => (this.tienKhach = e)}
               keyboardType="numeric"
               returnKeyType="next"
@@ -435,9 +456,9 @@ export default class ThanhTra extends React.PureComponent {
             }}
           >
             <Field
-              onSubmitEditing={() => {
-                this.tienHang.focus();
-              }}
+              // onSubmitEditing={() => {
+              //   this.tienHang.focus();
+              // }}
               inputRef={e => (this.soKhachPhoi = e)}
               keyboardType="numeric"
               returnKeyType="next"
@@ -463,12 +484,12 @@ export default class ThanhTra extends React.PureComponent {
             }}
           >
             <Field
-              onSubmitEditing={() => {
-                this.noiDungViPham.focus();
-              }}
+              // onSubmitEditing={() => {
+              //   this.noiDungViPham.focus();
+              // }}
               inputRef={e => (this.tienHang = e)}
               keyboardType="numeric"
-              returnKeyType="done"
+              returnKeyType="next"
               autoCapitalize={'none'}
               style={styless.textInput}
               icon={input => (input.value ? 'close' : null)}
@@ -498,8 +519,8 @@ export default class ThanhTra extends React.PureComponent {
                 this.ghiChu.focus();
               }}
               inputRef={e => (this.noiDungViPham = e)}
-              keyboardType="numeric"
-              returnKeyType="done"
+              keyboardType="default"
+              returnKeyType="next"
               autoCapitalize={'none'}
               style={styless.textInput}
               icon={input => (input.value ? 'close' : null)}
@@ -515,7 +536,7 @@ export default class ThanhTra extends React.PureComponent {
             />
           </View>
 
-          <AddImage />
+          <AddImage chooseImage={val => this.setState({ imageData: val })} />
 
           <View
             style={{
@@ -529,8 +550,8 @@ export default class ThanhTra extends React.PureComponent {
               //   this.tienKhach.focus();
               // }}
               inputRef={e => (this.ghiChu = e)}
-              keyboardType="numeric"
-              returnKeyType="done"
+              keyboardType="default"
+              returnKeyType="next"
               autoCapitalize={'none'}
               style={styless.textInput}
               icon={input => (input.value ? 'close' : null)}
@@ -572,7 +593,11 @@ export default class ThanhTra extends React.PureComponent {
 
           <ModalFilter
             data={this.state.dataXe}
-            selectedValue={val => this.checkSelectedValue(val)}
+            selectedValue={val =>
+              this.setState({
+                xe: val
+              })
+            }
             handleVisible={val =>
               this.setState({
                 visibleXe: val

@@ -221,6 +221,20 @@ const requestXuongXeAll = createRequestSaga({
   failure: []
 });
 
+const requestEditInfoThanhTra = createRequestSaga({
+  request: haivan.editInfoThanhTra,
+  key: 'editInfoThanhTra',
+  success: [],
+  failure: []
+});
+
+const requestGetListThanhTra = createRequestSaga({
+  request: haivan.getListThanhTra,
+  key: 'getListThanhTra',
+  success: [],
+  failure: []
+});
+
 // root saga reducer
 export default [
   function* fetchWatcher() {
@@ -255,7 +269,9 @@ export default [
       takeLatest('app/getInfoThanhTra', requestGetInfoThanhTra),
       takeLatest('app/getChiPhi', requestGetChiPhi),
       takeLatest('app/saveChiPhi', requestSaveChiPhi),
-      takeLatest('app/xuongXeAll', requestXuongXeAll)
+      takeLatest('app/xuongXeAll', requestXuongXeAll),
+      takeLatest('app/editInfoThanhTra', requestEditInfoThanhTra),
+      takeLatest('app/getListThanhTra', requestGetListThanhTra)
     ]);
   }
 ];

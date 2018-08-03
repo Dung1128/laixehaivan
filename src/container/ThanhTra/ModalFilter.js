@@ -74,7 +74,7 @@ export default class Filter extends React.PureComponent {
   }
 
   render() {
-    console.log('this.props.data', this.props.data);
+    // console.log('this.props.data', this.props.data);
     return (
       <Modal
         animationType="slide"

@@ -4,8 +4,6 @@ import material from '../../theme/variables/material';
 export default {
   itemRow: {
     borderWidth: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
     borderColor: material.colorBorder,
     marginVertical: 2,
     minHeight: 150,
@@ -17,8 +15,10 @@ export default {
     fontSize: material.textNormal
   },
   card: {
-    paddingBottom: material.paddingSmall,
-    padding: material.paddingSmall
+    // paddingBottom: material.paddingSmall,
+    padding: material.paddingSmall,
+    borderWidth: 1,
+    borderColor: material.colorBorder
   },
   //modal
   modal: {

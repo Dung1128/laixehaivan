@@ -118,6 +118,12 @@ export const getInfoThanhTra = (...args) => ({
   args
 });
 
+// edit thanh tra
+export const editInfoThanhTra = (...args) => ({
+  type: 'app/editInfoThanhTra',
+  args
+});
+
 //lấy danh mục chi phí
 export const getChiPhi = (...args) => ({ type: 'app/getChiPhi', args });
 
@@ -127,3 +133,8 @@ export const saveChiPhi = (...args) => ({ type: 'app/saveChiPhi', args });
 
 //xuống xe all
 export const xuongXeAll = (...args) => ({ type: 'app/xuongXeAll', args });
+
+export const getListThanhTra = (...args) => ({
+  type: 'app/getListThanhTra',
+  args
+});
