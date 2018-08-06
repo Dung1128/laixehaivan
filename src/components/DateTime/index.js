@@ -55,7 +55,7 @@ export default class DateTimePickerTester extends Component {
             style={styles.dropdownIcon}
             onPress={() => this._showDateTimePicker()}
           >
-            <Icon name={'ic_dropdown'} style={styles.icon} />
+            <Icon name={'arrow-dropdown'} style={styles.icon} />
           </TouchableOpacity>
         </View>
         <DateTimePicker

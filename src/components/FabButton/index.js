@@ -53,9 +53,22 @@ export default class ChieuDi extends React.PureComponent {
         </Button>
         <Button
           onPress={() => this.props.forwardTo('chiPhiChuyenDi')}
-          style={{ backgroundColor: material.colorRequest }}
+          style={{ backgroundColor: material.colorPending }}
         >
           <Icon name="logo-usd" />
+        </Button>
+        <Button
+          onPress={() => this.props.forwardTo('doanhThuHang')}
+          style={{ backgroundColor: material.brandSuccess }}
+        >
+          <Icon name="beaker" />
+        </Button>
+
+        <Button
+          onPress={() => this.props.forwardTo('nhienLieu')}
+          style={{ backgroundColor: material.colorRequest }}
+        >
+          <Icon name="battery-charging" />
         </Button>
       </Fab>
     );

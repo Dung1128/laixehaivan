@@ -197,42 +197,70 @@ const requestGetInfoThanhTra = createRequestSaga({
   request: haivan.getInfoThanhTra,
   key: 'getInfoThanhTra',
   success: [],
-  failure: []
+  failure: [() => setToast('Lỗi, không thể lấy dữ liệu thanh tra', 'error')]
 });
 
 const requestGetChiPhi = createRequestSaga({
   request: haivan.getChiPhi,
   key: 'getChiPhi',
   success: [],
-  failure: []
+  failure: [() => setToast('Lỗi, không thể lấy dữ liệu chi phí', 'error')]
 });
 
 const requestSaveChiPhi = createRequestSaga({
   request: haivan.saveChiPhi,
   key: 'saveChiPhi',
   success: [],
-  failure: []
+  failure: [() => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')]
 });
 
 const requestXuongXeAll = createRequestSaga({
   request: haivan.xuongXeAll,
   key: 'xuongXeAll',
   success: [],
-  failure: []
+  failure: [() => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')]
 });
 
 const requestEditInfoThanhTra = createRequestSaga({
   request: haivan.editInfoThanhTra,
   key: 'editInfoThanhTra',
   success: [],
-  failure: []
+  failure: [() => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')]
 });
 
 const requestGetListThanhTra = createRequestSaga({
   request: haivan.getListThanhTra,
   key: 'getListThanhTra',
   success: [],
+  failure: [() => setToast('Lỗi, không thể lấy dữ liệu thanh tra', 'error')]
+});
+
+const requestUpdateDoanhThuHang = createRequestSaga({
+  request: haivan.updateDoanhThuHang,
+  key: 'updateDoanhThuHang',
+  success: [],
+  failure: [() => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')]
+});
+
+const requestGetListNhienLieu = createRequestSaga({
+  request: haivan.getListNhienLieu,
+  key: 'getListNhienLieu',
+  success: [],
+  failure: [() => setToast('Lỗi, không thể lấy dữ liệu', 'error')]
+});
+
+const requestUpdateNhienLieu = createRequestSaga({
+  request: haivan.updateNhienLieu,
+  key: 'updateNhienLieu',
+  success: [],
   failure: []
+});
+
+const requestGetNCC = createRequestSaga({
+  request: haivan.getNCC,
+  key: 'getNCC',
+  success: [],
+  failure: [() => setToast('Lỗi, Không thể lấy dữ liệu nhà cung cấp', 'error')]
 });
 
 // root saga reducer
@@ -271,7 +299,11 @@ export default [
       takeLatest('app/saveChiPhi', requestSaveChiPhi),
       takeLatest('app/xuongXeAll', requestXuongXeAll),
       takeLatest('app/editInfoThanhTra', requestEditInfoThanhTra),
-      takeLatest('app/getListThanhTra', requestGetListThanhTra)
+      takeLatest('app/getListThanhTra', requestGetListThanhTra),
+      takeLatest('app/updateDoanhThuHang', requestUpdateDoanhThuHang),
+      takeLatest('app/getListNhienLieu', requestGetListNhienLieu),
+      takeLatest('app/updateNhienLieu', requestUpdateNhienLieu),
+      takeLatest('app/getNCC', requestGetNCC)
     ]);
   }
 ];

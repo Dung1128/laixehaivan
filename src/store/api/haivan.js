@@ -316,6 +316,38 @@ export default {
       `/api/appdriver/xuong-xe-all?adm_id=${params.adm_id}&token=${
         params.token
       }&did_id=${params.did_id}`
+    ),
+
+  updateDoanhThuHang: params =>
+    API.post(
+      `/api/appdriver/save-danh-thu-hang?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}&dt_hang=${params.dt_hang}`
+    ),
+
+  getListNhienLieu: params =>
+    API.get(
+      `/api/appdriver/get-nhien-lieu-listing?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}`
+    ),
+
+  updateNhienLieu: params =>
+    API.post(
+      `/api/appdriver/save-nhien-lieu?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}&xad_code=${params.xad_code}&xad_km_ve=${
+        params.xad_km_ve
+      }&xad_nha_cung_cap=${params.xad_nha_cung_cap}&xad_price=${
+        params.xad_price
+      }&xad_total=${params.xad_total}&xad_time=${params.xad_time}`
+    ),
+
+  getNCC: params =>
+    API.get(
+      `/api/appdriver/get-nha-cung-cap?adm_id=${params.adm_id}&token=${
+        params.token
+      }`
     )
 
   // facebookLogin: facebookToken =>

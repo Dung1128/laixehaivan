@@ -64,5 +64,8 @@ export default StyleSheet.create({
   textNormal: {
     fontSize: material.textNormal,
     color: 'black'
+  },
+  textTitle: {
+    fontSize: material.textTitle
   }
 });

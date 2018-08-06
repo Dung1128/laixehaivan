@@ -167,6 +167,17 @@ export default class extends Component {
             <Text style={styles.textNormal}>Xuống xe</Text>
           </Button>
         )}
+
+        {title === 'Nhiên liệu' && (
+          <Button
+            onPress={() => {
+              this.props.forwardTo('addNhienLieu');
+            }}
+            transparent
+          >
+            <Icon style={styles.menuIcon} name="add" />
+          </Button>
+        )}
         {/* <Button transparent onPress={() => this._onPressNotification()}>
           {numberNotification}
           <Icon style={styles.icon} name="ios-notifications" />

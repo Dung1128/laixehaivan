@@ -22,7 +22,8 @@ const init = {
     arrLaiXe: [],
     arrTiepVien: [],
     arrXe: []
-  }
+  },
+  actionUpdateListNhienLieu: new Date()
 };
 
 export default (state = init, { type, payload }) => {
@@ -61,6 +62,8 @@ export default (state = init, { type, payload }) => {
     }
     case 'app/actionUpdateChuyen':
       return { ...state, actionUpdateChuyen: payload };
+    case 'app/actionUpdateListNhienLieu':
+      return { ...state, actionUpdateListNhienLieu: payload };
     default:
       return state;
   }

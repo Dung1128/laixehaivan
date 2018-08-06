@@ -54,7 +54,8 @@ export default class Filter extends React.PureComponent {
             item.lx_name ||
             item.tv_name ||
             item.xdm_name ||
-            item.bex_ten}
+            item.bex_ten ||
+            item.ncc_name}
         </Text>
         {item.arrLoiChi &&
           item.arrLoiChi.map((item, index) => (

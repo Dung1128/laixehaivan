@@ -138,3 +138,28 @@ export const getListThanhTra = (...args) => ({
   type: 'app/getListThanhTra',
   args
 });
+
+export const updateDoanhThuHang = (...args) => ({
+  type: 'app/updateDoanhThuHang',
+  args
+});
+
+export const getListNhienLieu = (...args) => ({
+  type: 'app/getListNhienLieu',
+  args
+});
+
+export const actionUpdateListNhienLieu = payload => ({
+  type: 'app/actionUpdateListNhienLieu',
+  payload
+});
+
+export const updateNhienLieu = (...args) => ({
+  type: 'app/updateNhienLieu',
+  args
+});
+
+export const getNCC = (...args) => ({
+  type: 'app/getNCC',
+  args
+});

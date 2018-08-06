@@ -28,6 +28,9 @@ import ThemVe from './container/ThemVe';
 import AddBangDieuDo from './container/AddBangDieuDo';
 import VeOffline from './container/VeOffline';
 import ChiPhiChuyenDi from './container/ChiPhiChuyenDi';
+import DoanhThuHang from './container/DoanhThuHang';
+import NhienLieu from './container/NhienLieu';
+import AddNhienLieu from './container/AddNhienLieu';
 
 export default {
   //new
@@ -227,6 +230,27 @@ export default {
     headerType: 'home',
     footerType: 'home',
     cache: false
+  },
+  doanhThuHang: {
+    title: 'Doanh Thu Hàng',
+    Page: DoanhThuHang,
+    headerType: 'home',
+    footerType: 'home',
+    cache: true
+  },
+  nhienLieu: {
+    title: 'Nhiên liệu',
+    Page: NhienLieu,
+    headerType: 'home',
+    footerType: 'home',
+    cache: true
+  },
+  addNhienLieu: {
+    title: 'Nhập nhiên liệu',
+    Page: AddNhienLieu,
+    headerType: 'back',
+    footerType: 'home',
+    cache: true
   }
 
   //new version
