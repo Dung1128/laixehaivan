@@ -57,7 +57,11 @@ export default class Item extends Component {
               </Text>
             </Text>
           </View>
-          <Button activeOpacity={0.8} onPress={this.props.requestVe} success>
+          <Button
+            activeOpacity={0.8}
+            onPress={() => this.props.requestVe(data)}
+            success
+          >
             <Text>Xếp chỗ</Text>
           </Button>
         </Card>

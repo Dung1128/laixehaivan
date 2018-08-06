@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, RefreshControl, View } from 'react-native';
+import { FlatList, RefreshControl, View, Alert } from 'react-native';
 import { Container, Content, Text } from 'native-base';
 import FabButton from '../../components/FabButton';
 import { connect } from 'react-redux';
@@ -62,6 +62,57 @@ export default class HuyVe extends React.PureComponent {
     }
   }
 
+  onCreate(val) {
+    const newData = [];
+    Alert.alert(
+      'Thông báo',
+      'Bạn có đồng bộ vé không?',
+      [
+        { text: 'Không', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'Đồng ý',
+          onPress: () => {
+            this.props.insertVe(val, (e, d) => {
+              if (d) {
+                this.props.actionUpdateSDG(new Date());
+                Alert.alert('Thông báo', 'Thành công');
+                this.props.getDataOffline.map((it, index) => {
+                  if (
+                    _.findIndex(this.props.getDataOffline, {
+                      bvv_number: val.bvv_number
+                    }) !== index
+                  ) {
+                    newData.push(it);
+                  }
+                });
+                this.props.subObjOffline(newData);
+              } else if (
+                e.message.message.toString() ===
+                'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
+              ) {
+                Alert.alert(
+                  'Thông báo',
+                  'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
+                );
+                this.props.getDataOffline.map((it, index) => {
+                  if (
+                    _.findIndex(this.props.getDataOffline, {
+                      bvv_number: val.bvv_number
+                    }) !== index
+                  ) {
+                    newData.push(it);
+                  }
+                });
+                this.props.subObjOffline(newData);
+              }
+            });
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
   requestVe(item) {
     // console.log(item);
     const newData = [];
@@ -88,7 +139,7 @@ export default class HuyVe extends React.PureComponent {
   }
 
   renderItem({ item, index }) {
-    return <ItemOffline requestVe={() => this.requestVe(item)} data={item} />;
+    return <ItemOffline requestVe={val => this.onCreate(val)} data={item} />;
   }
 
   render() {

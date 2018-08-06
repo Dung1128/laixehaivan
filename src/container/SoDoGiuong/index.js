@@ -210,7 +210,8 @@ export default class SoDoGiuong extends React.PureComponent {
               data: this.state.soDoGiuong.arrBen,
               dataGiaVe: this.state.soDoGiuong.arrGiaVe,
               arrVeNumber: this.state.soDoGiuong.arrVeNumber,
-              detailVe: val
+              detailVe: val,
+              infoChuyen: this.state.soDoGiuong.arrInfo
             });
           }
           if (d && d.message !== 'OK') {
@@ -221,7 +222,8 @@ export default class SoDoGiuong extends React.PureComponent {
           data: this.state.soDoGiuong.arrBen,
           dataGiaVe: this.state.soDoGiuong.arrGiaVe,
           arrVeNumber: this.state.soDoGiuong.arrVeNumber,
-          detailVe: val
+          detailVe: val,
+          infoChuyen: this.state.soDoGiuong.arrInfo
         });
   }
 
@@ -297,7 +299,10 @@ export default class SoDoGiuong extends React.PureComponent {
       this.danhMucVe(nextProps.did_id);
     }
 
-    if (this.props.getDataOffline !== nextProps.getDataOffline) {
+    if (
+      !nextProps.getConnect &&
+      this.props.getDataOffline !== nextProps.getDataOffline
+    ) {
       nextProps.getDataOffline.map(item => {
         if (item.did_id === nextProps.did_id) {
           this.count1 += 1;
@@ -355,7 +360,10 @@ export default class SoDoGiuong extends React.PureComponent {
                 e.message.message.toString() ===
                 'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
               ) {
-                this.getList(this.props.did_id);
+                Alert.alert(
+                  'Thông báo',
+                  'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
+                );
                 this.danhMucVe(this.props.did_id);
 
                 this.props.getDataOffline.map((it, index) => {
@@ -368,6 +376,7 @@ export default class SoDoGiuong extends React.PureComponent {
                   }
                 });
                 this.props.subObjOffline(newData);
+                this.getList(this.props.did_id, newData);
               }
             });
           }

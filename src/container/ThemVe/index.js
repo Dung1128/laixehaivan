@@ -58,14 +58,39 @@ export default class ThemVe extends React.PureComponent {
       visibleDiemDen: false,
       price: { price: 0 },
       bvd_id: {},
-      khuyenMai: {
-        id: 0,
-        value: 'Chọn hình thức khyến mãi'
-      },
-      diemdi: this.props.route.params.data[0],
-      diemden: this.props.route.params.data[
-        this.props.route.params.data.length - 1
-      ],
+      khuyenMai:
+        this.props.route.params.detailVe.arrVe.bvv_hinh_thuc_giam_gia > 0
+          ? {
+              id: this.props.route.params.detailVe.arrVe.bvv_hinh_thuc_giam_gia,
+              value:
+                this.props.route.params.detailVe.arrVe
+                  .bvv_hinh_thuc_giam_gia === 3
+                  ? 'Trực tiếp'
+                  : this.props.route.params.detailVe.arrVe
+                      .bvv_hinh_thuc_giam_gia === 4
+                    ? 'Trẻ em'
+                    : 'Mã khuyến mãi'
+            }
+          : {
+              id: 0,
+              value: 'Chọn hình thức khyến mãi'
+            },
+      diemdi:
+        this.props.route.params.detailVe.arrVe.bvv_bex_id_a === 0
+          ? _.find(this.props.route.params.data, {
+              bex_id: this.props.route.params.infoChuyen.tuy_ben_a
+            })
+          : _.find(this.props.route.params.data, {
+              bex_id: this.props.route.params.detailVe.arrVe.bvv_bex_id_a
+            }),
+      diemden:
+        this.props.route.params.detailVe.arrVe.bvv_bex_id_b === 0
+          ? _.find(this.props.route.params.data, {
+              bex_id: this.props.route.params.infoChuyen.tuy_ben_b
+            })
+          : _.find(this.props.route.params.data, {
+              bex_id: this.props.route.params.detailVe.arrVe.bvv_bex_id_b
+            }),
       giamgia: this.props.route.params.detailVe.arrVe.bvv_price_discount,
       detailVe: this.props.route.params.detailVe,
       seri: this.props.route.params.detailVe.arrVe.bvv_seri,
@@ -73,7 +98,8 @@ export default class ThemVe extends React.PureComponent {
       giam_gia_text: '',
       hinh_thuc_giam_gia: '',
       phone: this.props.route.params.detailVe.arrVe.bvv_phone,
-      checkGiamGiaText: false,
+      checkGiamGiaText:
+        this.props.route.params.detailVe.arrVe.bvv_hinh_thuc_giam_gia > 0,
       price_truc_tiep: this.props.route.params.detailVe.arrVe
         .bvv_price_discount,
       listDiemNot: this.props.route.params.data
@@ -84,7 +110,7 @@ export default class ThemVe extends React.PureComponent {
       this.danhMuc.push({ ...item, label: item.bvd_ma_ve, value: item.bvd_id })
     );
 
-    console.log('danh muc ve', this.props.dmVe.dataDM);
+    console.log('danh muc ve', this.props.route.params.data);
     console.log('detail ve', this.props.route.params.detailVe);
     console.log('this.props.route.params.data', this.props.route.params.data);
   }

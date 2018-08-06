@@ -40,6 +40,10 @@ export default class ItemGiuong extends Component {
           return { backgroundColor: material.colorPending };
         }
 
+        if (ve.arrVe.bvv_status === 1) {
+          return { backgroundColor: material.brandWarning };
+        }
+
         if (ve.arrVe.bvv_status === 4) {
           return { backgroundColor: material.inputSuccessBorderColor };
         }
@@ -78,6 +82,8 @@ export default class ItemGiuong extends Component {
     // const showVe = !!_.find(this.props.dataVe, {
     //   bvv_number: item.sdgct_number
     // });
+
+    console.log('dmm', item);
 
     const w =
       width % 2 === 0
@@ -223,6 +229,115 @@ export default class ItemGiuong extends Component {
                   _.find(this.props.dataVe, {
                     bvv_number: item.sdgct_number
                   }).arrVe.bvv_price !== 0 && (
+                    <View>
+                      <Text
+                        style={{ ...styles.textSmall, fontWeight: 'bold' }}
+                        numberOfLines={1}
+                      >
+                        {
+                          _.find(this.props.dataVe, {
+                            bvv_number: item.sdgct_number
+                          }).arrVe.bvv_phone_di
+                        }
+                      </Text>
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_danh_muc.toString() !== '' && (
+                        <Text style={styles.textSmall}>
+                          Seri:{' '}
+                          {
+                            _.find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            }).arrVe.bvv_danh_muc
+                          }{' '}
+                          /{' '}
+                          {
+                            _.find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            }).arrVe.bvv_seri
+                          }
+                        </Text>
+                      )}
+
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }) && (
+                        <Text style={styles.textSmall}>
+                          {_
+                            .find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            })
+                            .arrVe.bvv_ben_a_ma.toString()}{' '}
+                          -{' '}
+                          {_
+                            .find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            })
+                            .arrVe.bvv_ben_b_ma.toString()}
+                        </Text>
+                      )}
+
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }) && (
+                        <Text numberOfLines={2} style={styles.textSmall}>
+                          {_
+                            .find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            })
+                            .arrVe.bvv_diem_don_khach.toString() !== '' &&
+                            _
+                              .find(this.props.dataVe, {
+                                bvv_number: item.sdgct_number
+                              })
+                              .arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
+                          {_
+                            .find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            })
+                            .arrVe.bvv_diem_tra_khach.toString()}
+                        </Text>
+                      )}
+
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_ghi_chu.toString() !== '' && (
+                        <Text style={styles.textSmall}>
+                          Ghi chú:
+                          {_
+                            .find(this.props.dataVe, {
+                              bvv_number: item.sdgct_number
+                            })
+                            .arrVe.bvv_ghi_chu.toString()}
+                        </Text>
+                      )}
+
+                      <Text
+                        style={{ ...styles.textSmall, fontWeight: 'bold' }}
+                        numberOfLines={1}
+                      >
+                        {
+                          _.find(this.props.dataVe, {
+                            bvv_number: item.sdgct_number
+                          }).arrVe.bvv_ten_khach_hang_di
+                        }
+                      </Text>
+                    </View>
+                  )}
+
+                {!!_.find(this.props.dataVe, {
+                  bvv_number: item.sdgct_number
+                }) &&
+                  _.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }).arrVe.bvv_price === 0 &&
+                  _.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }).arrVe.bvv_status !== 0 && (
                     <View>
                       <Text
                         style={{ ...styles.textSmall, fontWeight: 'bold' }}
