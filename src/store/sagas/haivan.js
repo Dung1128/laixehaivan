@@ -238,7 +238,7 @@ const requestGetListThanhTra = createRequestSaga({
 const requestUpdateDoanhThuHang = createRequestSaga({
   request: haivan.updateDoanhThuHang,
   key: 'updateDoanhThuHang',
-  success: [],
+  success: [() => setToast('Thành công')],
   failure: [() => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')]
 });
 
