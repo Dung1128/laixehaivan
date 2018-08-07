@@ -127,7 +127,7 @@ const requestCheckSuDungVe = createRequestSaga({
   request: haivan.checkSuDungVe,
   key: 'checkSuDungVe',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: []
 });
 
 const requestRemoveGhe = createRequestSaga({

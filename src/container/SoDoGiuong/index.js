@@ -155,7 +155,9 @@ export default class SoDoGiuong extends React.PureComponent {
     this.props.xuongXe(params, (e, d) => {
       if (d) {
         this.getList(this.props.did_id, this.props.getDataOffline);
-      } else {
+      }
+
+      if (e && e.message) {
         this.props.setToast(e.message.message, 'error');
       }
     });
@@ -216,6 +218,12 @@ export default class SoDoGiuong extends React.PureComponent {
           }
           if (d && d.message !== 'OK') {
             this.props.setToast(d.message);
+            this.getList(this.props.did_id, this.props.getDataOffline);
+          }
+
+          if (e && e.message) {
+            this.props.setToast(e.message.message);
+            this.getList(this.props.did_id, this.props.getDataOffline);
           }
         })
       : this.props.forwardTo('themVe', {
@@ -356,9 +364,12 @@ export default class SoDoGiuong extends React.PureComponent {
                   }
                 });
                 this.props.subObjOffline(newData);
-              } else if (
+              }
+              if (
+                this.props.getConnect &&
+                e &&
                 e.message.message.toString() ===
-                'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
+                  'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
               ) {
                 Alert.alert(
                   'Thông báo',
@@ -377,6 +388,12 @@ export default class SoDoGiuong extends React.PureComponent {
                 });
                 this.props.subObjOffline(newData);
                 this.getList(this.props.did_id, newData);
+              }
+              if (!this.props.getConnect) {
+                Alert.alert(
+                  'Thông báo',
+                  'Mạng internet đang không ổn định, vui lòng thử lại sau.'
+                );
               }
             });
           }
@@ -494,7 +511,8 @@ export default class SoDoGiuong extends React.PureComponent {
               data: this.state.soDoGiuong.arrBen,
               dataGiaVe: this.state.soDoGiuong.arrGiaVe,
               arrVeNumber: this.state.soDoGiuong.arrVeNumber,
-              detailVe: this.state.detailVe
+              detailVe: this.state.detailVe,
+              infoChuyen: this.state.soDoGiuong.arrInfo
             });
           }}
           onXuongXe={() => {

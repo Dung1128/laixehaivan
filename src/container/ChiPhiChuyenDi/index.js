@@ -110,7 +110,8 @@ export default class HuongDanSuDung extends React.PureComponent {
         this.setState({
           arrChiPhi: d
         });
-      } else {
+      }
+      if (e && e.message) {
         this.props.setToast(e.message.message, 'error');
       }
     });
@@ -129,7 +130,8 @@ export default class HuongDanSuDung extends React.PureComponent {
     this.props.saveChiPhi(params, (e, d) => {
       if (d) {
         this.props.setToast('Cập nhật dữ liệu thành công.');
-      } else {
+      }
+      if (e && e.message) {
         this.props.setToast(e.message.message, 'error');
       }
     });

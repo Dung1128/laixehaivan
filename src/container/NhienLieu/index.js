@@ -37,8 +37,8 @@ export default class NhienLieu extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (
-      nextProps.getUpdateListNhienLieu !== this.props.getUpdateListNhienLieu &&
-      nextProps.token !== null
+      nextProps.token !== null &&
+      nextProps.getUpdateListNhienLieu !== this.props.getUpdateListNhienLieu
     ) {
       this.getList();
     }
@@ -63,7 +63,9 @@ export default class NhienLieu extends PureComponent {
     return <Item data={item} />;
   }
 
-  refreshList() {}
+  refreshList() {
+    this.getList();
+  }
 
   render() {
     return (

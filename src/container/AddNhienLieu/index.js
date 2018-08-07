@@ -136,7 +136,7 @@ export default class AddNhienLieu extends PureComponent {
     }
 
     if (this.state.litXang <= 0) {
-      return Alert.alert('Thông báo', 'Vui lòng nhập số lít xăng');
+      return Alert.alert('Thông báo', 'Vui lòng nhập số lít');
     }
     const params = {
       token: this.props.token,
@@ -244,7 +244,7 @@ export default class AddNhienLieu extends PureComponent {
 
           <View style={styles.rowItems}>
             <View style={styles.childItem}>
-              <Text style={styles.textNormal}>Số lít xăng</Text>
+              <Text style={styles.textNormal}>Số lít</Text>
             </View>
             <View style={{ ...styles.childItem, flex: 2 }}>
               <Input
@@ -255,7 +255,7 @@ export default class AddNhienLieu extends PureComponent {
                 }
                 keyboardType="numeric"
                 style={styles.input}
-                placeholder="Lít xăng"
+                placeholder="Lít"
                 underlineColorAndroid="transparent"
               />
             </View>

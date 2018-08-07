@@ -50,7 +50,7 @@ export default class Item extends Component {
             </Text>
 
             <Text style={styles.textNormal}>
-              Số lít xăng:{' '}
+              Số lít:{' '}
               <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
                 {data.xad_total}
               </Text>

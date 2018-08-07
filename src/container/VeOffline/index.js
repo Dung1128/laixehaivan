@@ -15,7 +15,8 @@ import material from '../../theme/variables/material';
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
     did_id: haivanSelectors.getChuyenDi(state),
-    getDataOffline: haivanSelectors.dataOffline(state)
+    getDataOffline: haivanSelectors.dataOffline(state),
+    getConnect: haivanSelectors.saveConnect(state)
   }),
   { ...commonActions, ...haivanActions }
 )
@@ -86,9 +87,12 @@ export default class HuyVe extends React.PureComponent {
                   }
                 });
                 this.props.subObjOffline(newData);
-              } else if (
+              }
+              if (
+                this.props.getConnect &&
+                e &&
                 e.message.message.toString() ===
-                'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
+                  'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
               ) {
                 Alert.alert(
                   'Thông báo',
@@ -104,6 +108,13 @@ export default class HuyVe extends React.PureComponent {
                   }
                 });
                 this.props.subObjOffline(newData);
+              }
+
+              if (!this.props.getConnect) {
+                Alert.alert(
+                  'Thông báo',
+                  'Mạng internet đang không ổn định, vui lòng thử lại sau.'
+                );
               }
             });
           }

@@ -275,7 +275,7 @@ export default class ThanhTra extends React.PureComponent {
         xtt_noi_dung_vi_pham: val.noiDungViPham,
         xtt_loai_vi_pham: this.state.viPham.xdm_id,
         xtt_img: this.state.imageData[0].data,
-        xtt_thong_tin_khac:'Kiem Tra',
+        xtt_thong_tin_khac: 'Kiem Tra',
         xtt_lat: '',
         xtt_long: ''
       }
@@ -283,8 +283,6 @@ export default class ThanhTra extends React.PureComponent {
     this.props.editInfoThanhTra(params, (e, d) => {
       if (d) {
         this.props.setToast('Thành công');
-      } else {
-        this.props.setToast('Lỗi, xin vui lòng thử lại sau');
       }
       Keyboard.dismiss();
     });

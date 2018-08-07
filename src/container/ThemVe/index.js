@@ -110,6 +110,7 @@ export default class ThemVe extends React.PureComponent {
       this.danhMuc.push({ ...item, label: item.bvd_ma_ve, value: item.bvd_id })
     );
 
+    console.log('info', this.props.route.params.infoChuyen);
     console.log('danh muc ve', this.props.route.params.data);
     console.log('detail ve', this.props.route.params.detailVe);
     console.log('this.props.route.params.data', this.props.route.params.data);
@@ -179,7 +180,8 @@ export default class ThemVe extends React.PureComponent {
           if (d) {
             this.props.actionUpdateSDG(new Date());
             this.props.resetTo('soDoGiuong');
-          } else {
+          }
+          if (e && e.message) {
             this.props.setToast(e.message.message, 'error');
           }
         })
