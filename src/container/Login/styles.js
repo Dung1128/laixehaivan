@@ -13,15 +13,17 @@ export default {
   button: {
     width: '100%',
     alignItems: 'center',
-    backgroundColor: material.inputSuccessBorderColor,
+    backgroundColor: material.colorHeader,
     padding: material.paddingNormal - 4
   },
   viewButton: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginTop: material.paddingNormal
   },
   textLogin: {
-    color: material.badgeColor
+    color: material.badgeColor,
+    fontWeight: 'bold'
   },
   footer: {
     width: material.deviceWidth - 32,
@@ -38,12 +40,19 @@ export default {
     paddingBottom: material.paddingSmall,
     marginVertical: material.paddingSmall
   },
-  content: {
-    paddingTop: material.deviceHeight / 5
-  },
+  content: {},
   inputLogin: {
     paddingHorizontal: material.paddingSmall,
     width: '100%',
     height: '100%'
+  },
+  drawerImage: {
+    width: 100,
+    height: 100
+  },
+  viewLogo: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: material.deviceHeight / 18
   }
 };

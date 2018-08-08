@@ -7,7 +7,8 @@ import {
   StatusBar,
   View,
   TextInput,
-  Alert
+  Alert,
+  Image
 } from 'react-native';
 import { reduxForm, Field } from 'redux-form';
 import { InputField } from '../../elements/Form';
@@ -17,6 +18,7 @@ import * as authActions from '../../store/actions/auth';
 import * as haivanActions from '../../store/actions/haivan';
 import * as commonActions from '../../store/actions/common';
 import material from '../../theme/variables/material';
+import images from '../../assets/images';
 
 @connect(
   state => ({}),
@@ -79,65 +81,69 @@ export default class Login extends React.PureComponent {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.content}
         >
-          <View style={styles.textInputContainer}>
-            <Field
-              onSubmitEditing={() => {
-                this.password.focus();
-              }}
-              inputRef={e => (this.phone = e)}
-              keyboardType="default"
-              returnKeyType="next"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Tài khoản'}
-              name={'user'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              IconIcom="contact"
-              inputStyle={styless.input}
-            />
+          <View style={styles.viewLogo}>
+            <Image source={images.logoapp} style={styles.drawerImage} />
           </View>
+          <View style={{ flex: 1 }}>
+            <View style={styles.textInputContainer}>
+              <Field
+                onSubmitEditing={() => {
+                  this.password.focus();
+                }}
+                inputRef={e => (this.phone = e)}
+                keyboardType="default"
+                returnKeyType="next"
+                autoCapitalize={'none'}
+                style={styless.textInput}
+                icon={input => (input.value ? 'close' : null)}
+                onIconPress={input => input.onChange('')}
+                label={'Tài khoản'}
+                name={'user'}
+                component={InputField}
+                autoCorrect={false}
+                placeholderTextColor="#7e7e7e"
+                IconIcom="contact"
+                inputStyle={styless.input}
+              />
+            </View>
 
-          <View style={styless.textInputContainer}>
-            <Field
-              onSubmitEditing={handleSubmit(this.onLogin.bind(this))}
-              inputRef={e => (this.password = e)}
-              passwordOption
-              secureTextEntry={this.state.secureText}
-              keyboardType="default"
-              returnKeyType="done"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Mật khẩu'}
-              name={'password'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              inputStyle={styless.input}
-              icon={input => this.state.iconEye}
-              IconIcom="lock"
-              onIconPress={input => {
-                this.setState({
-                  secureText: !this.state.secureText,
-                  iconEye: this.state.iconEye === 'eye' ? 'eye-slash' : 'eye'
-                });
-              }}
-            />
-          </View>
-          <View style={styles.viewButton}>
-            <TouchableOpacity
-              onPress={handleSubmit(this.onLogin.bind(this))}
-              activeOpacity={0.7}
-              style={styles.button}
-            >
-              <Text style={styles.textLogin}>Đăng nhập</Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity
+            <View style={styless.textInputContainer}>
+              <Field
+                onSubmitEditing={handleSubmit(this.onLogin.bind(this))}
+                inputRef={e => (this.password = e)}
+                passwordOption
+                secureTextEntry={this.state.secureText}
+                keyboardType="default"
+                returnKeyType="done"
+                autoCapitalize={'none'}
+                style={styless.textInput}
+                icon={input => (input.value ? 'close' : null)}
+                onIconPress={input => input.onChange('')}
+                label={'Mật khẩu'}
+                name={'password'}
+                component={InputField}
+                autoCorrect={false}
+                placeholderTextColor="#7e7e7e"
+                inputStyle={styless.input}
+                icon={input => this.state.iconEye}
+                IconIcom="lock"
+                onIconPress={input => {
+                  this.setState({
+                    secureText: !this.state.secureText,
+                    iconEye: this.state.iconEye === 'eye' ? 'eye-slash' : 'eye'
+                  });
+                }}
+              />
+            </View>
+            <View style={styles.viewButton}>
+              <TouchableOpacity
+                onPress={handleSubmit(this.onLogin.bind(this))}
+                activeOpacity={0.7}
+                style={styles.button}
+              >
+                <Text style={styles.textLogin}>Đăng nhập</Text>
+              </TouchableOpacity>
+              {/* <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => this.props.forwardTo('register')}
               style={{
@@ -147,6 +153,7 @@ export default class Login extends React.PureComponent {
             >
               <Text style={styles.textLogin}>Đăng ký</Text>
             </TouchableOpacity> */}
+            </View>
           </View>
           {/* <View style={styles.footer}>
             <TouchableOpacity
