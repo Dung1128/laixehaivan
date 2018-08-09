@@ -130,15 +130,45 @@ export default class SoDoGiuong extends React.PureComponent {
             }
           });
 
-          this.setState({
-            price: _.find(
+          if (
+            _.find(
               _.find(this.state.soDoGiuong.arrGiaVe, {
                 diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
-              }).data,
-              {
-                diem_b: this.state.soDoGiuong.arrInfo.tuy_ben_b
-              }
-            ),
+              })
+            )
+          ) {
+            if (
+              _.find(
+                _.find(this.state.soDoGiuong.arrGiaVe, {
+                  diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
+                }).data,
+                {
+                  diem_b: this.state.soDoGiuong.arrInfo.tuy_ben_b
+                }
+              )
+            ) {
+              this.setState({
+                price: _.find(
+                  _.find(this.state.soDoGiuong.arrGiaVe, {
+                    diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
+                  }).data,
+                  {
+                    diem_b: this.state.soDoGiuong.arrInfo.tuy_ben_b
+                  }
+                )
+              });
+            }
+          }
+
+          this.setState({
+            // price: _.find(
+            //   _.find(this.state.soDoGiuong.arrGiaVe, {
+            //     diem_a: this.state.soDoGiuong.arrInfo.tuy_ben_a
+            //   }).data,
+            //   {
+            //     diem_b: this.state.soDoGiuong.arrInfo.tuy_ben_b
+            //   }
+            // ),
             tongSoVe: this.countVe + this.countOffline
           });
         });
@@ -410,6 +440,7 @@ export default class SoDoGiuong extends React.PureComponent {
       <Container style={{ padding: material.paddingSmall }}>
         <Content showsVerticalScrollIndicator={false}>
           <ItemChuyenDi
+            styleChuyenDi={'#fff'}
             detail
             data={this.state.soDoGiuong.arrInfo}
             tongSoVe={this.state.tongSoVe}

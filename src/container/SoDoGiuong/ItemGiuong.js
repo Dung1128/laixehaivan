@@ -91,362 +91,357 @@ export default class ItemGiuong extends Component {
         : material.deviceWidth / width - 20;
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        {item.data.map(
-          item =>
-            console.log(
-              'amen',
-              _.find(this.props.dataOffline, { bvv_number: item.sdgct_number })
-            ) || (
-              <TouchableOpacity
-                disabled={
-                  _.find(this.props.dataVe, { bvv_number: item.sdgct_number })
-                    .arrVe.lock
-                }
-                onPress={() =>
-                  _.find(this.props.dataOffline, {
-                    bvv_number: item.sdgct_number
-                  })
-                    ? this.props.onCreate(
-                        _.find(this.props.dataOffline, {
-                          bvv_number: item.sdgct_number
-                        })
-                      )
-                    : this.props.onPress(
-                        _.find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                      )
-                }
-                activeOpacity={0.6}
-                style={{
-                  ...styles.itemRow,
-                  width: w,
-                  ...this.checkVe(item.sdgct_number, item.sdgct_label),
-                  ...this.checkVeOffline(item.sdgct_number, item),
-                  ...this.itemActive(item.sdgct_number),
-                  ...this.checkLockColor(item.sdgct_number)
-                }}
-              >
-                <View style={styles.headerVe}>
-                  <Text style={styles.textSmall}>{item.sdgct_label_full}</Text>
-                  {this.props.price ? (
+        {item.data.map(item => (
+          <TouchableOpacity
+            disabled={
+              _.find(this.props.dataVe, { bvv_number: item.sdgct_number }).arrVe
+                .lock
+            }
+            onPress={() =>
+              _.find(this.props.dataOffline, {
+                bvv_number: item.sdgct_number
+              })
+                ? this.props.onCreate(
+                    _.find(this.props.dataOffline, {
+                      bvv_number: item.sdgct_number
+                    })
+                  )
+                : this.props.onPress(
                     _.find(this.props.dataVe, {
                       bvv_number: item.sdgct_number
-                    }).arrVe.bvv_price === 0 &&
-                    _.find(this.props.dataVe, {
+                    })
+                  )
+            }
+            activeOpacity={0.6}
+            style={{
+              ...styles.itemRow,
+              width: w,
+              ...this.checkVe(item.sdgct_number, item.sdgct_label),
+              ...this.checkVeOffline(item.sdgct_number, item),
+              ...this.itemActive(item.sdgct_number),
+              ...this.checkLockColor(item.sdgct_number)
+            }}
+          >
+            <View style={styles.headerVe}>
+              <Text style={styles.textSmall}>{item.sdgct_label_full}</Text>
+              {this.props.price ? (
+                _.find(this.props.dataVe, {
+                  bvv_number: item.sdgct_number
+                }).arrVe.bvv_price === 0 &&
+                _.find(this.props.dataVe, {
+                  bvv_number: item.sdgct_number
+                }).arrVe.bvv_status === 0 && (
+                  <View>
+                    {_.find(this.props.dataOffline, {
                       bvv_number: item.sdgct_number
-                    }).arrVe.bvv_status === 0 && (
+                    }) &&
+                    _.find(this.props.dataOffline, {
+                      bvv_number: item.sdgct_number
+                    }).did_id === this.props.did_id ? (
                       <View>
-                        {_.find(this.props.dataOffline, {
-                          bvv_number: item.sdgct_number
-                        }) &&
-                        _.find(this.props.dataOffline, {
-                          bvv_number: item.sdgct_number
-                        }).did_id === this.props.did_id ? (
-                          <View>
-                            <Text numberOfLines={1} style={styles.textSmall}>
-                              {_.find(this.props.dataOffline, {
-                                bvv_number: item.sdgct_number
-                              }).price > 1000
-                                ? _.find(this.props.dataOffline, {
-                                    bvv_number: item.sdgct_number
-                                  }).price / 1000
-                                : _.find(this.props.dataOffline, {
-                                    bvv_number: item.sdgct_number
-                                  }).price}K
-                            </Text>
-                          </View>
-                        ) : (
-                          <Text numberOfLines={1} style={styles.textSmall}>
-                            {this.props.price.price > 1000
-                              ? this.props.price.price / 1000
-                              : this.props.price.price}K
-                          </Text>
-                        )}
-                      </View>
-                    )
-                  ) : (
-                    <View>
-                      <Text style={styles.textSmall} numberOfLines={1}>
-                        {_.find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        }).arrVe.bvv_price / 1000}K
-                      </Text>
-                      <Text style={styles.textSmall} numberOfLines={1}>
-                        {
-                          _.find(this.props.dataVe, {
+                        <Text numberOfLines={1} style={styles.textSmall}>
+                          {_.find(this.props.dataOffline, {
                             bvv_number: item.sdgct_number
-                          }).arrVe.bvv_ten_khach_hang
-                        }
-                      </Text>
-                    </View>
-                  )}
-                  {!!_.find(this.props.dataVe, {
-                    bvv_number: item.sdgct_number
-                  }) &&
-                    _.find(this.props.dataVe, {
-                      bvv_number: item.sdgct_number
-                    }).arrVe.bvv_status !== 0 && (
+                          }).price > 1000
+                            ? _.find(this.props.dataOffline, {
+                                bvv_number: item.sdgct_number
+                              }).price / 1000
+                            : _.find(this.props.dataOffline, {
+                                bvv_number: item.sdgct_number
+                              }).price}K
+                        </Text>
+                      </View>
+                    ) : (
                       <Text numberOfLines={1} style={styles.textSmall}>
-                        {_.find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        }).arrVe.bvv_price / 1000}K
+                        {this.props.price.price > 1000
+                          ? this.props.price.price / 1000
+                          : this.props.price.price}K
                       </Text>
                     )}
+                  </View>
+                )
+              ) : (
+                <View>
+                  <Text style={styles.textSmall} numberOfLines={1}>
+                    {_.find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    }).arrVe.bvv_price / 1000}K
+                  </Text>
+                  <Text style={styles.textSmall} numberOfLines={1}>
+                    {
+                      _.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ten_khach_hang
+                    }
+                  </Text>
                 </View>
-
-                {this.props.price &&
-                  _.find(this.props.dataVe, {
-                    bvv_number: item.sdgct_number
-                  }).arrVe.bvv_price === 0 &&
-                  _.find(this.props.dataOffline, {
-                    bvv_number: item.sdgct_number
-                  }) &&
-                  _.find(this.props.dataOffline, {
-                    bvv_number: item.sdgct_number
-                  }).did_id === this.props.did_id && (
-                    <View>
-                      <Text style={styles.textSmall} numberOfLines={1}>
-                        {
-                          _.find(this.props.dataOffline, {
-                            bvv_number: item.sdgct_number
-                          }).phone
-                        }
-                      </Text>
-                      <Text style={styles.textSmall} numberOfLines={1}>
-                        {
-                          _.find(this.props.dataOffline, {
-                            bvv_number: item.sdgct_number
-                          }).fullname
-                        }
-                      </Text>
-                    </View>
-                  )}
-
-                {!!_.find(this.props.dataVe, {
+              )}
+              {!!_.find(this.props.dataVe, {
+                bvv_number: item.sdgct_number
+              }) &&
+                _.find(this.props.dataVe, {
                   bvv_number: item.sdgct_number
-                }) &&
-                  _.find(this.props.dataVe, {
-                    bvv_number: item.sdgct_number
-                  }).arrVe.bvv_price !== 0 && (
-                    <View>
-                      <Text
-                        style={{ ...styles.textSmall, fontWeight: 'bold' }}
-                        numberOfLines={1}
-                      >
-                        {
-                          _.find(this.props.dataVe, {
-                            bvv_number: item.sdgct_number
-                          }).arrVe.bvv_phone_di
-                        }
-                      </Text>
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_danh_muc.toString() !== '' && (
-                        <Text style={styles.textSmall}>
-                          Seri:{' '}
-                          {
-                            _.find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            }).arrVe.bvv_danh_muc
-                          }{' '}
-                          /{' '}
-                          {
-                            _.find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            }).arrVe.bvv_seri
-                          }
-                        </Text>
-                      )}
+                }).arrVe.bvv_status !== 0 && (
+                  <Text numberOfLines={1} style={styles.textSmall}>
+                    {_.find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    }).arrVe.bvv_price / 1000}K
+                  </Text>
+                )}
+            </View>
 
-                      {_.find(this.props.dataVe, {
+            {this.props.price &&
+              _.find(this.props.dataVe, {
+                bvv_number: item.sdgct_number
+              }).arrVe.bvv_price === 0 &&
+              _.find(this.props.dataOffline, {
+                bvv_number: item.sdgct_number
+              }) &&
+              _.find(this.props.dataOffline, {
+                bvv_number: item.sdgct_number
+              }).did_id === this.props.did_id && (
+                <View>
+                  <Text style={styles.textSmall} numberOfLines={1}>
+                    {
+                      _.find(this.props.dataOffline, {
                         bvv_number: item.sdgct_number
-                      }) && (
-                        <Text style={styles.textSmall}>
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_ben_a_ma.toString()}{' '}
-                          -{' '}
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_ben_b_ma.toString()}
-                        </Text>
-                      )}
-
-                      {_.find(this.props.dataVe, {
+                      }).phone
+                    }
+                  </Text>
+                  <Text style={styles.textSmall} numberOfLines={1}>
+                    {
+                      _.find(this.props.dataOffline, {
                         bvv_number: item.sdgct_number
-                      }) && (
-                        <Text numberOfLines={2} style={styles.textSmall}>
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_diem_don_khach.toString() !== '' &&
-                            _
-                              .find(this.props.dataVe, {
-                                bvv_number: item.sdgct_number
-                              })
-                              .arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_diem_tra_khach.toString()}
-                        </Text>
-                      )}
+                      }).fullname
+                    }
+                  </Text>
+                </View>
+              )}
 
-                      {_
-                        .find(this.props.dataVe, {
+            {!!_.find(this.props.dataVe, {
+              bvv_number: item.sdgct_number
+            }) &&
+              _.find(this.props.dataVe, {
+                bvv_number: item.sdgct_number
+              }).arrVe.bvv_price !== 0 && (
+                <View>
+                  <Text
+                    style={{ ...styles.textSmall, fontWeight: 'bold' }}
+                    numberOfLines={1}
+                  >
+                    {
+                      _.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_phone_di
+                    }
+                  </Text>
+                  {_
+                    .find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    })
+                    .arrVe.bvv_danh_muc.toString() !== '' && (
+                    <Text style={styles.textSmall}>
+                      Seri:{' '}
+                      {
+                        _.find(this.props.dataVe, {
                           bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_ghi_chu.toString() !== '' && (
-                        <Text style={styles.textSmall}>
-                          Ghi chú:
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_ghi_chu.toString()}
-                        </Text>
-                      )}
-
-                      <Text
-                        style={{ ...styles.textSmall, fontWeight: 'bold' }}
-                        numberOfLines={1}
-                      >
-                        {
-                          _.find(this.props.dataVe, {
-                            bvv_number: item.sdgct_number
-                          }).arrVe.bvv_ten_khach_hang_di
-                        }
-                      </Text>
-                    </View>
+                        }).arrVe.bvv_danh_muc
+                      }{' '}
+                      /{' '}
+                      {
+                        _.find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        }).arrVe.bvv_seri
+                      }
+                    </Text>
                   )}
 
-                {!!_.find(this.props.dataVe, {
-                  bvv_number: item.sdgct_number
-                }) &&
-                  _.find(this.props.dataVe, {
+                  {_.find(this.props.dataVe, {
                     bvv_number: item.sdgct_number
-                  }).arrVe.bvv_price === 0 &&
-                  _.find(this.props.dataVe, {
-                    bvv_number: item.sdgct_number
-                  }).arrVe.bvv_status !== 0 && (
-                    <View>
-                      <Text
-                        style={{ ...styles.textSmall, fontWeight: 'bold' }}
-                        numberOfLines={1}
-                      >
-                        {
-                          _.find(this.props.dataVe, {
-                            bvv_number: item.sdgct_number
-                          }).arrVe.bvv_phone_di
-                        }
-                      </Text>
+                  }) && (
+                    <Text style={styles.textSmall}>
                       {_
                         .find(this.props.dataVe, {
                           bvv_number: item.sdgct_number
                         })
-                        .arrVe.bvv_danh_muc.toString() !== '' && (
-                        <Text style={styles.textSmall}>
-                          Seri:{' '}
-                          {
-                            _.find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            }).arrVe.bvv_danh_muc
-                          }{' '}
-                          /{' '}
-                          {
-                            _.find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            }).arrVe.bvv_seri
-                          }
-                        </Text>
-                      )}
-
-                      {_.find(this.props.dataVe, {
-                        bvv_number: item.sdgct_number
-                      }) && (
-                        <Text style={styles.textSmall}>
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_ben_a_ma.toString()}{' '}
-                          -{' '}
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_ben_b_ma.toString()}
-                        </Text>
-                      )}
-
-                      {_.find(this.props.dataVe, {
-                        bvv_number: item.sdgct_number
-                      }) && (
-                        <Text numberOfLines={2} style={styles.textSmall}>
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_diem_don_khach.toString() !== '' &&
-                            _
-                              .find(this.props.dataVe, {
-                                bvv_number: item.sdgct_number
-                              })
-                              .arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_diem_tra_khach.toString()}
-                        </Text>
-                      )}
-
+                        .arrVe.bvv_ben_a_ma.toString()}{' '}
+                      -{' '}
                       {_
                         .find(this.props.dataVe, {
                           bvv_number: item.sdgct_number
                         })
-                        .arrVe.bvv_ghi_chu.toString() !== '' && (
-                        <Text style={styles.textSmall}>
-                          Ghi chú:
-                          {_
-                            .find(this.props.dataVe, {
-                              bvv_number: item.sdgct_number
-                            })
-                            .arrVe.bvv_ghi_chu.toString()}
-                        </Text>
-                      )}
-
-                      <Text
-                        style={{ ...styles.textSmall, fontWeight: 'bold' }}
-                        numberOfLines={1}
-                      >
-                        {
-                          _.find(this.props.dataVe, {
-                            bvv_number: item.sdgct_number
-                          }).arrVe.bvv_ten_khach_hang_di
-                        }
-                      </Text>
-                    </View>
+                        .arrVe.bvv_ben_b_ma.toString()}
+                    </Text>
                   )}
 
-                {/* <Text>{item.price}</Text> */}
-              </TouchableOpacity>
-            )
-        )}
+                  {_.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }) && (
+                    <Text numberOfLines={2} style={styles.textSmall}>
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_diem_don_khach.toString() !== '' &&
+                        _
+                          .find(this.props.dataVe, {
+                            bvv_number: item.sdgct_number
+                          })
+                          .arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_diem_tra_khach.toString()}
+                    </Text>
+                  )}
+
+                  {_
+                    .find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    })
+                    .arrVe.bvv_ghi_chu.toString() !== '' && (
+                    <Text style={styles.textSmall}>
+                      Ghi chú:
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_ghi_chu.toString()}
+                    </Text>
+                  )}
+
+                  <Text
+                    style={{ ...styles.textSmall, fontWeight: 'bold' }}
+                    numberOfLines={1}
+                  >
+                    {
+                      _.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ten_khach_hang_di
+                    }
+                  </Text>
+                </View>
+              )}
+
+            {!!_.find(this.props.dataVe, {
+              bvv_number: item.sdgct_number
+            }) &&
+              _.find(this.props.dataVe, {
+                bvv_number: item.sdgct_number
+              }).arrVe.bvv_price === 0 &&
+              _.find(this.props.dataVe, {
+                bvv_number: item.sdgct_number
+              }).arrVe.bvv_status !== 0 && (
+                <View>
+                  <Text
+                    style={{ ...styles.textSmall, fontWeight: 'bold' }}
+                    numberOfLines={1}
+                  >
+                    {
+                      _.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_phone_di
+                    }
+                  </Text>
+                  {_
+                    .find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    })
+                    .arrVe.bvv_danh_muc.toString() !== '' && (
+                    <Text style={styles.textSmall}>
+                      Seri:{' '}
+                      {
+                        _.find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        }).arrVe.bvv_danh_muc
+                      }{' '}
+                      /{' '}
+                      {
+                        _.find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        }).arrVe.bvv_seri
+                      }
+                    </Text>
+                  )}
+
+                  {_.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }) && (
+                    <Text style={styles.textSmall}>
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_ben_a_ma.toString()}{' '}
+                      -{' '}
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_ben_b_ma.toString()}
+                    </Text>
+                  )}
+
+                  {_.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }) && (
+                    <Text numberOfLines={2} style={styles.textSmall}>
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_diem_don_khach.toString() !== '' &&
+                        _
+                          .find(this.props.dataVe, {
+                            bvv_number: item.sdgct_number
+                          })
+                          .arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_diem_tra_khach.toString()}
+                    </Text>
+                  )}
+
+                  {_
+                    .find(this.props.dataVe, {
+                      bvv_number: item.sdgct_number
+                    })
+                    .arrVe.bvv_ghi_chu.toString() !== '' && (
+                    <Text style={styles.textSmall}>
+                      Ghi chú:
+                      {_
+                        .find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        })
+                        .arrVe.bvv_ghi_chu.toString()}
+                    </Text>
+                  )}
+
+                  <Text
+                    style={{ ...styles.textSmall, fontWeight: 'bold' }}
+                    numberOfLines={1}
+                  >
+                    {
+                      _.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ten_khach_hang_di
+                    }
+                  </Text>
+                </View>
+              )}
+
+            {/* <Text>{item.price}</Text> */}
+          </TouchableOpacity>
+        ))}
       </View>
     );
   }
 
   renderItem(data, index) {
+    console.log('data', data);
     return (
       data.data.length !== 0 && (
         <View style={styles.card}>
@@ -470,6 +465,7 @@ export default class ItemGiuong extends Component {
     const { data, dataVe, dataOffline } = this.props;
     // console.log('data offline', dataOffline);
     // console.log('dataVe', dataVe);
+    console.log('DATA', this.props.data);
 
     return (
       <View>{data.map((item, index) => this.renderItem(item, index))}</View>

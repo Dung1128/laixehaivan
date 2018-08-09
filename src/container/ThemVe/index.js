@@ -80,6 +80,13 @@ export default class ThemVe extends React.PureComponent {
           ? _.find(this.props.route.params.data, {
               bex_id: this.props.route.params.infoChuyen.tuy_ben_a
             })
+            ? _.find(this.props.route.params.data, {
+                bex_id: this.props.route.params.infoChuyen.tuy_ben_a
+              })
+            : {
+                bex_id: 'Mời chọn chuyến',
+                bex_id: 0
+              }
           : _.find(this.props.route.params.data, {
               bex_id: this.props.route.params.detailVe.arrVe.bvv_bex_id_a
             }),
@@ -88,6 +95,13 @@ export default class ThemVe extends React.PureComponent {
           ? _.find(this.props.route.params.data, {
               bex_id: this.props.route.params.infoChuyen.tuy_ben_b
             })
+            ? _.find(this.props.route.params.data, {
+                bex_id: this.props.route.params.infoChuyen.tuy_ben_b
+              })
+            : {
+                bex_id: 'Mời chọn chuyến',
+                bex_id: 0
+              }
           : _.find(this.props.route.params.data, {
               bex_id: this.props.route.params.detailVe.arrVe.bvv_bex_id_b
             }),
@@ -95,7 +109,7 @@ export default class ThemVe extends React.PureComponent {
       detailVe: this.props.route.params.detailVe,
       seri: this.props.route.params.detailVe.arrVe.bvv_seri,
       key_danh_muc: '',
-      giam_gia_text: '',
+      giam_gia_text: this.props.route.params.detailVe.arrVe.bvv_giu_code,
       hinh_thuc_giam_gia: '',
       phone: this.props.route.params.detailVe.arrVe.bvv_phone,
       checkGiamGiaText:
@@ -313,16 +327,46 @@ export default class ThemVe extends React.PureComponent {
       this.props.setToast('Xin mời nhập điểm đến');
     }
 
-    this.setState({
-      price: _.find(
+    if (
+      _.find(
         _.find(this.props.route.params.dataGiaVe, {
           diem_a: this.state.diemdi.bex_id
-        }).data,
-        {
-          diem_b: this.state.diemden.bex_id
-        }
+        })
       )
-    });
+    ) {
+      if (
+        _.find(
+          _.find(this.props.route.params.dataGiaVe, {
+            diem_a: this.state.diemdi.bex_id
+          }).data,
+          {
+            diem_b: this.state.diemden.bex_id
+          }
+        )
+      ) {
+        this.setState({
+          price: _.find(
+            _.find(this.props.route.params.dataGiaVe, {
+              diem_a: this.state.diemdi.bex_id
+            }).data,
+            {
+              diem_b: this.state.diemden.bex_id
+            }
+          )
+        });
+      }
+    }
+
+    //   this.setState({
+    //     price: _.find(
+    //       _.find(this.props.route.params.dataGiaVe, {
+    //         diem_a: this.state.diemdi.bex_id
+    //       }).data,
+    //       {
+    //         diem_b: this.state.diemden.bex_id
+    //       }
+    //     )
+    //   });
   }
 
   checkSelectedDiemDi(val) {
@@ -407,7 +451,13 @@ export default class ThemVe extends React.PureComponent {
       case 4:
         return this.viewSeri('Hình thức khuyến mãi', 'Trẻ em');
       case 6:
-        return this.viewSeri('Hình thức khuyến mãi', 'Mã khuyến mãi');
+        return (
+          <View>
+            {this.viewSeri('Hình thức khuyến mãi', 'Mã khuyến mãi')}
+            {this.viewSeri('Mã khuyến mãi', this.state.giam_gia_text)}
+          </View>
+        );
+
       default:
         return <View />;
     }
@@ -447,7 +497,7 @@ export default class ThemVe extends React.PureComponent {
 
   render() {
     const { handleSubmit } = this.props;
-
+    const totalPrice = this.state.price.price - this.state.giamgia;
     console.log(this.props.getConnect);
 
     return (
@@ -758,6 +808,7 @@ export default class ThemVe extends React.PureComponent {
                     }}
                   >
                     <TextInput
+                      defaultValue={this.state.giam_gia_text}
                       underlineColorAndroid="transparent"
                       style={styles.fieldInput}
                       placeholder="Mã giảm giá"
@@ -819,7 +870,7 @@ export default class ThemVe extends React.PureComponent {
             {this.renderGiave('Giảm:', this.state.giamgia)}
             {this.renderGiave(
               'Giá vé:',
-              this.state.price && this.state.price.price - this.state.giamgia
+              this.state.price && totalPrice > 0 ? totalPrice : 0
             )}
           </View>
           {this.state.detailVe.arrVe.bvv_status !== 0 ? (

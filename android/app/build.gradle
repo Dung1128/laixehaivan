@@ -113,27 +113,27 @@ android {
     buildToolsVersion "26.0.2"
 
     defaultConfig {
-        applicationId "com.hasonhaivan.haivan"
+        applicationId "com.applaixe"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 26
+        versionName "2.6"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
     }
     signingConfigs {
         debug{
-            storeFile file(HAIVAN_STORE_FILE)
+            storeFile file(HAIVAN_STORE_FILE_OLD)
             storePassword pass // Change this
-            keyAlias HAIVAN_KEY_ALIAS
+            keyAlias HAIVAN_KEY_ALIAS_OLD
             keyPassword pass // Change this
         }
         release {
-            if (project.hasProperty('HAIVAN_STORE_FILE')) {
-                storeFile file(HAIVAN_STORE_FILE)
+            if (project.hasProperty('HAIVAN_STORE_FILE_OLD')) {
+                storeFile file(HAIVAN_STORE_FILE_OLD)
                 storePassword pass // Change this
-                keyAlias HAIVAN_KEY_ALIAS
+                keyAlias HAIVAN_KEY_ALIAS_OLD
                 keyPassword pass // Change this
             }
         }

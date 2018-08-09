@@ -93,7 +93,7 @@ export default class ChieuDi extends React.PureComponent {
   }
 
   renderItem({ item, index }) {
-    return <Item data={item} />;
+    return <Item logo styleChuyenDi={item.color_loai_xe} data={item} />;
   }
 
   renderFooter() {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Card } from 'native-base';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import moment from 'moment';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -23,7 +23,7 @@ export default class Item extends Component {
   };
 
   render() {
-    const { data, detail } = this.props;
+    const { data, detail, styleChuyenDi, logo } = this.props;
 
     return (
       <TouchableOpacity
@@ -35,145 +35,170 @@ export default class Item extends Component {
             this.props.forwardTo('addBangDieuDo', { data: data });
         }}
       >
-        <Card style={styles.card}>
-          {detail && (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
-            >
-              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {data.tuy_ten}
-              </Text>
-              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {data.did_gio_xuat_ben_that} - {data.did_gio_dieu_hanh}
-              </Text>
-            </View>
-          )}
-          {!detail && (
-            <Text style={styles.textNormal}>
-              {data.did_gio_xuat_ben_that} -> {data.did_gio_dieu_hanh}
-            </Text>
-          )}
-
-          {detail && (
-            <Text style={styles.textNormal}>
-              Ngày:{' '}
-              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {data.day}
-              </Text>
-            </Text>
-          )}
-
-          <Text style={styles.textNormal}>
-            Biển kiểm soát:{' '}
-            <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-              {data.bien_kiem_soat}
-            </Text>
-          </Text>
-          {!detail && <Text style={styles.textNormal}>{data.tuy_ten}</Text>}
-
-          <Text style={styles.textNormal}>
-            Lái xe 1:{' '}
-            <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-              {data.laixe1}
-            </Text>
-          </Text>
-          <Text style={styles.textNormal}>
-            Lái xe 2:{' '}
-            <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-              {data.laixe2}
-            </Text>
-          </Text>
-          <Text style={styles.textNormal}>
-            Tiếp viên:{' '}
-            <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-              {data.tiepvien}
-            </Text>
-          </Text>
-          {detail && (
-            <View>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.textNormal}>
-                  Đã đặt:{' '}
-                  <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                    {this.props.tongSoVe}
-                  </Text>
-                </Text>
-                <Text
-                  style={{
-                    ...styles.textNormal,
-                    marginLeft: material.paddingNormal
-                  }}
-                >
-                  Còn trống:{' '}
-                  <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                    {data.tong_so_cho - this.props.tongSoVe}/{data.tong_so_cho}
-                  </Text>
-                </Text>
-              </View>
+        <Card
+          style={{
+            ...styles.card,
+            backgroundColor: styleChuyenDi
+          }}
+        >
+          <View style={{ flex: 2.5 }}>
+            {detail && (
               <View
                 style={{
                   flexDirection: 'row',
-                  paddingVertical: material.paddingSmall
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
                 }}
               >
-                <View style={styles.rowNote}>
-                  <View style={styles.note} />
+                <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                  {data.tuy_ten}
+                </Text>
+                <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                  {data.did_gio_xuat_ben_that} - {data.did_gio_dieu_hanh}
+                </Text>
+              </View>
+            )}
+            {!detail && (
+              <Text style={styles.textNormal}>
+                {data.did_gio_xuat_ben_that} -> {data.did_gio_dieu_hanh}
+              </Text>
+            )}
+
+            {detail && (
+              <Text style={styles.textNormal}>
+                Ngày:{' '}
+                <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                  {data.day}
+                </Text>
+              </Text>
+            )}
+
+            <Text style={styles.textNormal}>
+              Biển kiểm soát:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.bien_kiem_soat}
+              </Text>
+            </Text>
+            {!detail && <Text style={styles.textNormal}>{data.tuy_ten}</Text>}
+
+            <Text style={styles.textNormal}>
+              Lái xe 1:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.laixe1}
+              </Text>
+            </Text>
+            <Text style={styles.textNormal}>
+              Lái xe 2:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.laixe2}
+              </Text>
+            </Text>
+            <Text style={styles.textNormal}>
+              Tiếp viên:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.tiepvien}
+              </Text>
+            </Text>
+            {detail && (
+              <View>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={styles.textNormal}>
+                    Đã đặt:{' '}
+                    <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                      {this.props.tongSoVe}
+                    </Text>
+                  </Text>
                   <Text
                     style={{
                       ...styles.textNormal,
-                      marginLeft: material.paddingSmall
+                      marginLeft: material.paddingNormal
                     }}
                   >
-                    Đã lên xe{' '}
+                    Còn trống:{' '}
+                    <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                      {data.tong_so_cho - this.props.tongSoVe}/{
+                        data.tong_so_cho
+                      }
+                    </Text>
                   </Text>
                 </View>
                 <View
                   style={{
-                    ...styles.rowNote,
-                    marginLeft: material.paddingNormal
+                    flexDirection: 'row',
+                    paddingVertical: material.paddingSmall
                   }}
                 >
+                  <View style={styles.rowNote}>
+                    <View style={styles.note} />
+                    <Text
+                      style={{
+                        ...styles.textNormal,
+                        marginLeft: material.paddingSmall
+                      }}
+                    >
+                      Đã lên xe{' '}
+                    </Text>
+                  </View>
                   <View
                     style={{
-                      ...styles.note,
-                      backgroundColor: material.colorRequest
-                    }}
-                  />
-                  <Text
-                    style={{
-                      ...styles.textNormal,
-                      marginLeft: material.paddingSmall
+                      ...styles.rowNote,
+                      marginLeft: material.paddingNormal
                     }}
                   >
-                    Đã book
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    ...styles.rowNote,
-                    marginLeft: material.paddingNormal
-                  }}
-                >
+                    <View
+                      style={{
+                        ...styles.note,
+                        backgroundColor: material.colorRequest
+                      }}
+                    />
+                    <Text
+                      style={{
+                        ...styles.textNormal,
+                        marginLeft: material.paddingSmall
+                      }}
+                    >
+                      Đã book
+                    </Text>
+                  </View>
                   <View
                     style={{
-                      ...styles.note,
-                      backgroundColor: material.segmentBackgroundColor
-                    }}
-                  />
-                  <Text
-                    style={{
-                      ...styles.textNormal,
-                      marginLeft: material.paddingSmall
+                      ...styles.rowNote,
+                      marginLeft: material.paddingNormal
                     }}
                   >
-                    Vé offline
-                  </Text>
+                    <View
+                      style={{
+                        ...styles.note,
+                        backgroundColor: material.segmentBackgroundColor
+                      }}
+                    />
+                    <Text
+                      style={{
+                        ...styles.textNormal,
+                        marginLeft: material.paddingSmall
+                      }}
+                    >
+                      Vé offline
+                    </Text>
+                  </View>
                 </View>
               </View>
+            )}
+          </View>
+          {logo && (
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <Image
+                source={{
+                  uri: data.urlImg
+                }}
+                style={styles.drawerImage}
+              />
             </View>
           )}
         </Card>

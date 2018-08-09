@@ -10,7 +10,9 @@ export default {
   card: {
     padding: material.paddingSmall,
     borderRadius: 5,
-    marginBottom: material.paddingSmall
+    marginBottom: material.paddingSmall,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   note: {
     width: 16,
@@ -23,5 +25,9 @@ export default {
   },
   textSmall: {
     fontSize: material.textSmall
+  },
+  drawerImage: {
+    width: 50,
+    height: 50
   }
 };

@@ -1,4 +1,4 @@
-package com.hasonhaivan.haivan;
+package com.applaixe;
 
 import android.app.Application;
 

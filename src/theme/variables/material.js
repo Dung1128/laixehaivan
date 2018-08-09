@@ -203,6 +203,12 @@ export default {
       .hex();
   },
 
+  get defaultColoVip() {
+    return color(this.colorHeader)
+      .lighten(0.4)
+      .hex();
+  },
+
   // Icon
   iconFamily: 'Ionicons',
   iconFontSize: platform === 'ios' ? 30 : 28,

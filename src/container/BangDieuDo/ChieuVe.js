@@ -67,7 +67,15 @@ export default class ChieuVe extends React.PureComponent {
   }
 
   renderItem({ item, index }) {
-    return <Item bangdieudo lichdieuhanh data={item} />;
+    return (
+      <Item
+        logo
+        styleChuyenDi={item.color_loai_xe}
+        bangdieudo
+        lichdieuhanh
+        data={item}
+      />
+    );
   }
 
   renderFooter() {
