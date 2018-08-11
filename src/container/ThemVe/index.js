@@ -120,9 +120,6 @@ export default class ThemVe extends React.PureComponent {
     };
 
     this.danhMuc = [];
-    this.props.dmVe.dataDM.map(item =>
-      this.danhMuc.push({ ...item, label: item.bvd_ma_ve, value: item.bvd_id })
-    );
 
     console.log('info', this.props.route.params.infoChuyen);
     console.log('danh muc ve', this.props.route.params.data);
@@ -288,7 +285,7 @@ export default class ThemVe extends React.PureComponent {
         if (e.message.message) {
           this.props.setToast(e.message.message, 'error');
         } else {
-          this.props.setToast(e.message.mes.message, 'error');
+          this.props.setToast(e.message.message, 'error');
         }
       }
     });
@@ -831,6 +828,7 @@ export default class ThemVe extends React.PureComponent {
 
           {this.state.detailVe.arrVe.bvv_seri === 0 && (
             <DanhMucVe
+              price={this.state.price.price - this.state.giamgia}
               seri={this.state.seri}
               // initialValue={}
               data={[{ ...{ label: 'Bỏ chọn', value: 0 } }, ...this.danhMuc]}

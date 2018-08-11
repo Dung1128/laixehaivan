@@ -212,6 +212,38 @@ export default class ItemGiuong extends Component {
                     {
                       _.find(this.props.dataOffline, {
                         bvv_number: item.sdgct_number
+                      }).diem_tra
+                    }
+                    {_
+                      .find(this.props.dataOffline, {
+                        bvv_number: item.sdgct_number
+                      })
+                      .diem_tra.toString() !== '' && ' - '}
+                    {
+                      _.find(this.props.dataOffline, {
+                        bvv_number: item.sdgct_number
+                      }).diem_don
+                    }
+                  </Text>
+
+                  <Text style={styles.textSmall} numberOfLines={1}>
+                    {_
+                      .find(this.props.dataOffline, {
+                        bvv_number: item.sdgct_number
+                      })
+                      .ghi_chu.toString() !== '' && 'Ghi chú: '}
+
+                    {
+                      _.find(this.props.dataOffline, {
+                        bvv_number: item.sdgct_number
+                      }).ghi_chu
+                    }
+                  </Text>
+
+                  <Text style={styles.textSmall} numberOfLines={1}>
+                    {
+                      _.find(this.props.dataOffline, {
+                        bvv_number: item.sdgct_number
                       }).fullname
                     }
                   </Text>

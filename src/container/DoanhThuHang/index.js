@@ -34,7 +34,7 @@ export default class DoanhThuHang extends PureComponent {
       token: this.props.token,
       adm_id: this.props.profile.adm_id,
       did_id: this.props.did_id,
-      dt_hang: this.state.doanhThuHang
+      dt_hang: parseInt(this.state.doanhThuHang)
     };
     this.props.updateDoanhThuHang(params);
   }

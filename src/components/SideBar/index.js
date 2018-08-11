@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Image, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
-import { Content, Text, ListItem, Left, View } from 'native-base';
+import { Content, Text, ListItem, Left, View, Container } from 'native-base';
 import * as authSelectors from '../../store/selectors/auth';
 import * as haivanSelectors from '../../store/selectors/haivan';
 import * as authActions from '../../store/actions/auth';
@@ -241,45 +241,50 @@ export default class extends PureComponent {
     const { router } = this.props;
 
     return (
-      <Content bounces={false} style={styles.container}>
-        <ListItem
-          onPress={this.onFanProfilePress.bind(this)}
-          style={styles.drawerCover}
-        >
-          <Text small style={styles.text}>
-            {this.props.profile.adm_name}
-          </Text>
-        </ListItem>
-        <View style={styles.listItemContainer}>
-          {this.state.listMenu &&
-            this.state.listMenu.map((item, index) => {
-              const isCurrent = router.routeName === item.route;
-              return (
-                <ListItem
-                  noBorder
-                  key={index}
-                  button
-                  onPress={() => this.navigateTo(item.route)}
-                >
-                  <Left>
-                    <Icon
-                      name={item.icon}
-                      style={[styles.icon, isCurrent && { color: '#E3B02B' }]}
-                    />
-                    <Text
-                      style={[
-                        styles.iconText,
-                        isCurrent && { color: '#E3B02B' }
-                      ]}
-                    >
-                      {item.name}
-                    </Text>
-                  </Left>
-                </ListItem>
-              );
-            })}
+      <Container>
+        <Content bounces={false} style={styles.container}>
+          <ListItem
+            onPress={this.onFanProfilePress.bind(this)}
+            style={styles.drawerCover}
+          >
+            <Text small style={styles.text}>
+              {this.props.profile.adm_name}
+            </Text>
+          </ListItem>
+          <View style={styles.listItemContainer}>
+            {this.state.listMenu &&
+              this.state.listMenu.map((item, index) => {
+                const isCurrent = router.routeName === item.route;
+                return (
+                  <ListItem
+                    noBorder
+                    key={index}
+                    button
+                    onPress={() => this.navigateTo(item.route)}
+                  >
+                    <Left>
+                      <Icon
+                        name={item.icon}
+                        style={[styles.icon, isCurrent && { color: '#E3B02B' }]}
+                      />
+                      <Text
+                        style={[
+                          styles.iconText,
+                          isCurrent && { color: '#E3B02B' }
+                        ]}
+                      >
+                        {item.name}
+                      </Text>
+                    </Left>
+                  </ListItem>
+                );
+              })}
+          </View>
+        </Content>
+        <View style={styles.footer}>
+          <Text style={styles.iconText}>App version: 2.8 </Text>
         </View>
-      </Content>
+      </Container>
     );
   }
 }

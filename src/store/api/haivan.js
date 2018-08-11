@@ -75,7 +75,7 @@ export default {
     API.get(
       `/api/appdriver/get-danh-muc-ve?adm_id=${params.adm_id}&token=${
         params.token
-      }&did_id=${params.did_id}`
+      }&did_id=${params.did_id}&price=${params.price}`
     ),
 
   getSeriMin: params =>

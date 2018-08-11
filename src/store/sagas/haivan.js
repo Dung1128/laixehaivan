@@ -8,42 +8,42 @@ const requestListChuyenDi = createRequestSaga({
   request: haivan.listChuyenDi,
   key: 'listChuyenDi',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: [() => setToast('Lỗi, Không lấy được danh sách chuyến đi', 'error')]
 });
 
 const requestGetSoDoGiuong = createRequestSaga({
   request: haivan.getSoDoGiuong,
   key: 'getSoDoGiuong',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: [() => setToast('Lỗi, Không lấy được sơ đồ giường', 'error')]
 });
 
 const requestListHuyVe = createRequestSaga({
   request: haivan.listHuyVe,
   key: 'listHuyVe',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
+  failure: [() => setToast('Lỗi, Không lấy được danh sách', 'error')]
 });
 
 const requestListXuongXe = createRequestSaga({
   request: haivan.listXuongXe,
   key: 'listXuongXe',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: [() => setToast('Lỗi, Không lấy được danh sách', 'error')]
 });
 
 const requestMenu = createRequestSaga({
   request: haivan.getMenu,
   key: 'getMenu',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
+  failure: [() => setToast('Lỗi, Không lấy được menu', 'error')]
 });
 
 const requestCheckVersion = createRequestSaga({
   request: haivan.checkVersion,
   key: 'checkVersion',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
+  failure: [() => setToast('Lỗi, Không lấy được version', 'error')]
 });
 
 const requestInsertVe = createRequestSaga({
@@ -57,21 +57,21 @@ const requestUpdateVe = createRequestSaga({
   request: haivan.updateVe,
   key: 'updateVe',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
+  failure: [() => setToast('Lỗi, Không cập nhật được vé', 'error')]
 });
 
 const requestGetDanhMucVe = createRequestSaga({
   request: haivan.getDanhMucVe,
   key: 'getDanhMucVe',
   success: [data => saveDanhMucVe(data)],
-  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
+  failure: [() => setToast('Lỗi, không lấy được danh mục vé', 'error')]
 });
 
 const requestGetSeriMin = createRequestSaga({
   request: haivan.getSeriMin,
   key: 'getSeriMin',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng gửi lại', 'error')]
+  failure: [() => setToast('Lỗi, không lấy được seri vé', 'error')]
 });
 
 const requestXuongXe = createRequestSaga({
@@ -85,7 +85,7 @@ const requestGiamGiaTreEm = createRequestSaga({
   request: haivan.giamGiaTreEm,
   key: 'giamGiaTreEm',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng gửi lại vé', 'error')]
+  failure: [() => setToast('Lỗi, không lấy được giảm giá', 'error')]
 });
 
 const requestGiamGiaText = createRequestSaga({
@@ -99,14 +99,14 @@ const requestHuyVe = createRequestSaga({
   request: haivan.huyVe,
   key: 'huyVe',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: [() => setToast('Lỗi, Không huỷ được vé', 'error')]
 });
 
 const requestDanhSachCho = createRequestSaga({
   request: haivan.danhSachCho,
   key: 'danhSachCho',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: [() => setToast('Lỗi, Không lấy được danh sách chờ', 'error')]
 });
 
 const requestChuyenCho = createRequestSaga({
@@ -134,21 +134,28 @@ const requestRemoveGhe = createRequestSaga({
   request: haivan.removeGhe,
   key: 'removeGhe',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: [
+    () =>
+      setToast('Lỗi, Không chuyển được chỗ, xin vui lòng thử lại sau', 'error')
+  ]
 });
 
 const requestThemVe = createRequestSaga({
   request: haivan.themVe,
   key: 'themVe',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: [
+    () => setToast('Lỗi, Không thêm được vé, xin vui lòng thử lại sau', 'error')
+  ]
 });
 
 const requestLenXe = createRequestSaga({
   request: haivan.lenXe,
   key: 'lenXe',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: [
+    () => setToast('Lỗi, Không lên được xe, xin vui lòng thử lại sau', 'error')
+  ]
 });
 
 const requestTraKhach = createRequestSaga({

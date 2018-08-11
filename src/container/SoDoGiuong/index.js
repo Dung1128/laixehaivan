@@ -64,17 +64,7 @@ export default class SoDoGiuong extends React.PureComponent {
 
   componentDidMount() {
     this.getList(this.props.did_id, this.props.getDataOffline);
-    this.danhMucVe(this.props.did_id);
-  }
-
-  danhMucVe(did_id) {
-    const params = {
-      token: this.props.token,
-      did_id: did_id,
-      adm_id: this.props.profile.adm_id
-    };
-
-    this.props.getDanhMucVe(params);
+    // this.danhMucVe(this.props.did_id);
   }
 
   getList(did_id, dataOff) {
@@ -334,7 +324,7 @@ export default class SoDoGiuong extends React.PureComponent {
 
     if (this.props.did_id !== nextProps.did_id && nextProps.token !== null) {
       this.getList(nextProps.did_id, nextProps.getDataOffline);
-      this.danhMucVe(nextProps.did_id);
+      // this.danhMucVe(nextProps.did_id);
     }
 
     if (
@@ -365,7 +355,7 @@ export default class SoDoGiuong extends React.PureComponent {
         console.log('nextProps.getDataOffline', nextProps.getDataOffline);
         this.props.getConnect &&
           this.getList(this.props.did_id, nextProps.getDataOffline);
-        this.props.getConnect && this.danhMucVe(this.props.did_id);
+        // this.props.getConnect && this.danhMucVe(this.props.did_id);
       }
     }
   }
@@ -405,7 +395,7 @@ export default class SoDoGiuong extends React.PureComponent {
                   'Thông báo',
                   'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
                 );
-                this.danhMucVe(this.props.did_id);
+                // this.danhMucVe(this.props.did_id);
 
                 this.props.getDataOffline.map((it, index) => {
                   if (

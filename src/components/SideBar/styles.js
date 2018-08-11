@@ -79,5 +79,10 @@ export default StyleSheet.create({
     marginLeft: 20,
     fontSize: material.textNormal,
     textAlign: 'center'
+  },
+  footer: {
+    padding: 15,
+    position: 'absolute',
+    bottom: 0
   }
 });
