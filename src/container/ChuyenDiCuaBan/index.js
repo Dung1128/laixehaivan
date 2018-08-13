@@ -45,7 +45,6 @@ export default class ChuyenDiCuaBan extends React.PureComponent {
         this.props.saveMenu(d.arrMenu);
       }
     });
-    this.props.forwardTo('chuyenDiCuaBan');
   }
 
   render() {

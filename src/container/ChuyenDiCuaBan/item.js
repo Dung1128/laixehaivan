@@ -27,10 +27,13 @@ export default class Item extends Component {
 
     return (
       <TouchableOpacity
+        disabled={this.props.lichDieuHanh}
         activeOpacity={0.8}
         onPress={() => {
           this.props.saveChuyenDi(data.did_id);
-          !this.props.lichdieuhanh && this.props.forwardTo('soDoGiuong');
+          !this.props.bangdieudo &&
+            !this.props.lichDieuHanh &&
+            this.props.forwardTo('soDoGiuong');
           this.props.bangdieudo &&
             this.props.forwardTo('addBangDieuDo', { data: data });
         }}
@@ -116,9 +119,8 @@ export default class Item extends Component {
                   >
                     Còn trống:{' '}
                     <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                      {data.tong_so_cho - this.props.tongSoVe}/{
-                        data.tong_so_cho
-                      }
+                      {data.tong_so_cho - this.props.tongSoVe}/
+                      {data.tong_so_cho}
                     </Text>
                   </Text>
                 </View>
