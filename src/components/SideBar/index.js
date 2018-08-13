@@ -11,7 +11,7 @@ import * as commonActions from '../../store/actions/common';
 import { getRouter } from '../../store/selectors/common';
 import images from '../../assets/images';
 import Icon from '../../elements/Icon';
-
+import platform from '../../theme/variables/platform';
 import options from './options';
 import styles from './styles';
 
@@ -282,7 +282,11 @@ export default class extends PureComponent {
           </View>
         </Content>
         <View style={styles.footer}>
-          <Text style={styles.iconText}>App version: 2.8 </Text>
+          <Text style={styles.iconText}>
+            {platform.platform === 'ios'
+              ? `App version: 1.3`
+              : `App version: 2.9`}
+          </Text>
         </View>
       </Container>
     );

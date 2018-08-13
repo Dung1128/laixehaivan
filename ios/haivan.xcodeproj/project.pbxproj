@@ -39,11 +39,13 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* haivanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* haivanTests.m */; };
 		3A01587A204CFD4C00795610 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A015877204CFD4600795610 /* libART.a */; };
+		40D8A74421211CD400C09197 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D8A74321211CD400C09197 /* SystemConfiguration.framework */; };
 		4CCDD5F493F845EAB3F41F57 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97DE8366191B4B329C974001 /* Ionicons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		681FFA17A8154FB58ADF6164 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FEA3A2554CB4705B304AE57 /* Feather.ttf */; };
 		81527A6C37604F6886359556 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C760B8923594013A9C7FF9D /* EvilIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8D4B0E5AA18A49B3A6A2DDCE /* libRNNetworkState.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3FD13CA936E427090A859FE /* libRNNetworkState.a */; };
 		923B7289BF784BB68AC4ADB8 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ECC3EAEBAC744F4992B01709 /* icomoon.ttf */; };
 		A816D9A41E42443C88229AAC /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 161338342D344DD49E60E818 /* MaterialCommunityIcons.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -340,6 +342,13 @@
 			remoteGlobalIDString = 1441618E1BD0A79300FA4F59;
 			remoteInfo = RCTContacts;
 		};
+		40D8A74121211C7200C09197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21C4F7376E7745B7A6E2460B /* RNNetworkState.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNNetworkState;
+		};
 		5E9157321DD0AC6500FF2AA8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
@@ -400,6 +409,7 @@
 		161338342D344DD49E60E818 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		1B07DAB481374FC9B6E57F8F /* RCTContacts.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTContacts.xcodeproj; path = "../node_modules/react-native-contacts/ios/RCTContacts.xcodeproj"; sourceTree = "<group>"; };
 		1F1994F1A8E44E18850E345E /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		21C4F7376E7745B7A6E2460B /* RNNetworkState.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNNetworkState.xcodeproj; path = "../node_modules/react-native-network-state/ios/RNNetworkState.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* haivan-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "haivan-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* haivan-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "haivan-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -408,6 +418,7 @@
 		3A015871204CFD4600795610 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		3C760B8923594013A9C7FF9D /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		40377191CF664061BA4E48E7 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
+		40D8A74321211CD400C09197 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4D27A404EB4842608A99D95C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		4E23DC0B3A254C34BDEF2941 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		4FEA3A2554CB4705B304AE57 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -422,6 +433,7 @@
 		97DE8366191B4B329C974001 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		A701AC616C6F482F900DB8C2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		C3FD13CA936E427090A859FE /* libRNNetworkState.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNetworkState.a; sourceTree = "<group>"; };
 		C5C8E0A507CF4BB4B7611F65 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		EB9FC1100B12410385161268 /* libRNPhotoView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNPhotoView.a; sourceTree = "<group>"; };
 		EC5CA8CD016745789A31802C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -443,6 +455,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40D8A74421211CD400C09197 /* SystemConfiguration.framework in Frameworks */,
 				3A01587A204CFD4C00795610 /* libART.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -461,6 +474,7 @@
 				F26AD42F645643FCB3D184C5 /* libRNPhotoView.a in Frameworks */,
 				DF3B6603D2754BC08B515AB2 /* libRNVectorIcons.a in Frameworks */,
 				E0180186516549EDB6A9CD1C /* libRCTContacts.a in Frameworks */,
+				8D4B0E5AA18A49B3A6A2DDCE /* libRNNetworkState.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +622,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				40D8A74321211CD400C09197 /* SystemConfiguration.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 			);
 			name = Frameworks;
@@ -620,6 +635,7 @@
 				EB9FC1100B12410385161268 /* libRNPhotoView.a */,
 				869EC42F51BA415DA81A37A6 /* libRNVectorIcons.a */,
 				F3A630E10E0942C2B2F095A1 /* libRCTContacts.a */,
+				C3FD13CA936E427090A859FE /* libRNNetworkState.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -665,6 +681,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		40D8A73E21211C6F00C09197 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				40D8A74221211C7200C09197 /* libRNNetworkState.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,6 +727,7 @@
 				8BDCAEC1238645DDBC92826A /* RNPhotoView.xcodeproj */,
 				1F1994F1A8E44E18850E345E /* RNVectorIcons.xcodeproj */,
 				1B07DAB481374FC9B6E57F8F /* RCTContacts.xcodeproj */,
+				21C4F7376E7745B7A6E2460B /* RNNetworkState.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -949,6 +974,10 @@
 				{
 					ProductGroup = 3A015862204CFD1E00795610 /* Products */;
 					ProjectRef = 50C82120BE804AA8BCE2DDA2 /* RNImagePicker.xcodeproj */;
+				},
+				{
+					ProductGroup = 40D8A73E21211C6F00C09197 /* Products */;
+					ProjectRef = 21C4F7376E7745B7A6E2460B /* RNNetworkState.xcodeproj */;
 				},
 				{
 					ProductGroup = 3A015864204CFD1E00795610 /* Products */;
@@ -1236,6 +1265,13 @@
 			remoteRef = 40AF59AA20BEAA7B00895E5C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		40D8A74221211C7200C09197 /* libRNNetworkState.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNNetworkState.a;
+			remoteRef = 40D8A74121211C7200C09197 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1432,12 +1468,14 @@
 					"$(SRCROOT)/../node_modules/react-native-photo-view/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
+					"$(SRCROOT)/../node_modules/react-native-network-state/ios",
 				);
 				INFOPLIST_FILE = haivanTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1465,12 +1503,14 @@
 					"$(SRCROOT)/../node_modules/react-native-photo-view/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
+					"$(SRCROOT)/../node_modules/react-native-network-state/ios",
 				);
 				INFOPLIST_FILE = haivanTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1500,6 +1540,7 @@
 					"$(SRCROOT)/../node_modules/react-native-photo-view/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
+					"$(SRCROOT)/../node_modules/react-native-network-state/ios",
 				);
 				INFOPLIST_FILE = haivan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1531,6 +1572,7 @@
 					"$(SRCROOT)/../node_modules/react-native-photo-view/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
+					"$(SRCROOT)/../node_modules/react-native-network-state/ios",
 				);
 				INFOPLIST_FILE = haivan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1565,11 +1607,13 @@
 					"$(SRCROOT)/../node_modules/react-native-photo-view/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
+					"$(SRCROOT)/../node_modules/react-native-network-state/ios",
 				);
 				INFOPLIST_FILE = "haivan-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1605,11 +1649,13 @@
 					"$(SRCROOT)/../node_modules/react-native-photo-view/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-contacts/ios/RCTContacts",
+					"$(SRCROOT)/../node_modules/react-native-network-state/ios",
 				);
 				INFOPLIST_FILE = "haivan-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1646,6 +1692,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.haivan-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1670,6 +1717,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

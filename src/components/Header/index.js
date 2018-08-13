@@ -11,6 +11,7 @@ import {
   Item,
   Input
 } from 'native-base';
+import { isIphoneX } from 'react-native-iphone-x-helper';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { View, Keyboard } from 'react-native';
 import * as commonSelectors from '../../store/selectors/common';
@@ -22,6 +23,7 @@ import Icon from '../../elements/Icon';
 import styles from './styles';
 import material from '../../theme/variables/material';
 import * as authSelectors from '../../store/selectors/auth';
+import platform from '../../theme/variables/platform';
 
 @connect(
   state => ({
@@ -251,9 +253,32 @@ export default class extends Component {
     return this.renderHeader(left, center, right);
   }
 
+  supportX() {
+    const isiphoneX = isIphoneX();
+    if (isiphoneX) {
+      return {
+        borderBottomWidth: 0,
+        backgroundColor: material.colorHeader,
+        paddingRight: 0,
+        // marginTop: Platform.OS === 'ios' ? 22 : 0,
+        height: 80,
+        paddingTop: 0,
+        paddingTop: 30
+      };
+    }
+    return {
+      borderBottomWidth: 0,
+      backgroundColor: material.colorHeader,
+      paddingRight: 0,
+      // marginTop: Platform.OS === 'ios' ? 22 : 0,
+      height: 64,
+      paddingTop: platform.platform === 'ios' ? 20 : 0
+    };
+  }
+
   renderHeader(left, center, right, props) {
     return (
-      <Header noShadow {...props} style={styles.container}>
+      <Header noShadow {...props} style={this.supportX()}>
         <Left style={{ flex: 0.5 }}>{left}</Left>
         <Body style={{ flex: 1, alignItems: 'center' }}>{center}</Body>
         <Right style={{ flex: 0.5 }}>{right}</Right>

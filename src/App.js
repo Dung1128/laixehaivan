@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BackHandler, UIManager, StatusBar } from 'react-native';
 import { Drawer, StyleProvider, Container } from 'native-base';
-
+import NetworkState, { Settings } from 'react-native-network-state';
 import Navigator from './components/Navigator';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -51,7 +51,9 @@ UIManager.setLayoutAnimationEnabledExperimental &&
 export default class App extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      visibleNetwork: true
+    };
     this.firstTime = true;
     this.pageInstances = new Map();
   }
@@ -221,7 +223,7 @@ export default class App extends Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          <StatusBar hidden />
+          {/* <StatusBar hidden /> */}
           <Drawer
             ref={ref => (this.drawer = ref)}
             open={drawerState === 'opened'}
@@ -264,8 +266,18 @@ export default class App extends Component {
           <Gallery />
           <Browser />
           <Loading />
-          <ConnectionStatusBar
+          {/* <ConnectionStatusBar
             onChangeStatus={val => this.props.saveConnect(val)}
+          /> */}
+          <NetworkState
+            onConnected={() => {
+              this.setState({
+                visibleNetwork: false
+              });
+              this.props.saveConnect(true);
+            }}
+            onDisconnected={() => this.props.saveConnect(false)}
+            visible={this.state.visibleNetwork}
           />
         </Container>
       </StyleProvider>

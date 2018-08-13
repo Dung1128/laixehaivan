@@ -31,10 +31,15 @@ export default class TongDoanhThu extends React.PureComponent {
       loadingMore: false,
       dataDoanhThu: {
         arrVeNumber: [],
-        tongDoanhThu: 0,
-        tongDoanhThuTrenXe: 0,
-        tongVe: 0,
-        tongVeTrenXe: 0
+        doan_thu_khach: 0,
+        doanh_thu_hang: 0,
+        so_ve_tren_xe: 0,
+        thuc_nop: 0,
+        tong_chi_phi: 0,
+        tong_danh_thu: 0,
+        tong_so_ve: 0,
+        treo_hang: 0,
+        van_phong_ck: 0
       }
     };
     this.offset = 0;
@@ -78,16 +83,21 @@ export default class TongDoanhThu extends React.PureComponent {
     return (
       <Container>
         <View style={styles.detailDoanhThu}>
-          <Text style={styles.textNormal}>Tổng doanh thu :</Text>
+          <Text style={styles.textNormal}>Doanh thu khách :</Text>
           <Text style={styles.numberDoanhThu}>
-            {numeral(this.state.dataDoanhThu.tongDoanhThu).format('0,0')} VNĐ
+            {numeral(this.state.dataDoanhThu.doan_thu_khach).format('0,0')} VNĐ
           </Text>
         </View>
         <View style={styles.detailDoanhThu}>
-          <Text style={styles.textNormal}>Tổng doanh thu trên xe :</Text>
+          <Text style={styles.textNormal}>Doanh thu hàng :</Text>
           <Text style={styles.numberDoanhThu}>
-            {numeral(this.state.dataDoanhThu.tongDoanhThuTrenXe).format('0,0')}{' '}
-            VNĐ
+            {numeral(this.state.dataDoanhThu.doanh_thu_hang).format('0,0')} VNĐ
+          </Text>
+        </View>
+        <View style={styles.detailDoanhThu}>
+          <Text style={styles.textNormal}>Tổng doanh thu :</Text>
+          <Text style={styles.numberDoanhThu}>
+            {numeral(this.state.dataDoanhThu.tong_danh_thu).format('0,0')} VNĐ
           </Text>
         </View>
         <View
@@ -97,7 +107,7 @@ export default class TongDoanhThu extends React.PureComponent {
         >
           <Text style={styles.textNormal}>Tổng số vé :</Text>
           <Text style={styles.textNormal}>
-            {this.state.dataDoanhThu.tongVe} vé
+            {this.state.dataDoanhThu.tong_so_ve} vé
           </Text>
         </View>
         <View
@@ -107,13 +117,27 @@ export default class TongDoanhThu extends React.PureComponent {
         >
           <Text style={styles.textNormal}>Số vé trên xe :</Text>
           <Text style={styles.textNormal}>
-            {this.state.dataDoanhThu.tongVeTrenXe} vé
+            {this.state.dataDoanhThu.so_ve_tren_xe} vé
           </Text>
         </View>
         <View style={styles.detailDoanhThu}>
           <Text style={styles.textNormal}>Tổng chi phí :</Text>
           <Text style={styles.numberDoanhThu}>
-            {numeral(this.state.dataDoanhThu.tongChiPhi).format('0,0')} VNĐ
+            {numeral(this.state.dataDoanhThu.tong_chi_phi).format('0,0')} VNĐ
+          </Text>
+        </View>
+
+        <View style={styles.detailDoanhThu}>
+          <Text style={styles.textNormal}>Trừ vé VP bán, chuyển khoản :</Text>
+          <Text style={styles.numberDoanhThu}>
+            {numeral(this.state.dataDoanhThu.van_phong_ck).format('0,0')} VNĐ
+          </Text>
+        </View>
+
+        <View style={styles.detailDoanhThu}>
+          <Text style={styles.textNormal}>Treo hàng :</Text>
+          <Text style={styles.numberDoanhThu}>
+            {numeral(this.state.dataDoanhThu.treo_hang).format('0,0')} VNĐ
           </Text>
         </View>
         <View
@@ -122,13 +146,11 @@ export default class TongDoanhThu extends React.PureComponent {
             paddingBottom: material.paddingSmall
           }}
         >
-          <Text style={styles.textNormal}>Còn lại :</Text>
-          <Text style={styles.numberDoanhThu}>
-            {numeral(
-              this.state.dataDoanhThu.tongDoanhThu -
-                this.state.dataDoanhThu.tongChiPhi
-            ).format('0,0')}{' '}
-            VNĐ
+          <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+            Thực nộp :
+          </Text>
+          <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+            {numeral(this.state.dataDoanhThu.thuc_nop).format('0,0')} VNĐ
           </Text>
         </View>
 
