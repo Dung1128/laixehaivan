@@ -109,20 +109,7 @@ export default class extends Component {
       </View>
     );
 
-    const right = (
-      <View style={styles.rowIconContainer}>
-        {title === 'Danh sách thanh tra' && (
-          <Button
-            onPress={() => {
-              this.props.forwardTo('thanhTra');
-            }}
-            transparent
-          >
-            <Icon style={styles.menuIcon} name="add" />
-          </Button>
-        )}
-      </View>
-    );
+    const right = <View />;
     return this.renderHeader(left, center, right);
   }
 
@@ -182,6 +169,17 @@ export default class extends Component {
             transparent
           >
             <Text style={styles.textNormal}>Xuống xe</Text>
+          </Button>
+        )}
+
+        {title === 'Danh sách thanh tra' && (
+          <Button
+            onPress={() => {
+              this.props.forwardTo('thanhTra');
+            }}
+            transparent
+          >
+            <Icon style={styles.menuIcon} name="add" />
           </Button>
         )}
 

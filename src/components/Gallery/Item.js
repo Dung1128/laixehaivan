@@ -24,7 +24,7 @@ export default class Item extends React.Component {
     return (
       <View>
         <PhotoView
-          source={{ uri: item.full }}
+          source={{ uri: item }}
           showsVerticalScrollIndicator
           showsHorizontalScrollIndicator
           scale={1}

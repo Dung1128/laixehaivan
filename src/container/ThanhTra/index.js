@@ -234,7 +234,7 @@ export default class ThanhTra extends React.PureComponent {
       if (d) {
         this.props.setToast('Thành công');
         this.props.actionUpdateThanhTraView(new Date());
-        this.props.resetTo('thanhTraList');
+        this.props.resetTo('thanhTraView');
       }
       Keyboard.dismiss();
     });
@@ -380,6 +380,40 @@ export default class ThanhTra extends React.PureComponent {
                 style={styles.input}
                 placeholderTextColor={platform.textHideGray}
                 placeholder="Tiền khách"
+              />
+            </View>
+          </View>
+
+          <View style={styles.newInputContainer}>
+            <Text
+              style={{
+                ...styles.textNormal,
+                paddingRight: material.paddingNormal,
+                flex: 2,
+                marginTop: 4
+              }}
+            >
+              Tiền hàng
+            </Text>
+            <View style={{ ...styles.childItem, flex: 3 }}>
+              <NumericInput
+                value={numeral(this.state.dataDoanhThu.doanh_thu_hang).format(
+                  '0,0'
+                )}
+                onChangeText={val =>
+                  this.setState({
+                    dataDoanhThu: {
+                      ...this.state.dataDoanhThu,
+                      doanh_thu_hang: val
+                    }
+                  })
+                }
+                returnKeyType="next"
+                keyboardType="numeric"
+                underlineColorAndroid="transparent"
+                style={styles.input}
+                placeholderTextColor={platform.textHideGray}
+                placeholder="Tiền hàng"
               />
             </View>
           </View>

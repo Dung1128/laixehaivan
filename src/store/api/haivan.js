@@ -10,6 +10,15 @@ export default {
       {}
     ),
 
+  lichDieuHanh: params =>
+    API.get(
+      `/api/appdriver/get-list-chuyen?adm_id=${params.adm_id}&token=${
+        params.token
+      }&day=${params.day}&type=1`,
+      {},
+      {}
+    ),
+
   getSoDoGiuong: params =>
     API.get(
       `/api/appdriver/get-so-do-giuong?adm_id=${params.adm_id}&token=${

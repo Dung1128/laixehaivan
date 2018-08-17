@@ -98,14 +98,22 @@ export default class ItemGiuong extends Component {
                 .lock
             }
             onPress={() =>
-              _.find(this.props.dataOffline, {
+              !!_.find(this.props.dataOffline, {
                 bvv_number: item.sdgct_number
               })
-                ? this.props.onCreate(
-                    _.find(this.props.dataOffline, {
-                      bvv_number: item.sdgct_number
-                    })
-                  )
+                ? _.find(this.props.dataOffline, {
+                    bvv_number: item.sdgct_number
+                  }).did_id === this.props.did
+                  ? this.props.onCreate(
+                      _.find(this.props.dataOffline, {
+                        bvv_number: item.sdgct_number
+                      })
+                    )
+                  : this.props.onPress(
+                      _.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      })
+                    )
                 : this.props.onPress(
                     _.find(this.props.dataVe, {
                       bvv_number: item.sdgct_number
@@ -465,7 +473,7 @@ export default class ItemGiuong extends Component {
     const { data, dataVe, dataOffline } = this.props;
     // console.log('data offline', dataOffline);
     // console.log('dataVe', dataVe);
-    console.log('DATA', this.props.data);
+    // console.log('DATA', this.props.data);
 
     return (
       <View>{data.map((item, index) => this.renderItem(item, index))}</View>

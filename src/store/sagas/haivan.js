@@ -11,6 +11,13 @@ const requestListChuyenDi = createRequestSaga({
   failure: [() => setToast('Lỗi, Không lấy được danh sách chuyến đi', 'error')]
 });
 
+const requestLichDieuHanh = createRequestSaga({
+  request: haivan.lichDieuHanh,
+  key: 'lichDieuHanh',
+  success: [],
+  failure: [() => setToast('Lỗi, Không lấy được danh sách chuyến đi', 'error')]
+});
+
 const requestGetSoDoGiuong = createRequestSaga({
   request: haivan.getSoDoGiuong,
   key: 'getSoDoGiuong',
@@ -282,6 +289,7 @@ export default [
   function* fetchWatcher() {
     yield all([
       takeLatest('app/listChuyenDi', requestListChuyenDi),
+      takeLatest('app/lichDieuHanh', requestLichDieuHanh),
       takeLatest('app/getSoDoGiuong', requestGetSoDoGiuong),
       takeLatest('app/listHuyVe', requestListHuyVe),
       takeLatest('app/listXuongXe', requestListXuongXe),

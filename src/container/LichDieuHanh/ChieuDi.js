@@ -42,7 +42,7 @@ export default class ChieuDi extends React.PureComponent {
       adm_id: this.props.profile.adm_id
     };
 
-    this.props.listChuyenDi(params, (e, d) => {
+    this.props.lichDieuHanh(params, (e, d) => {
       this.newData = [];
       if (d) {
         d.arrItem.map((item, index) => {
@@ -94,7 +94,7 @@ export default class ChieuDi extends React.PureComponent {
 
   renderItem({ item, index }) {
     return (
-      <Item lichDieuHanh logo styleChuyenDi={item.color_loai_xe} data={item} />
+      <Item dieuHanh logo styleChuyenDi={item.color_loai_xe} data={item} />
     );
   }
 

@@ -14,7 +14,6 @@ export default StyleSheet.create({
     position: 'absolute',
     top: 0,
     width: '100%',
-    paddingTop: 20,
     height: 56,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     flexDirection: 'row',

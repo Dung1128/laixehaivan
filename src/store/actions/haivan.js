@@ -1,6 +1,10 @@
 //list chuyến đi
 export const listChuyenDi = (...args) => ({ type: 'app/listChuyenDi', args });
 
+//lich dieu hanh
+
+export const lichDieuHanh = (...args) => ({ type: 'app/lichDieuHanh', args });
+
 export const getSoDoGiuong = (...args) => ({ type: 'app/getSoDoGiuong', args });
 
 export const saveTimeChuyenDi = data => ({

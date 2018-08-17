@@ -116,8 +116,8 @@ android {
         applicationId "com.applaixe"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 29
-        versionName "2.9"
+        versionCode 30
+        versionName "2.10"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

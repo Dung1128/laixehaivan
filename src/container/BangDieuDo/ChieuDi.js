@@ -67,13 +67,7 @@ export default class ChieuDi extends React.PureComponent {
 
   renderItem({ item, index }) {
     return (
-      <Item
-        logo
-        styleChuyenDi={item.color_loai_xe}
-        bangdieudo
-        lichdieuhanh
-        data={item}
-      />
+      <Item logo styleChuyenDi={item.color_loai_xe} bangdieudo data={item} />
     );
   }
 

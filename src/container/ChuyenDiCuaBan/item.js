@@ -27,12 +27,12 @@ export default class Item extends Component {
 
     return (
       <TouchableOpacity
-        disabled={this.props.lichDieuHanh}
+        disabled={this.props.dieuHanh}
         activeOpacity={0.8}
         onPress={() => {
           this.props.saveChuyenDi(data.did_id);
           !this.props.bangdieudo &&
-            !this.props.lichDieuHanh &&
+            !this.props.dieuHanh &&
             this.props.forwardTo('soDoGiuong');
           this.props.bangdieudo &&
             this.props.forwardTo('addBangDieuDo', { data: data });

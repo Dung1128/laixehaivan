@@ -82,7 +82,7 @@ export default {
   thanhTraView: {
     title: 'Danh sách thanh tra',
     Page: ThanhTraView,
-    headerType: 'back',
+    headerType: 'home',
     footerType: 'none',
     cache: true
   },

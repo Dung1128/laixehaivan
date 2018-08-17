@@ -43,7 +43,7 @@ export default class ChieuVe extends React.PureComponent {
       adm_id: this.props.profile.adm_id
     };
 
-    this.props.listChuyenDi(params, (e, d) => {
+    this.props.lichDieuHanh(params, (e, d) => {
       if (d) {
         d.arrItem.map((item, index) => {
           if (item.not_chieu_di === 2) {
