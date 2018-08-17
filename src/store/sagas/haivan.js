@@ -270,6 +270,13 @@ const requestGetNCC = createRequestSaga({
   failure: [() => setToast('Lỗi, Không thể lấy dữ liệu nhà cung cấp', 'error')]
 });
 
+const requestGetThanhTraChuyenDi = createRequestSaga({
+  request: haivan.getThanhTraChuyenDi,
+  key: 'getThanhTraChuyenDi',
+  success: [],
+  failure: [() => setToast('Lỗi, Không thể lấy dữ liệu', 'error')]
+});
+
 // root saga reducer
 export default [
   function* fetchWatcher() {
@@ -310,7 +317,8 @@ export default [
       takeLatest('app/updateDoanhThuHang', requestUpdateDoanhThuHang),
       takeLatest('app/getListNhienLieu', requestGetListNhienLieu),
       takeLatest('app/updateNhienLieu', requestUpdateNhienLieu),
-      takeLatest('app/getNCC', requestGetNCC)
+      takeLatest('app/getNCC', requestGetNCC),
+      takeLatest('app/getThanhTraChuyenDi', requestGetThanhTraChuyenDi)
     ]);
   }
 ];

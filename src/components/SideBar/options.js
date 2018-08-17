@@ -17,7 +17,7 @@ export default {
     },
     {
       name: 'Thanh tra',
-      route: 'thanhTra',
+      route: 'thanhTraList',
       icon: 'contacts'
     },
     {

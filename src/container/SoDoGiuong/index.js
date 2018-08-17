@@ -513,7 +513,8 @@ export default class SoDoGiuong extends React.PureComponent {
               price={this.state.price}
               dataActive={this.props.ve}
               dataOffline={this.props.getDataOffline}
-              did_id={this.props.did_id}
+              did={this.props.did_id}
+
               // handleSoDo={val =>
               //   this.setState({
               //     inforGiuong: val,

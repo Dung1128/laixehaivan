@@ -23,9 +23,7 @@ export default {
     alignItems: 'center',
     marginLeft: -2
   },
-  textNormal: {
-    fontSize: material.textNormal
-  },
+
   //modal
   modal: {
     // backgroundColor: 'rgba(0,0,0,.3)',
@@ -49,9 +47,7 @@ export default {
     justifyContent: 'center',
     marginHorizontal: material.paddingNormal
   },
-  textNormal: {
-    fontSize: material.textNormal
-  },
+
   viewInput: {
     borderWidth: 1,
     borderRadius: 5,
@@ -85,5 +81,23 @@ export default {
   },
   viewChild: {
     paddingHorizontal: material.paddingNormal
+  },
+  input: {
+    fontSize: material.textNormal
+  },
+  get newInputContainer() {
+    return {
+      ...this.textInputContainer,
+      borderBottomWidth: 1,
+      borderBottomColor: material.colorBorder,
+      flexDirection: 'row',
+      alignItems: 'center',
+      flex: 1
+    };
+  },
+  childItem: {},
+  iconCheck: {
+    color: 'green',
+    marginRight: 8
   }
 };

@@ -23,7 +23,15 @@ const init = {
     arrTiepVien: [],
     arrXe: []
   },
-  actionUpdateListNhienLieu: new Date()
+  actionUpdateListNhienLieu: new Date(),
+  saveThanhTraData: {
+    tuy_ten: '',
+    bien_kiem_soat: '',
+    laixe1: '',
+    laixe2: '',
+    tiepvien: ''
+  },
+  actionUpdateThanhTraView: new Date()
 };
 
 export default (state = init, { type, payload }) => {
@@ -64,6 +72,10 @@ export default (state = init, { type, payload }) => {
       return { ...state, actionUpdateChuyen: payload };
     case 'app/actionUpdateListNhienLieu':
       return { ...state, actionUpdateListNhienLieu: payload };
+    case 'app/saveThanhTraData':
+      return { ...state, saveThanhTraData: payload };
+    case 'app/actionUpdateThanhTraView':
+      return { ...state, actionUpdateThanhTraView: payload };
     default:
       return state;
   }

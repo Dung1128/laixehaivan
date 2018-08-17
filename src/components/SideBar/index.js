@@ -99,7 +99,7 @@ export default class extends PureComponent {
             item.status !== 0 &&
             newMenu.push({
               name: item.title,
-              route: 'thanhTra',
+              route: 'thanhTraList',
               icon: 'contacts'
             })
           );
@@ -285,7 +285,7 @@ export default class extends PureComponent {
           <Text style={styles.iconText}>
             {platform.platform === 'ios'
               ? `App version: 1.3`
-              : `App version: 2.9`}
+              : `App version: Test`}
           </Text>
         </View>
       </Container>

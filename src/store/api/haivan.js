@@ -270,7 +270,8 @@ export default {
     API.get(
       `/api/appdriver/thanh-tra/get-info?adm_id=${params.adm_id}&token=${
         params.token
-      }`
+      }&did_id=${params.did_id}
+      `
     ),
 
   editInfoThanhTra: params =>
@@ -280,7 +281,8 @@ export default {
       }
       `,
       {
-        arrPost: params.arrPost
+        arrPost: params.arrPost,
+        did_id: params.did_id
       },
       {}
     ),
@@ -289,7 +291,7 @@ export default {
     API.get(
       `/api/appdriver/thanh-tra/get-view-listing?adm_id=${
         params.adm_id
-      }&token=${params.token}&did_id=${params.did_id}&day=${params.day}`
+      }&token=${params.token}&day=${params.day}`
     ),
 
   getChiPhi: params =>
@@ -348,6 +350,13 @@ export default {
       `/api/appdriver/get-nha-cung-cap?adm_id=${params.adm_id}&token=${
         params.token
       }`
+    ),
+
+  getThanhTraChuyenDi: params =>
+    API.get(
+      `/api/appdriver/thanh-tra/get-view-listing-chuyen?adm_id=${
+        params.adm_id
+      }&token=${params.token}&did_id=${params.did_id}`
     )
 
   // facebookLogin: facebookToken =>

@@ -10,6 +10,9 @@ import ChuyenDiCuaBan from './container/ChuyenDiCuaBan';
 import BangDieuDo from './container/BangDieuDo';
 import LichDieuHanh from './container/LichDieuHanh';
 import ThanhTra from './container/ThanhTra';
+import ThanhTraDetail from './container/ThanhTraDetail';
+import ThanhTraList from './container/ThanhTraList';
+import ThanhTraView from './container/ThanhTraView';
 import LichSuThanhTra from './container/LichSuThanhTra';
 import HuongDanSuDung from './container/HuongDanSuDung';
 import NhapMaXe from './container/NhapMaXe';
@@ -65,9 +68,30 @@ export default {
   thanhTra: {
     title: 'Thanh tra',
     Page: ThanhTra,
+    headerType: 'back',
+    footerType: 'none',
+    cache: false
+  },
+  thanhTraList: {
+    title: 'Thanh tra',
+    Page: ThanhTraList,
     headerType: 'home',
     footerType: 'none',
     cache: true
+  },
+  thanhTraView: {
+    title: 'Danh sách thanh tra',
+    Page: ThanhTraView,
+    headerType: 'back',
+    footerType: 'none',
+    cache: true
+  },
+  thanhTraDetail: {
+    title: 'Chi tiết',
+    Page: ThanhTraDetail,
+    headerType: 'back',
+    footerType: 'none',
+    cache: false
   },
   huongDanSuDung: {
     title: 'Hướng dẫn sử dụng',

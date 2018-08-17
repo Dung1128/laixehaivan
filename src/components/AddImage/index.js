@@ -54,7 +54,6 @@ export default class extends Component {
     this.setState({ modalVisible: visible });
   }
   addImage() {
-    this.arrayImg = [];
     ImagePicker.launchImageLibrary(imagePickerOptions, response => {
       // console.log('Response = ', response);
 
@@ -66,8 +65,8 @@ export default class extends Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         this.setModalVisible(true);
-
-        this.arrayImg.push(response);
+        // console.log('response', response);
+        this.arrayImg.push(response.data);
         this.setState(
           {
             dataImage: this.arrayImg
@@ -138,6 +137,16 @@ export default class extends Component {
     );
   }
 
+  deleteImage(item, index) {
+    this.state.dataImage.splice(index, 1);
+    this.setState(
+      {
+        dataImage: this.state.dataImage
+      },
+      () => this.props.chooseImage(this.state.dataImage)
+    );
+  }
+
   render() {
     return (
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -168,9 +177,13 @@ export default class extends Component {
           )}
           renderItem={({ item, index }) => (
             <TouchableOpacity activeOpacity={1}>
-              <TouchableOpacity activeOpacity={0.5} style={styles.buttonDelete}>
+              <TouchableOpacity
+                onPress={() => this.deleteImage(item, index)}
+                activeOpacity={0.5}
+                style={styles.buttonDelete}
+              >
                 <IconFoundation
-                  name="pencil"
+                  name="x"
                   size={12}
                   style={{ backgroundColor: 'transparent' }}
                   color="white"
@@ -179,12 +192,12 @@ export default class extends Component {
 
               <Image
                 resizeMode="cover"
-                source={{ uri: item.uri }}
+                source={{ uri: `data:image/png;base64,${item}` }}
                 style={{ ...styles.drawerImage, marginRight: 8 }}
               />
             </TouchableOpacity>
           )}
-          keyExtractor={(item, index) => item.fileName + index}
+          keyExtractor={(item, index) => 'item.fileName' + index}
         />
       </View>
     );

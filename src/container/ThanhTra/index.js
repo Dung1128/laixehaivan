@@ -1,11 +1,13 @@
 import React from 'react';
-import { TouchableOpacity, Keyboard } from 'react-native';
+import { TouchableOpacity, Keyboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Text, View, Button } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { reduxForm, Field } from 'redux-form';
 import * as JsSearch from 'js-search';
+import numeral from 'numeral';
 import AddImage from '../../components/AddImage';
+import NumericInput from '../../components/NumericInput';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ModalFilter from './ModalFilter';
 import * as commonActions from '../../store/actions/common';
@@ -14,26 +16,21 @@ import * as haivanSelectors from '../../store/selectors/haivan';
 import * as authSelectors from '../../store/selectors/auth';
 import { InputField } from '../../elements/Form';
 import material from '../../theme/variables/material';
+import platform from '../../theme/variables/platform';
 import styles from './styles';
 import styless from '../Register/styles';
 
 @connect(
   state => ({
     initialValues: {
-      lenhVanChuyen: 0,
-      diaDiem: '',
-      soKhachXe: 0,
-      soKhachLen: 0,
-      tienKhach: 0,
-      soKhachPhoi: 0,
-      tienHang: 0,
       noiDungViPham: '',
       ghiChu: ''
     },
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
     did_id: haivanSelectors.getChuyenDi(state),
-    dmVe: haivanSelectors.getDanhMucVe(state)
+    dmVe: haivanSelectors.getDanhMucVe(state),
+    getThanhTraData: haivanSelectors.saveThanhTraData(state)
   }),
   { ...commonActions, ...haivanActions }
 )
@@ -47,73 +44,78 @@ export default class ThanhTra extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      visibleTuyenXe: false,
-      visibleXe: false,
-      visibleLaiXe1: false,
-      visibleLaiXe2: false,
-      visibleTiepVien: false,
-      visibleTiepVien: false,
       visibleViPham: false,
-      tuyenXe: {
-        tuy_id: 0,
-        tuy_name: 'Chọn tuyến xe'
-      },
-      xe: {
-        xe_id: 0,
-        xe_bien_kiem_soat: 'Chọn xe'
-      },
-      laixe1: {
-        lx_id: 0,
-        lx_name: 'Chọn lái xe 1'
-      },
-      laixe2: {
-        lx_id: 0,
-        lx_name: 'Chọn lái xe 2'
-      },
-      tiepVien: {
-        tv_id: 0,
-        tv_name: 'Tiếp viên'
-      },
+      visibleDiaDiem: false,
       viPham: {
         xdm_id: 0,
         xdm_name: 'Loại vi phạm'
       },
-      dataTuyenXe: [],
-      dataXe: [],
-      dataLaiXe1: [],
-      dataLaiXe2: [],
-      dataTiepVien: [],
-      dataViPham: [],
-      dataThanhTra: {
-        arrLaiXe: [],
-        arrLoiViPham: [],
-        arrTiepVien: [],
-        arrTuyen: [],
-        arrXe: []
+      address: {
+        dtt_id: 0,
+        dtt_name: 'Chọn địa điểm'
       },
-      imageData: [{ data: '' }]
+      dataViPham: [],
+      dataDiaDiem: [],
+      dataThanhTra: {
+        arrLoiViPham: [],
+        arrDiem: []
+      },
+      imageData: [],
+      dataDoanhThu: {
+        arrVeNumber: [],
+        doan_thu_khach: 0,
+        doanh_thu_hang: 0,
+        so_ve_tren_xe: 0,
+        thuc_nop: 0,
+        tong_chi_phi: 0,
+        tong_danh_thu: 0,
+        tong_so_ve: 0,
+        treo_hang: 0,
+        van_phong_ck: 0
+      }
     };
   }
 
   componentDidMount() {
-    this.getInfo();
+    this.getInfo(this.props.did_id);
+    this.getData(this.props.did_id);
   }
 
-  getInfo() {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.token !== null && nextProps.did_id !== this.props.did_id) {
+      this.getInfo(nextProps.did_id);
+      this.getData(nextProps.did_id);
+    }
+  }
+
+  getData(did_id) {
+    const params = {
+      token: this.props.token,
+      did_id: did_id,
+      adm_id: this.props.profile.adm_id
+    };
+
+    this.props.getDoanhThu(params, (e, d) => {
+      if (d) {
+        this.setState({
+          dataDoanhThu: d
+        });
+      }
+    });
+  }
+
+  getInfo(did_id) {
     const params = {
       adm_id: this.props.profile.adm_id,
-      token: this.props.token
+      token: this.props.token,
+      did_id: did_id
     };
     this.props.getInfoThanhTra(params, (e, d) => {
       if (d && d) {
         this.setState({
-          dataThanhTra: d,
-          dataTuyenXe: d.arrTuyen,
-          dataXe: d.arrXe,
-          dataLaiXe1: d.arrLaiXe,
-          dataLaiXe2: d.arrLaiXe,
-          dataTiepVien: d.arrTiepVien,
-          dataViPham: d.arrLoiViPham
+          dataDiaDiem: d.arrDiem,
+          dataViPham: d.arrLoiViPham,
+          dataThanhTra: d
         });
       } else {
         this.props.setToast(e.message.message, 'error');
@@ -121,53 +123,59 @@ export default class ThanhTra extends React.PureComponent {
     });
   }
 
-  chooseCase(type) {
-    switch (type) {
-      case 1:
-        return this.setState({
-          visibleTuyenXe: true,
-          type
-        });
-      case 2:
-        return this.setState({
-          visibleXe: true,
-          type
-        });
+  renderItem(name, nameIcon, type, textId) {
+    return (
+      <TouchableOpacity style={styles.itemFilter} activeOpacity={1}>
+        <IconMaterialCommunityIcons
+          name={nameIcon}
+          size={24}
+          color={material.colorDark2}
+        />
+        <Text
+          style={{
+            ...styles.textNormal,
+            paddingLeft: material.paddingSmall
+          }}
+        >
+          {textId === 'laixe1' && 'Lái xe 1: '}
+          {textId === 'laixe2' && 'Lái xe 2: '}
+          {textId === 'tiepvien' && 'Tiếp viên: '} {name}{' '}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
 
-      case 3:
-        return this.setState({
-          visibleLaiXe1: true,
-          type
-        });
-      case 4:
-        return this.setState({
-          visibleLaiXe2: true,
-          type
-        });
-      case 5:
-        return this.setState({
-          visibleTiepVien: true,
-          type
-        });
+  searchDiaDiem(val) {
+    var search = new JsSearch.Search('dtt_name');
+    search.addIndex('dtt_name');
+    search.addDocuments(this.state.dataThanhTra.arrDiem);
+    this.setState({
+      dataDiaDiem: search.search(val)
+    });
 
-      case 6:
-        return this.setState({
-          visibleViPham: true,
-          type
-        });
-
-      default:
-        return console.log('default');
+    if (val === '') {
+      this.setState({
+        dataDiaDiem: this.state.dataThanhTra.arrDiem
+      });
     }
   }
 
-  renderItem(item, nameIcon, type) {
+  renderItemViPham(name, nameIcon, type, textId) {
     return (
       <TouchableOpacity
+        onPress={() =>
+          type === 6
+            ? this.setState({
+                visibleViPham: true,
+                type
+              })
+            : this.setState({
+                visibleDiaDiem: true,
+                type
+              })
+        }
         style={styles.itemFilter}
-        onPress={() => {
-          this.chooseCase(type);
-        }}
+        activeOpacity={0.7}
       >
         <IconMaterialCommunityIcons
           name={nameIcon}
@@ -180,330 +188,208 @@ export default class ThanhTra extends React.PureComponent {
             paddingLeft: material.paddingSmall
           }}
         >
-          {item.tuy_name ||
-            item.xe_bien_kiem_soat ||
-            item.lx_name ||
-            item.tv_name ||
-            item.xdm_name}{' '}
+          {name.xdm_name || name.dtt_name}{' '}
         </Text>
       </TouchableOpacity>
     );
   }
 
-  searchTuyenXe(val) {
-    var search = new JsSearch.Search('tuy_name');
-    search.addIndex('tuy_name');
-    search.addDocuments(this.state.dataThanhTra.arrTuyen);
-    this.setState({
-      dataTuyenXe: search.search(val)
-    });
-
-    if (val === '') {
-      this.setState({
-        dataTuyenXe: this.state.dataThanhTra.arrTuyen
-      });
-    }
-    console.log(search.search(val));
-  }
-
-  searchLaiXe1(val) {
-    var search = new JsSearch.Search('lx_name');
-    search.addIndex('lx_name');
-    search.addDocuments(this.state.dataThanhTra.arrLaiXe);
-    this.setState({
-      dataLaiXe1: search.search(val)
-    });
-
-    if (val === '') {
-      this.setState({
-        dataLaiXe1: this.state.dataThanhTra.arrLaiXe
-      });
-    }
-    console.log(search.search(val));
-  }
-
-  searchLaiXe2(val) {
-    var search = new JsSearch.Search('lx_name');
-    search.addIndex('lx_name');
-    search.addDocuments(this.state.dataThanhTra.arrLaiXe);
-    this.setState({
-      dataLaiXe2: search.search(val)
-    });
-
-    if (val === '') {
-      this.setState({
-        dataLaiXe2: this.state.dataThanhTra.arrLaiXe
-      });
-    }
-    console.log(search.search(val));
-  }
-
-  searchTiepVien(val) {
-    var search = new JsSearch.Search('tv_name');
-    search.addIndex('tv_name');
-    search.addDocuments(this.state.dataThanhTra.arrTiepVien);
-    this.setState({
-      dataTiepVien: search.search(val)
-    });
-
-    if (val === '') {
-      this.setState({
-        dataTiepVien: this.state.dataThanhTra.arrTiepVien
-      });
-    }
-    console.log(search.search(val));
-  }
-
   submitForm(val) {
-    console.log(this.state.tuyenXe);
     const params = {
       token: this.props.token,
       adm_id: this.props.profile.adm_id,
       arrPost: {
-        xtt_tuyen_id: this.state.tuyenXe.tuy_id,
-        xtt_xe_id: this.state.xe.xe_id,
-        xtt_so_lenh_van_chuyen: val.lenhVanChuyen,
-        xtt_dia_diem: val.diaDiem,
-        xtt_so_khach_tren_xe: val.soKhachXe,
-        xtt_so_khach_len: val.soKhachLen,
-        xtt_tien_khach: val.tienKhach,
-        xtt_so_khach: val.soKhachPhoi,
-        xtt_tien_hang: val.tienHang,
-        xtt_lai_xe_1: this.state.laixe1.lx_id,
-        xtt_lai_xe_2: this.state.laixe2.lx_id,
-        xtt_tiep_vien: this.state.tiepVien.tv_id,
+        xtt_tuyen_id: this.props.getThanhTraData.not_tuy_id,
+        xtt_xe_id: this.props.getThanhTraData.id_xe,
+        xtt_dtt_id: this.state.address.dtt_id,
+        xtt_so_khach_tren_xe: this.state.dataDoanhThu.so_ve_tren_xe,
+        xtt_so_khach_len: this.state.dataDoanhThu.so_ve_tren_xe,
+        xtt_tien_khach: this.state.dataDoanhThu.doan_thu_khach,
+        xtt_so_khach: this.state.dataDoanhThu.tong_so_ve,
+        xtt_tien_hang: this.state.dataDoanhThu.doanh_thu_hang,
+        xtt_lai_xe_1: this.props.getThanhTraData.idLaixe1,
+        xtt_lai_xe_2: this.props.getThanhTraData.idLaixe2,
+        xtt_tiep_vien: this.props.getThanhTraData.idTiepvien,
         xtt_noi_dung_vi_pham: val.noiDungViPham,
         xtt_loai_vi_pham: this.state.viPham.xdm_id,
-        xtt_img: this.state.imageData[0].data,
+        arrImage: this.state.imageData,
         xtt_thong_tin_khac: 'Kiem Tra',
+        xtt_ghi_chu: val.ghiChu,
         xtt_lat: '',
         xtt_long: ''
-      }
+      },
+      did_id: this.props.did_id
     };
+
+    if (this.state.address.dtt_id === 0) {
+      return Alert.alert('Thông báo', 'Vui lòng chọn địa chỉ');
+    }
+
+    if (val.noiDungViPham === '') {
+      return Alert.alert('Thông báo', 'Vui cập nhật nội dung vi phạm');
+    }
+
+    // console.log('params', params);
     this.props.editInfoThanhTra(params, (e, d) => {
       if (d) {
         this.props.setToast('Thành công');
+        this.props.actionUpdateThanhTraView(new Date());
+        this.props.resetTo('thanhTraList');
       }
       Keyboard.dismiss();
     });
-    console.log(val);
+    // console.log(val);
   }
 
   render() {
     const { handleSubmit } = this.props;
-    console.log('state', this.state.tuyenXe);
+
     return (
       <Container style={styles.container}>
         <Content
           enableResetScrollToCoords={false}
           showsVerticalScrollIndicator={false}
         >
-          {this.renderItem(this.state.tuyenXe, 'road-variant', 1, 'tuyenxe')}
-          {this.renderItem(this.state.xe, 'bus', 2, 'xe')}
+          {this.renderItem(
+            this.props.getThanhTraData.tuy_ten,
+            'road-variant',
+            1,
+            'tuyenxe'
+          )}
+          {this.renderItem(
+            this.props.getThanhTraData.bien_kiem_soat,
+            'bus',
+            2,
+            'xe'
+          )}
 
-          <View
-            style={{
-              ...styless.textInputContainer,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            <Field
-              // onSubmitEditing={() => {
-              //   this.diadiem.focus();
-              // }}
-              keyboardType="default"
-              returnKeyType="next"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Số lệnh vận chuyển *'}
-              name={'lenhVanChuyen'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              inputStyle={styless.input}
-              // IconIcom={'bus'}
-              IconIcomColor={material.colorDark2}
-            />
-          </View>
+          {this.renderItemViPham(this.state.address, 'map', 7, 'diaDiem')}
 
-          <View
-            style={{
-              ...styless.textInputContainer,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            <Field
-              // onSubmitEditing={() => {
-              //   this.soKhachTrenXe.focus();
-              // }}
-              inputRef={e => (this.diadiem = e)}
-              keyboardType="default"
-              returnKeyType="next"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Địa điểm *'}
-              name={'diaDiem'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              inputStyle={styless.input}
-              // IconIcom={'bus'}
-              IconIcomColor={material.colorDark2}
-            />
-          </View>
+          {this.renderItem(
+            this.props.getThanhTraData.laixe1,
+            'account',
+            3,
+            'laixe1'
+          )}
+          {this.renderItem(
+            this.props.getThanhTraData.laixe2,
+            'account',
+            4,
+            'laixe2'
+          )}
+          {this.renderItem(
+            this.props.getThanhTraData.tiepvien,
+            'account',
+            5,
+            'tiepvien'
+          )}
 
-          {this.renderItem(this.state.laixe1, 'account', 3, 'laixe1')}
-          {this.renderItem(this.state.laixe2, 'account', 4, 'laixe2')}
-          {this.renderItem(this.state.tiepVien, 'account', 5, 'tiepvien')}
-
-          <View
-            style={{
-              ...styless.textInputContainer,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            <Field
-              // onSubmitEditing={() => {
-              //   this.soKhachLen.focus();
-              // }}
-              inputRef={e => (this.soKhachTrenXe = e)}
-              keyboardType="numeric"
-              returnKeyType="next"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Số khách trên xe'}
-              name={'soKhachXe'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              inputStyle={styless.input}
-              // IconIcom={'bus'}
-              IconIcomColor={material.colorDark2}
-            />
+          <View style={styles.newInputContainer}>
+            <Text
+              style={{
+                ...styles.textNormal,
+                paddingRight: material.paddingNormal,
+                flex: 2,
+                marginTop: 4
+              }}
+            >
+              Số khách tổng phơi
+            </Text>
+            <View style={{ ...styles.childItem, flex: 3 }}>
+              <NumericInput
+                value={numeral(this.state.dataDoanhThu.tong_so_ve).format(
+                  '0,0'
+                )}
+                onChangeText={val =>
+                  this.setState({
+                    dataDoanhThu: {
+                      ...this.state.dataDoanhThu,
+                      tong_so_ve: val
+                    }
+                  })
+                }
+                returnKeyType="next"
+                keyboardType="numeric"
+                underlineColorAndroid="transparent"
+                style={styles.input}
+                placeholderTextColor={platform.textHideGray}
+                placeholder="Tổng phơi"
+              />
+            </View>
           </View>
-          <View
-            style={{
-              ...styless.textInputContainer,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            <Field
-              // onSubmitEditing={() => {
-              //   this.tienKhach.focus();
-              // }}
-              inputRef={e => (this.soKhachLen = e)}
-              keyboardType="numeric"
-              returnKeyType="next"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Số khách lên'}
-              name={'soKhachLen'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              inputStyle={styless.input}
-              // IconIcom={'bus'}
-              IconIcomColor={material.colorDark2}
-            />
+          <View style={styles.newInputContainer}>
+            <Text
+              style={{
+                ...styles.textNormal,
+                paddingRight: material.paddingNormal,
+                flex: 2,
+                marginTop: 4
+              }}
+            >
+              Khách trên xe
+            </Text>
+            <View style={{ ...styles.childItem, flex: 3 }}>
+              <NumericInput
+                value={numeral(this.state.dataDoanhThu.so_ve_tren_xe).format(
+                  '0,0'
+                )}
+                onChangeText={val =>
+                  this.setState({
+                    dataDoanhThu: {
+                      ...this.state.dataDoanhThu,
+                      so_ve_tren_xe: val
+                    }
+                  })
+                }
+                returnKeyType="next"
+                keyboardType="numeric"
+                underlineColorAndroid="transparent"
+                style={styles.input}
+                placeholderTextColor={platform.textHideGray}
+                placeholder="Khách trên xe"
+              />
+            </View>
           </View>
-          <View
-            style={{
-              ...styless.textInputContainer,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            <Field
-              // onSubmitEditing={() => {
-              //   this.soKhachPhoi.focus();
-              // }}
-              inputRef={e => (this.tienKhach = e)}
-              keyboardType="numeric"
-              returnKeyType="next"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Tiền khách'}
-              name={'tienKhach'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              inputStyle={styless.input}
-              // IconIcom={'bus'}
-              IconIcomColor={material.colorDark2}
-            />
-          </View>
-          <View
-            style={{
-              ...styless.textInputContainer,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            <Field
-              // onSubmitEditing={() => {
-              //   this.tienHang.focus();
-              // }}
-              inputRef={e => (this.soKhachPhoi = e)}
-              keyboardType="numeric"
-              returnKeyType="next"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Số khách tổng phơi'}
-              name={'soKhachPhoi'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              inputStyle={styless.input}
-              // IconIcom={'bus'}
-              IconIcomColor={material.colorDark2}
-            />
-          </View>
-          <View
-            style={{
-              ...styless.textInputContainer,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            <Field
-              // onSubmitEditing={() => {
-              //   this.noiDungViPham.focus();
-              // }}
-              inputRef={e => (this.tienHang = e)}
-              keyboardType="numeric"
-              returnKeyType="next"
-              autoCapitalize={'none'}
-              style={styless.textInput}
-              icon={input => (input.value ? 'close' : null)}
-              onIconPress={input => input.onChange('')}
-              label={'Tiền hàng'}
-              name={'tienHang'}
-              component={InputField}
-              autoCorrect={false}
-              placeholderTextColor="#7e7e7e"
-              inputStyle={styless.input}
-              // IconIcom={'bus'}
-              IconIcomColor={material.colorDark2}
-            />
+          <View style={styles.newInputContainer}>
+            <Text
+              style={{
+                ...styles.textNormal,
+                paddingRight: material.paddingNormal,
+                flex: 2,
+                marginTop: 4
+              }}
+            >
+              Tiền khách
+            </Text>
+            <View style={{ ...styles.childItem, flex: 3 }}>
+              <NumericInput
+                value={numeral(this.state.dataDoanhThu.doan_thu_khach).format(
+                  '0,0'
+                )}
+                onChangeText={val =>
+                  this.setState({
+                    dataDoanhThu: {
+                      ...this.state.dataDoanhThu,
+                      doan_thu_khach: val
+                    }
+                  })
+                }
+                returnKeyType="next"
+                keyboardType="numeric"
+                underlineColorAndroid="transparent"
+                style={styles.input}
+                placeholderTextColor={platform.textHideGray}
+                placeholder="Tiền khách"
+              />
+            </View>
           </View>
 
-          {this.renderItem(this.state.viPham, 'account-alert', 6, 'vipham')}
+          {this.renderItemViPham(
+            this.state.viPham,
+            'account-alert',
+            6,
+            'vipham'
+          )}
 
           <View
             style={{
@@ -534,7 +420,13 @@ export default class ThanhTra extends React.PureComponent {
             />
           </View>
 
-          <AddImage chooseImage={val => this.setState({ imageData: val })} />
+          <AddImage
+            chooseImage={val =>
+              this.setState({ imageData: val }, () =>
+                console.log('new data', this.state.imageData)
+              )
+            }
+          />
 
           <View
             style={{
@@ -564,6 +456,37 @@ export default class ThanhTra extends React.PureComponent {
               IconIcomColor={material.colorDark2}
             />
           </View>
+          {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <IconIonicons
+              name="ios-checkbox-outline"
+              size={24}
+              style={styles.iconCheck}
+            />
+            <Text style={styles.textNormal}>
+              Tôi đồng ý với các điều khoản trên
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              width: '100%'
+            }}
+          >
+            <IconIonicons
+              name="ios-information-circle-outline"
+              size={24}
+              style={{ ...styles.iconCheck, color: 'red' }}
+            />
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{ ...styles.textNormal, marginTop: -8, fontSize: 12 }}
+              >
+                Mày không thể đọc hết 200 dòng điều khoản trong vòng 10s được!
+                Bớt xàm đi!!!! Nút 'Hoàn thành' sẽ bấm được trong vòng 10 phút!
+              </Text>
+            </View>
+          </View> */}
 
           <Button
             onPress={handleSubmit(this.submitForm.bind(this))}
@@ -572,84 +495,6 @@ export default class ThanhTra extends React.PureComponent {
           >
             <Text style={styles.textNormal}>Hoàn thành</Text>
           </Button>
-
-          <ModalFilter
-            data={this.state.dataTuyenXe}
-            onSearch={val => this.searchTuyenXe(val)}
-            selectedValue={val =>
-              this.setState({
-                tuyenXe: val
-              })
-            }
-            handleVisible={val =>
-              this.setState({
-                visibleTuyenXe: val
-              })
-            }
-            visible={this.state.visibleTuyenXe}
-          />
-
-          <ModalFilter
-            data={this.state.dataXe}
-            selectedValue={val =>
-              this.setState({
-                xe: val
-              })
-            }
-            handleVisible={val =>
-              this.setState({
-                visibleXe: val
-              })
-            }
-            visible={this.state.visibleXe}
-          />
-          <ModalFilter
-            data={this.state.dataLaiXe1}
-            onSearch={val => this.searchLaiXe1(val)}
-            selectedValue={val =>
-              this.setState({
-                laixe1: val
-              })
-            }
-            handleVisible={val =>
-              this.setState({
-                visibleLaiXe1: val
-              })
-            }
-            visible={this.state.visibleLaiXe1}
-          />
-
-          <ModalFilter
-            data={this.state.dataLaiXe2}
-            onSearch={val => this.searchLaiXe2(val)}
-            selectedValue={val =>
-              this.setState({
-                laixe2: val
-              })
-            }
-            handleVisible={val =>
-              this.setState({
-                visibleLaiXe2: val
-              })
-            }
-            visible={this.state.visibleLaiXe2}
-          />
-
-          <ModalFilter
-            data={this.state.dataTiepVien}
-            onSearch={val => this.searchTiepVien(val)}
-            selectedValue={val =>
-              this.setState({
-                tiepVien: val
-              })
-            }
-            handleVisible={val =>
-              this.setState({
-                visibleTiepVien: val
-              })
-            }
-            visible={this.state.visibleTiepVien}
-          />
 
           <ModalFilter
             data={this.state.dataViPham}
@@ -665,6 +510,22 @@ export default class ThanhTra extends React.PureComponent {
               })
             }
             visible={this.state.visibleViPham}
+          />
+
+          <ModalFilter
+            data={this.state.dataDiaDiem}
+            onSearch={val => this.searchDiaDiem(val)}
+            selectedValue={val =>
+              this.setState({
+                address: val
+              })
+            }
+            handleVisible={val =>
+              this.setState({
+                visibleDiaDiem: val
+              })
+            }
+            visible={this.state.visibleDiaDiem}
           />
         </Content>
       </Container>

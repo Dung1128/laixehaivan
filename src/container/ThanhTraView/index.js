@@ -1,54 +1,65 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Container, Content, Text } from 'native-base';
 import { FlatList, RefreshControl, View } from 'react-native';
-import DateTimePicker from '../../components/DateTimePick';
-import styles from './styles';
-import moment from 'moment';
-import material from '../../theme/variables/material';
+
+import { connect } from 'react-redux';
 import * as commonActions from '../../store/actions/common';
 import * as authSelectors from '../../store/selectors/auth';
-import * as haivanSelectors from '../../store/selectors/haivan';
 import * as haivanActions from '../../store/actions/haivan';
-import Item from '../ThanhTraView/itemThanhTra';
+import * as haivanSelectors from '../../store/selectors/haivan';
+import styles from '../TraKhach/styles';
+import material from '../../theme/variables/material';
+import Item from './itemThanhTra';
 
 @connect(
   state => ({
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
-    did_id: haivanSelectors.getChuyenDi(state)
+    did_id: haivanSelectors.getChuyenDi(state),
+    getUpdateThanhTraView: haivanSelectors.actionUpdateThanhTraView(state)
   }),
   { ...commonActions, ...haivanActions }
 )
-export default class LichSuThanhTra extends React.PureComponent {
+export default class ThanhTraView extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      currentDate: new Date(),
-      danhSachThanhTra: {
-        arrData: []
-      },
       loading: false,
       hasMore: true,
       isRefreshing: false,
       bottom: 0,
-      loadingMore: false
+      loadingMore: false,
+      danhSachThanhTra: {
+        arrData: []
+      }
     };
   }
-
-  componentWillReceiveProps(nextProps) {}
 
   componentDidMount() {
     this.getList();
   }
 
+  renderItem({ item, index }) {
+    return <Item data={item} index={index} />;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.token !== null &&
+      nextProps.getUpdateThanhTraView !== this.props.getUpdateThanhTraView
+    ) {
+      this.getList();
+    }
+  }
+
   getList() {
     const params = {
       token: this.props.token,
-      adm_id: this.props.profile.adm_id,
-      day: moment(this.state.currentDate).format('DD-MM-YYYY')
+      did_id: this.props.did_id,
+      adm_id: this.props.profile.adm_id
     };
-    this.props.getListThanhTra(params, (e, d) => {
+
+    this.props.getThanhTraChuyenDi(params, (e, d) => {
       if (d && d) {
         this.setState({
           danhSachThanhTra: d
@@ -61,28 +72,15 @@ export default class LichSuThanhTra extends React.PureComponent {
     this.getList();
   }
 
-  renderItem({ item, index }) {
-    return <Item data={item} index={index} />;
-  }
-
   render() {
     return (
-      <Container>
-        <DateTimePicker
-          isShowDate={false}
-          defaultDate={this.state.currentDate}
-          onChange={val => {
-            this.setState({ currentDate: val.date }, () => this.getList());
-          }}
-        />
-
+      <Container style={styles.container}>
         {this.state.danhSachThanhTra.arrData &&
           this.state.danhSachThanhTra.arrData.length <= 0 && (
             <Text
               style={{
                 ...styles.textNormal,
-                marginTop: material.paddingNormal,
-                textAlign: 'center'
+                marginTop: material.paddingNormal
               }}
             >
               Không có dữ liệu
@@ -91,7 +89,7 @@ export default class LichSuThanhTra extends React.PureComponent {
         <FlatList
           style={{ width: '100%' }}
           contentContainerStyle={styles.contentContainerList}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => index + '.'}
           data={this.state.danhSachThanhTra.arrData}
           renderItem={this.renderItem.bind(this)}
           onEndReachedThreshold={material.platform === 'ios' ? 0 : 1}

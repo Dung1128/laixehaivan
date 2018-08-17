@@ -163,3 +163,18 @@ export const getNCC = (...args) => ({
   type: 'app/getNCC',
   args
 });
+
+export const saveThanhTraData = payload => ({
+  type: 'app/saveThanhTraData',
+  payload
+});
+
+export const getThanhTraChuyenDi = (...args) => ({
+  type: 'app/getThanhTraChuyenDi',
+  args
+});
+
+export const actionUpdateThanhTraView = payload => ({
+  type: 'app/actionUpdateThanhTraView',
+  payload
+});

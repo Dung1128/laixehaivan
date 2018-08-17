@@ -12,5 +12,8 @@ export const UpdateSDG = state => state.haivan.UpdateSDG;
 export const countTraKhach = state => state.haivan.countTraKhach;
 export const countDangCho = state => state.haivan.countDangCho;
 export const infoDieuHanh = state => state.haivan.infoDieuHanh;
+export const saveThanhTraData = state => state.haivan.saveThanhTraData;
 export const actionUpdateListNhienLieu = state =>
   state.haivan.actionUpdateListNhienLieu;
+export const actionUpdateThanhTraView = state =>
+  state.haivan.actionUpdateThanhTraView;

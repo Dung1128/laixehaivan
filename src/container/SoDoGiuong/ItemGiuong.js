@@ -72,7 +72,7 @@ export default class ItemGiuong extends Component {
       _.find(this.props.dataVe, { bvv_number: data }).arrVe.bvv_status === 0 &&
       _.find(this.props.dataOffline, { bvv_number: data }) &&
       _.find(this.props.dataOffline, { bvv_number: data }).did_id ===
-        this.props.did_id
+        this.props.did
     ) {
       return { backgroundColor: material.segmentBackgroundColor };
     }
@@ -137,7 +137,7 @@ export default class ItemGiuong extends Component {
                     }) &&
                     _.find(this.props.dataOffline, {
                       bvv_number: item.sdgct_number
-                    }).did_id === this.props.did_id ? (
+                    }).did_id === this.props.did ? (
                       <View>
                         <Text numberOfLines={1} style={styles.textSmall}>
                           {_.find(this.props.dataOffline, {
@@ -148,14 +148,16 @@ export default class ItemGiuong extends Component {
                               }).price / 1000
                             : _.find(this.props.dataOffline, {
                                 bvv_number: item.sdgct_number
-                              }).price}K
+                              }).price}
+                          K
                         </Text>
                       </View>
                     ) : (
                       <Text numberOfLines={1} style={styles.textSmall}>
                         {this.props.price.price > 1000
                           ? this.props.price.price / 1000
-                          : this.props.price.price}K
+                          : this.props.price.price}
+                        K
                       </Text>
                     )}
                   </View>
@@ -165,7 +167,8 @@ export default class ItemGiuong extends Component {
                   <Text style={styles.textSmall} numberOfLines={1}>
                     {_.find(this.props.dataVe, {
                       bvv_number: item.sdgct_number
-                    }).arrVe.bvv_price / 1000}K
+                    }).arrVe.bvv_price / 1000}
+                    K
                   </Text>
                   <Text style={styles.textSmall} numberOfLines={1}>
                     {
@@ -185,7 +188,8 @@ export default class ItemGiuong extends Component {
                   <Text numberOfLines={1} style={styles.textSmall}>
                     {_.find(this.props.dataVe, {
                       bvv_number: item.sdgct_number
-                    }).arrVe.bvv_price / 1000}K
+                    }).arrVe.bvv_price / 1000}
+                    K
                   </Text>
                 )}
             </View>
@@ -199,7 +203,7 @@ export default class ItemGiuong extends Component {
               }) &&
               _.find(this.props.dataOffline, {
                 bvv_number: item.sdgct_number
-              }).did_id === this.props.did_id && (
+              }).did_id === this.props.did && (
                 <View>
                   <Text style={styles.textSmall} numberOfLines={1}>
                     {
@@ -214,11 +218,9 @@ export default class ItemGiuong extends Component {
                         bvv_number: item.sdgct_number
                       }).diem_tra
                     }
-                    {_
-                      .find(this.props.dataOffline, {
-                        bvv_number: item.sdgct_number
-                      })
-                      .diem_tra.toString() !== '' && ' - '}
+                    {_.find(this.props.dataOffline, {
+                      bvv_number: item.sdgct_number
+                    }).diem_tra.toString() !== '' && ' - '}
                     {
                       _.find(this.props.dataOffline, {
                         bvv_number: item.sdgct_number
@@ -227,11 +229,9 @@ export default class ItemGiuong extends Component {
                   </Text>
 
                   <Text style={styles.textSmall} numberOfLines={1}>
-                    {_
-                      .find(this.props.dataOffline, {
-                        bvv_number: item.sdgct_number
-                      })
-                      .ghi_chu.toString() !== '' && 'Ghi chú: '}
+                    {_.find(this.props.dataOffline, {
+                      bvv_number: item.sdgct_number
+                    }).ghi_chu.toString() !== '' && 'Ghi chú: '}
 
                     {
                       _.find(this.props.dataOffline, {
@@ -267,11 +267,9 @@ export default class ItemGiuong extends Component {
                       }).arrVe.bvv_phone_di
                     }
                   </Text>
-                  {_
-                    .find(this.props.dataVe, {
-                      bvv_number: item.sdgct_number
-                    })
-                    .arrVe.bvv_danh_muc.toString() !== '' && (
+                  {_.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }).arrVe.bvv_danh_muc.toString() !== '' && (
                     <Text style={styles.textSmall}>
                       Seri:{' '}
                       {
@@ -292,17 +290,13 @@ export default class ItemGiuong extends Component {
                     bvv_number: item.sdgct_number
                   }) && (
                     <Text style={styles.textSmall}>
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_ben_a_ma.toString()}{' '}
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ben_a_ma.toString()}{' '}
                       -{' '}
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_ben_b_ma.toString()}
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ben_b_ma.toString()}
                     </Text>
                   )}
 
@@ -310,36 +304,26 @@ export default class ItemGiuong extends Component {
                     bvv_number: item.sdgct_number
                   }) && (
                     <Text numberOfLines={2} style={styles.textSmall}>
-                      {_
-                        .find(this.props.dataVe, {
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_diem_don_khach.toString() !== '' &&
+                        _.find(this.props.dataVe, {
                           bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_diem_don_khach.toString() !== '' &&
-                        _
-                          .find(this.props.dataVe, {
-                            bvv_number: item.sdgct_number
-                          })
-                          .arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_diem_tra_khach.toString()}
+                        }).arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_diem_tra_khach.toString()}
                     </Text>
                   )}
 
-                  {_
-                    .find(this.props.dataVe, {
-                      bvv_number: item.sdgct_number
-                    })
-                    .arrVe.bvv_ghi_chu.toString() !== '' && (
+                  {_.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }).arrVe.bvv_ghi_chu.toString() !== '' && (
                     <Text style={styles.textSmall}>
                       Ghi chú:
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_ghi_chu.toString()}
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ghi_chu.toString()}
                     </Text>
                   )}
 
@@ -376,11 +360,9 @@ export default class ItemGiuong extends Component {
                       }).arrVe.bvv_phone_di
                     }
                   </Text>
-                  {_
-                    .find(this.props.dataVe, {
-                      bvv_number: item.sdgct_number
-                    })
-                    .arrVe.bvv_danh_muc.toString() !== '' && (
+                  {_.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }).arrVe.bvv_danh_muc.toString() !== '' && (
                     <Text style={styles.textSmall}>
                       Seri:{' '}
                       {
@@ -401,17 +383,13 @@ export default class ItemGiuong extends Component {
                     bvv_number: item.sdgct_number
                   }) && (
                     <Text style={styles.textSmall}>
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_ben_a_ma.toString()}{' '}
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ben_a_ma.toString()}{' '}
                       -{' '}
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_ben_b_ma.toString()}
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ben_b_ma.toString()}
                     </Text>
                   )}
 
@@ -419,36 +397,26 @@ export default class ItemGiuong extends Component {
                     bvv_number: item.sdgct_number
                   }) && (
                     <Text numberOfLines={2} style={styles.textSmall}>
-                      {_
-                        .find(this.props.dataVe, {
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_diem_don_khach.toString() !== '' &&
+                        _.find(this.props.dataVe, {
                           bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_diem_don_khach.toString() !== '' &&
-                        _
-                          .find(this.props.dataVe, {
-                            bvv_number: item.sdgct_number
-                          })
-                          .arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_diem_tra_khach.toString()}
+                        }).arrVe.bvv_diem_don_khach.toString() + ' -'}{' '}
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_diem_tra_khach.toString()}
                     </Text>
                   )}
 
-                  {_
-                    .find(this.props.dataVe, {
-                      bvv_number: item.sdgct_number
-                    })
-                    .arrVe.bvv_ghi_chu.toString() !== '' && (
+                  {_.find(this.props.dataVe, {
+                    bvv_number: item.sdgct_number
+                  }).arrVe.bvv_ghi_chu.toString() !== '' && (
                     <Text style={styles.textSmall}>
                       Ghi chú:
-                      {_
-                        .find(this.props.dataVe, {
-                          bvv_number: item.sdgct_number
-                        })
-                        .arrVe.bvv_ghi_chu.toString()}
+                      {_.find(this.props.dataVe, {
+                        bvv_number: item.sdgct_number
+                      }).arrVe.bvv_ghi_chu.toString()}
                     </Text>
                   )}
 

@@ -108,7 +108,22 @@ export default class extends Component {
         <Text style={styles.title}>{title}</Text>
       </View>
     );
-    return this.renderHeader(left, center);
+
+    const right = (
+      <View style={styles.rowIconContainer}>
+        {title === 'Danh sách thanh tra' && (
+          <Button
+            onPress={() => {
+              this.props.forwardTo('thanhTra');
+            }}
+            transparent
+          >
+            <Icon style={styles.menuIcon} name="add" />
+          </Button>
+        )}
+      </View>
+    );
+    return this.renderHeader(left, center, right);
   }
 
   // public data not event

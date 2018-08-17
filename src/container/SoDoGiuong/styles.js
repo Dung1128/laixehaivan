@@ -41,9 +41,7 @@ export default {
     // backgroundColor: 'red',
     justifyContent: 'center'
   },
-  textNormal: {
-    fontSize: material.textNormal
-  },
+
   textSmall: {
     fontSize: material.textSmall
   },
