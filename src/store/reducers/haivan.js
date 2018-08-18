@@ -31,7 +31,8 @@ const init = {
     laixe2: '',
     tiepvien: ''
   },
-  actionUpdateThanhTraView: new Date()
+  actionUpdateThanhTraView: new Date(),
+  actionUpdateDieuDo: new Date()
 };
 
 export default (state = init, { type, payload }) => {
@@ -76,6 +77,8 @@ export default (state = init, { type, payload }) => {
       return { ...state, saveThanhTraData: payload };
     case 'app/actionUpdateThanhTraView':
       return { ...state, actionUpdateThanhTraView: payload };
+    case 'app/actionUpdateDieuDo':
+      return { ...state, actionUpdateDieuDo: payload };
     default:
       return state;
   }

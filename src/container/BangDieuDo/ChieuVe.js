@@ -16,7 +16,8 @@ import * as haivanSelectors from '../../store/selectors/haivan';
   state => ({
     token: authSelectors.getToken(state),
     profile: authSelectors.getUser(state),
-    timeChuyenDi: haivanSelectors.getTimeChuyenDi(state)
+    timeChuyenDi: haivanSelectors.getTimeChuyenDi(state),
+    getActionUpdateDieuDo: haivanSelectors.actionUpdateDieuDo(state)
   }),
   { ...commonActions, ...haivanActions }
 )
@@ -32,7 +33,6 @@ export default class ChieuVe extends React.PureComponent {
   }
 
   componentDidMount() {
-    console.log(this.props.timeChuyenDi);
     this.getList(moment(this.props.timeChuyenDi).format('DD-MM-YYYY'));
   }
 
@@ -44,7 +44,7 @@ export default class ChieuVe extends React.PureComponent {
       adm_id: this.props.profile.adm_id
     };
 
-    this.props.listChuyenDi(params, (e, d) => {
+    this.props.lichDieuHanh(params, (e, d) => {
       if (d) {
         d.arrItem.map((item, index) => {
           if (item.not_chieu_di === 2) {
@@ -61,6 +61,13 @@ export default class ChieuVe extends React.PureComponent {
     if (
       nextProps.token !== null &&
       nextProps.timeChuyenDi !== this.props.timeChuyenDi
+    ) {
+      this.getList(moment(nextProps.timeChuyenDi).format('DD-MM-YYYY'));
+    }
+
+    if (
+      nextProps.token !== null &&
+      nextProps.getActionUpdateDieuDo !== this.props.getActionUpdateDieuDo
     ) {
       this.getList(moment(nextProps.timeChuyenDi).format('DD-MM-YYYY'));
     }

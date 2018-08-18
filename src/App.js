@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BackHandler, UIManager, StatusBar } from 'react-native';
+import {
+  BackHandler,
+  UIManager,
+  StatusBar,
+  Platform,
+  Linking,
+  Alert
+} from 'react-native';
 import { Drawer, StyleProvider, Container } from 'native-base';
 import NetworkState, { Settings } from 'react-native-network-state';
 import Navigator from './components/Navigator';
@@ -59,6 +66,30 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    const params = {
+      type: Platform.OS === 'ios' ? 'ios' : 'android',
+      currentVersion: Platform.OS === 'ios' ? 14 : 30
+    };
+
+    this.props.checkVersion(params, (e, d) => {
+      if (d && d.status === 1) {
+        Alert.alert(
+          'Cập nhật phiên bản',
+          'Bạn có muốn cập nhật phiên bản mới không?',
+          [
+            {
+              text: 'Không',
+              onPress: () => console.log('cancel update')
+            },
+            {
+              text: 'Đồng ý',
+              onPress: () => Linking.openURL(d.url)
+            }
+          ]
+        );
+      }
+    });
+
     BackHandler.addEventListener('hardwareBackPress', () => {
       const { router, goBack, isPlayingGallery, closeGallery } = this.props;
       // close gallery if exist

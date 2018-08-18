@@ -4,6 +4,7 @@ import { Container, Content, Text, View, Button } from 'native-base';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import * as JsSearch from 'js-search';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import material from '../../theme/variables/material';
@@ -90,8 +91,7 @@ export default class AddBangDieuDo extends React.PureComponent {
       }
     };
 
-    console.log(this.props.route.params.data.idLaixe2);
-    console.log(this.props.route.params.data.idLaixe2);
+    console.log(this.props.route.params.data);
   }
 
   componentDidMount() {
@@ -171,16 +171,7 @@ export default class AddBangDieuDo extends React.PureComponent {
   }
 
   submitForm(val) {
-    console.log(
-      this.state.xe,
-      this.state.laixe1,
-      this.state.laixe2,
-      this.state.tiepVien
-    );
-
-    if (val.fromDate === '' || val.toDate === '') {
-      return this.props.setToast('Vui lòng cập nhật đầy đủ thông tin giờ');
-    }
+    console.log(val);
 
     if (this.state.xe.id_xe === 0) {
       return this.props.setToast('Vui lòng cập nhật đầy đủ thông tin xe');
@@ -205,13 +196,18 @@ export default class AddBangDieuDo extends React.PureComponent {
       lx_id_1: this.state.laixe1.lx_id,
       lx_id_2: this.state.laixe2.lx_id,
       tv_id: this.state.tiepVien.tv_id,
-      did_gio_xuat_ben_that: val.toDate.name,
-      did_gio_dieu_hanh: val.fromDate.name
+      did_gio_xuat_ben_that: val.toDate
+        ? val.toDate.name
+        : this.props.route.params.data.did_gio_xuat_ben_that,
+      did_gio_dieu_hanh: val.fromDate
+        ? val.fromDate.name
+        : this.props.route.params.data.did_gio_dieu_hanh
     };
 
     this.props.saveDieuHanh(params, (e, d) => {
       if (d) {
         this.props.resetTo('bangDieuDo');
+        this.props.actionUpdateDieuDo(new Date());
       }
       if (e && e.message) {
         this.props.setToast(e.message.message, 'error');
@@ -232,7 +228,6 @@ export default class AddBangDieuDo extends React.PureComponent {
         searchXe: this.state.dataInfo.arrXe
       });
     }
-    console.log(search.search(val));
   }
 
   searchLaiXe1(val) {
@@ -248,7 +243,6 @@ export default class AddBangDieuDo extends React.PureComponent {
         searchLaiXe1: this.state.dataInfo.arrLaiXe
       });
     }
-    console.log(search.search(val));
   }
 
   searchLaiXe2(val) {
@@ -264,7 +258,6 @@ export default class AddBangDieuDo extends React.PureComponent {
         searchLaiXe2: this.state.dataInfo.arrLaiXe
       });
     }
-    console.log(search.search(val));
   }
 
   searchTiepVien(val) {
@@ -280,7 +273,6 @@ export default class AddBangDieuDo extends React.PureComponent {
         searchTiepVien: this.state.dataInfo.arrTiepVien
       });
     }
-    console.log(search.search(val));
   }
 
   render() {
@@ -288,19 +280,35 @@ export default class AddBangDieuDo extends React.PureComponent {
     return (
       <Container style={styles.container}>
         <Content>
-          <Text style={styles.textNormal}>Tuyến đi: Mỹ đình - Lào Cai</Text>
+          <Text style={styles.textNormal}>
+            Tuyến đi: {this.props.route.params.data.tuy_ten}
+          </Text>
           {this.renderItem(this.state.xe, 'bus', 2)}
           <Field
-            defaultValue={'Chọn giờ điều hành'}
+            defaultValue={
+              this.props.route.params.data.did_gio_dieu_hanh
+                ? this.props.route.params.data.did_gio_dieu_hanh
+                : 'Chọn giờ điều hành'
+            }
             name="fromDate"
             component={TimePickerField}
-            defaultDateChose={this.state.valDate}
+            defaultDateChose={moment(
+              this.props.route.params.data.did_gio_dieu_hanh,
+              'HH:mm:ss'
+            )}
           />
           <Field
-            defaultValue={'Chọn giờ xuất bến thật'}
+            defaultValue={
+              this.props.route.params.data.did_gio_xuat_ben_that
+                ? this.props.route.params.data.did_gio_xuat_ben_that
+                : 'Chọn giờ xuất bến thật'
+            }
             name="toDate"
             component={TimePickerField}
-            defaultDateChose={this.state.valDate}
+            defaultDateChose={moment(
+              this.props.route.params.data.did_gio_xuat_ben_that,
+              'HH:mm:ss'
+            )}
           />
           {this.renderItem(this.state.laixe1, 'account', 3)}
           {this.renderItem(this.state.laixe2, 'account', 4)}

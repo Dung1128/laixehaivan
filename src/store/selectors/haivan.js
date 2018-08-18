@@ -17,3 +17,5 @@ export const actionUpdateListNhienLieu = state =>
   state.haivan.actionUpdateListNhienLieu;
 export const actionUpdateThanhTraView = state =>
   state.haivan.actionUpdateThanhTraView;
+
+export const actionUpdateDieuDo = state => state.haivan.actionUpdateDieuDo;

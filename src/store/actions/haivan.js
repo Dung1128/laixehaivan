@@ -182,3 +182,8 @@ export const actionUpdateThanhTraView = payload => ({
   type: 'app/actionUpdateThanhTraView',
   payload
 });
+
+export const actionUpdateDieuDo = payload => ({
+  type: 'app/actionUpdateDieuDo',
+  payload
+});
