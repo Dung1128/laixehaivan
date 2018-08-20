@@ -14,6 +14,7 @@ import Icon from '../../elements/Icon';
 import platform from '../../theme/variables/platform';
 import options from './options';
 import styles from './styles';
+import material from '../../theme/variables/material';
 
 const imagePickerOptions = {
   title: 'Select Avatar',
@@ -187,7 +188,7 @@ export default class extends PureComponent {
   }
 
   navigateTo(route) {
-    console.log('this.props.profile.adm_id', this.props.profile.adm_id);
+    // console.log('this.props.profile.adm_id', this.props.profile.adm_id);
     const { forwardTo, closeDrawer, resetTo } = this.props;
     if (route === 'logout') {
       this.props.onLogout(this.props.profile.adm_id, () => {
@@ -207,7 +208,7 @@ export default class extends PureComponent {
 
   changeAvatar() {
     ImagePicker.showImagePicker(imagePickerOptions, response => {
-      console.log('Response = ', response);
+      // console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -265,12 +266,15 @@ export default class extends PureComponent {
                     <Left>
                       <Icon
                         name={item.icon}
-                        style={[styles.icon, isCurrent && { color: '#E3B02B' }]}
+                        style={[
+                          styles.icon,
+                          isCurrent && { color: material.colorHeader }
+                        ]}
                       />
                       <Text
                         style={[
                           styles.iconText,
-                          isCurrent && { color: '#E3B02B' }
+                          isCurrent && { color: material.colorHeader }
                         ]}
                       >
                         {item.name}

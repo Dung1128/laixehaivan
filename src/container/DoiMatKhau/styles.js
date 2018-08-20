@@ -8,6 +8,7 @@ export default {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: material.paddingNormal
+    marginTop: material.paddingNormal,
+    backgroundColor: material.colorHeader
   }
 };

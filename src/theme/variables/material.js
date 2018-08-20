@@ -19,6 +19,7 @@ export default {
   textBadge: PixelRatio.getFontScale() * 8,
   textSuperTiny: PixelRatio.getFontScale() * 10,
   textTiny: PixelRatio.getFontScale() * 11,
+  textSmaller: PixelRatio.getFontScale() * 12,
   textSmall: PixelRatio.getFontScale() * 14,
   textNormal: PixelRatio.getFontScale() * 15,
   textTitle: PixelRatio.getFontScale() * 20,
@@ -49,11 +50,13 @@ export default {
   colorSubtitle: '#9097A5',
   colorLight: '#F4F7FD',
 
-  colorHeader: '#f3a43a',
+  colorHeader: 'rgba(255, 220, 66, 1)',
   colorTab: '#59656C',
   // Badge
   badgeBg: '#ED1727',
   badgeColor: '#fff',
+  daBook: '#ffa500',
+  daLenXe: '#60c0dc',
   // New Variable
   badgePadding: platform === 'ios' ? 3 : 0,
 

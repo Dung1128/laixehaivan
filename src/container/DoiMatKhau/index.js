@@ -168,7 +168,6 @@ export default class DoiMatKhau extends React.PureComponent {
 
           <Button
             onPress={handleSubmit(this.changePass.bind(this))}
-            success
             style={styles.btn}
           >
             <Text>Xác nhận</Text>

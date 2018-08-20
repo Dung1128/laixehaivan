@@ -31,7 +31,7 @@ export default class ChieuDi extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.getList(moment(this.props.timeChuyenDi).format('DD-MM-YYYY'));
+    this.getList(moment(this.props.currentDate).format('DD-MM-YYYY'));
   }
 
   getList(time) {
@@ -58,9 +58,9 @@ export default class ChieuDi extends React.PureComponent {
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.token !== null &&
-      nextProps.timeChuyenDi !== this.props.timeChuyenDi
+      nextProps.currentDate !== this.props.currentDate
     ) {
-      this.getList(moment(nextProps.timeChuyenDi).format('DD-MM-YYYY'));
+      this.getList(moment(nextProps.currentDate).format('DD-MM-YYYY'));
     }
   }
 
@@ -76,7 +76,7 @@ export default class ChieuDi extends React.PureComponent {
   }
 
   refreshList() {
-    this.getList(moment(this.props.timeChuyenDi).format('DD-MM-YYYY'));
+    this.getList(moment(this.props.currentDate).format('DD-MM-YYYY'));
   }
 
   _keyExtractor = (item, index) => item.did_id + '.';
@@ -89,7 +89,7 @@ export default class ChieuDi extends React.PureComponent {
         style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
       >
         {listChieuDi &&
-          listChieuDi.length <= 0 && <Text>Không có dữ liêụ</Text>}
+          listChieuDi.length <= 0 && <Text>Không có dữ liệu</Text>}
         <FlatList
           style={{ width: '100%' }}
           contentContainerStyle={styles.contentContainerList}

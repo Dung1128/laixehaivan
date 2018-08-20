@@ -36,7 +36,7 @@ export default class Filter extends React.PureComponent {
   }
 
   render() {
-    console.log('info', this.props.inforGiuong);
+    // console.log('info', this.props.inforGiuong);
     const { inforGiuong } = this.props;
     return (
       <Modal

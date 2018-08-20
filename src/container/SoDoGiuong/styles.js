@@ -43,7 +43,7 @@ export default {
   },
 
   textSmall: {
-    fontSize: material.textSmall
+    fontSize: material.textSmaller
   },
   headerVe: {
     flexDirection: 'row',

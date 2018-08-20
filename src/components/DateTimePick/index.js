@@ -20,6 +20,14 @@ export default class DateTimePickerTester extends Component {
     titleDate: this.props.defaultDate
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.defaultDate !== this.props.defaultDate) {
+      this.setState({
+        titleDate: nextProps.defaultDate
+      });
+    }
+  }
+
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 
   _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
@@ -104,7 +112,8 @@ export default class DateTimePickerTester extends Component {
                 fontSize: material.textBigger
               }}
             >
-              {days} {newMonth[0].name} {currentYear}
+              {days}
+               {newMonth[0].name} {currentYear}
             </Text>
             <IconIonicons name="md-arrow-dropdown" style={styles.dropdown} />
           </TouchableOpacity>

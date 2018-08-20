@@ -20,7 +20,7 @@ import Item from '../ThanhTraView/itemThanhTra';
   }),
   { ...commonActions, ...haivanActions }
 )
-export default class LichSuThanhTra extends React.PureComponent {
+export default class LichSuThanhTra extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

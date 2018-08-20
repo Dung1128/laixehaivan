@@ -45,7 +45,7 @@ export default class extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.price !== this.props.price) {
-      console.log(nextProps.price);
+      // console.log(nextProps.price);
       this.danhMucVe(nextProps.price);
     }
   }

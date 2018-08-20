@@ -94,7 +94,7 @@ export default class ThanhTra extends React.PureComponent {
       imageData: [{ data: '' }]
     };
 
-    console.log('info xe', this.props.route.params.data);
+    // console.log('info xe', this.props.route.params.data);
   }
 
   componentDidMount() {
@@ -253,7 +253,7 @@ export default class ThanhTra extends React.PureComponent {
   }
 
   submitForm(val) {
-    console.log(this.state.tuyenXe);
+    // console.log(this.state.tuyenXe);
     const params = {
       token: this.props.token,
       adm_id: this.props.profile.adm_id,
@@ -284,12 +284,12 @@ export default class ThanhTra extends React.PureComponent {
       }
       Keyboard.dismiss();
     });
-    console.log(val);
+    // console.log(val);
   }
 
   render() {
     const { handleSubmit } = this.props;
-    console.log('state', this.state.tuyenXe);
+    // console.log('state', this.state.tuyenXe);
     return (
       <Container style={styles.container}>
         <Content

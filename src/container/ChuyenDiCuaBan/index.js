@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Content, Text, Tabs, Tab } from 'native-base';
+import { TouchableOpacity } from 'react-native';
+import { Container, Content, Text, Tabs, Tab, View } from 'native-base';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import DateTimePicker from '../../components/DateTimePick';
@@ -11,6 +12,7 @@ import * as commonActions from '../../store/actions/common';
 import * as authSelectors from '../../store/selectors/auth';
 import * as haivanSelectors from '../../store/selectors/haivan';
 import * as haivanActions from '../../store/actions/haivan';
+import styles from './styles';
 
 @connect(
   state => ({
@@ -20,16 +22,19 @@ import * as haivanActions from '../../store/actions/haivan';
   }),
   { ...commonActions, ...haivanActions }
 )
-export default class ChuyenDiCuaBan extends React.PureComponent {
+export default class ChuyenDiCuaBan extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      active: true,
+      currentDate: new Date()
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     if (
-      nextProps.timeChuyenDi !== this.props.timeChuyenDi &&
-      nextProps.token !== null
+      nextProps.token !== null &&
+      nextProps.timeChuyenDi !== this.props.timeChuyenDi
     ) {
       this.getMenu();
     }
@@ -47,19 +52,61 @@ export default class ChuyenDiCuaBan extends React.PureComponent {
     });
   }
 
+  checkStyle() {
+    if (this.state.active) {
+      return styles.itemActive;
+    }
+  }
+
+  checkStyle1() {
+    if (!this.state.active) {
+      return styles.itemActive;
+    }
+  }
+
   render() {
-    console.log('dm', this.props.timeChuyenDi);
     return (
       <Container>
         <DateTimePicker
           isShowDate={false}
-          defaultDate={new Date(this.props.timeChuyenDi)}
+          defaultDate={this.state.currentDate}
           onChange={val => {
             this.setState({ currentDate: val.date });
             this.props.saveTimeChuyenDi(val.date);
           }}
         />
-        <TabTask />
+        <View style={styles.styleTab}>
+          <TouchableOpacity
+            onPress={() =>
+              !this.state.active &&
+              this.setState({
+                active: !this.state.active
+              })
+            }
+            activeOpacity={0.7}
+            style={{ ...styles.itemRow, ...this.checkStyle() }}
+          >
+            <Text>Chiều đi</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              this.state.active &&
+              this.setState({
+                active: !this.state.active
+              })
+            }
+            activeOpacity={0.7}
+            style={{ ...styles.itemRow, ...this.checkStyle1() }}
+          >
+            <Text>Chiều về</Text>
+          </TouchableOpacity>
+        </View>
+        {this.state.active ? (
+          <ChieuDi currentDate={this.state.currentDate} />
+        ) : (
+          <ChieuVe currentDate={this.state.currentDate} />
+        )}
+        {/* <TabTask /> */}
       </Container>
     );
   }

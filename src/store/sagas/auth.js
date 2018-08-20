@@ -15,7 +15,11 @@ const requestLogin = createRequestSaga({
   cancel: APP_LOGOUT,
   success: [data => saveLoggedToken(data), () => setAuthState(true)],
   failure: [
-    () => setToast('Vui lòng kiểm tra tài khoản hoặc mật khẩu', 'danger')
+    () =>
+      setToast(
+        'Vui lòng kiểm tra đường truyền hoặc tài khoản và mật khẩu',
+        'danger'
+      )
   ]
 });
 

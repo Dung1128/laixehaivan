@@ -121,10 +121,10 @@ export default class ThemVe extends React.PureComponent {
 
     this.danhMuc = [];
 
-    console.log('info', this.props.route.params.infoChuyen);
-    console.log('danh muc ve', this.props.route.params.data);
-    console.log('detail ve', this.props.route.params.detailVe);
-    console.log('this.props.route.params.data', this.props.route.params.data);
+    // console.log('info', this.props.route.params.infoChuyen);
+    // console.log('danh muc ve', this.props.route.params.data);
+    // console.log('detail ve', this.props.route.params.detailVe);
+    // console.log('this.props.route.params.data', this.props.route.params.data);
   }
 
   componentDidMount() {
@@ -132,7 +132,7 @@ export default class ThemVe extends React.PureComponent {
   }
 
   saveParams(params) {
-    console.log(params);
+    // console.log(params);
     this.props.saveOffline(params);
     this.props.resetTo('soDoGiuong');
   }
@@ -143,7 +143,7 @@ export default class ThemVe extends React.PureComponent {
         this.state.phone.toString().length > 13 ||
         this.state.phone.toString().length < 10
       ) {
-        console.log(this.state.phone);
+        // console.log(this.state.phone);
         return Alert.alert('Thông báo', 'Số điện thoại sai dịnh dạng');
       }
     }
@@ -153,7 +153,7 @@ export default class ThemVe extends React.PureComponent {
         val.phoneNguoiDi.toString().length > 13 ||
         val.phoneNguoiDi.toString().length < 10
       ) {
-        console.log(val.phoneNguoiDi);
+        // console.log(val.phoneNguoiDi);
         return Alert.alert('Thông báo', 'Số điện thoại sai dịnh dạng');
       }
     }
@@ -233,7 +233,7 @@ export default class ThemVe extends React.PureComponent {
   }
 
   checkKhuyenMai() {
-    console.log('this.state.khuyenMai', this.state.khuyenMai.id);
+    // console.log('this.state.khuyenMai', this.state.khuyenMai.id);
     switch (this.state.khuyenMai.id) {
       case 4: {
         const params = {
@@ -293,7 +293,7 @@ export default class ThemVe extends React.PureComponent {
   }
 
   getSeri(val) {
-    console.log('val', val);
+    // console.log('val', val);
     if (val === 0) {
       return this.setState({ seri: 0 });
     } else {
@@ -473,7 +473,7 @@ export default class ThemVe extends React.PureComponent {
         listDiemNot: this.props.route.params.data
       });
     }
-    console.log(search.search(val));
+    // console.log(search.search(val));
   }
 
   searchDiemDen(val) {
@@ -489,13 +489,13 @@ export default class ThemVe extends React.PureComponent {
         listDiemNot: this.props.route.params.data
       });
     }
-    console.log(search.search(val));
+    // console.log(search.search(val));
   }
 
   render() {
     const { handleSubmit } = this.props;
     const totalPrice = this.state.price.price - this.state.giamgia;
-    console.log(this.props.getConnect);
+    // console.log(this.props.getConnect);
 
     return (
       <Container style={styles.container}>

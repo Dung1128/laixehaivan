@@ -17,7 +17,7 @@ export default class TimePickerTester extends Component {
   _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
   _handleDatePicked = date => {
-    console.log(date);
+    // console.log(date);
     this.props.onChange &&
       this.props.onChange({
         name: moment(date).format('HH:mm'),

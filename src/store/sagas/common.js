@@ -14,7 +14,7 @@ import {
 import { setAuthState, removeLoggedUser } from '../actions/auth';
 
 export const rejectErrors = res => {
-  console.log('res', res);
+  // console.log('res', res);
   const { status, data } = res;
   if (status >= 200 && status < 300) {
     return res;
@@ -138,7 +138,7 @@ export const createRequestSaga = ({
 
       const { data, isTimeout, cancelRet } = yield race(raceOptions);
       if (isTimeout) {
-        console.log('timeout', timeout);
+        // console.log('timeout', timeout);
         throw new Error(`Api method is timeout after ${timeout} ms!!!`);
       } else if (cancelRet) {
         // callback on success

@@ -91,7 +91,7 @@ export default class AddBangDieuDo extends React.PureComponent {
       }
     };
 
-    console.log(this.props.route.params.data);
+    // console.log(this.props.route.params.data);
   }
 
   componentDidMount() {
@@ -107,7 +107,7 @@ export default class AddBangDieuDo extends React.PureComponent {
     this.props.getInfoDieuHanh(params, (e, d) => {
       this.props.saveInfoDieuHanh(d);
       this.setState({
-        dataInfo: d,
+        dataInfo: { ...this.state.dataInfo, ...d },
         searchXe: d.arrXe,
         searchLaiXe1: d.arrLaiXe,
         searchLaiXe2: d.arrLaiXe,
@@ -171,7 +171,7 @@ export default class AddBangDieuDo extends React.PureComponent {
   }
 
   submitForm(val) {
-    console.log(val);
+    // console.log(val);
 
     if (this.state.xe.id_xe === 0) {
       return this.props.setToast('Vui lòng cập nhật đầy đủ thông tin xe');
@@ -220,7 +220,7 @@ export default class AddBangDieuDo extends React.PureComponent {
     search.addIndex('xe_bien_kiem_soat');
     search.addDocuments(this.state.dataInfo.arrXe);
     this.setState({
-      searchXe: search.search(val)
+      searchXe: [...search.search(val)]
     });
 
     if (val === '') {
@@ -233,6 +233,7 @@ export default class AddBangDieuDo extends React.PureComponent {
   searchLaiXe1(val) {
     var search = new JsSearch.Search('lx_name');
     search.addIndex('lx_name');
+    search.addIndex('lx_name_kd');
     search.addDocuments(this.state.dataInfo.arrLaiXe);
     this.setState({
       searchLaiXe1: search.search(val)
@@ -248,6 +249,7 @@ export default class AddBangDieuDo extends React.PureComponent {
   searchLaiXe2(val) {
     var search = new JsSearch.Search('lx_name');
     search.addIndex('lx_name');
+    search.addIndex('lx_name_kd');
     search.addDocuments(this.state.dataInfo.arrLaiXe);
     this.setState({
       searchLaiXe2: search.search(val)
@@ -263,6 +265,7 @@ export default class AddBangDieuDo extends React.PureComponent {
   searchTiepVien(val) {
     var search = new JsSearch.Search('tv_name');
     search.addIndex('tv_name');
+    search.addIndex('tv_name_kd');
     search.addDocuments(this.state.dataInfo.arrTiepVien);
     this.setState({
       searchTiepVien: search.search(val)
@@ -324,7 +327,16 @@ export default class AddBangDieuDo extends React.PureComponent {
 
         <ModalFilter
           selectedValue={val => this.setState({ xe: val })}
-          data={this.state.searchXe}
+          data={[
+            {
+              ...{
+                id_xe: 0,
+                xe_bien_kiem_soat: 'Bỏ chọn',
+                type: 2
+              }
+            },
+            ...this.state.searchXe
+          ]}
           onSearch={val => this.searchXe(val)}
           handleVisible={val =>
             this.setState({
@@ -336,7 +348,17 @@ export default class AddBangDieuDo extends React.PureComponent {
 
         <ModalFilter
           selectedValue={val => this.setState({ laixe1: val })}
-          data={this.state.searchLaiXe1}
+          data={[
+            {
+              ...{
+                lx_id: 0,
+                lx_name: 'Bỏ chọn',
+
+                type: 3
+              }
+            },
+            ...this.state.searchLaiXe1
+          ]}
           onSearch={val => this.searchLaiXe1(val)}
           handleVisible={val =>
             this.setState({
@@ -348,7 +370,17 @@ export default class AddBangDieuDo extends React.PureComponent {
 
         <ModalFilter
           selectedValue={val => this.setState({ laixe2: val })}
-          data={this.state.searchLaiXe2}
+          data={[
+            {
+              ...{
+                lx_id: 0,
+                lx_name: 'Bỏ chọn',
+
+                type: 3
+              }
+            },
+            ...this.state.searchLaiXe2
+          ]}
           onSearch={val => this.searchLaiXe2(val)}
           handleVisible={val =>
             this.setState({
@@ -360,7 +392,17 @@ export default class AddBangDieuDo extends React.PureComponent {
 
         <ModalFilter
           selectedValue={val => this.setState({ tiepVien: val })}
-          data={this.state.searchTiepVien}
+          data={[
+            {
+              ...{
+                tv_id: 0,
+                tv_name: 'Bỏ chọn',
+
+                type: 3
+              }
+            },
+            ...this.state.searchTiepVien
+          ]}
           onSearch={val => this.searchTiepVien(val)}
           handleVisible={val =>
             this.setState({

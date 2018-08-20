@@ -272,7 +272,7 @@ export default class SoDoGiuong extends React.PureComponent {
   }
 
   doiGhe() {
-    console.log('this.state.oldDetailVe', this.state.oldDetailVe);
+    // console.log('this.state.oldDetailVe', this.state.oldDetailVe);
     const params = {
       token: this.props.token,
       bvv_id_can_chuyen: this.state.oldDetailVe.arrVe.bvv_id,
@@ -293,7 +293,7 @@ export default class SoDoGiuong extends React.PureComponent {
   }
 
   themVe() {
-    console.log('them ve');
+    // console.log('them ve');
     const params = {
       adm_id: this.props.profile.adm_id,
       token: this.props.token,
@@ -352,7 +352,7 @@ export default class SoDoGiuong extends React.PureComponent {
         this.props.getUpdateSDG !== nextProps.getUpdateSDG ||
         this.props.getDataOffline !== nextProps.getDataOffline
       ) {
-        console.log('nextProps.getDataOffline', nextProps.getDataOffline);
+        // console.log('nextProps.getDataOffline', nextProps.getDataOffline);
         this.props.getConnect &&
           this.getList(this.props.did_id, nextProps.getDataOffline);
         // this.props.getConnect && this.danhMucVe(this.props.did_id);

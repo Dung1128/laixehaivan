@@ -87,7 +87,7 @@ export default class DangCho extends React.PureComponent {
   }
 
   render() {
-    console.log('this.state.danhSachCho', this.state.danhSachCho);
+    // console.log('this.state.danhSachCho', this.state.danhSachCho);
     return (
       <Container style={styles.container}>
         {this.state.danhSachCho.arrDanhSach &&

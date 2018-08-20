@@ -118,7 +118,7 @@ export default class HuongDanSuDung extends React.PureComponent {
   }
 
   subMibChiPhi(val) {
-    console.log(this.chiPhi);
+    // console.log(this.chiPhi);
 
     const params = {
       token: this.props.token,
@@ -143,7 +143,7 @@ export default class HuongDanSuDung extends React.PureComponent {
       <Container style={styles.container}>
         <Content>
           {this.state.arrChiPhi.map((item, index) => {
-            console.log(item.name_danh_muc);
+            // console.log(item.name_danh_muc);
             return (
               <View>
                 <Text style={styles.textNormal}>{item.name_danh_muc}</Text>

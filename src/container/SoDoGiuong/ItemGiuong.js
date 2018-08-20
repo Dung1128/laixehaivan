@@ -37,7 +37,7 @@ export default class ItemGiuong extends Component {
         }
 
         if (ve.arrVe.bvv_status === 11) {
-          return { backgroundColor: material.colorPending };
+          return { backgroundColor: material.daLenXe };
         }
 
         if (ve.arrVe.bvv_status === 1) {
@@ -47,7 +47,7 @@ export default class ItemGiuong extends Component {
         if (ve.arrVe.bvv_status === 4) {
           return { backgroundColor: material.inputSuccessBorderColor };
         }
-        return { backgroundColor: material.colorRequest };
+        return { backgroundColor: material.daBook };
       } else {
         return { backgroundColor: material.badgeColor };
       }
@@ -83,12 +83,12 @@ export default class ItemGiuong extends Component {
     //   bvv_number: item.sdgct_number
     // });
 
-    console.log('dmm', item);
+    // console.log('dmm', item);
 
     const w =
       width % 2 === 0
-        ? material.deviceWidth / (width + 1) - 20
-        : material.deviceWidth / width - 20;
+        ? material.deviceWidth / (width + 1) - 10
+        : material.deviceWidth / width - 10;
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         {item.data.map(item => (
@@ -131,7 +131,9 @@ export default class ItemGiuong extends Component {
             }}
           >
             <View style={styles.headerVe}>
-              <Text style={styles.textSmall}>{item.sdgct_label_full}</Text>
+              <View>
+                <Text style={styles.textSmall}>{item.sdgct_label_full}</Text>
+              </View>
               {this.props.price ? (
                 _.find(this.props.dataVe, {
                   bvv_number: item.sdgct_number
@@ -449,7 +451,7 @@ export default class ItemGiuong extends Component {
   }
 
   renderItem(data, index) {
-    console.log('data', data);
+    // console.log('data', data);
     return (
       data.data.length !== 0 && (
         <View style={styles.card}>

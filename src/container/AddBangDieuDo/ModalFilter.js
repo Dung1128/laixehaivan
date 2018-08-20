@@ -39,7 +39,7 @@ export default class Filter extends React.PureComponent {
   }
 
   renderItem({ item }) {
-    console.log(item);
+    // console.log(item);
     return (
       <TouchableOpacity
         activeOpacity={0.7}

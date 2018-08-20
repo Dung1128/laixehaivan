@@ -150,7 +150,7 @@ export default class Item extends Component {
                     <View
                       style={{
                         ...styles.note,
-                        backgroundColor: material.colorRequest
+                        backgroundColor: material.daBook
                       }}
                     />
                     <Text

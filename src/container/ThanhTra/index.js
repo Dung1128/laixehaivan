@@ -113,9 +113,9 @@ export default class ThanhTra extends React.PureComponent {
     this.props.getInfoThanhTra(params, (e, d) => {
       if (d && d) {
         this.setState({
-          dataDiaDiem: d.arrDiem,
+          dataDiaDiem: { ...this.state.dataDiaDiem, ...d.arrDiem },
           dataViPham: d.arrLoiViPham,
-          dataThanhTra: d
+          dataThanhTra: { ...this.state.dataThanhTra, ...d }
         });
       } else {
         this.props.setToast(e.message.message, 'error');
@@ -146,14 +146,14 @@ export default class ThanhTra extends React.PureComponent {
   }
 
   searchDiaDiem(val) {
+    // console.log(this.state.dataThanhTra.arrData);
     var search = new JsSearch.Search('dtt_name');
     search.addIndex('dtt_name');
     search.addDocuments(this.state.dataThanhTra.arrDiem);
     this.setState({
-      dataDiaDiem: search.search(val)
+      dataDiaDiem: search.search(val.toString())
     });
-
-    if (val === '') {
+    if (val.toString() === '') {
       this.setState({
         dataDiaDiem: this.state.dataThanhTra.arrDiem
       });
@@ -223,10 +223,6 @@ export default class ThanhTra extends React.PureComponent {
 
     if (this.state.address.dtt_id === 0) {
       return Alert.alert('Thông báo', 'Vui lòng chọn địa chỉ');
-    }
-
-    if (val.noiDungViPham === '') {
-      return Alert.alert('Thông báo', 'Vui cập nhật nội dung vi phạm');
     }
 
     // console.log('params', params);
@@ -454,13 +450,7 @@ export default class ThanhTra extends React.PureComponent {
             />
           </View>
 
-          <AddImage
-            chooseImage={val =>
-              this.setState({ imageData: val }, () =>
-                console.log('new data', this.state.imageData)
-              )
-            }
-          />
+          <AddImage chooseImage={val => this.setState({ imageData: val })} />
 
           <View
             style={{
@@ -547,7 +537,15 @@ export default class ThanhTra extends React.PureComponent {
           />
 
           <ModalFilter
-            data={this.state.dataDiaDiem}
+            data={[
+              {
+                ...{
+                  dtt_id: 0,
+                  dtt_name: 'Bỏ chọn'
+                }
+              },
+              ...this.state.dataDiaDiem
+            ]}
             onSearch={val => this.searchDiaDiem(val)}
             selectedValue={val =>
               this.setState({

@@ -175,7 +175,7 @@ export default class AddNhienLieu extends PureComponent {
                 defaultDateChose={new Date()}
                 selectedOption={this.state.valDate}
                 onChange={val => {
-                  console.log('val', val);
+                  // console.log('val', val);
                   this.setState({ valDate: val });
                 }}
               />
