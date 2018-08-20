@@ -908,7 +908,15 @@ export default class ThemVe extends React.PureComponent {
         />
 
         <ModalFilter
-          data={this.state.listDiemNot}
+          data={[
+            {
+              ...{
+                bex_ten: 'Bỏ chọn',
+                bex_id: 0
+              }
+            },
+            ...this.state.listDiemNot
+          ]}
           onSearch={val => this.searchDiemDi(val)}
           selectedValue={val => this.checkSelectedDiemDi(val)}
           handleVisible={val =>
@@ -920,7 +928,15 @@ export default class ThemVe extends React.PureComponent {
         />
 
         <ModalFilter
-          data={this.state.listDiemNot}
+          data={[
+            {
+              ...{
+                bex_ten: 'Bỏ chọn',
+                bex_id: 0
+              }
+            },
+            ...this.state.listDiemNot
+          ]}
           onSearch={val => this.searchDiemDen(val)}
           selectedValue={val => this.checkSelectedDiemDen(val)}
           handleVisible={val =>

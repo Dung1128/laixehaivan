@@ -43,7 +43,8 @@ export default class AddNhienLieu extends PureComponent {
         name: moment(new Date()).format('DD-MM-YYYY')
       },
       litXang: 0,
-      maCode: ''
+      maCode: '',
+      dataNhaCCNew: []
     };
   }
 
@@ -58,7 +59,10 @@ export default class AddNhienLieu extends PureComponent {
     };
     this.props.getNCC(params, (e, d) => {
       if (d && d.arrData) {
-        this.setState({ dataNCC: d, dataNhaCCNew: d.arrData });
+        this.setState({
+          dataNCC: { ...this.state.dataNCC, ...d },
+          dataNhaCCNew: d.arrData
+        });
       }
     });
   }
@@ -109,7 +113,15 @@ export default class AddNhienLieu extends PureComponent {
   ModalNhaCC() {
     return (
       <ModalFilter
-        data={this.state.dataNhaCCNew}
+        data={[
+          {
+            ...{
+              ncc_id: 0,
+              ncc_name: 'Bỏ chọn'
+            }
+          },
+          ...this.state.dataNhaCCNew
+        ]}
         onSearch={val => this.searchNhaCC(val)}
         selectedValue={val =>
           this.setState({
