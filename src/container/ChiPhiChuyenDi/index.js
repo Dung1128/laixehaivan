@@ -48,11 +48,7 @@ export default class HuongDanSuDung extends React.PureComponent {
         <View style={styles.textInputContainer}>
           <Item>
             <NumericInput
-              value={
-                item.tcp_price === 0
-                  ? '0'
-                  : numeral(item.tcp_price).format('0,0')
-              }
+              value={numeral(item.tcp_price).format('0,0')}
               onChangeText={val => {
                 this.chiPhi[index].tcp_price = parseInt(val);
               }}

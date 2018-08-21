@@ -55,8 +55,9 @@ export default class Seri extends React.PureComponent {
 
     this.props.getSoDoGiuong(params, (e, d) => {
       if (d && d) {
+        console.log(d);
         d.arrVeNumber.map(item => {
-          if (item.arrVe.bvv_seri === 0) {
+          if (item.arrVe.bvv_seri === 0 && item.arrVe.bvv_price !== 0) {
             newData.push(item.arrVe);
           }
         });

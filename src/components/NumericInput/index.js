@@ -24,7 +24,7 @@ export default class NumericInput extends Component {
     const { onChangeText, value, ...props } = this.props;
     return (
       <Input
-        value={this.state.value}
+        value={this.state.value === '0' ? '' : this.state.value}
         onChangeText={val => {
           this.setState({ value: this.formatNumber(val) });
           onChangeText && onChangeText(val.replace(/,/g, ''));
