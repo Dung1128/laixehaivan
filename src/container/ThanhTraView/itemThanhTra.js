@@ -80,6 +80,12 @@ export default class Item extends Component {
               </Text>
             </Text>
             <Text style={styles.textNormal}>
+              Điểm kiểm tra:{' '}
+              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                {data.xtt_dia_diem}
+              </Text>
+            </Text>
+            <Text style={styles.textNormal}>
               Lỗi:{' '}
               <Text
                 style={{

@@ -100,6 +100,12 @@ export default class XuongXe extends React.PureComponent {
             'bold'
           )}
           {this.renderItem(
+            'Địa điểm kiểm tra: ',
+            dataContent.xtt_dia_diem,
+            'black',
+            'bold'
+          )}
+          {this.renderItem(
             'Tổng số khách: ',
             dataContent.xtt_so_khach,
             'green',

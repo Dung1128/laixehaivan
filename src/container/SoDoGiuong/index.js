@@ -1,6 +1,15 @@
 import React from 'react';
-import { Alert } from 'react-native';
-import { Container, Content, Text, Button, Icon, Fab, Card } from 'native-base';
+import { Alert, TouchableOpacity } from 'react-native';
+import {
+  Container,
+  Content,
+  Text,
+  Button,
+  Icon,
+  Fab,
+  Card,
+  View
+} from 'native-base';
 import { connect } from 'react-redux';
 import FabButton from '../../components/FabButton';
 
@@ -292,7 +301,7 @@ export default class SoDoGiuong extends React.PureComponent {
     });
   }
 
-  themVe() {
+  themVe(newVe) {
     // console.log('them ve');
     const params = {
       adm_id: this.props.profile.adm_id,
@@ -308,11 +317,15 @@ export default class SoDoGiuong extends React.PureComponent {
         token: this.props.token,
         did_id: this.props.did_id,
         bvv_id1: this.state.oldDetailVe.arrVe.bvv_id,
-        bvv_id2: this.state.detailVe.arrVe.bvv_id
+        bvv_id2: newVe.arrVe.bvv_id
       },
       (e, d) => {
         if (d) {
           this.getList(this.props.did_id, this.props.getDataOffline);
+        }
+
+        if (e && e.message) {
+          this.props.setToast(e.message.message);
         }
       }
     );
@@ -484,20 +497,25 @@ export default class SoDoGiuong extends React.PureComponent {
                     { cancelable: false }
                   );
                 } else if (this.props.getActionThemVe) {
-                  Alert.alert(
-                    'Thông báo',
-                    'Bạn có muốn thêm vé không?',
-                    [
-                      { text: 'Không', onPress: () => {}, style: 'cancel' },
-                      {
-                        text: 'Đồng ý',
-                        onPress: () => {
-                          this.themVe();
-                        }
-                      }
-                    ],
-                    { cancelable: false }
+                  // Alert.alert(
+                  //   'Thông báo',
+                  //   'Bạn có muốn thêm vé không?',
+                  //   [
+                  //     { text: 'Không', onPress: () => {}, style: 'cancel' },
+                  //     {
+                  //       text: 'Đồng ý',
+                  //       onPress: () => {
+                  //         this.themVe();
+                  //       }
+                  //     }
+                  //   ],
+                  //   { cancelable: false }
+                  // );
+                  this.setState({ detailVe: val }, () =>
+                    this.themVe(this.state.detailVe)
                   );
+                  //
+                  console.log('them ve');
                 } else {
                   val.arrVe.bvv_status !== 0
                     ? this.setState({
@@ -568,6 +586,42 @@ export default class SoDoGiuong extends React.PureComponent {
           }
           visible={this.state.visible}
         />
+        {this.props.getActionThemVe === true && (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+              marginBottom: material.paddingSmall,
+              backgroundColor: 'transparent'
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                this.props.actionRemoveGhe(false);
+                this.props.actionXepCho(false);
+                this.props.actionThemVe(false);
+              }}
+              style={{
+                paddingHorizontal: material.paddingNormal,
+                paddingVertical: material.paddingSmall + 2,
+                backgroundColor: material.colorComplete,
+                borderRadius: 8
+              }}
+              activeOpacity={0.6}
+            >
+              <Text
+                style={{
+                  ...styles.textNormal,
+                  color: material.badgeColor,
+                  fontWeight: 'bold'
+                }}
+              >
+                Hoàn tất thêm vé
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </Container>
     );
   }

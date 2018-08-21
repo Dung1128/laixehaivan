@@ -112,11 +112,19 @@ export default class ThanhTra extends React.PureComponent {
     };
     this.props.getInfoThanhTra(params, (e, d) => {
       if (d && d) {
-        this.setState({
-          dataDiaDiem: { ...this.state.dataDiaDiem, ...d.arrDiem },
-          dataViPham: d.arrLoiViPham,
-          dataThanhTra: { ...this.state.dataThanhTra, ...d }
-        });
+        this.setState(
+          {
+            dataDiaDiem: [...this.state.dataDiaDiem, ...d.arrDiem],
+            dataViPham: d.arrLoiViPham,
+            dataThanhTra: { ...this.state.dataThanhTra, ...d }
+          },
+          () =>
+            console.log(
+              'dataDiaDiem',
+              this.state.dataDiaDiem,
+              this.state.dataThanhTra
+            )
+        );
       } else {
         this.props.setToast(e.message.message, 'error');
       }
@@ -521,7 +529,16 @@ export default class ThanhTra extends React.PureComponent {
           </Button>
 
           <ModalFilter
-            data={this.state.dataViPham}
+            disableSearch
+            data={[
+              {
+                ...{
+                  xdm_id: 0,
+                  xdm_name: 'Bỏ chọn'
+                }
+              },
+              ...this.state.dataViPham
+            ]}
             onSearch={val => console.log('search', val)}
             selectedValue={val =>
               this.setState({

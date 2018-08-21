@@ -151,9 +151,7 @@ const requestThemVe = createRequestSaga({
   request: haivan.themVe,
   key: 'themVe',
   success: [],
-  failure: [
-    () => setToast('Lỗi, Không thêm được vé, xin vui lòng thử lại sau', 'error')
-  ]
+  failure: []
 });
 
 const requestLenXe = createRequestSaga({

@@ -36,7 +36,7 @@ export default class ThanhTraView extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.getList();
+    this.getList(this.props.did_id);
   }
 
   renderItem({ item, index }) {
@@ -48,14 +48,17 @@ export default class ThanhTraView extends React.PureComponent {
       nextProps.token !== null &&
       nextProps.getUpdateThanhTraView !== this.props.getUpdateThanhTraView
     ) {
-      this.getList();
+      this.getList(nextProps.did_id);
+    }
+    if (nextProps.token !== null && nextProps.did_id !== this.props.did_id) {
+      this.getList(nextProps.did_id);
     }
   }
 
-  getList() {
+  getList(dd) {
     const params = {
       token: this.props.token,
-      did_id: this.props.did_id,
+      did_id: dd,
       adm_id: this.props.profile.adm_id
     };
 
@@ -69,7 +72,7 @@ export default class ThanhTraView extends React.PureComponent {
   }
 
   refreshList() {
-    this.getList();
+    this.getList(this.props.did_id);
   }
 
   render() {

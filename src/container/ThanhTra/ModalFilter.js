@@ -93,18 +93,20 @@ export default class Filter extends React.PureComponent {
               <IconIonicons name="ios-arrow-back" size={28} />
             </TouchableOpacity>
           </View>
-          <View style={styles.viewInput}>
-            <TextInput
-              placeholder="Tìm kiếm"
-              underlineColorAndroid="transparent"
-              style={styles.TextInput}
-              onChangeText={val => this.props.onSearch(val)}
-            />
-          </View>
+          {!this.props.disableSearch && (
+            <View style={styles.viewInput}>
+              <TextInput
+                placeholder="Tìm kiếm"
+                underlineColorAndroid="transparent"
+                style={styles.TextInput}
+                onChangeText={val => this.props.onSearch(val)}
+              />
+            </View>
+          )}
 
           <FlatList
             contentContainerStyle={{ margin: material.paddingNormal }}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => index + '.'}
             data={this.props.data}
             renderItem={this.renderItem.bind(this)}
           />

@@ -249,7 +249,7 @@ export default class extends Component {
           </Button>
         )}
 
-        {this.props.getActionThemVe === true && (
+        {/* {this.props.getActionThemVe === true && (
           <Button
             onPress={() => {
               this.props.actionRemoveGhe(false);
@@ -260,7 +260,7 @@ export default class extends Component {
           >
             <Text style={styles.textNormal}>Huỷ</Text>
           </Button>
-        )}
+        )} */}
       </View>
     );
     return this.renderHeader(left, center, right);

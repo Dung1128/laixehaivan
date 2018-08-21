@@ -58,6 +58,12 @@ export default class Item extends Component {
               {numeral(data.bvv_price).format('0,0')} VNĐ
             </Text>
           </Text>
+          <Text style={styles.textNormal}>
+            Điểm xuống:{' '}
+            <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+              {data.diemXuong}
+            </Text>
+          </Text>
         </View>
       </Card>
     );
