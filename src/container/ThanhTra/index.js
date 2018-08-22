@@ -125,7 +125,9 @@ export default class ThanhTra extends React.PureComponent {
               this.state.dataThanhTra
             )
         );
-      } else {
+      }
+
+      if (e && e.message) {
         this.props.setToast(e.message.message, 'error');
       }
     });
