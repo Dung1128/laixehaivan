@@ -11,6 +11,7 @@ import {
   Item,
   Input
 } from 'native-base';
+import { Alert } from 'react-native';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { View, Keyboard } from 'react-native';
@@ -82,6 +83,10 @@ export default class extends Component {
     this.props.xuongXeAll(params, (e, d) => {
       if (d) {
         this.props.actionUpdateSDG(new Date());
+      }
+
+      if (e && e.message) {
+        this.props.setToast(e.message.message);
       }
     });
   }
@@ -164,7 +169,20 @@ export default class extends Component {
         {title === 'Trả khách' && (
           <Button
             onPress={() => {
-              this.xuongXeAll();
+              Alert.alert(
+                'Thông báo',
+                'Bạn có muốn trả khách không?',
+                [
+                  { text: 'Không', onPress: () => {}, style: 'cancel' },
+                  {
+                    text: 'Đồng ý',
+                    onPress: () => {
+                      this.xuongXeAll();
+                    }
+                  }
+                ],
+                { cancelable: false }
+              );
             }}
             transparent
           >
@@ -180,6 +198,30 @@ export default class extends Component {
             transparent
           >
             <Icon style={styles.menuIcon} name="add" />
+          </Button>
+        )}
+
+        {title === 'Vé offline' && (
+          <Button
+            onPress={() => {
+              Alert.alert(
+                'Thông báo',
+                'Bạn có muốn huỷ tất cả vé offline không?',
+                [
+                  { text: 'Không', onPress: () => {}, style: 'cancel' },
+                  {
+                    text: 'Đồng ý',
+                    onPress: () => {
+                      this.props.subObjOffline([]);
+                    }
+                  }
+                ],
+                { cancelable: false }
+              );
+            }}
+            transparent
+          >
+            <Icon style={styles.menuIcon} name="trash" />
           </Button>
         )}
 

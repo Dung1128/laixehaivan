@@ -67,8 +67,26 @@ export default class SoDoGiuong extends React.PureComponent {
           bvv_id: 0
         }
       },
-      tongSoVe: 0
+      tongSoVe: 0,
+      stateOffline: [],
+      stateOfflineDif: []
     };
+  }
+
+  componentWillMount() {
+    let newDataOffline = [];
+    let newDataOfflineDif = [];
+    this.props.getDataOffline.map((item, index) => {
+      if (item.did_id === this.props.did_id) {
+        newDataOffline.push(item);
+      } else {
+        newDataOfflineDif.push(item);
+      }
+    });
+    this.setState({
+      stateOffline: newDataOffline,
+      stateOfflineDif: newDataOfflineDif
+    });
   }
 
   componentDidMount() {
@@ -371,6 +389,25 @@ export default class SoDoGiuong extends React.PureComponent {
         // this.props.getConnect && this.danhMucVe(this.props.did_id);
       }
     }
+
+    if (
+      this.props.getDataOffline !== nextProps.getDataOffline ||
+      this.props.did_id !== nextProps.did_id
+    ) {
+      let newDataOffline = [];
+      let newDataOfflineDif = [];
+      nextProps.getDataOffline.map((item, index) => {
+        if (item.did_id === nextProps.did_id) {
+          newDataOffline.push(item);
+        } else {
+          newDataOfflineDif.push(item);
+        }
+      });
+      this.setState({
+        stateOffline: newDataOffline,
+        stateOfflineDif: newDataOfflineDif
+      });
+    }
   }
 
   onCreate(val) {
@@ -387,16 +424,19 @@ export default class SoDoGiuong extends React.PureComponent {
               if (d) {
                 this.props.actionUpdateSDG(new Date());
 
-                this.props.getDataOffline.map((it, index) => {
+                this.state.stateOffline.map((it, index) => {
                   if (
-                    _.findIndex(this.props.getDataOffline, {
+                    _.findIndex(this.state.stateOffline, {
                       bvv_number: val.bvv_number
                     }) !== index
                   ) {
                     newData.push(it);
                   }
                 });
-                this.props.subObjOffline(newData);
+                this.props.subObjOffline([
+                  ...newData,
+                  ...this.state.stateOfflineDif
+                ]);
               }
               if (
                 this.props.getConnect &&
@@ -410,17 +450,23 @@ export default class SoDoGiuong extends React.PureComponent {
                 );
                 // this.danhMucVe(this.props.did_id);
 
-                this.props.getDataOffline.map((it, index) => {
+                this.state.stateOffline.map((it, index) => {
                   if (
-                    _.findIndex(this.props.getDataOffline, {
+                    _.findIndex(this.state.stateOffline, {
                       bvv_number: val.bvv_number
                     }) !== index
                   ) {
                     newData.push(it);
                   }
                 });
-                this.props.subObjOffline(newData);
-                this.getList(this.props.did_id, newData);
+                this.props.subObjOffline([
+                  ...newData,
+                  ...this.state.stateOfflineDif
+                ]);
+                this.getList(this.props.did_id, [
+                  ...newData,
+                  ...this.state.stateOfflineDif
+                ]);
               }
               if (!this.props.getConnect) {
                 Alert.alert(
@@ -448,7 +494,7 @@ export default class SoDoGiuong extends React.PureComponent {
             data={this.state.soDoGiuong.arrInfo}
             tongSoVe={this.state.tongSoVe}
           />
-          {this.props.getDataOffline.length > 0 && (
+          {this.state.stateOffline.length > 0 && (
             <Text
               style={{
                 ...styles.textSmall,
@@ -530,7 +576,7 @@ export default class SoDoGiuong extends React.PureComponent {
               dataVe={this.state.soDoGiuong.arrVeNumber}
               price={this.state.price}
               dataActive={this.props.ve}
-              dataOffline={this.props.getDataOffline}
+              dataOffline={this.state.stateOffline}
               did={this.props.did_id}
 
               // handleSoDo={val =>

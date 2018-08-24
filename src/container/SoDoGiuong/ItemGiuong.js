@@ -67,7 +67,8 @@ export default class ItemGiuong extends Component {
     }
   }
 
-  checkVeOffline(data, status) {
+  checkVeOffline(data, item) {
+    console.log('dmm', this.props.dataOffline);
     if (
       _.find(this.props.dataVe, { bvv_number: data }).arrVe.bvv_status === 0 &&
       _.find(this.props.dataOffline, { bvv_number: data }) &&

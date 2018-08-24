@@ -230,7 +230,7 @@ const requestXuongXeAll = createRequestSaga({
   request: haivan.xuongXeAll,
   key: 'xuongXeAll',
   success: [],
-  failure: [() => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')]
+  failure: []
 });
 
 const requestEditInfoThanhTra = createRequestSaga({

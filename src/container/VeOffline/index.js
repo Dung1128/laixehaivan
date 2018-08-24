@@ -28,25 +28,31 @@ export default class HuyVe extends React.PureComponent {
         arrData: []
       },
       isRefreshing: false,
-      dataOffline: []
+      dataOffline: [],
+      dataOfflineDif: []
     };
   }
 
   componentDidMount() {
     const newArray = [];
+    const newArrayDif = [];
     this.props.getDataOffline.map((item, index) => {
       if (item.did_id === this.props.did_id) {
         newArray.push(item);
+      } else {
+        newArrayDif.push(item);
       }
     });
 
     this.setState({
-      dataOffline: newArray
+      dataOffline: newArray,
+      dataOfflineDif: newArrayDif
     });
   }
 
   componentWillReceiveProps(nextProps) {
     const newArray = [];
+    const newArrayDif = [];
     if (
       this.props.getDataOffline !== nextProps.getDataOffline ||
       this.props.did_id !== nextProps.did_id
@@ -54,11 +60,14 @@ export default class HuyVe extends React.PureComponent {
       nextProps.getDataOffline.map((item, index) => {
         if (item.did_id === nextProps.did_id) {
           newArray.push(item);
+        } else {
+          newArrayDif.push(item);
         }
       });
 
       this.setState({
-        dataOffline: newArray
+        dataOffline: newArray,
+        dataOfflineDif: newArrayDif
       });
     }
   }
@@ -77,16 +86,19 @@ export default class HuyVe extends React.PureComponent {
               if (d) {
                 this.props.actionUpdateSDG(new Date());
                 Alert.alert('Thông báo', 'Thành công');
-                this.props.getDataOffline.map((it, index) => {
+                this.state.dataOffline.map((it, index) => {
                   if (
-                    _.findIndex(this.props.getDataOffline, {
+                    _.findIndex(this.state.dataOffline, {
                       bvv_number: val.bvv_number
                     }) !== index
                   ) {
                     newData.push(it);
                   }
                 });
-                this.props.subObjOffline(newData);
+                this.props.subObjOffline([
+                  ...newData,
+                  ...this.state.dataOfflineDif
+                ]);
               }
               if (
                 this.props.getConnect &&
@@ -98,16 +110,19 @@ export default class HuyVe extends React.PureComponent {
                   'Thông báo',
                   'Chỗ đã có người đặt. Bạn vui lòng chọn chỗ khác.'
                 );
-                this.props.getDataOffline.map((it, index) => {
+                this.state.dataOffline.map((it, index) => {
                   if (
-                    _.findIndex(this.props.getDataOffline, {
+                    _.findIndex(this.state.dataOffline, {
                       bvv_number: val.bvv_number
                     }) !== index
                   ) {
                     newData.push(it);
                   }
                 });
-                this.props.subObjOffline(newData);
+                this.props.subObjOffline([
+                  ...newData,
+                  ...this.state.dataOfflineDif
+                ]);
               }
 
               if (!this.props.getConnect) {
@@ -128,22 +143,21 @@ export default class HuyVe extends React.PureComponent {
     // console.log(item);
     const newData = [];
     if (
-      _.findIndex(this.props.getDataOffline, { bvv_number: item.bvv_number }) >=
-      0
+      _.findIndex(this.state.dataOffline, { bvv_number: item.bvv_number }) >= 0
     ) {
       this.props.insertVe(item, (e, d) => {
         if (d) {
           this.props.actionUpdateSDG(new Date());
-          this.props.getDataOffline.map((it, index) => {
+          this.state.dataOffline.map((it, index) => {
             if (
-              _.findIndex(this.props.getDataOffline, {
+              _.findIndex(this.state.dataOffline, {
                 bvv_number: item.bvv_number
               }) !== index
             ) {
               newData.push(it);
             }
           });
-          this.props.subObjOffline(newData);
+          this.props.subObjOffline([...newData, ...this.state.dataOfflineDif]);
         }
       });
     }
@@ -164,7 +178,7 @@ export default class HuyVe extends React.PureComponent {
                 marginTop: material.paddingNormal
               }}
             >
-              Không có dữ liêụ
+              Không có dữ liệu
             </Text>
           )}
         <FlatList
