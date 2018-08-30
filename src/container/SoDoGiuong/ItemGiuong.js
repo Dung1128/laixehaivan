@@ -68,7 +68,7 @@ export default class ItemGiuong extends Component {
   }
 
   checkVeOffline(data, item) {
-    console.log('dmm', this.props.dataOffline);
+    // console.log('dmm', this.props.dataOffline);
     if (
       _.find(this.props.dataVe, { bvv_number: data }).arrVe.bvv_status === 0 &&
       _.find(this.props.dataOffline, { bvv_number: data }) &&
@@ -135,6 +135,7 @@ export default class ItemGiuong extends Component {
               <View>
                 <Text style={styles.textSmall}>{item.sdgct_label_full}</Text>
               </View>
+              {/* Giá vé với vé đã được đặt offline ? */}
               {this.props.price ? (
                 _.find(this.props.dataVe, {
                   bvv_number: item.sdgct_number
@@ -165,9 +166,41 @@ export default class ItemGiuong extends Component {
                       </View>
                     ) : (
                       <Text numberOfLines={1} style={styles.textSmall}>
-                        {this.props.price.price > 1000
-                          ? this.props.price.price / 1000
-                          : this.props.price.price}
+                        {/* Giá cũ với vé đã tính được từ địa điểm ? */}
+                        {/* {this.props.price.price > 1000
+                          ? this.props.price.price / 1000 + 1
+                          : this.props.price.price + 1} */}
+                        {/* DM Giá vé linh hoạt check ? */}
+                        {_.find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        }) &&
+                        _.find(this.props.dataVe, {
+                          bvv_number: item.sdgct_number
+                        }).arrVe.arrGVLH.bvop_hinh_thuc === 1
+                          ? this.props.price.price > 1000
+                            ? (this.props.price.price -
+                                (this.props.price.price *
+                                  _.find(this.props.dataVe, {
+                                    bvv_number: item.sdgct_number
+                                  }).arrVe.arrGVLH.bvop_phan_tram) /
+                                  100) /
+                              1000
+                            : this.props.price.price -
+                              (this.props.price.price *
+                                _.find(this.props.dataVe, {
+                                  bvv_number: item.sdgct_number
+                                }).arrVe.arrGVLH.bvop_phan_tram) /
+                                100
+                          : this.props.price.price > 1000
+                            ? (this.props.price.price -
+                                _.find(this.props.dataVe, {
+                                  bvv_number: item.sdgct_number
+                                }).arrVe.arrGVLH.bvop_tien_mat) /
+                              1000
+                            : this.props.price.price -
+                              _.find(this.props.dataVe, {
+                                bvv_number: item.sdgct_number
+                              }).arrVe.arrGVLH.bvop_tien_mat}
                         K
                       </Text>
                     )}

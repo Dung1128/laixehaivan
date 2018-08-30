@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Modal, LayoutAnimation } from 'react-native';
-import { Text, View, Button, Card } from 'native-base';
+import { Text, View, Button, Card, Container } from 'native-base';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import * as commonActions from '../../store/actions/common';
 import material from '../../theme/variables/material';
 import variables from '../../theme/variables/platform';
-import styles from './styles';
+import styles from '../SoDoGiuong/styles';
 
 @connect(
   state => ({}),
@@ -39,21 +39,22 @@ export default class Filter extends React.PureComponent {
     // console.log('info', this.props.inforGiuong);
     const { inforGiuong } = this.props;
     return (
-      <Modal
-        animationType="slide"
-        transparent
-        visible={this.props.visible}
-        onRequestClose={() => console.log('')}
-      >
+      // <Modal
+      //   animationType="slide"
+      //   transparent
+      //   visible={this.props.visible}
+      //   onRequestClose={() => console.log('')}
+      // >
+      <Container>
         <TouchableOpacity activeOpacity={1} style={styles.modal}>
-          <View style={styles.header}>
+          {/* <View style={styles.header}>
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => this.setVisible(false)}
             >
               <IconIonicons name="ios-arrow-back" size={28} />
             </TouchableOpacity>
-          </View>
+          </View> */}
           <Card style={styles.cardView}>
             <Text style={styles.textNormal}>
               Họ và tên: {inforGiuong.bvv_ten_khach_hang_di}
@@ -100,8 +101,8 @@ export default class Filter extends React.PureComponent {
             <Button
               disabled={inforGiuong.bvv_status !== 11}
               onPress={() => {
-                this.setVisible(false);
                 this.props.onXuongXe();
+                this.setVisible(false);
               }}
               warning
               style={{
@@ -135,8 +136,8 @@ export default class Filter extends React.PureComponent {
             </Button>
             <Button
               onPress={() => {
-                this.setVisible(false);
                 this.props.onRemoveGhe();
+                this.setVisible(false);
               }}
               info
               style={styles.btn}
@@ -147,8 +148,8 @@ export default class Filter extends React.PureComponent {
           <View style={styles.itemButton}>
             <Button
               onPress={() => {
-                this.setVisible(false);
                 this.props.onThemVe();
+                this.setVisible(false);
               }}
               success
               style={styles.btn}
@@ -158,8 +159,8 @@ export default class Filter extends React.PureComponent {
             <Button
               disabled={inforGiuong.bvv_status === 11}
               onPress={() => {
-                this.setVisible(false);
                 this.props.onChuyenCho();
+                this.setVisible(false);
               }}
               warning
               style={{
@@ -177,8 +178,8 @@ export default class Filter extends React.PureComponent {
           <Button
             disabled={inforGiuong.bvv_status === 11}
             onPress={() => {
-              this.setVisible(false);
               this.props.onHuyVe();
+              this.setVisible(false);
             }}
             danger
             style={{
@@ -194,7 +195,8 @@ export default class Filter extends React.PureComponent {
             <Text style={styles.textNormal}>Huỷ vé</Text>
           </Button>
         </TouchableOpacity>
-      </Modal>
+        {/* </Modal> */}
+      </Container>
     );
   }
 }

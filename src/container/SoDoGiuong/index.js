@@ -239,9 +239,31 @@ export default class SoDoGiuong extends React.PureComponent {
       bvv_id: this.state.detailVe.arrVe.bvv_id,
       adm_id: this.props.profile.adm_id
     };
-    this.props.huyVe(params, () =>
-      this.getList(this.props.did_id, this.props.getDataOffline)
-    );
+
+    if (this.state.detailVe.arrVe.bvv_seri !== 0) {
+      setTimeout(() => {
+        Alert.alert(
+          'Thông báo',
+          'Bạn có huỷ vé không?',
+          [
+            { text: 'Không', onPress: () => {}, style: 'cancel' },
+            {
+              text: 'Đồng ý',
+              onPress: () => {
+                this.props.huyVe(params, () =>
+                  this.getList(this.props.did_id, this.props.getDataOffline)
+                );
+              }
+            }
+          ],
+          { cancelable: false }
+        );
+      }, 200);
+    } else {
+      this.props.huyVe(params, () =>
+        this.getList(this.props.did_id, this.props.getDataOffline)
+      );
+    }
   }
 
   checkSuDungVe(val) {

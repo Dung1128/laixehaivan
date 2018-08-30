@@ -21,6 +21,7 @@ import Register from './container/Register';
 import ResetPassword from './container/ResetPassword';
 import DoiMatKhau from './container/DoiMatKhau';
 import SoDoGiuong from './container/SoDoGiuong';
+import SoDoGiuongHandle from './container/SoDoGiuongHandle';
 import TraKhach from './container/TraKhach';
 import DangCho from './container/DangCho';
 import DoanhThu from './container/DoanhThu';
@@ -143,6 +144,15 @@ export default {
     footerType: 'home',
     cache: true
   },
+
+  soDoGiuongHandle: {
+    title: 'Chỉnh sửa',
+    Page: SoDoGiuongHandle,
+    headerType: 'back',
+    footerType: 'none',
+    cache: false
+  },
+
   traKhach: {
     title: 'Trả khách',
     Page: TraKhach,

@@ -167,7 +167,16 @@ export default class ThemVe extends React.PureComponent {
       diem_b: this.state.diemden.bex_id,
       seri: this.state.seri,
       key_danh_muc: this.state.key_danh_muc,
-      price: this.state.price.price - this.state.giamgia,
+      price:
+        this.props.route.params.detailVe.arrVe.arrGVLH.bvop_hinh_thuc === 0
+          ? this.state.price.price -
+            this.state.giamgia -
+            this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
+          : this.state.price.price -
+            this.state.giamgia -
+            ((this.state.price.price - this.state.giamgia) *
+              this.props.route.params.detailVe.arrVe.arrGVLH.bvop_phan_tram) /
+              100,
       phone: this.state.phone,
       trung_chuyen_tra: this.state.noitra,
       trung_chuyen_don: this.state.noidon,
@@ -494,7 +503,14 @@ export default class ThemVe extends React.PureComponent {
 
   render() {
     const { handleSubmit } = this.props;
-    const totalPrice = this.state.price.price - this.state.giamgia;
+    const totalPrice =
+      this.props.route.params.detailVe.arrVe.arrGVLH.bvop_hinh_thuc === 0
+        ? this.state.price.price -
+          this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
+        : this.state.price.price -
+          (this.state.price.price *
+            this.props.route.params.detailVe.arrVe.arrGVLH.bvop_phan_tram) /
+            100;
     // console.log(this.props.getConnect);
 
     return (
@@ -825,10 +841,22 @@ export default class ThemVe extends React.PureComponent {
               </View>
             </View>
           )}
-
+          {/* Chỉnh danh mục vé mới price mới*/}
           {this.state.detailVe.arrVe.bvv_seri === 0 && (
             <DanhMucVe
-              price={this.state.price.price - this.state.giamgia}
+              // price={this.state.price.price - this.state.giamgia}
+              //price danh mục giờ lấy giá gốc của vé
+              price={
+                this.props.route.params.detailVe.arrVe.arrGVLH
+                  .bvop_hinh_thuc === 0
+                  ? this.state.price.price -
+                    this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
+                  : this.state.price.price -
+                    (this.state.price.price *
+                      this.props.route.params.detailVe.arrVe.arrGVLH
+                        .bvop_phan_tram) /
+                      100
+              }
               seri={this.state.seri}
               // initialValue={}
               data={[{ ...{ label: 'Bỏ chọn', value: 0 } }, ...this.danhMuc]}
@@ -863,7 +891,16 @@ export default class ThemVe extends React.PureComponent {
           >
             {this.renderGiave(
               'Giá gốc:',
-              this.state.price && this.state.price.price
+              this.state.price &&
+              this.props.route.params.detailVe.arrVe.arrGVLH.bvop_hinh_thuc ===
+                0
+                ? this.state.price.price -
+                  this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
+                : this.state.price.price -
+                  (this.state.price.price *
+                    this.props.route.params.detailVe.arrVe.arrGVLH
+                      .bvop_phan_tram) /
+                    100
             )}
             {this.renderGiave('Giảm:', this.state.giamgia)}
             {this.renderGiave(
