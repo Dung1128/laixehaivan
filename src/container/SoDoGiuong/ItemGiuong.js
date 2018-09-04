@@ -160,7 +160,11 @@ export default class ItemGiuong extends Component {
                               }).price / 1000
                             : _.find(this.props.dataOffline, {
                                 bvv_number: item.sdgct_number
-                              }).price}
+                              }).price <= 0
+                              ? '???'
+                              : _.find(this.props.dataOffline, {
+                                  bvv_number: item.sdgct_number
+                                }).price}
                           K
                         </Text>
                       </View>
@@ -178,25 +182,34 @@ export default class ItemGiuong extends Component {
                           bvv_number: item.sdgct_number
                         }).arrVe.arrGVLH.bvop_hinh_thuc === 1
                           ? this.props.price.price > 1000
-                            ? (this.props.price.price -
-                                (this.props.price.price *
+                            ? Math.floor(
+                                Math.floor(
+                                  this.props.price.price -
+                                    (this.props.price.price *
+                                      _.find(this.props.dataVe, {
+                                        bvv_number: item.sdgct_number
+                                      }).arrVe.arrGVLH.bvop_phan_tram) /
+                                      100
+                                ) / 5000
+                              ) * 5
+                            : Math.floor(
+                                Math.floor(
+                                  this.props.price.price -
+                                    (this.props.price.price *
+                                      _.find(this.props.dataVe, {
+                                        bvv_number: item.sdgct_number
+                                      }).arrVe.arrGVLH.bvop_phan_tram) /
+                                      100
+                                ) / 5000
+                              )
+                          : this.props.price.price > 1000
+                            ? Math.floor(
+                                (this.props.price.price -
                                   _.find(this.props.dataVe, {
                                     bvv_number: item.sdgct_number
-                                  }).arrVe.arrGVLH.bvop_phan_tram) /
-                                  100) /
-                              1000
-                            : this.props.price.price -
-                              (this.props.price.price *
-                                _.find(this.props.dataVe, {
-                                  bvv_number: item.sdgct_number
-                                }).arrVe.arrGVLH.bvop_phan_tram) /
-                                100
-                          : this.props.price.price > 1000
-                            ? (this.props.price.price -
-                                _.find(this.props.dataVe, {
-                                  bvv_number: item.sdgct_number
-                                }).arrVe.arrGVLH.bvop_tien_mat) /
-                              1000
+                                  }).arrVe.arrGVLH.bvop_tien_mat) /
+                                  5000
+                              ) * 5
                             : this.props.price.price -
                               _.find(this.props.dataVe, {
                                 bvv_number: item.sdgct_number

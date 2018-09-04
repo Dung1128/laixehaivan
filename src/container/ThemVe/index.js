@@ -58,6 +58,7 @@ export default class ThemVe extends React.PureComponent {
       visibleDiemDen: false,
       price: { price: 0 },
       bvd_id: {},
+      priceTicket: 0,
       khuyenMai:
         this.props.route.params.detailVe.arrVe.bvv_hinh_thuc_giam_gia > 0
           ? {
@@ -128,7 +129,28 @@ export default class ThemVe extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.showGiaVe();
+    // this.showGiaVe();
+    this.getPriceTicket();
+  }
+
+  getPriceTicket() {
+    const params = {
+      adm_id: this.props.profile.adm_id,
+      token: this.props.token,
+      did_id: this.props.did_id,
+      bvv_id: this.props.route.params.detailVe.arrVe.bvv_id,
+      diem_a: this.state.diemdi.bex_id,
+      diem_b: this.state.diemden.bex_id
+    };
+    console.log(params);
+
+    this.props.getPrice(params, (e, d) => {
+      if (d) {
+        this.setState({
+          priceTicket: d.price
+        });
+      }
+    });
   }
 
   saveParams(params) {
@@ -167,16 +189,16 @@ export default class ThemVe extends React.PureComponent {
       diem_b: this.state.diemden.bex_id,
       seri: this.state.seri,
       key_danh_muc: this.state.key_danh_muc,
-      price:
-        this.props.route.params.detailVe.arrVe.arrGVLH.bvop_hinh_thuc === 0
-          ? this.state.price.price -
-            this.state.giamgia -
-            this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
-          : this.state.price.price -
-            this.state.giamgia -
-            ((this.state.price.price - this.state.giamgia) *
-              this.props.route.params.detailVe.arrVe.arrGVLH.bvop_phan_tram) /
-              100,
+      price: this.state.priceTicket,
+      // this.props.route.params.detailVe.arrVe.arrGVLH.bvop_hinh_thuc === 0
+      //   ? this.state.price.price -
+      //     this.state.giamgia -
+      //     this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
+      //   : this.state.price.price -
+      //     this.state.giamgia -
+      //     ((this.state.price.price - this.state.giamgia) *
+      //       this.props.route.params.detailVe.arrVe.arrGVLH.bvop_phan_tram) /
+      //       100,
       phone: this.state.phone,
       trung_chuyen_tra: this.state.noitra,
       trung_chuyen_don: this.state.noidon,
@@ -376,7 +398,7 @@ export default class ThemVe extends React.PureComponent {
   }
 
   checkSelectedDiemDi(val) {
-    this.setState({ diemdi: val }, () => this.showGiaVe());
+    this.setState({ diemdi: val }, () => this.getPriceTicket());
 
     const soDoA = _.find(this.props.route.params.dataGiaVe, {
       diem_a: val.bex_id
@@ -384,7 +406,7 @@ export default class ThemVe extends React.PureComponent {
   }
 
   checkSelectedDiemDen(val) {
-    this.setState({ diemden: val }, () => this.showGiaVe());
+    this.setState({ diemden: val }, () => this.getPriceTicket());
   }
 
   checkEditAddress(type) {
@@ -847,15 +869,16 @@ export default class ThemVe extends React.PureComponent {
               // price={this.state.price.price - this.state.giamgia}
               //price danh mục giờ lấy giá gốc của vé
               price={
-                this.props.route.params.detailVe.arrVe.arrGVLH
-                  .bvop_hinh_thuc === 0
-                  ? this.state.price.price -
-                    this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
-                  : this.state.price.price -
-                    (this.state.price.price *
-                      this.props.route.params.detailVe.arrVe.arrGVLH
-                        .bvop_phan_tram) /
-                      100
+                this.state.priceTicket
+                // this.props.route.params.detailVe.arrVe.arrGVLH
+                //   .bvop_hinh_thuc === 0
+                //   ? this.state.price.price -
+                //     this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
+                //   : this.state.price.price -
+                //     (this.state.price.price *
+                //       this.props.route.params.detailVe.arrVe.arrGVLH
+                //         .bvop_phan_tram) /
+                //       100
               }
               seri={this.state.seri}
               // initialValue={}
@@ -891,21 +914,23 @@ export default class ThemVe extends React.PureComponent {
           >
             {this.renderGiave(
               'Giá gốc:',
-              this.state.price &&
-              this.props.route.params.detailVe.arrVe.arrGVLH.bvop_hinh_thuc ===
-                0
-                ? this.state.price.price -
-                  this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
-                : this.state.price.price -
-                  (this.state.price.price *
-                    this.props.route.params.detailVe.arrVe.arrGVLH
-                      .bvop_phan_tram) /
-                    100
+              this.state.priceTicket
+              // this.state.price &&
+              // this.props.route.params.detailVe.arrVe.arrGVLH.bvop_hinh_thuc ===
+              //   0
+              //   ? this.state.price.price -
+              //     this.props.route.params.detailVe.arrVe.arrGVLH.bvop_tien_mat
+              //   : this.state.price.price -
+              //     (this.state.price.price *
+              //       this.props.route.params.detailVe.arrVe.arrGVLH
+              //         .bvop_phan_tram) /
+              //       100
             )}
             {this.renderGiave('Giảm:', this.state.giamgia)}
             {this.renderGiave(
               'Giá vé:',
-              this.state.price && totalPrice > 0 ? totalPrice : 0
+              this.state.priceTicket
+              // this.state.price && totalPrice > 0 ? totalPrice : 0
             )}
           </View>
           {this.state.detailVe.arrVe.bvv_status !== 0 ? (

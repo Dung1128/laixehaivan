@@ -366,6 +366,15 @@ export default {
       `/api/appdriver/thanh-tra/get-view-listing-chuyen?adm_id=${
         params.adm_id
       }&token=${params.token}&did_id=${params.did_id}`
+    ),
+
+  getPrice: params =>
+    API.get(
+      `/api/appdriver/get-price-gvlh?adm_id=${params.adm_id}&token=${
+        params.token
+      }&did_id=${params.did_id}&bvv_id=${params.bvv_id}&diem_a=${
+        params.diem_a
+      }&diem_b=${params.diem_b}`
     )
 
   // facebookLogin: facebookToken =>

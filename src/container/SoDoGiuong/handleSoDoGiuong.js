@@ -88,6 +88,7 @@ export default class Filter extends React.PureComponent {
               }}
               style={{
                 ...styles.btn,
+                width: '100%',
                 backgroundColor:
                   inforGiuong.bvv_status === 11
                     ? material.colorRefund
@@ -97,7 +98,7 @@ export default class Filter extends React.PureComponent {
               <Text style={styles.textNormal}>Xác nhận lên xe</Text>
             </Button>
 
-            <Button
+            {/* <Button
               disabled={inforGiuong.bvv_status !== 11}
               onPress={() => {
                 this.setVisible(false);
@@ -113,7 +114,7 @@ export default class Filter extends React.PureComponent {
               }}
             >
               <Text style={styles.textNormal}>Xuống xe</Text>
-            </Button>
+            </Button> */}
           </View>
           <View style={styles.itemButton}>
             <Button

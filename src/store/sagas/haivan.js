@@ -106,7 +106,9 @@ const requestHuyVe = createRequestSaga({
   request: haivan.huyVe,
   key: 'huyVe',
   success: [],
-  failure: [() => setToast('Lỗi, Không huỷ được vé', 'error')]
+  failure: [
+    // () => setToast('Lỗi, Không huỷ được vé', 'error')
+  ]
 });
 
 const requestDanhSachCho = createRequestSaga({
@@ -127,7 +129,9 @@ const requestXepChoGheCho = createRequestSaga({
   request: haivan.xepChoGheCho,
   key: 'xepChoGheCho',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: [
+    // () => setToast('Lỗi, xin vui lòng thử lại sau', 'error')
+  ]
 });
 
 const requestCheckSuDungVe = createRequestSaga({
@@ -142,8 +146,8 @@ const requestRemoveGhe = createRequestSaga({
   key: 'removeGhe',
   success: [],
   failure: [
-    () =>
-      setToast('Lỗi, Không chuyển được chỗ, xin vui lòng thử lại sau', 'error')
+    // () =>
+    // setToast('Lỗi, Không chuyển được chỗ, xin vui lòng thử lại sau', 'error')
   ]
 });
 
@@ -282,6 +286,13 @@ const requestGetThanhTraChuyenDi = createRequestSaga({
   failure: [() => setToast('Lỗi, Không thể lấy dữ liệu', 'error')]
 });
 
+const requestGetPrice = createRequestSaga({
+  request: haivan.getPrice,
+  key: 'getPrice',
+  success: [],
+  failure: [() => setToast('Lỗi, Không thể lấy được giá', 'error')]
+});
+
 // root saga reducer
 export default [
   function* fetchWatcher() {
@@ -324,7 +335,8 @@ export default [
       takeLatest('app/getListNhienLieu', requestGetListNhienLieu),
       takeLatest('app/updateNhienLieu', requestUpdateNhienLieu),
       takeLatest('app/getNCC', requestGetNCC),
-      takeLatest('app/getThanhTraChuyenDi', requestGetThanhTraChuyenDi)
+      takeLatest('app/getThanhTraChuyenDi', requestGetThanhTraChuyenDi),
+      takeLatest('app/getPrice', requestGetPrice)
     ]);
   }
 ];

@@ -250,9 +250,12 @@ export default class SoDoGiuong extends React.PureComponent {
             {
               text: 'Đồng ý',
               onPress: () => {
-                this.props.huyVe(params, () =>
-                  this.getList(this.props.did_id, this.props.getDataOffline)
-                );
+                this.props.huyVe(params, (e, d) => {
+                  this.getList(this.props.did_id, this.props.getDataOffline);
+                  if (e && e.message) {
+                    this.props.setToat(e.message.message);
+                  }
+                });
               }
             }
           ],
@@ -317,6 +320,10 @@ export default class SoDoGiuong extends React.PureComponent {
         this.props.actionXepCho(false);
         this.getList(this.props.did_id, this.props.getDataOffline);
       }
+
+      if (e && e.message) {
+        this.props.setToast(e.message.message);
+      }
     });
   }
 
@@ -333,11 +340,15 @@ export default class SoDoGiuong extends React.PureComponent {
     };
     this.props.removeGhe(params, (e, d) => {
       if (d) {
-        this.props.actionRemoveGhe(false);
+        // this.props.actionRemoveGhe(false);
         this.getList(this.props.did_id, this.props.getDataOffline);
-      } else {
-        this.props.actionRemoveGhe(false);
       }
+
+      if (e && e.message) {
+        this.props.setToast(e.message.message);
+      }
+
+      this.props.actionRemoveGhe(false);
     });
   }
 

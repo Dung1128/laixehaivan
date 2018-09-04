@@ -288,8 +288,8 @@ export default class extends PureComponent {
         <View style={styles.footer}>
           <Text style={styles.iconText}>
             {platform.platform === 'ios'
-              ? `App version: 1.1.12`
-              : `App version: 2.13`}
+              ? `App version: 1.2.1`
+              : `App version: 2.14`}
           </Text>
         </View>
       </Container>

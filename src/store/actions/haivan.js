@@ -187,3 +187,8 @@ export const actionUpdateDieuDo = payload => ({
   type: 'app/actionUpdateDieuDo',
   payload
 });
+
+export const getPrice = (...args) => ({
+  type: 'app/getPrice',
+  args
+});
