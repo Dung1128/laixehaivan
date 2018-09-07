@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
 import { Container, Content, Text, Tabs, Tab } from 'native-base';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import FabButton from '../../components/FabButton';
 import material from '../../theme/variables/material';
 import styles from './styles';

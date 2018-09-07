@@ -5,7 +5,7 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import * as JsSearch from 'js-search';
-
+import _ from 'lodash';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';

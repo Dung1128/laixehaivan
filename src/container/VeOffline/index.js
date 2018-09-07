@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, RefreshControl, View, Alert } from 'react-native';
 import { Container, Content, Text } from 'native-base';
+import _ from 'lodash';
 import FabButton from '../../components/FabButton';
 import { connect } from 'react-redux';
 import * as commonActions from '../../store/actions/common';
@@ -181,6 +182,7 @@ export default class HuyVe extends React.PureComponent {
               Không có dữ liệu
             </Text>
           )}
+
         <FlatList
           style={{ width: '100%' }}
           contentContainerStyle={{ padding: material.paddingNormal }}

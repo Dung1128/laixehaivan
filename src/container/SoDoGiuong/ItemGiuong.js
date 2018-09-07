@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Text, Card } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import moment from 'moment';
+import _ from 'lodash';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
