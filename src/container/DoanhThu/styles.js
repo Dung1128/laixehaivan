@@ -41,5 +41,26 @@ export default {
     justifyContent: 'space-between',
     paddingHorizontal: material.paddingNormal + 4,
     paddingBottom: material.paddingSmall
+  },
+  styleTab: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 36,
+    alignItems: 'center',
+    marginVertical: material.paddingNormal,
+    paddingHorizontal: material.paddingNormal
+  },
+  itemRow: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    borderWidth: 1,
+    borderColor: material.colorHeader
+  },
+  get itemActive() {
+    return { ...this.itemRow, backgroundColor: material.colorHeader };
   }
 };

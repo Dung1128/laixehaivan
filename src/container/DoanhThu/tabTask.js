@@ -4,9 +4,9 @@ import TabBarComponent from '../../components/TabBarDoanhThu';
 import TongDoanhThu from './TongDoanhThu';
 import Seri from './Seri';
 
-const Tabs = TabNavigator({
-  Info: { screen: props => <Info {...props} color="#fff" /> }
-});
+// const Tabs = TabNavigator({
+//   Info: { screen: props => <Info {...props} color="#fff" /> }
+// });
 
 export const TabTask = TabNavigator(
   {

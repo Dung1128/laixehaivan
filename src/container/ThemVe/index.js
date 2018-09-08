@@ -240,7 +240,8 @@ export default class ThemVe extends React.PureComponent {
       diem_b: this.state.diemden.bex_id,
       seri: this.state.seri,
       key_danh_muc: this.state.key_danh_muc,
-      price: this.state.price.price,
+      // price: this.state.price.price,
+      price: this.state.priceTicket,
       phone: val.phone,
       trung_chuyen_tra: this.state.noitra,
       trung_chuyen_don: this.state.noidon,
@@ -333,7 +334,7 @@ export default class ThemVe extends React.PureComponent {
         token: this.props.token,
         did_id: this.props.did_id,
         dm_id: this.state.key_danh_muc,
-        price: this.state.price.price
+        price: this.state.priceTicket
       };
 
       this.props.getSeriMin(params, (e, d) => {
