@@ -68,7 +68,7 @@ export default class App extends Component {
   componentDidMount() {
     const params = {
       type: Platform.OS === 'ios' ? 'ios' : 'android',
-      currentVersion: Platform.OS === 'ios' ? 17 : 37
+      currentVersion: Platform.OS === 'ios' ? 18 : 37
     };
 
     this.props.checkVersion(params, (e, d) => {
@@ -307,7 +307,9 @@ export default class App extends Component {
               });
               this.props.saveConnect(true);
             }}
-            onDisconnected={() => this.props.saveConnect(false)}
+            onDisconnected={() => {
+              this.props.saveConnect(false);
+            }}
             visible={this.state.visibleNetwork}
           />
         </Container>
