@@ -241,7 +241,9 @@ const requestEditInfoThanhTra = createRequestSaga({
   request: haivan.editInfoThanhTra,
   key: 'editInfoThanhTra',
   success: [],
-  failure: [() => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')]
+  failure: [
+    // () => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')
+  ]
 });
 
 const requestGetListThanhTra = createRequestSaga({

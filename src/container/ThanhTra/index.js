@@ -242,6 +242,9 @@ export default class ThanhTra extends React.PureComponent {
         this.props.actionUpdateThanhTraView(new Date());
         this.props.resetTo('thanhTraView');
       }
+      if (e && e.message) {
+        this.props.setToast(e.message.message);
+      }
       Keyboard.dismiss();
     });
     // console.log(val);

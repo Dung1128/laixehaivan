@@ -53,7 +53,7 @@ export default class AddBangDieuDo extends React.PureComponent {
       searchTiepVien: [],
       searchLaiXe2: [],
       xe: {
-        id_xe: this.props.route.params.data.id_xe,
+        xe_id: this.props.route.params.data.id_xe,
         xe_bien_kiem_soat:
           this.props.route.params.data.bien_kiem_soat === ''
             ? 'Chọn xe'
@@ -173,7 +173,7 @@ export default class AddBangDieuDo extends React.PureComponent {
   submitForm(val) {
     // console.log(val);
 
-    if (this.state.xe.id_xe === 0) {
+    if (this.state.xe.xe_id === 0) {
       return this.props.setToast('Vui lòng cập nhật đầy đủ thông tin xe');
     }
     if (this.state.laixe1.lx_id === 0) {
