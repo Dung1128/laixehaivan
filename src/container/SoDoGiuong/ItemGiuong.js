@@ -80,7 +80,7 @@ export default class ItemGiuong extends Component {
     }
   }
 
-  renderRowItem(width, item) {
+  renderRowItem(width, item, index) {
     // const showVe = !!_.find(this.props.dataVe, {
     //   bvv_number: item.sdgct_number
     // });
@@ -92,9 +92,13 @@ export default class ItemGiuong extends Component {
         ? material.deviceWidth / (width + 1) - 10
         : material.deviceWidth / width - 10;
     return (
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        {item.data.map(item => (
+      <View
+        key={index}
+        style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+      >
+        {item.data.map((item, index) => (
           <TouchableOpacity
+            key={index}
             disabled={
               _.find(this.props.dataVe, { bvv_number: item.sdgct_number }).arrVe
                 .lock
@@ -502,7 +506,7 @@ export default class ItemGiuong extends Component {
     // console.log('data', data);
     return (
       data.data.length !== 0 && (
-        <View style={styles.card}>
+        <View key={index} style={styles.card}>
           {index !== 1 &&
             (index !== 3 && (
               <Text style={styles.textNormal}>
@@ -512,7 +516,7 @@ export default class ItemGiuong extends Component {
               </Text>
             ))}
           {data.data.map((item, index) =>
-            this.renderRowItem(item.data.length, item)
+            this.renderRowItem(item.data.length, item, index)
           )}
         </View>
       )
