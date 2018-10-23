@@ -64,7 +64,7 @@ const requestUpdateVe = createRequestSaga({
   request: haivan.updateVe,
   key: 'updateVe',
   success: [],
-  failure: [() => setToast('Lỗi, Không cập nhật được vé', 'error')]
+  failure: []
 });
 
 const requestGetDanhMucVe = createRequestSaga({
@@ -122,7 +122,7 @@ const requestChuyenCho = createRequestSaga({
   request: haivan.chuyenCho,
   key: 'chuyenCho',
   success: [],
-  failure: [() => setToast('Lỗi, xin vui lòng thử lại sau', 'error')]
+  failure: []
 });
 
 const requestXepChoGheCho = createRequestSaga({
@@ -162,9 +162,7 @@ const requestLenXe = createRequestSaga({
   request: haivan.lenXe,
   key: 'lenXe',
   success: [],
-  failure: [
-    () => setToast('Lỗi, Không lên được xe, xin vui lòng thử lại sau', 'error')
-  ]
+  failure: []
 });
 
 const requestTraKhach = createRequestSaga({
@@ -227,7 +225,7 @@ const requestSaveChiPhi = createRequestSaga({
   request: haivan.saveChiPhi,
   key: 'saveChiPhi',
   success: [],
-  failure: [() => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')]
+  failure: []
 });
 
 const requestXuongXeAll = createRequestSaga({
@@ -257,7 +255,7 @@ const requestUpdateDoanhThuHang = createRequestSaga({
   request: haivan.updateDoanhThuHang,
   key: 'updateDoanhThuHang',
   success: [() => setToast('Thành công')],
-  failure: [() => setToast('Lỗi, không thể cập nhật dữ liệu', 'error')]
+  failure: []
 });
 
 const requestGetListNhienLieu = createRequestSaga({

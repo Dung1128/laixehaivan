@@ -48,11 +48,20 @@ export default class Item extends Component {
                 {data.ghe || data.sdgct_label_full}
               </Text>
             </Text>
+
             {pending && (
-              <Text style={styles.textNormal}>
-                Ghi chú:{' '}
-                <Text style={styles.textNormal}>{data.bvv_ghi_chu}</Text>
-              </Text>
+              <View>
+                <Text style={styles.textNormal}>
+                  Seri vé:{' '}
+                  <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                    {data.bvv_seri}
+                  </Text>
+                </Text>
+                <Text style={styles.textNormal}>
+                  Ghi chú:{' '}
+                  <Text style={styles.textNormal}>{data.bvv_ghi_chu}</Text>
+                </Text>
+              </View>
             )}
             {!pending ? (
               <Text style={styles.textNormal}>
@@ -62,14 +71,24 @@ export default class Item extends Component {
                 </Text>
               </Text>
             ) : (
-              <Text style={styles.textNormal}>
-                Điểm trả:{' '}
-                <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                  {data.bvv_diem_tra_khach.toString() !== ''
-                    ? data.bvv_diem_tra_khach.toString()
-                    : data.ben_b}
+              <View>
+                <Text style={styles.textNormal}>
+                  Điểm đón:{' '}
+                  <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                    {data.bvv_diem_don_khach.toString() !== ''
+                      ? data.bvv_diem_don_khach.toString()
+                      : data.ben_a}
+                  </Text>
                 </Text>
-              </Text>
+                <Text style={styles.textNormal}>
+                  Điểm trả:{' '}
+                  <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                    {data.bvv_diem_tra_khach.toString() !== ''
+                      ? data.bvv_diem_tra_khach.toString()
+                      : data.ben_b}
+                  </Text>
+                </Text>
+              </View>
             )}
           </View>
 

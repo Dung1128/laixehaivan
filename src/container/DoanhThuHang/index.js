@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Text, View } from 'react-native';
-import { Container, Button, Item } from 'native-base';
+import { Text, View, Alert, Keyboard } from 'react-native';
+import { Container, Button, Item, Content } from 'native-base';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import styles from './styles';
@@ -36,48 +36,55 @@ export default class DoanhThuHang extends PureComponent {
       did_id: this.props.did_id,
       dt_hang: parseInt(this.state.doanhThuHang)
     };
-    this.props.updateDoanhThuHang(params);
+    this.props.updateDoanhThuHang(params, (e, d) => {
+      if (e && e.message.message) {
+        Alert.alert('Thông báo', e.message.message);
+      }
+      Keyboard.dismiss();
+    });
   }
 
   render() {
     return (
       <Container style={styles.container}>
-        <View style={styles.body}>
-          <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-            Tổng doanh thu hàng
-          </Text>
-          <Item>
-            <NumericInput
-              value={numeral(this.state.doanhThuHang).format('0,0')}
-              onChangeText={val =>
-                this.setState({
-                  doanhThuHang: val
-                })
-              }
-              returnKeyType="next"
-              keyboardType="numeric"
-              underlineColorAndroid="transparent"
-              style={styles.input}
-              placeholderTextColor={platform.textHideGray}
-              placeholder="Doanh thu"
-            />
-          </Item>
-        </View>
-        <Button
-          onPress={() => this.updateDoanhThu()}
-          success
-          style={styles.btn}
-        >
-          <Text
-            style={{
-              ...styles.textNormal,
-              color: material.badgeColor,
-              fontWeight: 'bold'
-            }}
+        <Content>
+          <View style={styles.body}>
+            <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+              Tổng doanh thu hàng
+            </Text>
+            <Item>
+              <NumericInput
+                value={numeral(this.state.doanhThuHang).format('0,0')}
+                onChangeText={val =>
+                  this.setState({
+                    doanhThuHang: val
+                  })
+                }
+                returnKeyType="next"
+                keyboardType="numeric"
+                underlineColorAndroid="transparent"
+                style={styles.input}
+                placeholderTextColor={platform.textHideGray}
+                placeholder="Doanh thu"
+              />
+            </Item>
+          </View>
+          <Button
+            onPress={() => this.updateDoanhThu()}
+            success
+            style={styles.btn}
           >
-            Cập nhật
-          </Text>
-        </Button>
+            <Text
+              style={{
+                ...styles.textNormal,
+                color: material.badgeColor,
+                fontWeight: 'bold'
+              }}
+            >
+              Cập nhật
+            </Text>
+          </Button>
+        </Content>
         <FabButton />
       </Container>
     );

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Text, Card } from 'native-base';
 import { TouchableOpacity, Image } from 'react-native';
 import moment from 'moment';
+import Communications from 'react-native-communications';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
@@ -84,24 +85,39 @@ export default class Item extends Component {
             </Text>
             {!detail && <Text style={styles.textNormal}>{data.tuy_ten}</Text>}
 
-            <Text style={styles.textNormal}>
-              Lái xe 1:{' '}
-              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {data.laixe1}
+            <TouchableOpacity
+              onPress={() => Communications.phonecall(data.phoneLaiXe1, true)}
+              activeOpacity={0.5}
+            >
+              <Text style={styles.textNormal}>
+                Lái xe 1:{' '}
+                <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                  {data.laixe1} - {data.phoneLaiXe1}
+                </Text>
               </Text>
-            </Text>
-            <Text style={styles.textNormal}>
-              Lái xe 2:{' '}
-              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {data.laixe2}
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => Communications.phonecall(data.phoneLaiXe2, true)}
+              activeOpacity={0.5}
+            >
+              <Text style={styles.textNormal}>
+                Lái xe 2:{' '}
+                <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                  {data.laixe2} - {data.phoneLaiXe2}
+                </Text>
               </Text>
-            </Text>
-            <Text style={styles.textNormal}>
-              Tiếp viên:{' '}
-              <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
-                {data.tiepvien}
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => Communications.phonecall(data.phoneTiepVien, true)}
+              activeOpacity={0.5}
+            >
+              <Text style={styles.textNormal}>
+                Tiếp viên:{' '}
+                <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+                  {data.tiepvien} - {data.phoneTiepVien}
+                </Text>
               </Text>
-            </Text>
+            </TouchableOpacity>
             {detail && (
               <View>
                 <View style={{ flexDirection: 'row' }}>

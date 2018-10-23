@@ -51,8 +51,14 @@ export default class ThemVe extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      noidon: false,
-      noitra: false,
+      noidon:
+        this.props.route.params.detailVe.arrVe.bvv_trung_chuyen_a === 0
+          ? false
+          : true,
+      noitra:
+        this.props.route.params.detailVe.arrVe.bvv_trung_chuyen_b === 0
+          ? false
+          : true,
       visible: false,
       visibleDiemDi: false,
       visibleDiemDen: false,
@@ -258,7 +264,10 @@ export default class ThemVe extends React.PureComponent {
         this.state.checkGiamGiaText === true ? this.state.giam_gia_text : ''
     };
 
-    this.props.updateVe(params, () => {
+    this.props.updateVe(params, (e, d) => {
+      if (e && e.message && e.message.message) {
+        Alert.alert('Thông báo', e.message.message);
+      }
       this.props.forwardTo('soDoGiuong');
       this.props.actionUpdateSDG(new Date());
     });
@@ -930,7 +939,7 @@ export default class ThemVe extends React.PureComponent {
             {this.renderGiave('Giảm:', this.state.giamgia)}
             {this.renderGiave(
               'Giá vé:',
-              this.state.priceTicket
+              this.state.priceTicket - this.state.giamgia
               // this.state.price && totalPrice > 0 ? totalPrice : 0
             )}
           </View>

@@ -82,6 +82,9 @@ export default class TraKhach extends React.PureComponent {
               adm_id: this.props.profile.adm_id
             };
             this.props.xuongXe(params, (e, d) => {
+              if (e && e.message && e.message.message) {
+                Alert.alert('Thông báo', e.message.message);
+              }
               if (d) {
                 this.getList();
                 this.props.actionUpdateSDG(new Date());

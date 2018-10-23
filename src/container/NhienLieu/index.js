@@ -78,7 +78,7 @@ export default class NhienLieu extends PureComponent {
                 marginTop: material.paddingNormal
               }}
             >
-              Không có dữ liêụ
+              Không có dữ liệu
             </Text>
           )}
         <FlatList

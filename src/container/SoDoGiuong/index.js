@@ -217,9 +217,13 @@ export default class SoDoGiuong extends React.PureComponent {
       bvv_id: this.state.detailVe.arrVe.bvv_id,
       adm_id: this.props.profile.adm_id
     };
-    this.props.lenXe(params, () =>
-      this.getList(this.props.did_id, this.props.getDataOffline)
-    );
+    this.props.lenXe(params, (e, d) => {
+      if (e && e.message && e.message.message) {
+        Alert.alert('Thông báo', e.message.message);
+      }
+
+      this.getList(this.props.did_id, this.props.getDataOffline);
+    });
   }
 
   chuyenCho() {
@@ -229,9 +233,12 @@ export default class SoDoGiuong extends React.PureComponent {
       adm_id: this.props.profile.adm_id,
       did_id: this.props.did_id
     };
-    this.props.chuyenCho(params, () =>
-      this.getList(this.props.did_id, this.props.getDataOffline)
-    );
+    this.props.chuyenCho(params, (e, d) => {
+      if (e && e.message && e.message.message) {
+        Alert.alert('Thông báo', e.message.message);
+      }
+      this.getList(this.props.did_id, this.props.getDataOffline);
+    });
   }
 
   huyve() {
@@ -254,7 +261,7 @@ export default class SoDoGiuong extends React.PureComponent {
                 this.props.huyVe(params, (e, d) => {
                   this.getList(this.props.did_id, this.props.getDataOffline);
                   if (e && e.message) {
-                    this.props.setToat(e.message.message);
+                    Alert.alert('Thông báo', e.message.message);
                   }
                 });
               }
@@ -264,9 +271,10 @@ export default class SoDoGiuong extends React.PureComponent {
         );
       }, 200);
     } else {
-      this.props.huyVe(params, () =>
-        this.getList(this.props.did_id, this.props.getDataOffline)
-      );
+      this.props.huyVe(params, (e, d) => {
+        Alert.alert('Thông báo', e.message.message);
+        this.getList(this.props.did_id, this.props.getDataOffline);
+      });
     }
   }
 

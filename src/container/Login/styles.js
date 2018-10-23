@@ -22,7 +22,7 @@ export default {
     marginTop: material.paddingNormal
   },
   textLogin: {
-    color: material.badgeColor,
+    color: material.colorDark2,
     fontWeight: 'bold'
   },
   footer: {

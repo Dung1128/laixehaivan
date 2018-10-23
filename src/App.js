@@ -68,7 +68,7 @@ export default class App extends Component {
   componentDidMount() {
     const params = {
       type: Platform.OS === 'ios' ? 'ios' : 'android',
-      currentVersion: Platform.OS === 'ios' ? 18 : 37
+      currentVersion: Platform.OS === 'ios' ? 19 : 38
     };
 
     this.props.checkVersion(params, (e, d) => {
