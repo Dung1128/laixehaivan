@@ -272,7 +272,9 @@ export default class SoDoGiuong extends React.PureComponent {
       }, 200);
     } else {
       this.props.huyVe(params, (e, d) => {
+       if(e && e.message && e.message.message) {
         Alert.alert('Thông báo', e.message.message);
+       }
         this.getList(this.props.did_id, this.props.getDataOffline);
       });
     }
