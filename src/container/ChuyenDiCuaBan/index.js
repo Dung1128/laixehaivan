@@ -58,9 +58,21 @@ export default class ChuyenDiCuaBan extends React.Component {
     }
   }
 
+  checkStyleText() {
+    if (this.state.active) {
+      return styles.itemActiveText;
+    }
+  }
+
   checkStyle1() {
     if (!this.state.active) {
       return styles.itemActive;
+    }
+  }
+
+  checkStyleText1() {
+    if (!this.state.active) {
+      return styles.itemActiveText;
     }
   }
 
@@ -86,7 +98,9 @@ export default class ChuyenDiCuaBan extends React.Component {
             activeOpacity={0.7}
             style={{ ...styles.itemRow, ...this.checkStyle() }}
           >
-            <Text>Chiều đi</Text>
+            <Text style={{ ...styles.textNormal, ...this.checkStyleText() }}>
+              Chiều đi
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
@@ -98,7 +112,9 @@ export default class ChuyenDiCuaBan extends React.Component {
             activeOpacity={0.7}
             style={{ ...styles.itemRow, ...this.checkStyle1() }}
           >
-            <Text>Chiều về</Text>
+            <Text style={{ ...styles.textNormal, ...this.checkStyleText1() }}>
+              Chiều về
+            </Text>
           </TouchableOpacity>
         </View>
         {this.state.active ? (

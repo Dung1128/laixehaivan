@@ -1549,10 +1549,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hasonhaivan.laixehaivan.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haivan.applaixehv;
 				PRODUCT_NAME = haivan;
-				PROVISIONING_PROFILE = "a21420a9-1d0d-4a45-bdc4-b857fa187f53";
-				PROVISIONING_PROFILE_SPECIFIER = haivanNewDis;
+				PROVISIONING_PROFILE = "ff110dd2-329b-413b-95ac-30c97e10d930";
+				PROVISIONING_PROFILE_SPECIFIER = Dis_laixehaivan_DungCreate;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1581,10 +1581,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hasonhaivan.laixehaivan.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haivan.applaixehv;
 				PRODUCT_NAME = haivan;
-				PROVISIONING_PROFILE = "a21420a9-1d0d-4a45-bdc4-b857fa187f53";
-				PROVISIONING_PROFILE_SPECIFIER = haivanNewDis;
+				PROVISIONING_PROFILE = "ff110dd2-329b-413b-95ac-30c97e10d930";
+				PROVISIONING_PROFILE_SPECIFIER = Dis_laixehaivan_DungCreate;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

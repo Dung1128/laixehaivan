@@ -4,7 +4,7 @@ import material from '../../theme/variables/material';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#59656C'
+    backgroundColor: material.badgeColor
   },
 
   drawerCover: {
@@ -17,7 +17,8 @@ export default StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
+    marginLeft: 0
     // flexDirection: 'column'
   },
   drawerImage: {
@@ -28,7 +29,7 @@ export default StyleSheet.create({
     marginBottom: 20
   },
   listItemContainer: {
-    margin: 20
+    marginBottom: 20
   },
   iconContainer: {
     width: 37,
@@ -40,18 +41,18 @@ export default StyleSheet.create({
 
   sidebarIcon: {
     fontSize: 21,
-    color: '#fff',
+    color: material.colorDark2,
     lineHeight: material.platform === 'android' ? 21 : 25,
     backgroundColor: 'transparent',
     alignSelf: 'center'
   },
   text: {
     fontWeight: material.platform === 'ios' ? '400' : '300',
-    color: '#FFF'
+    color: material.colorDark2
   },
   icon: {
     fontSize: 20,
-    color: '#fff',
+    color: material.colorDark2,
     justifyContent: 'center',
     width: 25,
     alignSelf: 'center'
@@ -63,7 +64,7 @@ export default StyleSheet.create({
   iconEdit: {
     marginLeft: 10,
     marginTop: -10,
-    color: '#fff',
+    color: material.colorDark2,
     width: 25,
     height: 25
   },
@@ -71,7 +72,7 @@ export default StyleSheet.create({
     fontSize: material.textNormal,
     fontWeight: '400',
     textAlign: 'center',
-    color: '#fff',
+    color: material.colorDark2,
     marginLeft: 20
   },
   iconTextLast: {
@@ -81,7 +82,7 @@ export default StyleSheet.create({
     textAlign: 'center'
   },
   footer: {
-    padding: 15,
+    paddingVertical: 15,
     position: 'absolute',
     bottom: 0
   }

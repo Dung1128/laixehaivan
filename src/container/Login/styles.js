@@ -22,7 +22,7 @@ export default {
     marginTop: material.paddingNormal
   },
   textLogin: {
-    color: material.colorDark2,
+    color: material.badgeColor,
     fontWeight: 'bold'
   },
   footer: {
@@ -47,8 +47,8 @@ export default {
     height: '100%'
   },
   drawerImage: {
-    width: 100,
-    height: 100
+    width: 140,
+    height: 140
   },
   viewLogo: {
     alignItems: 'center',

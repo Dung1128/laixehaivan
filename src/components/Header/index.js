@@ -254,7 +254,7 @@ export default class extends Component {
       </Button>
     );
     const center = (
-      <Title white style={{ alignSelf: 'center' }}>
+      <Title white style={{ alignSelf: 'center', color: material.badgeColor }}>
         {title}
       </Title>
     );
@@ -264,7 +264,11 @@ export default class extends Component {
           onPress={() => this.props.actionUpdateSDG(new Date())}
           transparent
         >
-          <IconMaterialIcons size={24} name="update" />
+          <IconMaterialIcons
+            color={material.badgeColor}
+            size={24}
+            name="update"
+          />
         </Button>
         {this.props.getActionXepCho === true && (
           <Button

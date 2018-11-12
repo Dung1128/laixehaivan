@@ -27,7 +27,7 @@ export default StyleSheet.create({
   },
   menuIcon: {
     marginLeft: 10,
-    color: 'black'
+    color: material.badgeColor
   },
   uploadIcon: {
     fontSize: 17,
@@ -57,13 +57,13 @@ export default StyleSheet.create({
     fontSize: 20
   },
   title: {
-    color: 'black',
+    color: material.badgeColor,
     fontSize: material.textTitle,
     alignItems: 'center'
   },
   textNormal: {
     fontSize: material.textNormal,
-    color: 'black'
+    color: material.badgeColor
   },
   textTitle: {
     fontSize: material.textTitle

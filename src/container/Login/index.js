@@ -82,7 +82,7 @@ export default class Login extends React.PureComponent {
           contentContainerStyle={styles.content}
         >
           <View style={styles.viewLogo}>
-            <Image source={images.itunes_icon} style={styles.drawerImage} />
+            <Image source={images.logoapp1} style={styles.drawerImage} />
           </View>
           <View style={{ flex: 1 }}>
             <View style={styles.textInputContainer}>

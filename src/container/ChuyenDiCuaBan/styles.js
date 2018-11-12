@@ -50,5 +50,12 @@ export default {
   },
   get itemActive() {
     return { ...this.itemRow, backgroundColor: material.colorHeader };
+  },
+  get itemActiveText() {
+    return {
+      ...this.textNormal,
+      color: material.badgeColor,
+      fontWeight: 'bold'
+    };
   }
 };

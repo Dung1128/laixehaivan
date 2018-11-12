@@ -50,7 +50,8 @@ export default {
   colorSubtitle: '#9097A5',
   colorLight: '#F4F7FD',
 
-  colorHeader: 'rgba(255, 220, 66, 1)',
+  colorHeader: '#474745',
+  colorHeader1: 'rgba(255, 220, 66, 1)',
   colorTab: '#59656C',
   // Badge
   badgeBg: '#ED1727',
