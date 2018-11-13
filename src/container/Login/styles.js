@@ -13,7 +13,7 @@ export default {
   button: {
     width: '100%',
     alignItems: 'center',
-    backgroundColor: material.colorHeader,
+    backgroundColor: material.colorHeader1,
     padding: material.paddingNormal - 4
   },
   viewButton: {
@@ -22,8 +22,9 @@ export default {
     marginTop: material.paddingNormal
   },
   textLogin: {
-    color: material.badgeColor,
-    fontWeight: 'bold'
+    color: material.colorDark,
+    fontWeight: 'bold',
+    fontSize: material.textNormal
   },
   footer: {
     width: material.deviceWidth - 32,

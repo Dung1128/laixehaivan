@@ -96,6 +96,7 @@ export default class DoiMatKhau extends React.PureComponent {
               inputStyle={styles.input}
               icon={input => this.state.iconEye}
               IconIcom="lock"
+              IconIcomColor={material.colorDark}
               onIconPress={input => {
                 this.setState({
                   secureText: !this.state.secureText,
@@ -121,6 +122,7 @@ export default class DoiMatKhau extends React.PureComponent {
               onIconPress={input => input.onChange('')}
               label={'Mật khẩu mới'}
               name={'passwordNew'}
+              IconIcomColor={material.colorDark}
               component={InputField}
               autoCorrect={false}
               placeholderTextColor="#7e7e7e"
@@ -149,6 +151,7 @@ export default class DoiMatKhau extends React.PureComponent {
               icon={input => (input.value ? 'close' : null)}
               onIconPress={input => input.onChange('')}
               label={'Nhập lại mật khẩu'}
+              IconIcomColor={material.colorDark}
               name={'confirmPassword'}
               component={InputField}
               autoCorrect={false}
@@ -170,7 +173,7 @@ export default class DoiMatKhau extends React.PureComponent {
             onPress={handleSubmit(this.changePass.bind(this))}
             style={styles.btn}
           >
-            <Text>Xác nhận</Text>
+            <Text style={styles.textNormal}>Xác nhận</Text>
           </Button>
         </Content>
       </Container>

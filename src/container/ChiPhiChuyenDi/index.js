@@ -148,12 +148,8 @@ export default class HuongDanSuDung extends React.PureComponent {
             );
           })}
 
-          <Button
-            onPress={this.subMibChiPhi.bind(this)}
-            success
-            style={styles.btn}
-          >
-            <Text>Xác nhận</Text>
+          <Button onPress={this.subMibChiPhi.bind(this)} style={styles.btn}>
+            <Text style={styles.textButton}>Xác nhận</Text>
           </Button>
         </Content>
         <FabButton />

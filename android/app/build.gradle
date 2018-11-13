@@ -106,34 +106,34 @@ def getPassword(String currentUser, String keyChain) {
     stdout.toString().trim()
 }
 // comment line bellow if you using Windows machine
-def pass = getPassword("haivan","keystore_haivan")
+def pass = getPassword("laixe_haivan","keystore_laixe_haivan")
 
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
 
     defaultConfig {
-        applicationId "com.applaixe"
+        applicationId "com.applaixehv"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 39
-        versionName "2.19"
+        versionCode 3
+        versionName "2.3"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
     }
     signingConfigs {
         debug{
-            storeFile file(HAIVAN_STORE_FILE_OLD)
+            storeFile file(LAIXE_HAIVAN_STORE_FILE)
             storePassword pass // Change this
-            keyAlias HAIVAN_KEY_ALIAS_OLD
+            keyAlias LAIXE_HAIVAN_KEY_ALIAS
             keyPassword pass // Change this
         }
         release {
-            if (project.hasProperty('HAIVAN_STORE_FILE_OLD')) {
-                storeFile file(HAIVAN_STORE_FILE_OLD)
+            if (project.hasProperty('LAIXE_HAIVAN_STORE_FILE')) {
+                storeFile file(LAIXE_HAIVAN_STORE_FILE)
                 storePassword pass // Change this
-                keyAlias HAIVAN_KEY_ALIAS_OLD
+                keyAlias LAIXE_HAIVAN_KEY_ALIAS
                 keyPassword pass // Change this
             }
         }

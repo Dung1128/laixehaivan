@@ -45,6 +45,7 @@ export default {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: material.paddingLarge
+    marginTop: material.paddingLarge,
+    backgroundColor: material.colorHeader1
   }
 };

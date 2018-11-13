@@ -58,9 +58,16 @@ export default {
     alignItems: 'center',
     height: '100%',
     borderWidth: 1,
-    borderColor: material.colorHeader
+    borderColor: material.colorHeader1
   },
   get itemActive() {
-    return { ...this.itemRow, backgroundColor: material.colorHeader };
+    return { ...this.itemRow, backgroundColor: material.colorHeader1 };
+  },
+  get itemActiveText() {
+    return {
+      ...this.textNormal,
+      color: material.colorDark,
+      fontWeight: 'bold'
+    };
   }
 };

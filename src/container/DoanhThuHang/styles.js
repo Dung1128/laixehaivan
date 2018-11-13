@@ -10,7 +10,8 @@ export default {
   btn: {
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: material.colorHeader1
   },
   body: {
     paddingBottom: material.paddingNormal

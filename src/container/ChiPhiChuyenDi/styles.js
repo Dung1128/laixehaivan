@@ -20,9 +20,17 @@ export default {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: material.paddingNormal
+    marginTop: material.paddingNormal,
+    backgroundColor: material.colorHeader1
   },
   input: {
     fontSize: material.textNormal
+  },
+  get textButton() {
+    return {
+      ...this.textNormal,
+      fontWeight: 'bold',
+      color: material.colorDark
+    };
   }
 };

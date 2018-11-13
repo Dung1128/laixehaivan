@@ -93,8 +93,8 @@ export default class Item extends Component {
           </View>
 
           {!pending ? (
-            <Button onPress={onPress} success>
-              <Text>Xuống xe</Text>
+            <Button style={styles.btn} onPress={onPress}>
+              <Text style={styles.textButton}>Xuống xe</Text>
             </Button>
           ) : (
             <Text style={styles.textNormal}>{this.props.index + 1}</Text>

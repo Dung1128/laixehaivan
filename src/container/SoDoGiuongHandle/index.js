@@ -45,7 +45,7 @@ export default class Filter extends React.PureComponent {
       //   visible={this.props.visible}
       //   onRequestClose={() => console.log('')}
       // >
-      <Container>
+      <View>
         <TouchableOpacity activeOpacity={1} style={styles.modal}>
           {/* <View style={styles.header}>
             <TouchableOpacity
@@ -196,7 +196,7 @@ export default class Filter extends React.PureComponent {
           </Button>
         </TouchableOpacity>
         {/* </Modal> */}
-      </Container>
+      </View>
     );
   }
 }

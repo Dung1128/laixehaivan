@@ -45,8 +45,8 @@ export default {
   colorBorder: '#DFE3ED',
   textCancel: '#b8253f',
   textGrey: '#9097A5',
-  colorDark: '#000',
-  colorDark2: '#444953',
+  colorDark: '#474745',
+  colorDark2: '#474745',
   colorSubtitle: '#9097A5',
   colorLight: '#F4F7FD',
 
@@ -330,5 +330,5 @@ export default {
 
   // New Variable
   inputGroupRoundedBorderRadius: 30,
-  safeAreaBackground: '#262D33'
+  safeAreaBackground: '#fff'
 };

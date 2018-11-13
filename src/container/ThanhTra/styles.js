@@ -1,5 +1,8 @@
 import { Platform } from 'react-native';
+import { isIphoneX } from 'react-native-iphone-x-helper';
 import material from '../../theme/variables/material';
+
+const isiphoneX = isIphoneX();
 
 export default {
   container: {
@@ -30,7 +33,8 @@ export default {
     backgroundColor: '#fff',
     flex: 1,
     paddingBottom: material.paddingNormal,
-    marginTop: Platform.OS === 'ios' ? 22 : 0
+
+    marginTop: Platform.OS === 'ios' && isiphoneX ? 30 : 0
     // paddingHorizontal: material.paddingNormal
   },
   btn: {
@@ -38,7 +42,8 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: material.paddingSmall,
-    marginBottom: material.paddingNormal
+    marginBottom: material.paddingNormal,
+    backgroundColor: material.colorHeader1
   },
   header: {
     // width: '100%',
@@ -78,6 +83,13 @@ export default {
   textNormal: {
     fontSize: material.textNormal,
     paddingVertical: material.paddingSmall
+  },
+  get textButton() {
+    return {
+      ...this.textNormal,
+      color: material.colorDark,
+      fontWeight: 'bold'
+    };
   },
   viewChild: {
     paddingHorizontal: material.paddingNormal

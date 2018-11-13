@@ -5,6 +5,7 @@ export default {
     padding: material.paddingNormal
   },
   textNormal: {
-    fontSize: material.textNormal
+    fontSize: material.textNormal,
+    color: material.colorDark
   }
 };

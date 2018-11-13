@@ -99,6 +99,7 @@ export default class Login extends React.PureComponent {
                 onIconPress={input => input.onChange('')}
                 label={'Tài khoản'}
                 name={'user'}
+                IconIcomColor={material.colorDark}
                 component={InputField}
                 autoCorrect={false}
                 placeholderTextColor="#7e7e7e"
@@ -121,6 +122,7 @@ export default class Login extends React.PureComponent {
                 onIconPress={input => input.onChange('')}
                 label={'Mật khẩu'}
                 name={'password'}
+                IconIcomColor={material.colorDark}
                 component={InputField}
                 autoCorrect={false}
                 placeholderTextColor="#7e7e7e"

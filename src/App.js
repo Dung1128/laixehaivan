@@ -6,9 +6,11 @@ import {
   StatusBar,
   Platform,
   Linking,
-  Alert
+  Alert,
+  View
 } from 'react-native';
 import { Drawer, StyleProvider, Container } from 'native-base';
+import { isIphoneX } from 'react-native-iphone-x-helper';
 import NetworkState, { Settings } from 'react-native-network-state';
 import Navigator from './components/Navigator';
 import Header from './components/Header';
@@ -251,10 +253,29 @@ export default class App extends Component {
   render() {
     const { router, drawerState, closeDrawer, openDrawer } = this.props;
     const route = getPage(router.current) || routes.notFound;
+    const isiphoneX = isIphoneX();
+
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          {/* <StatusBar hidden /> */}
+          {/* {Platform.OS === 'ios' ? (
+            !isiphoneX ? (
+              <MyStatusBar
+                backgroundColor={material.colorDark2}
+                barStyle="light-content"
+              />
+            ) : null
+          ) : null} */}
+          {Platform.OS === 'ios' ? (
+            !isiphoneX ? (
+              <StatusBar hidden barStyle="dark-content" />
+            ) : (
+              <StatusBar barStyle="dark-content" />
+            )
+          ) : (
+            <StatusBar barStyle="light-content" />
+          )}
+
           <Drawer
             ref={ref => (this.drawer = ref)}
             open={drawerState === 'opened'}
@@ -317,3 +338,18 @@ export default class App extends Component {
     );
   }
 }
+
+const MyStatusBar = ({ backgroundColor, ...props }) => (
+  <View style={[styles.statusBar, { backgroundColor }]}>
+    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+  </View>
+);
+
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+
+const styles = {
+  statusBar: {
+    height: STATUSBAR_HEIGHT
+  }
+};

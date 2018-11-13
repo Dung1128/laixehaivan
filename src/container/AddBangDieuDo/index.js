@@ -156,7 +156,7 @@ export default class AddBangDieuDo extends React.PureComponent {
         <IconMaterialCommunityIcons
           name={nameIcon}
           size={24}
-          color={material.colorDark2}
+          color={material.colorDark}
         />
         <Text
           style={{
@@ -319,9 +319,10 @@ export default class AddBangDieuDo extends React.PureComponent {
           <Button
             onPress={handleSubmit(this.submitForm.bind(this))}
             style={styless.btn}
-            success
           >
-            <Text style={styles.textNormal}>Hoàn thành</Text>
+            <Text style={{ ...styles.textNormal, fontWeight: 'bold' }}>
+              Hoàn thành
+            </Text>
           </Button>
         </Content>
 

@@ -14,10 +14,11 @@ export default {
   },
   textTitle: {
     fontSize: material.textLarge,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: material.colorDark
   },
   dropdown: {
-    color: material.primaryColor,
+    color: material.colorDark,
     fontSize: 20
   },
   textNormal: {

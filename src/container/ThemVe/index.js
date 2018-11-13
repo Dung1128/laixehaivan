@@ -75,8 +75,8 @@ export default class ThemVe extends React.PureComponent {
                   ? 'Trực tiếp'
                   : this.props.route.params.detailVe.arrVe
                       .bvv_hinh_thuc_giam_gia === 4
-                    ? 'Trẻ em'
-                    : 'Mã khuyến mãi'
+                  ? 'Trẻ em'
+                  : 'Mã khuyến mãi'
             }
           : {
               id: 0,
@@ -946,18 +946,16 @@ export default class ThemVe extends React.PureComponent {
           {this.state.detailVe.arrVe.bvv_status !== 0 ? (
             <Button
               onPress={handleSubmit(this.UpdateVe.bind(this))}
-              success
               style={styles.buttonDatVe}
             >
-              <Text>Cập nhật</Text>
+              <Text style={styles.textButton}>Cập nhật</Text>
             </Button>
           ) : (
             <Button
               onPress={handleSubmit(this.DatVe.bind(this))}
-              success
               style={styles.buttonDatVe}
             >
-              <Text>Đặt vé</Text>
+              <Text style={styles.textButton}>Đặt vé</Text>
             </Button>
           )}
         </Content>

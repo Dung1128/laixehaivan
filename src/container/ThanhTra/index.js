@@ -528,9 +528,8 @@ export default class ThanhTra extends React.PureComponent {
           <Button
             onPress={handleSubmit(this.submitForm.bind(this))}
             style={styles.btn}
-            success
           >
-            <Text style={styles.textNormal}>Hoàn thành</Text>
+            <Text style={styles.textButton}>Hoàn thành</Text>
           </Button>
 
           <ModalFilter

@@ -5,8 +5,16 @@ export default {
     padding: material.paddingNormal
   },
   textNormal: {
-    fontSize: material.textNormal
+    fontSize: material.textNormal,
+    color: material.colorDark
     // paddingLeft: material.paddingSmall
+  },
+  get textButton() {
+    return {
+      ...this.textNormal,
+
+      fontWeight: 'bold'
+    };
   },
   inputKhuyenMai: {
     width: '100%',
@@ -28,7 +36,8 @@ export default {
   buttonDatVe: {
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: material.colorHeader1
   },
   viewGiaVe: {
     alignItems: 'center',

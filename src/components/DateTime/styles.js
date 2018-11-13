@@ -32,7 +32,7 @@ export default {
     marginBottom: 0
   },
   icon: {
-    color: material.primaryColor,
+    color: material.colorDark,
     fontSize: 20
     //width: material.deviceHeight * 0.03,
   },

@@ -27,6 +27,24 @@ export default class DoanhThu extends React.PureComponent {
     }
   }
 
+  checkStyle1() {
+    if (!this.state.active) {
+      return styles.itemActive;
+    }
+  }
+
+  checkStyleText() {
+    if (this.state.active) {
+      return styles.itemActiveText;
+    }
+  }
+
+  checkStyleText1() {
+    if (!this.state.active) {
+      return styles.itemActiveText;
+    }
+  }
+
   render() {
     return (
       <Container>
@@ -41,7 +59,9 @@ export default class DoanhThu extends React.PureComponent {
             activeOpacity={0.7}
             style={{ ...styles.itemRow, ...this.checkStyle() }}
           >
-            <Text>Tổng doanh thu</Text>
+            <Text style={{ ...styles.textNormal, ...this.checkStyleText() }}>
+              Tổng doanh thu
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
@@ -53,7 +73,9 @@ export default class DoanhThu extends React.PureComponent {
             activeOpacity={0.7}
             style={{ ...styles.itemRow, ...this.checkStyle1() }}
           >
-            <Text>Chưa có seri</Text>
+            <Text style={{ ...styles.textNormal, ...this.checkStyleText1() }}>
+              Chưa có seri
+            </Text>
           </TouchableOpacity>
         </View>
         {this.state.active ? <TongDoanhThu /> : <Seri />}

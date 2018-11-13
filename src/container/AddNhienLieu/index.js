@@ -273,15 +273,11 @@ export default class AddNhienLieu extends PureComponent {
             </View>
           </View>
 
-          <Button
-            onPress={() => this.updateNhienLieu()}
-            success
-            style={styles.btn}
-          >
+          <Button onPress={() => this.updateNhienLieu()} style={styles.btn}>
             <Text
               style={{
                 ...styles.textNormal,
-                color: material.badgeColor,
+                color: material.colorDark,
                 fontWeight: 'bold'
               }}
             >

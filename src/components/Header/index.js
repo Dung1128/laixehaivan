@@ -104,7 +104,7 @@ export default class extends Component {
 
   renderHeaderBack(title) {
     const left = (
-      <Button transparent onPress={this._leftClick}>
+      <Button style={styles.pd} transparent onPress={this._leftClick}>
         <Icon style={styles.menuIcon} name="ios-arrow-back" />
       </Button>
     );
@@ -121,7 +121,7 @@ export default class extends Component {
   // public data not event
   renderHeaderSearch(iconName = 'menu') {
     const left = (
-      <Button transparent onPress={this._leftClick}>
+      <Button style={styles.pd} transparent onPress={this._leftClick}>
         <Icon style={styles.menuIcon} name={iconName} />
       </Button>
     );
@@ -143,7 +143,7 @@ export default class extends Component {
       </Item>
     );
     const right = (
-      <Button transparent>
+      <Button style={styles.pd} transparent>
         <Icon style={styles.searchIcon} name="search" />
       </Button>
     );
@@ -159,7 +159,7 @@ export default class extends Component {
       ) : null;
 
     const left = (
-      <Button transparent onPress={this._leftClick}>
+      <Button style={styles.pd} transparent onPress={this._leftClick}>
         <Icon style={styles.menuIcon} name="menu" />
       </Button>
     );
@@ -168,6 +168,7 @@ export default class extends Component {
       <View style={styles.rowIconContainer}>
         {title === 'Trả khách' && (
           <Button
+            style={styles.pd}
             onPress={() => {
               Alert.alert(
                 'Thông báo',
@@ -192,6 +193,7 @@ export default class extends Component {
 
         {title === 'Danh sách thanh tra' && (
           <Button
+            style={styles.pd}
             onPress={() => {
               this.props.forwardTo('thanhTra');
             }}
@@ -203,6 +205,7 @@ export default class extends Component {
 
         {title === 'Vé offline' && (
           <Button
+            style={styles.pd}
             onPress={() => {
               Alert.alert(
                 'Thông báo',
@@ -227,6 +230,7 @@ export default class extends Component {
 
         {title === 'Nhiên liệu' && (
           <Button
+            style={styles.pd}
             onPress={() => {
               this.props.forwardTo('addNhienLieu');
             }}
@@ -249,7 +253,7 @@ export default class extends Component {
 
   renderHeaderSDG(title) {
     const left = (
-      <Button transparent onPress={this._leftClick}>
+      <Button style={styles.pd} transparent onPress={this._leftClick}>
         <Icon style={styles.menuIcon} name="menu" />
       </Button>
     );
@@ -261,6 +265,7 @@ export default class extends Component {
     const right = (
       <View style={styles.rowIconContainer}>
         <Button
+          style={styles.pd}
           onPress={() => this.props.actionUpdateSDG(new Date())}
           transparent
         >
@@ -272,6 +277,7 @@ export default class extends Component {
         </Button>
         {this.props.getActionXepCho === true && (
           <Button
+            style={styles.pd}
             onPress={() => {
               this.props.actionRemoveGhe(false);
               this.props.actionXepCho(false);
@@ -284,6 +290,7 @@ export default class extends Component {
         )}
         {this.props.getActionRemoveGhe === true && (
           <Button
+            style={styles.pd}
             onPress={() => {
               this.props.actionRemoveGhe(false);
               this.props.actionXepCho(false);
@@ -313,35 +320,28 @@ export default class extends Component {
   }
 
   supportX() {
-    const isiphoneX = isIphoneX();
-    if (isiphoneX) {
-      return {
-        borderBottomWidth: 0,
-        backgroundColor: material.colorHeader,
-        paddingRight: 0,
-        // marginTop: Platform.OS === 'ios' ? 22 : 0,
-        height: 80,
-        paddingTop: 0,
-        paddingTop: 30
-      };
-    }
     return {
       borderBottomWidth: 0,
       backgroundColor: material.colorHeader,
       paddingRight: 0,
       // marginTop: Platform.OS === 'ios' ? 22 : 0,
       height: 64,
-      paddingTop: platform.platform === 'ios' ? 20 : 0
+      paddingTop: 0
     };
   }
 
   renderHeader(left, center, right, props) {
     return (
-      <Header noShadow {...props} style={this.supportX()}>
-        <Left style={{ flex: 0.5 }}>{left}</Left>
-        <Body style={{ flex: 1, alignItems: 'center' }}>{center}</Body>
-        <Right style={{ flex: 0.5 }}>{right}</Right>
-      </Header>
+      // <Header noShadow {...props} style={styles.container}>
+      //   <Left style={{ flex: 0.5 }}>{left}</Left>
+      //   <Body style={{ flex: 1, alignItems: 'center' }}>{center}</Body>
+      //   <Right style={{ flex: 0.5 }}>{right}</Right>
+      // </Header>
+      <View {...props} style={styles.container}>
+        <View style={styles.left}>{left}</View>
+        <View style={styles.body}>{center}</View>
+        <View style={styles.right}>{right}</View>
+      </View>
     );
   }
 

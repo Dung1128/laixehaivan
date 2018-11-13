@@ -9,6 +9,11 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: material.paddingNormal,
-    backgroundColor: material.colorHeader
+    backgroundColor: material.colorHeader1
+  },
+  textNormal: {
+    fontSize: material.textNormal,
+    color: material.colorDark,
+    fontWeight: 'bold'
   }
 };

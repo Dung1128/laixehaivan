@@ -26,5 +26,15 @@ export default {
   rowNote: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  btn: {
+    backgroundColor: material.colorHeader1
+  },
+  get textButton() {
+    return {
+      ...this.textNormal,
+      fontWeight: 'bold',
+      color: material.colorDark
+    };
   }
 };
