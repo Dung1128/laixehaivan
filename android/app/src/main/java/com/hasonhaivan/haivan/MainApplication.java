@@ -1,4 +1,4 @@
-package com.applaixe;
+package com.applaixehv;
 
 import android.app.Application;
 
