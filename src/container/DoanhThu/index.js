@@ -57,7 +57,11 @@ export default class DoanhThu extends React.PureComponent {
               })
             }
             activeOpacity={0.7}
-            style={{ ...styles.itemRow, ...this.checkStyle() }}
+            style={{
+              ...styles.itemRow,
+              ...this.checkStyle(),
+              ...styles.borderLeft
+            }}
           >
             <Text style={{ ...styles.textNormal, ...this.checkStyleText() }}>
               Tổng doanh thu
@@ -71,7 +75,11 @@ export default class DoanhThu extends React.PureComponent {
               })
             }
             activeOpacity={0.7}
-            style={{ ...styles.itemRow, ...this.checkStyle1() }}
+            style={{
+              ...styles.itemRow,
+              ...this.checkStyle1(),
+              ...styles.borderRight
+            }}
           >
             <Text style={{ ...styles.textNormal, ...this.checkStyleText1() }}>
               Chưa có seri

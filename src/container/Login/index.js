@@ -10,8 +10,7 @@ import {
   Alert,
   Image
 } from 'react-native';
-import { reduxForm, Field } from 'redux-form';
-import { InputField } from '../../elements/Form';
+
 import styles from './styles';
 import styless from '../Register/styles';
 import * as authActions from '../../store/actions/auth';
@@ -24,40 +23,28 @@ import images from '../../assets/images';
   state => ({}),
   { ...commonActions, ...authActions, ...haivanActions }
 )
-@reduxForm({
-  form: 'login',
-  validate: values => {},
-  destroyOnUnmount: !__DEV__,
-  enableReinitialize: true
-})
 export default class Login extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       secureText: true,
       iconEye: 'eye',
-      phone: '',
+      user: '',
       password: ''
     };
   }
 
-  onLogin(val) {
-    // 01663643919
-    //12345678
-    if (val.user === '') {
+  onLogin() {
+    if (this.state.user === '') {
       return Alert.alert('Thông báo', 'Tài khoản không được để trống!');
     }
-    // if (this.state.phone.length < 10 || this.state.phone.length > 13) {
-    //   return Alert.alert('Thông báo', 'Số điện thoại không hợp lệ!');
-    // }
 
-    if (val.password === '') {
+    if (this.state.password === '') {
       return Alert.alert('Thông báo', 'Mật khẩu không được để trống!');
     }
 
-    this.props.login(val.user, val.password, 'login', (e, d) => {
+    this.props.login(this.state.user, this.state.password, 'login', (e, d) => {
       if (d) {
-        // console.log(d);
         const params = {
           adm_id: d.adm_id,
           token: d.token
@@ -73,7 +60,6 @@ export default class Login extends React.PureComponent {
   }
 
   render() {
-    const { handleSubmit } = this.props;
     return (
       <Container style={styles.container}>
         <StatusBar hidden />
@@ -86,91 +72,44 @@ export default class Login extends React.PureComponent {
           </View>
           <View style={{ flex: 1 }}>
             <View style={styles.textInputContainer}>
-              <Field
-                onSubmitEditing={() => {
-                  this.password.focus();
-                }}
-                inputRef={e => (this.phone = e)}
-                keyboardType="default"
-                returnKeyType="next"
-                autoCapitalize={'none'}
-                style={styless.textInput}
-                icon={input => (input.value ? 'close' : null)}
-                onIconPress={input => input.onChange('')}
-                label={'Tài khoản'}
-                name={'user'}
-                IconIcomColor={material.colorDark}
-                component={InputField}
-                autoCorrect={false}
-                placeholderTextColor="#7e7e7e"
-                IconIcom="contact"
-                inputStyle={styless.input}
+              <IconFontAwesome name="user" size={24} style={styles.icon} />
+              <TextInput
+                onChangeText={val => this.setState({ user: val })}
+                autoCapitalize={false}
+                underlineColorAndroid="transparent"
+                placeholderTextColor={material.inputBorderColor}
+                placeholder="Tên tài khoản"
+                style={styles.input}
               />
             </View>
 
-            <View style={styless.textInputContainer}>
-              <Field
-                onSubmitEditing={handleSubmit(this.onLogin.bind(this))}
-                inputRef={e => (this.password = e)}
-                passwordOption
-                secureTextEntry={this.state.secureText}
-                keyboardType="default"
+            <View style={styles.textInputContainer}>
+              <IconFontAwesome
+                name="unlock-alt"
+                size={24}
+                style={styles.icon}
+              />
+              <TextInput
                 returnKeyType="done"
-                autoCapitalize={'none'}
-                style={styless.textInput}
-                icon={input => (input.value ? 'close' : null)}
-                onIconPress={input => input.onChange('')}
-                label={'Mật khẩu'}
-                name={'password'}
-                IconIcomColor={material.colorDark}
-                component={InputField}
-                autoCorrect={false}
-                placeholderTextColor="#7e7e7e"
-                inputStyle={styless.input}
-                icon={input => this.state.iconEye}
-                IconIcom="lock"
-                onIconPress={input => {
-                  this.setState({
-                    secureText: !this.state.secureText,
-                    iconEye: this.state.iconEye === 'eye' ? 'eye-slash' : 'eye'
-                  });
-                }}
+                onChangeText={val => this.setState({ password: val })}
+                secureTextEntry
+                autoCapitalize={false}
+                underlineColorAndroid="transparent"
+                placeholderTextColor={material.inputBorderColor}
+                placeholder="Mật khẩu"
+                style={styles.input}
               />
             </View>
             <View style={styles.viewButton}>
               <TouchableOpacity
-                onPress={handleSubmit(this.onLogin.bind(this))}
+                onPress={() => this.onLogin()}
                 activeOpacity={0.7}
                 style={styles.button}
               >
                 <Text style={styles.textLogin}>Đăng nhập</Text>
               </TouchableOpacity>
-              {/* <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => this.props.forwardTo('register')}
-              style={{
-                ...styles.button,
-                backgroundColor: material.checkboxBgColor
-              }}
-            >
-              <Text style={styles.textLogin}>Đăng ký</Text>
-            </TouchableOpacity> */}
             </View>
           </View>
-          {/* <View style={styles.footer}>
-            <TouchableOpacity
-              onPress={() => this.props.forwardTo('resetPassword')}
-              activeOpacity={0.7}
-            >
-              <Text>Quên mật khẩu?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.props.forwardTo('gopY')}
-              activeOpacity={0.7}
-            >
-              <Text>Góp ý?</Text>
-            </TouchableOpacity>
-          </View> */}
         </Content>
       </Container>
     );

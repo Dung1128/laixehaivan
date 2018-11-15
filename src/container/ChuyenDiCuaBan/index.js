@@ -96,7 +96,11 @@ export default class ChuyenDiCuaBan extends React.Component {
               })
             }
             activeOpacity={0.7}
-            style={{ ...styles.itemRow, ...this.checkStyle() }}
+            style={{
+              ...styles.itemRow,
+              ...this.checkStyle(),
+              ...styles.borderLeft
+            }}
           >
             <Text style={{ ...styles.textNormal, ...this.checkStyleText() }}>
               Chiều đi
@@ -110,7 +114,11 @@ export default class ChuyenDiCuaBan extends React.Component {
               })
             }
             activeOpacity={0.7}
-            style={{ ...styles.itemRow, ...this.checkStyle1() }}
+            style={{
+              ...styles.itemRow,
+              ...this.checkStyle1(),
+              ...styles.borderRight
+            }}
           >
             <Text style={{ ...styles.textNormal, ...this.checkStyleText1() }}>
               Chiều về

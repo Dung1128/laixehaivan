@@ -23,7 +23,7 @@ export default class ChieuDi extends React.PureComponent {
         direction="up"
         containerStyle={{}}
         style={{
-          backgroundColor: '#5067FF',
+          backgroundColor: material.colorHeader,
           width: 48,
           height: 48,
           alignItems: 'center',
@@ -32,7 +32,7 @@ export default class ChieuDi extends React.PureComponent {
         position="bottomRight"
         onPress={() => this.setState({ active: !this.state.active })}
       >
-        <Icon name="hand" />
+        <Icon name="redo" />
         <Button
           onPress={() => this.props.forwardTo('xuongXe')}
           style={{ backgroundColor: '#34A34F' }}
@@ -55,20 +55,20 @@ export default class ChieuDi extends React.PureComponent {
           onPress={() => this.props.forwardTo('chiPhiChuyenDi')}
           style={{ backgroundColor: material.colorPending }}
         >
-          <Icon name="logo-usd" />
+          <Icon name="cash" />
         </Button>
         <Button
           onPress={() => this.props.forwardTo('doanhThuHang')}
           style={{ backgroundColor: material.brandSuccess }}
         >
-          <Icon name="beaker" />
+          <Icon name="outlet" />
         </Button>
 
         <Button
           onPress={() => this.props.forwardTo('nhienLieu')}
           style={{ backgroundColor: material.colorRequest }}
         >
-          <Icon name="battery-charging" />
+          <Icon name="subway" />
         </Button>
       </Fab>
     );

@@ -25,7 +25,6 @@ export default {
   rowItems: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // paddingVertical: material.paddingSmall,
     alignItems: 'center'
   },
   input: {
@@ -46,6 +45,7 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: material.paddingLarge,
-    backgroundColor: material.colorHeader1
+    backgroundColor: material.colorHeader1,
+    borderRadius: 5
   }
 };

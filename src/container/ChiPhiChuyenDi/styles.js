@@ -21,7 +21,8 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: material.paddingNormal,
-    backgroundColor: material.colorHeader1
+    backgroundColor: material.colorHeader1,
+    borderRadius: 5
   },
   input: {
     fontSize: material.textNormal

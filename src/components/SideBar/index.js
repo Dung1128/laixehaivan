@@ -74,7 +74,7 @@ export default class extends PureComponent {
             newMenu.push({
               name: item.title,
               route: 'chuyenDiCuaBan',
-              icon: 'heart'
+              icon: 'bicycle'
             })
           );
         case 3:
@@ -83,7 +83,7 @@ export default class extends PureComponent {
             newMenu.push({
               name: item.title,
               route: 'bangDieuDo',
-              icon: 'folder-open'
+              icon: 'analytics'
             })
           );
         case 4:
@@ -92,7 +92,7 @@ export default class extends PureComponent {
             newMenu.push({
               name: item.title,
               route: 'lichDieuHanh',
-              icon: 'md-information-circle'
+              icon: 'build'
             })
           );
         case 5:
@@ -101,7 +101,7 @@ export default class extends PureComponent {
             newMenu.push({
               name: item.title,
               route: 'thanhTraList',
-              icon: 'contacts'
+              icon: 'clipboard'
             })
           );
         case 6:
@@ -110,7 +110,7 @@ export default class extends PureComponent {
             newMenu.push({
               name: item.title,
               route: 'lichSuThanhTra',
-              icon: 'contacts'
+              icon: 'paper'
             })
           );
         case 7:
@@ -137,7 +137,7 @@ export default class extends PureComponent {
             newMenu.push({
               name: item.title,
               route: 'doiMatKhau',
-              icon: 'unlock'
+              icon: 'lock'
             })
           );
         case 10:
@@ -146,7 +146,7 @@ export default class extends PureComponent {
             newMenu.push({
               name: item.title,
               route: 'logout',
-              icon: 'contact'
+              icon: 'arrow-round-back'
             })
           );
 

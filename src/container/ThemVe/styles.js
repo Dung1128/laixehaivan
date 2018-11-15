@@ -37,7 +37,8 @@ export default {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: material.colorHeader1
+    backgroundColor: material.colorHeader1,
+    borderRadius: 5
   },
   viewGiaVe: {
     alignItems: 'center',

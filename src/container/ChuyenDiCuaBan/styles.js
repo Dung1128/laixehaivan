@@ -57,5 +57,13 @@ export default {
       color: material.colorDark,
       fontWeight: 'bold'
     };
+  },
+  borderLeft: {
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5
+  },
+  borderRight: {
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5
   }
 };
