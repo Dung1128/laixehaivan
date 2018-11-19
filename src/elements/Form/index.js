@@ -1,6 +1,3 @@
-/**
- * Created by vjtc0n on 9/7/17.
- */
 import React from 'react';
 
 import { TextInput, Image, TouchableOpacity } from 'react-native';
@@ -120,26 +117,24 @@ export const InputField = ({
               }}
             />
           </View>
-          {iconName &&
-            !passwordOption && (
-              <View style={styles.inputIconContainer}>
-                <FontAwesome
-                  onPress={e => onIconPress && onIconPress(input, active)}
-                  style={{ ...styles.inputIcon, ...iconStyle }}
-                  name={iconName}
-                />
-              </View>
-            )}
-          {iconName &&
-            passwordOption && (
-              <View style={styles.inputIconContainer}>
-                <FontAwesome
-                  onPress={e => onIconPress && onIconPress(input, active)}
-                  style={{ ...styles.inputIcon, ...iconStyle }}
-                  name={iconName}
-                />
-              </View>
-            )}
+          {iconName && !passwordOption && (
+            <View style={styles.inputIconContainer}>
+              <FontAwesome
+                onPress={e => onIconPress && onIconPress(input, active)}
+                style={{ ...styles.inputIcon, ...iconStyle }}
+                name={iconName}
+              />
+            </View>
+          )}
+          {iconName && passwordOption && (
+            <View style={styles.inputIconContainer}>
+              <FontAwesome
+                onPress={e => onIconPress && onIconPress(input, active)}
+                style={{ ...styles.inputIcon, ...iconStyle }}
+                name={iconName}
+              />
+            </View>
+          )}
           {unit && (
             <View style={{ width: '30%', alignItems: 'flex-end' }}>
               <Text style={styles.textNormal}>{unit}</Text>

@@ -12,9 +12,6 @@ import { TimePickerField } from '../../elements/Form';
 import styless from '../ThanhTra/styles';
 import ModalFilter from './ModalFilter';
 import styles from './styles';
-import tuyenxe from '../ThanhTra/tuyenxe';
-import xe from '../ThanhTra/xe';
-import laixe from '../ThanhTra/laixe';
 
 import * as commonActions from '../../store/actions/common';
 import * as authSelectors from '../../store/selectors/auth';

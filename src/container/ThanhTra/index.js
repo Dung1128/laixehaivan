@@ -493,37 +493,6 @@ export default class ThanhTra extends React.PureComponent {
               IconIcomColor={material.colorDark2}
             />
           </View>
-          {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <IconIonicons
-              name="ios-checkbox-outline"
-              size={24}
-              style={styles.iconCheck}
-            />
-            <Text style={styles.textNormal}>
-              Tôi đồng ý với các điều khoản trên
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'flex-start',
-              width: '100%'
-            }}
-          >
-            <IconIonicons
-              name="ios-information-circle-outline"
-              size={24}
-              style={{ ...styles.iconCheck, color: 'red' }}
-            />
-            <View style={{ flex: 1 }}>
-              <Text
-                style={{ ...styles.textNormal, marginTop: -8, fontSize: 12 }}
-              >
-                Mày không thể đọc hết 200 dòng điều khoản trong vòng 10s được!
-                Bớt xàm đi!!!! Nút 'Hoàn thành' sẽ bấm được trong vòng 10 phút!
-              </Text>
-            </View>
-          </View> */}
 
           <Button
             onPress={handleSubmit(this.submitForm.bind(this))}
