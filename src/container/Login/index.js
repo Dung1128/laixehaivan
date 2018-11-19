@@ -75,7 +75,7 @@ export default class Login extends React.PureComponent {
               <IconFontAwesome name="user" size={24} style={styles.icon} />
               <TextInput
                 onChangeText={val => this.setState({ user: val })}
-                autoCapitalize={false}
+                autoCapitalize={'none'}
                 underlineColorAndroid="transparent"
                 placeholderTextColor={material.inputBorderColor}
                 placeholder="Tên tài khoản"
@@ -93,7 +93,7 @@ export default class Login extends React.PureComponent {
                 returnKeyType="done"
                 onChangeText={val => this.setState({ password: val })}
                 secureTextEntry
-                autoCapitalize={false}
+                autoCapitalize={'none'}
                 underlineColorAndroid="transparent"
                 placeholderTextColor={material.inputBorderColor}
                 placeholder="Mật khẩu"
